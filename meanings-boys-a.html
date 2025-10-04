@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif Sinhala', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: #0e47a1;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+       }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .entries-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .entries-control select, .entries-control input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        thead {
+            background: linear-gradient(to right, #0e47a1, #1d89e4);
+            color: white;
+        }
+        
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        tr {
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.2s;
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #e4f1ff;
+        }
+        
+        thead:hover {
+            color: black;
+        }
+        
+        td {
+            padding: 16px 15px;
+            color: #444;
+        }
+        
+        td:first-child {
+            font-weight: 600;
+            color: #0e47a1;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #0e47a1;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            width: 250px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 12px 20px;
+            background: #0e47a1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .pagination button:hover {
+            background: #306ed1;
+        }
+        
+        .pagination button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .entries-info {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 14px 10px;
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .pagination button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[අ] අකුරෙන් නම් අරුත් සහිතව</h1>
+            <p class="description"></p>
+        </header>
+        
+        <div class="controls">
+            <div class="entries-control">
+                <label for="entriesSelect">Show:</label>
+                <select id="entriesSelect">
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                </select>
+                <span>List</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>නම</th>
+                        <th>නමෙහි අරුත</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination">
+            <button id="prevBtn" disabled>පෙර</button>
+            <button id="nextBtn">ඊළඟ</button>
+        </div>
+        
+        <div class="copyright">
+      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
+        </div>
+      </div>
+
+
+    <script>
+        // Your word data
+        const wordData = [
+            { "word": "අදියුරු", "meaning": "ප්‍රධානියා" },
+    { "word": "අශ්වින්", "meaning": "ජය ලබන" },
+    { "word": "අදීෂ", "meaning": "අසමාන" },
+    { "word": "අධීෂ", "meaning": "රජ" },
+    { "word": "අග්‍ර", "meaning": "ප්‍රධානියා" },
+    { "word": "අභිරූ", "meaning": "නිර්භීත" },
+    { "word": "අනුතත්", "meaning": "විලක නමක්" },
+    { "word": "අශස්ලා", "meaning": "රතු මැණික" },
+    { "word": "අරුන්", "meaning": "අර්ථවත් අන්දමින් කටයුතු කරන්නා" },
+    { "word": "අයාන්", "meaning": "සතුට ගෙනෙන" },
+    { "word": "අකේන්", "meaning": "අග්‍ර නායකයා" },
+    { "word": "අද්වාන්", "meaning": "මනා දැනුමක් සහිත" },
+    { "word": "අනුවින්ද", "meaning": "බොහෝ දේ ලබාගන්නා තැනැත්තා" },
+    { "word": "අමාන්", "meaning": "සාමය අගය කරන | සාමයට කැමති තැනැත්තා" },
+    { "word": "අමිතාව්", "meaning": "ප්‍රතාපවත් | කාන්තිමත් තැනැත්තා" },
+    { "word": "අකල්ක", "meaning": "නිර්දෝෂ වූ තැනැත්තා" },
+    { "word": "අදෝෂ", "meaning": "කිසිදු දෝෂයක් නැති අංග සම්පූර්ණ තැනැත්තා" },
+    { "word": "අද්මිණ", "meaning": "සියලුම දේ පාලනය කරන්නා" },
+    { "word": "අදීස්", "meaning": "ආදර්ශමත් වූ පුද්ගලයා" },
+    { "word": "අනීක", "meaning": "ජීවිත රකින්නට සෑදුනු සේනාව" },
+    { "word": "අන්දු", "meaning": "ඉතාමත් අනගි වූ පුද්ගලයා" },
+    { "word": "අබියෙස්", "meaning": "තමන් සමීපයෙහි සිටින්නා" },
+    { "word": "අමිත්ත", "meaning": "මෙතෙකැයි කිව නොහැකි තරම් වූ තැනැත්තා" },
+    { "word": "අමෝද", "meaning": "අරුණෝදයක් වැනි සුන්දර තැනැත්තා, උදෑසන" },
+    { "word": "අක්නුල්", "meaning": "දක්ෂ නුවණැති තැනැත්තා" },
+    { "word": "අභිනව්", "meaning": "නැවුම් වූ අලුතින් ලෝකය දකින්නා" },
+    { "word": "අගිත්", "meaning": "එඩිතර වූ පුද්ගලයා" },
+    { "word": "අනිත්දිත්", "meaning": "අනන්ත වූ තැනැත්තා" },
+    { "word": "අම්බුජ", "meaning": "දියෙහි පිපෙන සුන්දරතම නෙලුම් මල" },
+    { "word": "අකිල්", "meaning": "අභිමානවත් වූ තැනැත්තා" },
+    { "word": "අදීල්", "meaning": "ඉතාම අවංක වූ | සමාජයේ ගෞරවය ලබන්නා" },
+    { "word": "අභිරාජ්", "meaning": "සියලු රජුන්ගේ නායකයායැයි හඳුන්වනු ලබන්නා" },
+    { "word": "අභිෂේනා", "meaning": "ලොව සියල්ලන්ගෙන්ම අභිෂේක ලබන්නා" },
+    { "word": "අචිර", "meaning": "චිරාත් කල් | දිගුකල්" },
+    { "word": "අමිත්", "meaning": "අප්‍රමාණ වූ" },
+    { "word": "අනුහස්", "meaning": "බලවත්" },
+    { "word": "අරුණළු", "meaning": "උදෑසන හිරු එළිය" },
+    { "word": "අභිමාන්", "meaning": "උතුම් | උදාර" },
+    { "word": "අහස්", "meaning": "අහස" },
+    { "word": "අරුණ", "meaning": "අළුයම | උදය" },
+    { "word": "අකලංක", "meaning": "නිකැළැල්" },
+    { "word": "අකිල", "meaning": "සියලුම" },
+    { "word": "අනුසස්", "meaning": "ආනිසංසයෙන් යුත්" },
+    { "word": "අනුරූ", "meaning": "සමාන" },
+    { "word": "අසිරි", "meaning": "අසිරිමත් තැනැත්තා | ආශ්චර්‌යය" },
+    { "word": "අරුත්", "meaning": "අර්ථාන්විත බව" },
+    { "word": "අගස්ථි", "meaning": "මැණික් වර්ගයක්" },
+    { "word": "අගස්", "meaning": "මැණික් වර්ගයක්" },
+    { "word": "අමයුරු", "meaning": "ඉතා මියුරු වූ" },
+    { "word": "අදිත", "meaning": "හිරු | ජය ඇති" },
+    { "word": "අයේශ්", "meaning": "වාසනාවන්ත නායකයා" },
+    { "word": "අනුරාග", "meaning": "විශේෂ නුවණින් නිරූපණය" },
+    { "word": "අභිසර", "meaning": "අභිමානයෙන් ගමන් කරන්නා" },
+    { "word": "අක්ෂර", "meaning": "අකුරු මෙන් සදාතනික" },
+    { "word": "අභිරූද්", "meaning": "අභිවෘද්ධිය" },
+    { "word": "අනිල්", "meaning": "සුළඟ" },
+    { "word": "අනුදත්", "meaning": "විලක නමක්" },
+    { "word": "අමාල්", "meaning": "ප්‍රතාපවත් වූ" },
+    { "word": "අනුභ", "meaning": "ආනුභවයෙන් යුක්ත වූ" },
+    { "word": "අදීප", "meaning": "නායකත්වය ලබන" },
+    { "word": "අභියෝග්", "meaning": "අභියෝගයක් බඳු වූ තැනැත්තා" },
+    { "word": "අනුජ", "meaning": "පියාගේ ගුණාංග ඇති" },
+    { "word": "අභිසෙස්", "meaning": "සමීපයේ සිටින්නා" },
+    { "word": "අයස්", "meaning": "ඉතා ශක්තිමත් වූ" },
+    { "word": "අභිමත්", "meaning": "ඉතා අභිමානයෙන් යුත්" },
+    { "word": "අභිජිත්", "meaning": "අලුතින් ලෝකය දකින" },
+    { "word": "අකල්ප", "meaning": "අදහස" },
+    { "word": "අතුල්‍ය", "meaning": "සමාන නොවන" },
+    { "word": "අමිල්", "meaning": "සුපිරිසිදු" },
+    { "word": "අභය", "meaning": "නොබියව" },
+    { "word": "අමාෂ", "meaning": "අවංක" },
+    { "word": "අනුරාධ", "meaning": "අනුරපුර" },
+    { "word": "අචල", "meaning": "නොසෙල්වෙන" },
+    { "word": "අචින්ත", "meaning": "සිතාගත නොහැකි" },
+    { "word": "අභිලාෂ්", "meaning": "අභිලාෂයෙන් | බලාපොරොත්තුවෙන්" },
+    { "word": "අභිගම්‍ය", "meaning": "යා යුතු" },
+    { "word": "අඛිල්", "meaning": "සියලු" },
+    { "word": "අදිස්", "meaning": "ආදර්ශමත් තැනැත්තා" },
+    { "word": "අනුද", "meaning": "විශේෂ දහම් නුවණින් යුතු" },
+    { "word": "අකිරු", "meaning": "බලවත් හිරු" },
+    { "word": "අභිඳු", "meaning": "උසස් නායක" },
+    { "word": "අකිඳු", "meaning": "බලවත් නායක" },
+    { "word": "අයේෂ්", "meaning": "වාසනාවන්ත නායකයා" },
+    { "word": "අකීෂ", "meaning": "නිකෙලෙස් වූ" },
+    { "word": "අමාෂ්", "meaning": "සත්‍යයේ මිහිර විඳින" },
+    { "word": "අභීත්", "meaning": "ඉතා එඩිතර" },
+    { "word": "අක්ෂ", "meaning": "ඇසක් බඳු" },
+    { "word": "අෂික", "meaning": "ආදරය කරන්නා" },
+    { "word": "අනිඳු", "meaning": "රජුට නොදෙවෙනි" },
+    { "word": "අභිරු", "meaning": "නිර්භීත" },
+    { "word": "අශස්", "meaning": "ලා රතු මැණික" },
+    { "word": "අමින්ද", "meaning": "අමෘතය වැනි" },
+    { "word": "අනුසර", "meaning": "අනුගමනය" },
+    { "word": "අමන්ද", "meaning": "ප්‍රීතිමත්" },
+    { "word": "අංජුල", "meaning": "සුර දූතයා" },
+    { "word": "අභිනෙත්", "meaning": "උසස් නුවණ" },
+    { "word": "අභින්ස", "meaning": "අභිමානවත් තැනැත්තා" },
+    { "word": "අගසර", "meaning": "පෙරට යන තැනැත්තා" },
+    { "word": "අද්‍යාශ්", "meaning": "අදහස් ඇති තැනැත්තා" },
+    { "word": "අභිමාන", "meaning": "අභිමානවත්" },
+    { "word": "අනුනාධ", "meaning": "අනුනාදය" },
+    { "word": "අයෝධ්‍ය", "meaning": "ඉන්දියාවේ නගරයක්" },
+    { "word": "අමසර", "meaning": "අමෘතය වැනි සරු" },
+    { "word": "ආශු", "meaning": "කඩිසර" },
+    { "word": "ආශිංස", "meaning": "ආශිංස ලබන්නා" },
+    { "word": "ආජිව්", "meaning": "ආජීවකයෙකු බඳු වූ පුද්ගලයා" },
+    { "word": "ආදර්ශ", "meaning": "අන් අයට ද ආදර්ශයක් ලෙස ජීවත්වන පුද්ගලයා" },
+    { "word": "අභිශත්", "meaning": "උසස් ශාස්ත්‍ර දත් තැනැත්තා" },
+    { "word": "ආදිත්", "meaning": "සුර්‌යයාට අයත්" },
+    { "word": "ආඛන්ච", "meaning": "දෙව්ලොවට හා දෙවියන්ට අධිපති වූ ශක්‍ර දෙවියෝ" },
+    { "word": "ආයන්ත", "meaning": "අයිතියම යදින්නා, ආයිතිය පිළිබඳව පවසන්නා" },
+    { "word": "ආයෝග", "meaning": "නැවත නැවත යොදවන තැනැත්තා" },
+    { "word": "ආරෝග", "meaning": "නිරෝගී තැනැත්තා" },
+    { "word": "ආර්යන්", "meaning": "ආර්ය වංශික" },
+    { "word": "ආකාෂ්", "meaning": "අහස | ආකාශය" },
+    { "word": "ආරෝග්‍ය", "meaning": "නිරෝගී තැනැත්තා" },
+    { "word": "ආයෝමාල්", "meaning": "ශක්තිමත්" },
+    { "word": "ආදේශ", "meaning": "සමාන | ආදේශකය" },
+    { "word": "ආදේශ්", "meaning": "ආදේශකය" },
+    { "word": "ආරණ්‍ය", "meaning": "වනාන්තරයට අයත්" },
+    { "word": "ආර්ය", "meaning": "ඉතා උසස් වු ජාතියකට අයත්" },
+    { "word": "ආකර්ෂ", "meaning": "අන් සැමට වඩා ආකර්ෂණීය තැනැත්තා" },
+    { "word": "ආදිත්‍ය", "meaning": "ආදිත්‍ය දෙව්දු" },
+    { "word": "ආමිස", "meaning": "කළගුණ සලකන" },
+    { "word": "ආත්ම", "meaning": "ආත්මීය හැඟීම් වලට අනුව ජීවත් වෙන" },
+    { "word": "ආග්‍රසර", "meaning": "පෙරටු කොට යන්නා" },
+    { "word": "ආලෝක", "meaning": "ආලෝකමත්ව බබළන" },
+    { "word": "ආදෙව්", "meaning": "දේවත්වය ලැබීම" },
+    { "word": "ආද්‍ය", "meaning": "ආධ්‍යාත්මයෙන් බබළන" },
+    { "word": "ආයු", "meaning": "ආයු බොහෝ ඇති" },
+    { "word": "ආයුල්", "meaning": "ආයුෂ උපදවන" },
+    { "word": "ආයුෂ්", "meaning": "දීර්ඝායුෂ ඇති" },
+    { "word": "ආරෝෂ්", "meaning": "මිතුරු" },
+    { "word": "ආදිව්", "meaning": "දිව්‍ය අනුහස් ඇති" },
+    { "word": "ආරෝශන", "meaning": "අමනාප නැති" },
+    { "word": "ඇලුම්", "meaning": "බොහෝ සේ ප්‍රියමනාප තැනැත්තා" },
+    { "word": "ඇසළ", "meaning": "ඇසළ මාසය | ඇසළ මල්" },
+    { "word": "ඇත්සර", "meaning": "හස්තියෙකු මෙන්" },
+    { "word": "ඇසතු", "meaning": "බෝධියක නමකි" }
+        ];
+        
+        // Configuration
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const entriesSelect = document.getElementById('entriesSelect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const entriesInfo = document.getElementById('entriesInfo');
+        
+        let currentPage = 1;
+        let itemsPerPage = parseInt(entriesSelect.value);
+        let filteredData = [...wordData];
+        
+        // Render table rows
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            if (pageData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
+                return;
+            }
+            
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.word}</td>
+                    <td>${item.meaning}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            updatePagination();
+        }
+        
+        // Update pagination buttons and info
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredData = [...wordData];
+            } else {
+                filteredData = wordData.filter(item => 
+                    item.word.toLowerCase().includes(searchTerm) || 
+                    item.meaning.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Change items per page
+        entriesSelect.addEventListener('change', () => {
+            itemsPerPage = parseInt(entriesSelect.value);
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Pagination event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+        
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>
