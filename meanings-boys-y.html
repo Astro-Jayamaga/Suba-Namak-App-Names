@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif Sinhala', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: #0e47a1;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+       }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .entries-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .entries-control select, .entries-control input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        thead {
+            background: linear-gradient(to right, #0e47a1, #1d89e4);
+            color: white;
+        }
+        
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        tr {
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.2s;
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #e4f1ff;
+        }
+        
+        thead:hover {
+            color: black;
+        }
+        
+        td {
+            padding: 16px 15px;
+            color: #444;
+        }
+        
+        td:first-child {
+            font-weight: 600;
+            color: #0e47a1;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #0e47a1;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            width: 250px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 12px 20px;
+            background: #0e47a1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .pagination button:hover {
+            background: #306ed1;
+        }
+        
+        .pagination button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .entries-info {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 14px 10px;
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .pagination button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[ස] අකුරෙන් නම් අරුත් සහිතව</h1>
+            <p class="description"></p>
+        </header>
+        
+        <div class="controls">
+            <div class="entries-control">
+                <label for="entriesSelect">Show:</label>
+                <select id="entriesSelect">
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                </select>
+                <span>List</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>නම</th>
+                        <th>නමෙහි අරුත</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination">
+            <button id="prevBtn" disabled>පෙර</button>
+            <button id="nextBtn">ඊළඟ</button>
+        </div>
+        
+        <div class="copyright">
+      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
+        </div>
+      </div>
+
+
+    <script>
+        // Your word data
+        const wordData = [
+                              { "word": "ස්නේහ", "meaning": "සෙනෙහස" },
+{ "word": "සත්සිඳු", "meaning": "මුහුදු හතක් වැනි" },
+{ "word": "සත්සර", "meaning": "සප්ත ස්වර" },
+{ "word": "සහන්‍ය", "meaning": "සහනයක් වූ" },
+{ "word": "සඳරැස්", "meaning": "සඳ කැලුම්" },
+{ "word": "සදීප", "meaning": "පහණ" },
+{ "word": "සචින්", "meaning": "පිරිසිදු පැවැත්ම" },
+{ "word": "සස්‍ය", "meaning": "අස්වැන්න" },
+{ "word": "සත්විදු", "meaning": "යහපත් විද්‍යාවන් ඇති" },
+{ "word": "සත්නිඳු", "meaning": "යහපත් සුවඳ ඇති" },
+{ "word": "සල්මල්", "meaning": "සල්මල්" },
+{ "word": "සඳයුරු", "meaning": "සඳක් බඳු" },
+{ "word": "සමනල්", "meaning": "සමනල" },
+{ "word": "සඳැස්", "meaning": "කවි" },
+{ "word": "සහස්", "meaning": "දහස" },
+{ "word": "සයුල්", "meaning": "යහපත් ආලෝකය" },
+{ "word": "සමීර", "meaning": "මනා මිහිරෙන් යුතු" },
+{ "word": "සඳරු", "meaning": "සඳෙහි රූ ඇති" },
+{ "word": "සසිඳු", "meaning": "සත්‍යයේ නායක" },
+{ "word": "සමල්", "meaning": "මල් සහිත" },
+{ "word": "සවේන්", "meaning": "මනා විමසීම් ඇති" },
+{ "word": "සත්සඳු", "meaning": "සඳවල් හතක් වැනි" },
+{ "word": "සස්දිව්", "meaning": "සත්‍යගරුක ජීවිතය" },
+{ "word": "සස්නිඳු", "meaning": "ඉතා යහපත් නුවණැති" },
+{ "word": "සත්සිත", "meaning": "යහපත් සිතක් ඇති" },
+{ "word": "සතිසර", "meaning": "සත්‍යයේ සතුට ලබා දෙන" },
+{ "word": "සඳුසර", "meaning": "සඳුගේ ගමන" },
+{ "word": "සචිත", "meaning": "සවිය ඇත්තා වූ" },
+{ "word": "සම්පත්", "meaning": "සියලු සැප සම්පත් වලින් යුත්" },
+{ "word": "සදින", "meaning": "යහපත් ජය ඇති" },
+{ "word": "සදිල", "meaning": "බැබලීම සහිත" },
+{ "word": "සදිව්", "meaning": "මනා දිවි පෙවතක් ගත කරන්නා" },
+{ "word": "සන්දිත්", "meaning": "බොහෝ නුවණැති තැනැත්තා" },
+{ "word": "සසඟ", "meaning": "සත්‍යයේ කෙලවර" },
+{ "word": "සඳියුරු", "meaning": "සඳක් වැනි" },
+{ "word": "සවින්ද", "meaning": "හිරු" },
+{ "word": "සන්චිත්", "meaning": "මනා සිතින් යුතු" },
+{ "word": "සස්මික", "meaning": "සත්‍යයේ මිහිර" },
+{ "word": "සනුජය", "meaning": "ජයග්‍රහණයේ ලකුණු ඇති තැනැත්තා" },
+{ "word": "සන්චිත", "meaning": "මනා සිතින් යුතු" },
+{ "word": "සස්විඳු", "meaning": "විශ්වයෙහිම නුවණ ඇති" },
+{ "word": "සනුලක", "meaning": "ඉලක්කය කරා යන නුවණ" },
+{ "word": "සනුත්", "meaning": "මනා නුවණින් යුතු" },
+{ "word": "සවිරු", "meaning": "යහ වීර්යය ඇති" },
+{ "word": "සහන්", "meaning": "සහනය" },
+{ "word": "සවීන්", "meaning": "මනා විමසීමක් සහිත" },
+{ "word": "සතඟ", "meaning": "සත් අංගය" },
+{ "word": "සඳහස", "meaning": "චන්ද්‍රයාගේ මෙන් දීප්තිය දෙන කඩුව" },
+{ "word": "සමනල", "meaning": "සමන්ත කූඨය" },
+{ "word": "සලමුතු", "meaning": "දෙවියන්ගේ ඇස්" },
+{ "word": "සසක", "meaning": "හාවා" },
+{ "word": "සහසකර", "meaning": "හිරු" },
+{ "word": "සඟළ", "meaning": "යුගල" },
+{ "word": "සත්‍ය", "meaning": "ඇත්ත | නිවරැදි දේ" },
+{ "word": "සමත්", "meaning": "දක්ෂ | සමර්ථ" },
+{ "word": "සම්පත්", "meaning": "වස්තුව" },
+{ "word": "සචිත්‍ර", "meaning": "නොයෙක් වර්ණ" },
+{ "word": "සචිත්", "meaning": "පැවැත්ම | ශිව දෙවියන්" },
+{ "word": "සතිශ්", "meaning": "ශිව දෙවියන්" },
+{ "word": "සන්දුල", "meaning": "බබළන" },
+{ "word": "සනිජ", "meaning": "නුවණින් උපත | නුවණින් උපන්" },
+{ "word": "සයාශ්", "meaning": "දේව තිළිණය" },
+{ "word": "සවිජ", "meaning": "ශක්තිමත් උපත" },
+{ "word": "සහස්‍ර", "meaning": "දහස" },
+{ "word": "සගීත්", "meaning": "සංගීතවත්" },
+{ "word": "සතිව්", "meaning": "ඉතාමත් හොඳ" },
+{ "word": "සකුන", "meaning": "පක්ෂියා" },
+{ "word": "සජීව", "meaning": "ජිවමානව" },
+{ "word": "සලිල්", "meaning": "සීතල ජලය" },
+{ "word": "සකුල්", "meaning": "සලකුණ" },
+{ "word": "සමීර", "meaning": "සුළඟ" },
+{ "word": "සරල", "meaning": "චාම්" },
+{ "word": "සවන්", "meaning": "කන | ඇසීම" },
+{ "word": "සස්දුල", "meaning": "සත්‍යයෙන් පිරුණු" },
+{ "word": "සනුල්", "meaning": "නුවණින් අනූන" },
+{ "word": "සමුදුරු", "meaning": "මුහුද" },
+{ "word": "සස්වර", "meaning": "ඉතා ආකර්ෂණීය තැනැත්තා" },
+{ "word": "සස්විඳු", "meaning": "සත්‍යගරුක" },
+{ "word": "සස්යුග", "meaning": "සත්‍ය යුගයක්" },
+{ "word": "සස්මිත", "meaning": "උතුම්" },
+{ "word": "සන්සක", "meaning": "ප්‍රශංසාව ලත්" },
+{ "word": "සසංක", "meaning": "සසල නොවු" },
+{ "word": "සංචිත", "meaning": "තැන්පත් කර ඇති" },
+{ "word": "සංයත", "meaning": "සංයමයෙන් කටයුතු කරන්නා" },
+{ "word": "සංලක්ෂ", "meaning": "සැලකිය යුතු" },
+{ "word": "සංයම", "meaning": "සංයමයකින්" },
+{ "word": "සංහිත", "meaning": "එක්රැස් කළ" },
+{ "word": "සංකලන", "meaning": "මිශ්‍ර | කලවම්" },
+{ "word": "සංකේත", "meaning": "සලකුණ | ලක්ෂණය" },
+{ "word": "සංගත", "meaning": "යුක්ත" },
+{ "word": "සංගීත්", "meaning": "සංගීතවත්" },
+{ "word": "සංඛ", "meaning": "හක් ගෙඩිය" },
+{ "word": "සංකල්ප", "meaning": "යහපත් සිතුවිලි වලින් යුත්" },
+{ "word": "සංදීප්ත", "meaning": "දැල්වුණු" },
+{ "word": "සංදීප්", "meaning": "අලෝකමත්" },
+{ "word": "සාරද", "meaning": "අකම්පිත" },
+{ "word": "සාගර", "meaning": "මුහුද" },
+{ "word": "සාරක", "meaning": "සාරවත් වූ පුද්ගලයා" },
+{ "word": "සාදේව්", "meaning": "ශුද්ධ වු" },
+{ "word": "සිතුමිණ", "meaning": "සිළුමිණ | චින්තා මැණික" },
+{ "word": "සියපත්", "meaning": "නෙළුම්" },
+{ "word": "සිහින", "meaning": "සිහින" },
+{ "word": "සිහිල්", "meaning": "සිසිල්" },
+{ "word": "සිතෙව්", "meaning": "බබලන සිතක් ඇති" },
+{ "word": "සිනෙරු", "meaning": "මහමෙර" },
+{ "word": "සිහිලැල්", "meaning": "සිසිලක් වූ" },
+{ "word": "සිතුනිල්", "meaning": "සිතුවිලි වලින් පිරුණු" },
+{ "word": "සිනෙහිත", "meaning": "ඇල්ම" },
+{ "word": "සිතුනිල", "meaning": "සිතුවිලි වලින් පිරුණු" },
+{ "word": "සිතුම්", "meaning": "සිතුවිලි" },
+{ "word": "සිනෙත්", "meaning": "උතුම් දෑස" },
+{ "word": "සිනිඳු", "meaning": "සුමුදු" },
+{ "word": "සුවහස්", "meaning": "කල්ප කාලයක්" },
+{ "word": "සුවීන්", "meaning": "සුවෙන් සිටින" },
+{ "word": "සුභාෂ්", "meaning": "යහපත් වචන පිරි" },
+{ "word": "සුමියුරු", "meaning": "ඉතා මිහිරි" },
+{ "word": "සුරක්ෂ", "meaning": "සුරක්ෂිත" },
+{ "word": "සුනන්ද", "meaning": "සතුට උපදවන්නා" },
+{ "word": "සුරාජ්", "meaning": "සුර්‌යයා" },
+{ "word": "සුදම්ක", "meaning": "දැහැමි" },
+{ "word": "සුනෙර", "meaning": "මහමෙර" },
+{ "word": "සුචිත", "meaning": "ඉතාමත් විචිත්‍රවත්" },
+{ "word": "සුලෝචන", "meaning": "රූමත්" },
+{ "word": "සුචීර", "meaning": "දීර්ඝ" },
+{ "word": "සුධාර", "meaning": "දරා ගැනීමට හැකියාව" },
+{ "word": "සුලක්ෂ", "meaning": "වාසනාවන්ත" },
+{ "word": "සුමිහිර", "meaning": "ඉතා මිහිරි වූ" },
+{ "word": "සුඛිත", "meaning": "ප්‍රීතිමත්" },
+{ "word": "සුබෝධ", "meaning": "නිවරැදි අවබෝධයෙන්" },
+{ "word": "සුවිදු", "meaning": "විද්‍යාවෙහි නිපුන" },
+{ "word": "සෙනිඳු", "meaning": "දක්ෂ රජු" },
+{ "word": "සෙතිර", "meaning": "ශාන්තියට හිරු" },
+{ "word": "සෙහස්", "meaning": "සෙනෙහසින් යුතු" },
+{ "word": "සෙතිනු", "meaning": "සෙත් උපදවන" },
+{ "word": "සෙතුක", "meaning": "තුන් ආකාරයෙන් දක්ෂ" },
+{ "word": "සෙලීන්", "meaning": "සුන්දර තැනැත්තා" },
+{ "word": "සෙවෝන්", "meaning": "උතුම් ගුණයෙන් යුත් තැනැත්තා" },
+{ "word": "සෙනෝද්", "meaning": "සෙනෙහෙවන්ත" },
+{ "word": "සෙතුල", "meaning": "සෙනෙහසේ උල්පත" },
+{ "word": "සෙනුක්", "meaning": "අග්‍ර දක්ෂ නුවණ" },
+{ "word": "සෙනුත්ම", "meaning": "සෙනෙහස පතන" },
+{ "word": "සෙත්හිරු", "meaning": "හිරු සේ සෙතක් වන" },
+{ "word": "සෙනක්ශ", "meaning": "සෙනෙහසින් පිරි" },
+{ "word": "සෙනුල්ක", "meaning": "ඇල්ම ඇති" },
+{ "word": "සෙන්පති", "meaning": "සේනාපතියෙකු වැන්නා" },
+{ "word": "සෙණුවර", "meaning": "උසස් දක්ෂ වු තැනැත්තා" },
+{ "word": "සෙත්මින", "meaning": "ශක්තියේ මිතුරා" },
+{ "word": "සෙත්මික", "meaning": "සෙතක්ම කරන" },
+{ "word": "සෙනුමික", "meaning": "උතුම් සෙනෙහස ඇති" },
+{ "word": "සෙනුවර", "meaning": "උසස් දක්ෂ නුවණැත්තා" },
+{ "word": "සෙතුන්", "meaning": "තුන් දක්ෂයෙන් | දක්ෂතාවයෙන් පිරුණු" },
+{ "word": "සෙත්නිඳු", "meaning": "සෙත්පිරි" },
+{ "word": "සෙතුජ", "meaning": "සෙත් උපත" },
+{ "word": "සෙනිතු", "meaning": "සෙත් උපදවන" },
+{ "word": "සෙතීෂ්", "meaning": "යහනායක" },
+{ "word": "සෙනුජ", "meaning": "දක්ෂ නුවණින් ජය ලබන" },
+{ "word": "සෙනුක්", "meaning": "දක්ෂ නුවණින් යුත්" },
+{ "word": "සේනිල", "meaning": "උසස් නිලය" },
+{ "word": "සේනුජ", "meaning": "නුවණක්කාර" },
+{ "word": "සේඛර", "meaning": "මුදුන් මල්කඩ" },
+{ "word": "සොම්නස්", "meaning": "සතුට" },
+{ "word": "සොනිරු", "meaning": "රන් වන් හිරු" }
+        ];
+        
+        // Configuration
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const entriesSelect = document.getElementById('entriesSelect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const entriesInfo = document.getElementById('entriesInfo');
+        
+        let currentPage = 1;
+        let itemsPerPage = parseInt(entriesSelect.value);
+        let filteredData = [...wordData];
+        
+        // Render table rows
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            if (pageData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
+                return;
+            }
+            
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.word}</td>
+                    <td>${item.meaning}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            updatePagination();
+        }
+        
+        // Update pagination buttons and info
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredData = [...wordData];
+            } else {
+                filteredData = wordData.filter(item => 
+                    item.word.toLowerCase().includes(searchTerm) || 
+                    item.meaning.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Change items per page
+        entriesSelect.addEventListener('change', () => {
+            itemsPerPage = parseInt(entriesSelect.value);
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Pagination event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+        
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>

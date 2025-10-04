@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif Sinhala', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffe6f4 100%);
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: #cb4383;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+       }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .entries-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .entries-control select, .entries-control input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        thead {
+            background: linear-gradient(to right, #cb4383, #e64c94);
+            color: white;
+        }
+        
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        tr {
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.2s;
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #fff3f9;
+        }
+        
+        thead:hover {
+            color: black;
+        }
+        
+        td {
+            padding: 16px 15px;
+            color: #444;
+        }
+        
+        td:first-child {
+            font-weight: 600;
+            color: #cb4383;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #cb4383;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            width: 250px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 12px 20px;
+            background: #cb4383;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .pagination button:hover {
+            background: #ea70a9;
+        }
+        
+        .pagination button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .entries-info {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 14px 10px;
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .pagination button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[ම] අකුරෙන් නම් අරුත් සහිතව</h1>
+            <p class="description"></p>
+        </header>
+        
+        <div class="controls">
+            <div class="entries-control">
+                <label for="entriesSelect">Show:</label>
+                <select id="entriesSelect">
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                </select>
+                <span>List</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>නම</th>
+                        <th>නමෙහි අරුත</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination">
+            <button id="prevBtn" disabled>පෙර</button>
+            <button id="nextBtn">ඊළඟ</button>
+        </div>
+        
+        <div class="copyright">
+      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
+        </div>
+      </div>
+
+
+    <script>
+        // Your word data
+        const wordData = [
+              { "word": "මනසි", "meaning": "මනස ජයගත් කත" },
+{ "word": "මනීෂා", "meaning": "දැන උගත් | පණ්ඩිත" },
+{ "word": "මනුජා", "meaning": "මහ සම්මත රජුගෙන් පැවතෙන්නා වු" },
+{ "word": "මදාරා", "meaning": "මදාරා මල්" },
+{ "word": "මනුලා", "meaning": "මනසින් උසස්" },
+{ "word": "මනුල්‍යා", "meaning": "යහපත් නුවණින් වූ උල්පත" },
+{ "word": "මකරන්දී", "meaning": "මල්පැණි සේ" },
+{ "word": "මහීමා", "meaning": "පොළොවෙන් උපන්" },
+{ "word": "මනෝලි", "meaning": "බොහෝ දුර සිතන්නිය" },
+{ "word": "මධුමි", "meaning": "මධු මිහිර" },
+{ "word": "මධුරි", "meaning": "මධුර වූ" },
+{ "word": "මක්ෂිකා", "meaning": "මී පැණි" },
+{ "word": "මතිෂා", "meaning": "බුද්ධිමතුන්ගේ නායිකාව" },
+{ "word": "මකරන්දි", "meaning": "මල්පැණි" },
+{ "word": "මනෝරා", "meaning": "සිත් බැඳගත්" },
+{ "word": "මන්ද්‍රා", "meaning": "මීදුම" },
+{ "word": "මහිෂි", "meaning": "බිසව" },
+{ "word": "මනූජා", "meaning": "මහ සම්මත රජුගෙන් පැවතෙන" },
+{ "word": "මල්මි", "meaning": "මල් පැණි" },
+{ "word": "මනුලි", "meaning": "ප්‍රභාමත් මනසින් යුතු" },
+{ "word": "මන්දිරා", "meaning": "මල් පැණි" },
+{ "word": "මන්දාරි", "meaning": "මන්දර පර්වතය" },
+{ "word": "මන්දාරා", "meaning": "මන්දර පර්වතය" },
+{ "word": "මල්දිනී", "meaning": "අධි නුවණින් යුතු මල" },
+{ "word": "මල්කිණි", "meaning": "මල් රොන්" },
+{ "word": "මල්සරණි", "meaning": "මල් සේ සැරිසරන" },
+{ "word": "මල්මින්දි", "meaning": "මල් මුවරද" },
+{ "word": "මන්දස්මි", "meaning": "චාම් ආලෝකය" },
+{ "word": "මන්දාකිණි", "meaning": "අහස් ගග" },
+{ "word": "මනුෂක්‍යා", "meaning": "මිනිස් කාන්තාව" },
+{ "word": "මහමෙව්නා", "meaning": "මහමෙව්නාව" },
+{ "word": "මනිමාලි", "meaning": "රුවන්වැලිය" },
+{ "word": "මල්මදි", "meaning": "ළදැරිය" },
+{ "word": "මධුපා", "meaning": "මිහිරි වු දේ පාන්නිය" },
+{ "word": "මස්සැදි", "meaning": "සඳ වැනි රුව සහිත මලක්" },
+{ "word": "මහීෂි", "meaning": "බිසව" },
+{ "word": "මයුරි", "meaning": "මොනරි (සෙබඩ)" },
+{ "word": "මන්සි", "meaning": "මනස ජයගත් කත" },
+{ "word": "මලිනි", "meaning": "මල් මාලාවන් පළදන්නි" },
+{ "word": "මහිදී", "meaning": "මහත් ශ්‍රද්ධාවෙන් යුතු තැනැත්තිය" },
+{ "word": "මහීතාරා", "meaning": "පොළොවේ බැබලෙන්නිය" },
+{ "word": "මහේෂි", "meaning": "රැජින" },
+{ "word": "මගවාසිනි", "meaning": "මලිත මල්" },
+{ "word": "මණිකා", "meaning": "මැණික් කපන්නී" },
+{ "word": "මණිමාලා", "meaning": "මැණික් මාලය" },
+{ "word": "මදන්තිකා", "meaning": "හෙළ ඉද්ද" },
+{ "word": "මධුකා", "meaning": "මී පැණි" },
+{ "word": "මන්තනා", "meaning": "සංසන්දනය" },
+{ "word": "මනසා", "meaning": "නාග දෙවඟන" },
+{ "word": "මන්දාකිනි", "meaning": "අහස්ගඟ" },
+{ "word": "මනුති", "meaning": "බොහෝ නුවණ ඇත්තිය" },
+{ "word": "මනුදිරා", "meaning": "සෙනෙහස් ඇත්තී" },
+{ "word": "මනුලකි", "meaning": "උසස් අධිෂ්ඨාන ඇත්ති" },
+{ "word": "මංගලි", "meaning": "ගොඩ මානෙල්" },
+{ "word": "මංජු", "meaning": "සතුටුදායක" },
+{ "word": "මංජරී", "meaning": "පොකුණ" },
+{ "word": "මාදනී", "meaning": "මිහිමව" },
+{ "word": "මානවි", "meaning": "මානව හිතවාදි" },
+{ "word": "මානවිකා", "meaning": "මෙනෙවිය" },
+{ "word": "මානවී", "meaning": "මානව හිතවාදී" },
+{ "word": "මාලිකා", "meaning": "මල් මාලය" },
+{ "word": "මාලග", "meaning": "මල්මද" },
+{ "word": "මාපිකා", "meaning": "මවන ලද" },
+{ "word": "මානිති", "meaning": "මානයෙන් යුතු වු කත" },
+{ "word": "මානෙල්", "meaning": "මානෙල් මල" },
+{ "word": "මාලිගා", "meaning": "රජ මැදුර" },
+{ "word": "මායා", "meaning": "ඉන්ද්‍රජාල හෙවත් ඇස්බැන්දුම්" },
+{ "word": "මිනුදි", "meaning": "මිහිරි නුවණින් දිනූ" },
+{ "word": "මිහිනි", "meaning": "මහා නුවණක්කාරිය" },
+{ "word": "මිනුෂි", "meaning": "නුවණින් පිරි මිහිරි තැනැත්තිය" },
+{ "word": "මිල්නි", "meaning": "මිහිරි දක්ෂ නුවණැත්තිය" },
+{ "word": "මිහිමා", "meaning": "පොළොවේ මවන්නිය" },
+{ "word": "මිනුල්දි", "meaning": "මිහිරි නුවණැති ලිය" },
+{ "word": "මිහිසරී", "meaning": "පොළොවේ සැරිසරන" },
+{ "word": "මිණිමුතු", "meaning": "මැණික් සහ මුතු" },
+{ "word": "මිතෙජා", "meaning": "මිහිරි වු ජයෙන් බැබලෙන්නිය" },
+{ "word": "මිහිනා", "meaning": "මීදුම" },
+{ "word": "මිනැසි", "meaning": "නුවණට ඇසක් වන් යුවතිය" },
+{ "word": "මිනිජා", "meaning": "මිහිරි ජයෙන් නුවණැත්තිය" },
+{ "word": "මින්දනි", "meaning": "නුවණින් ජය ලබන්නිය" },
+{ "word": "මියුරන්දි", "meaning": "මියුරු බව රදවන්නි" },
+{ "word": "මිහිනිජා", "meaning": "මිහිමඩලේ නුවණින් ජය ලබන්නිය" },
+{ "word": "මිහිනිමා", "meaning": "පොළොවේ නිමැවුම්කාරිය" },
+{ "word": "මින්සාරී", "meaning": "නුවණින්" },
+{ "word": "මිහිසරි", "meaning": "පොළොවෙහි සැරිසරන" },
+{ "word": "මිරෙයිලි", "meaning": "අගය කළ යුතු" },
+{ "word": "මිනුරි", "meaning": "මිහිරි නුවණින් යුතු තැනැත්තිය" },
+{ "word": "මිණිමුවා", "meaning": "මැණික් සහ මුතු" },
+{ "word": "මියුරන්දී", "meaning": "මියුරු බව රදවන්නී" },
+{ "word": "මිලැසි", "meaning": "මියුලැසිය" },
+{ "word": "මිහිතා", "meaning": "පිණි" },
+{ "word": "මිනුලි", "meaning": "මෛත්‍රියෙන්" },
+{ "word": "මිහිරි", "meaning": "රසවත්" },
+{ "word": "මුතුමාලි", "meaning": "මුතු මාලය" },
+{ "word": "මුද්විතා", "meaning": "මිදි" },
+{ "word": "මුතුහරා", "meaning": "මුතු ඇමිණු මාලය" },
+{ "word": "මුතුලි", "meaning": "මුතු වැනි යුවතිය" },
+{ "word": "මෙයිලි", "meaning": "ලස්සන යුවතිය" },
+{ "word": "මෙත්සුවී", "meaning": "මෛත්‍රී සුවය" },
+{ "word": "මෙතුලි", "meaning": "මෛත්‍රියේ උල්පත" },
+{ "word": "මෙතුවි", "meaning": "මෛත්‍රියෙන් යුතු තැනැත්තිය" },
+{ "word": "මෙත්දු", "meaning": "මෛත්‍රියේ දියණිය" },
+{ "word": "මෙත්ෂි", "meaning": "මෛත්‍රිය දරා ගත්" },
+{ "word": "මෙතාරා", "meaning": "මෛත්‍රියෙන් යුත් යුවතිය" },
+{ "word": "මෙතුදි", "meaning": "මෛත්‍රිය පතුරුවන තැනැත්තිය" },
+{ "word": "මෙත්නදි", "meaning": "මෛත්‍රි නදියක් බඳු" },
+{ "word": "මෙත්පා", "meaning": "නුවණින් යුතු මෛත්‍රියේ පදනම" },
+{ "word": "මෙත්පානි", "meaning": "මෛත්‍රිය දක්වන්නි" },
+{ "word": "මෙවිනි", "meaning": "මෙහෙය විදින්නිය" },
+{ "word": "මෙත්ධාරා", "meaning": "මෛත්‍රී ධාරාවෙන් එළිය වූ" },
+{ "word": "මෙත්සහනි", "meaning": "මෛත්‍රියෙන් සහනය සලසන්නිය" },
+{ "word": "මෙත්සානි", "meaning": "මෛත්‍රිය සහිත නිකායේ" },
+{ "word": "මෙත්සුවි", "meaning": "මෛත්‍රි සුවය" },
+{ "word": "මෙතුනදි", "meaning": "මෛත්‍රියේ ගංගාව" },
+{ "word": "මෙතුනි", "meaning": "මෛත්‍රිය ඇත්තිය" },
+{ "word": "මෙතුමලි", "meaning": "මෛත්‍රියේ මල්දම්" },
+{ "word": "මෙහෙසි", "meaning": "බිසව" },
+{ "word": "මෙත්රාධා", "meaning": "මෙත් රසය දෙන්නිය" },
+{ "word": "මෙතුනදී", "meaning": "මෛත්‍රියේ ගංගාව" },
+{ "word": "මෙතුසරි", "meaning": "මෙත් වඩමින් සැරිසරන්නිය" },
+{ "word": "මෙත්මන්ති", "meaning": "මෛත්‍රී සිතක හිමිකාරිය" },
+{ "word": "මෙව්නා", "meaning": "මහමෙව්නා උයන" },
+{ "word": "මෙත්සා", "meaning": "නුවණින් යුතු මෛත්‍රියේ" },
+{ "word": "මෙවුලි", "meaning": "මණිමේඛලාව (ආභරණයක්)" },
+{ "word": "මෙත්නදී", "meaning": "මෛත්‍රී නදියක් බඳු" },
+{ "word": "මෙතුමලී", "meaning": "මෛත්‍රියේ මල්දම්" },
+{ "word": "මෙතුම්සා", "meaning": "උතුම් මෛත්‍රියෙන් යුතු" },
+{ "word": "මෙත්මි", "meaning": "මෛත්‍රියේ මිහිරි බව" },
+{ "word": "මෙත්සඳි", "meaning": "මෛත්‍රී ඇත්තිය" },
+{ "word": "මෙදිනි", "meaning": "පොළොව" },
+{ "word": "මෙහෙලි", "meaning": "කාන්තාව" },
+{ "word": "මෙත්දූ", "meaning": "මෛත්‍රියේ දියණිය" },
+{ "word": "මෙත්සරා", "meaning": "මෙත් සිත් ඇත්තිය" },
+{ "word": "මෙතුම්‍යා", "meaning": "මෙත් මගෙහි ගමන් ගන්නා" },
+{ "word": "මෙදිනී", "meaning": "පොළොව | භූමිය" },
+{ "word": "මෙරමා", "meaning": "අනෙකා | අනුන්" },
+{ "word": "මේඝනා", "meaning": "වලාකුළු" },
+{ "word": "මේඛලා", "meaning": "ආභරණ" },
+{ "word": "මේඝා", "meaning": "වැස්ස" },
+{ "word": "මේධා", "meaning": "ඔසුවක්" },
+{ "word": "මේනකා", "meaning": "දෙවඟන" },
+{ "word": "මෝදිතා", "meaning": "සතුටු වු" },
+{ "word": "මෞලි", "meaning": "අභිෂේක ලබන්නිය" }
+        ];
+        
+        // Configuration
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const entriesSelect = document.getElementById('entriesSelect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const entriesInfo = document.getElementById('entriesInfo');
+        
+        let currentPage = 1;
+        let itemsPerPage = parseInt(entriesSelect.value);
+        let filteredData = [...wordData];
+        
+        // Render table rows
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            if (pageData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
+                return;
+            }
+            
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.word}</td>
+                    <td>${item.meaning}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            updatePagination();
+        }
+        
+        // Update pagination buttons and info
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredData = [...wordData];
+            } else {
+                filteredData = wordData.filter(item => 
+                    item.word.toLowerCase().includes(searchTerm) || 
+                    item.meaning.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Change items per page
+        entriesSelect.addEventListener('change', () => {
+            itemsPerPage = parseInt(entriesSelect.value);
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Pagination event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+        
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>

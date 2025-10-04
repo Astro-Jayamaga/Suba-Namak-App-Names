@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif Sinhala', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: #0e47a1;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+       }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .entries-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .entries-control select, .entries-control input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        thead {
+            background: linear-gradient(to right, #0e47a1, #1d89e4);
+            color: white;
+        }
+        
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        tr {
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.2s;
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #e4f1ff;
+        }
+        
+        thead:hover {
+            color: black;
+        }
+        
+        td {
+            padding: 16px 15px;
+            color: #444;
+        }
+        
+        td:first-child {
+            font-weight: 600;
+            color: #0e47a1;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #0e47a1;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            width: 250px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 12px 20px;
+            background: #0e47a1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .pagination button:hover {
+            background: #306ed1;
+        }
+        
+        .pagination button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .entries-info {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 14px 10px;
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .pagination button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[ප] අකුරෙන් නම් අරුත් සහිතව</h1>
+            <p class="description"></p>
+        </header>
+        
+        <div class="controls">
+            <div class="entries-control">
+                <label for="entriesSelect">Show:</label>
+                <select id="entriesSelect">
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                </select>
+                <span>List</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>නම</th>
+                        <th>නමෙහි අරුත</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination">
+            <button id="prevBtn" disabled>පෙර</button>
+            <button id="nextBtn">ඊළඟ</button>
+        </div>
+        
+        <div class="copyright">
+      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
+        </div>
+      </div>
+
+
+    <script>
+        // Your word data
+        const wordData = [
+                             { "word": "පවන", "meaning": "සුළඟ" },
+{ "word": "පවන්", "meaning": "සුළඟ" },
+{ "word": "පසන්", "meaning": "ප්‍රසන්න" },
+{ "word": "පහන්", "meaning": "පහන් වූ | ආලෝකය" },
+{ "word": "පහන්‍ය", "meaning": "පහන් වූ සිත් ඇති" },
+{ "word": "පහණ්", "meaning": "පාෂාණය" },
+{ "word": "පමෝද", "meaning": "සතුට" },
+{ "word": "පබෝධ", "meaning": "ප්‍රබෝධය" },
+{ "word": "පද්ම", "meaning": "නෙළුම" },
+{ "word": "පදවි", "meaning": "තනතුරු" },
+{ "word": "පබඳ", "meaning": "ප්‍රබන්ධය" },
+{ "word": "පවිත්", "meaning": "පිරිසිදු" },
+{ "word": "පවිත්‍ර", "meaning": "ඉතා පිරිසිදු" },
+{ "word": "පළිඟු", "meaning": "මැණික් විශේෂයකි" },
+{ "word": "පන්ථක", "meaning": "මගියා" },
+{ "word": "පඤ්චානක", "meaning": "සිංහයා" },
+{ "word": "පන්තිස්", "meaning": "තිස් පහ" },
+{ "word": "පසඟ", "meaning": "අමාත්‍ය යන අරුත් හා එකත්පස්ව හිඳීම" },
+{ "word": "පංච", "meaning": "පංච ක්‍රීඩාව" },
+{ "word": "පහලු", "meaning": "වියලි බිම" },
+{ "word": "පගොදි", "meaning": "රන් කාසියක්" },
+{ "word": "පටක", "meaning": "ප්‍රකට වූ" },
+{ "word": "පජ්ජිත", "meaning": "ප්‍රදීපය" },
+{ "word": "පසිඳු", "meaning": "ප්‍රසිද්ධ | පරසිදු" },
+{ "word": "පවර", "meaning": "ඉතා උතුම්" },
+{ "word": "පහිණ", "meaning": "පණිවුඩය" },
+{ "word": "පබසර", "meaning": "බබළන" },
+{ "word": "පංකජ", "meaning": "නෙළුම් මල" },
+{ "word": "පන්සිළු", "meaning": "දෙව්ලොව දක්ෂතම වීණා වාදකයා" },
+{ "word": "පැතුම්", "meaning": "ප්‍රාර්ථනාව" },
+{ "word": "පැහැදුල", "meaning": "පැහැයෙන් බබළන" },
+{ "word": "පැහැද", "meaning": "ප්‍රභාවත් | දීප්තිමත්" },
+{ "word": "පැහැසර", "meaning": "රැස් විහිදෙන | කාන්තිමත්" },
+{ "word": "පින්සර", "meaning": "පින්වන්ත" },
+{ "word": "පිළිණ", "meaning": "පොරොන්දුව" },
+{ "word": "පුලින", "meaning": "වැල්ල" },
+{ "word": "පුලස්ති", "meaning": "තුන්වේදයට ආචාර්යවරයා" },
+{ "word": "පුණ්‍ය", "meaning": "පින | යහගුණ" },
+{ "word": "පූර්ණ", "meaning": "පිරිපුන්" },
+{ "word": "පූජිත", "meaning": "ප්‍රදාන ලබන්නා" },
+{ "word": "පෝතක", "meaning": "පැටියා" },
+{ "word": "ප්‍රවර", "meaning": "උතුම් ශ්‍රේෂ්ඨ" },
+{ "word": "ප්‍රයෝග", "meaning": "උපක්‍රම" },
+{ "word": "ප්‍රණීත", "meaning": "ප්‍රණීත වූ" },
+{ "word": "ප්‍රදීප්ත", "meaning": "බබළන ආලෝකය" },
+{ "word": "ප්‍රදීප", "meaning": "ආලෝකය" },
+{ "word": "ප්‍රභාත්", "meaning": "උදය" },
+{ "word": "ප්‍රවීණ්", "meaning": "දක්ෂ" },
+{ "word": "ප්‍රවීණ", "meaning": "දක්ෂ පළපුරුද්ද" },
+{ "word": "ප්‍රතාප", "meaning": "ප්‍රතාපවත්" },
+{ "word": "ප්‍රහාසර", "meaning": "සැහැල්ලු" },
+{ "word": "ප්‍රමෝද", "meaning": "ප්‍රමෝදයෙන් යුත්" },
+{ "word": "ප්‍රකර්ෂ", "meaning": "උතුම් ශ්‍රේෂ්ඨ" },
+{ "word": "ප්‍රකාර", "meaning": "සමාන ආකාරය" },
+{ "word": "ප්‍රතීත", "meaning": "ප්‍රසිද්ධ" },
+{ "word": "ප්‍රසන්න", "meaning": "පැහැදිලි ප්‍රීතිමත් තැනැත්තා" },
+{ "word": "ප්‍රහීණ", "meaning": "විනාශ කිරීම" },
+{ "word": "ප්‍රත්‍ය", "meaning": "ප්‍රීණ | යනුගුණ" },
+{ "word": "ප්‍රභව", "meaning": "පහළවීම" },
+{ "word": "ප්‍රභූ", "meaning": "ඉසුරුමත් | ධනවත්" },
+{ "word": "ප්‍රමුදිත", "meaning": "සතුටින් | ප්‍රීතියෙන් සිටින්නා" },
+{ "word": "ප්‍රතාප්", "meaning": "ප්‍රතාපවත් | බලවත්" },
+{ "word": "ප්‍රණාම", "meaning": "බහුමන් | නමස්කාරය" },
+{ "word": "ප්‍රියාන්", "meaning": "ප්‍රිය උපදවන" },
+{ "word": "ප්‍රීණ", "meaning": "පොරොන්දුව" }
+        ];
+        
+        // Configuration
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const entriesSelect = document.getElementById('entriesSelect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const entriesInfo = document.getElementById('entriesInfo');
+        
+        let currentPage = 1;
+        let itemsPerPage = parseInt(entriesSelect.value);
+        let filteredData = [...wordData];
+        
+        // Render table rows
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            if (pageData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
+                return;
+            }
+            
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.word}</td>
+                    <td>${item.meaning}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            updatePagination();
+        }
+        
+        // Update pagination buttons and info
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredData = [...wordData];
+            } else {
+                filteredData = wordData.filter(item => 
+                    item.word.toLowerCase().includes(searchTerm) || 
+                    item.meaning.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Change items per page
+        entriesSelect.addEventListener('change', () => {
+            itemsPerPage = parseInt(entriesSelect.value);
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Pagination event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+        
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>

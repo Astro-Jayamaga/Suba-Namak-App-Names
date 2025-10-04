@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif Sinhala', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: #0e47a1;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+       }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .entries-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .entries-control select, .entries-control input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        thead {
+            background: linear-gradient(to right, #0e47a1, #1d89e4);
+            color: white;
+        }
+        
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        tr {
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.2s;
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #e4f1ff;
+        }
+        
+        thead:hover {
+            color: black;
+        }
+        
+        td {
+            padding: 16px 15px;
+            color: #444;
+        }
+        
+        td:first-child {
+            font-weight: 600;
+            color: #0e47a1;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #0e47a1;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            width: 250px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 12px 20px;
+            background: #0e47a1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .pagination button:hover {
+            background: #306ed1;
+        }
+        
+        .pagination button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .entries-info {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 14px 10px;
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .pagination button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[ක] අකුරෙන් නම් අරුත් සහිතව</h1>
+            <p class="description"></p>
+        </header>
+        
+        <div class="controls">
+            <div class="entries-control">
+                <label for="entriesSelect">Show:</label>
+                <select id="entriesSelect">
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                </select>
+                <span>List</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>නම</th>
+                        <th>නමෙහි අරුත</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination">
+            <button id="prevBtn" disabled>පෙර</button>
+            <button id="nextBtn">ඊළඟ</button>
+        </div>
+        
+        <div class="copyright">
+      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
+        </div>
+      </div>
+
+
+    <script>
+        // Your word data
+        const wordData = [
+                                  { "word": "ක්ෂිතිජ", "meaning": "ක්ෂිතිජය" },
+{ "word": "කවිජ", "meaning": "කවියෙන් උපන්" },
+{ "word": "කවිඳු", "meaning": "කවියට අධිපති" },
+{ "word": "කවිදු", "meaning": "කවියට අධිපති වූ තැනැත්තා" },
+{ "word": "කවිනෙත්", "meaning": "කවිකාර ඇස්" },
+{ "word": "කවින්ද", "meaning": "කවි රස විඳින" },
+{ "word": "කවිහර", "meaning": "දක්ෂ කවි ලියන්නා" },
+{ "word": "කවින්ත", "meaning": "කවි ලියන්නා" },
+{ "word": "කවිත්ම", "meaning": "කවියක් බඳු" },
+{ "word": "කවිෂ්ක", "meaning": "කවියක් බදු" },
+{ "word": "කවිරාජ්", "meaning": "කවියෙහි රජු" },
+{ "word": "කවීශ්", "meaning": "කවියට අධිපති" },
+{ "word": "කවීෂ්", "meaning": "කවියට අධිපති" },
+{ "word": "කවීෂ", "meaning": "කවියෙහි නිපුණ" },
+{ "word": "කවීන්", "meaning": "කවියෙහි සමත්" },
+{ "word": "කයේල්", "meaning": "දිව්‍යමය ආදරයක් සහිත" },
+{ "word": "කවිරු", "meaning": "කවියක් වන්" },
+{ "word": "කවීශ", "meaning": "උගත්" },
+{ "word": "කවීශර", "meaning": "උතුම් වු කවියා" },
+{ "word": "කවින්ස", "meaning": "කවියේ වින්දනය" },
+{ "word": "කවිදිත්", "meaning": "පාණ්ඩිත්‍ය බවින් බවින් අගතැන්පත්" },
+{ "word": "කවේශ්ත", "meaning": "දෙවියන්ගේ බදුන යන අර්ථය" },
+{ "word": "කසුන්", "meaning": "රත්තරන්" },
+{ "word": "කනිල්ක", "meaning": "රනින් සෑදූ ඔන්චිල්ලාව" },
+{ "word": "කඩුපුල්", "meaning": "කඩුපුල් මල" },
+{ "word": "කල්ප", "meaning": "බොහෝ කාලයක් | කල්පයක්" },
+{ "word": "කළණ", "meaning": "යහපත්" },
+{ "word": "කල්‍ය", "meaning": "බොහෝ යහපත් වු" },
+{ "word": "කලණ", "meaning": "ඉතා හොඳ | යහපත්" },
+{ "word": "කළිදු", "meaning": "ඉන්දියාවේ ගඟක්" },
+{ "word": "කරින්ද්‍ර", "meaning": "සියලු අය අතරින් නායකයා" },
+{ "word": "කල්‍යාන", "meaning": "ඉතා යහපත්" },
+{ "word": "කල්හාර", "meaning": "සුදු නෙළුම්" },
+{ "word": "කණක", "meaning": "රත්ත‍රන්" },
+{ "word": "කන්දිර", "meaning": "දිය දහරාවක් ගලා යන ආකාරය" },
+{ "word": "කනිෂ්ක", "meaning": "උද්යෝගීමත් තාරුණ්‍ය" },
+{ "word": "කදුඹු", "meaning": "ආලෝකයක් සහිතව දැනෙන රශ්මිය" },
+{ "word": "කසඳුන්", "meaning": "රත්හඳුන්" },
+{ "word": "කප්න", "meaning": "කම්පනය කරවන ලද තැනැත්තා" },
+{ "word": "කලිල", "meaning": "තුවර නම් ශාකය" },
+{ "word": "කල්පන", "meaning": "පවරන ලද කාර්යයක් එලෙසින්ම ඉටු කරන්නා" },
+{ "word": "කවෙලු", "meaning": "ඖෂධීය වටිනාකමකින් යුත් ශාකයකි" },
+{ "word": "කලිත්", "meaning": "සියල්ල තේරුම් ගත් තැනැත්තා" },
+{ "word": "කඩොල්", "meaning": "කඩොල් නම් ඇතු මෙන්ම කඩොල් ශාකය" },
+{ "word": "කංජිත", "meaning": "දෙවියන්ගේ ආදරය බඳු" },
+{ "word": "කාවින්ද", "meaning": "බොහෝ දැනුම් ඇති" },
+{ "word": "කාව්‍ය", "meaning": "කවි" },
+{ "word": "කාංචන", "meaning": "රන් වැනි" },
+{ "word": "කිනුරු", "meaning": "කින්නරයා" },
+{ "word": "කිවිඳු", "meaning": "කවිකාර" },
+{ "word": "කිනුල", "meaning": "නුවණ උල්පතක් වැනි තැනැත්තා" },
+{ "word": "කිත්සර", "meaning": "කීර්තියේ රශ්මියෙන් බබළන" },
+{ "word": "කිරනිඳු", "meaning": "හිරු මෙන්" },
+{ "word": "කියාන්ෂ්", "meaning": "දේව තිළිණයක්" },
+{ "word": "කිත්සිරි", "meaning": "කීර්ති ප්‍රසංශා" },
+{ "word": "කිරණ", "meaning": "කිරණ විහිදුවන" },
+{ "word": "කුසල්", "meaning": "කුසල් සහිත | පින්වත්" },
+{ "word": "කුෂාන්", "meaning": "දක්ෂ" },
+{ "word": "කුමර", "meaning": "කුමරු" },
+{ "word": "කුමාර", "meaning": "කුමරු" },
+{ "word": "කුමුතුලු", "meaning": "පිපුණු" },
+{ "word": "කුලුණු", "meaning": "කරුණාවන්ත" },
+{ "word": "කෙතිඳු", "meaning": "නායකත්ව හැකියාව ඇති" },
+{ "word": "කෙම්සර", "meaning": "සුරක්ෂිත නෙළුම" },
+{ "word": "කේසර", "meaning": "සිංහ කේසර | සිංහයෙකු වන්" },
+{ "word": "කේශ්වර", "meaning": "ප්‍රධානියා | නායකයා" },
+{ "word": "කේසර", "meaning": "සිංහයා" },
+{ "word": "කේශර", "meaning": "සිංහයා" },
+{ "word": "කේෂව්", "meaning": "දිගු කෙස් ඇති" },
+{ "word": "කේශව", "meaning": "විෂ්ණු දෙවියන්" },
+{ "word": "කේතක", "meaning": "ගස් වර්ගයක් | ධජය" },
+{ "word": "කොමිජ", "meaning": "දස්කම් දක්වන්නා" },
+{ "word": "කෝලිය", "meaning": "මුකුළු කරන" },
+{ "word": "කෝවිද", "meaning": "උගත්" },
+{ "word": "කෞශල්‍ය", "meaning": "කුසලතාවන්ගෙන් සපිරි" },
+{ "word": "කෞශාල්", "meaning": "කුසලතාවන්ගෙන්" },
+{ "word": "කෞශල", "meaning": "ප්‍රතිභා පූර්ණ | දස්කම් ඇති" },
+{ "word": "කෞෂික", "meaning": "ආදරය" },
+{ "word": "කෞතක", "meaning": "ඉතා පැරණි | වටිනා දේ" },
+{ "word": "කෞමල", "meaning": "සඳ රැසින් පිපෙන" },
+{ "word": "කෞශ්‍ය", "meaning": "ඉතා දක්ෂ බව" }
+        ];
+        
+        // Configuration
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const entriesSelect = document.getElementById('entriesSelect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const entriesInfo = document.getElementById('entriesInfo');
+        
+        let currentPage = 1;
+        let itemsPerPage = parseInt(entriesSelect.value);
+        let filteredData = [...wordData];
+        
+        // Render table rows
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            if (pageData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
+                return;
+            }
+            
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.word}</td>
+                    <td>${item.meaning}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            updatePagination();
+        }
+        
+        // Update pagination buttons and info
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredData = [...wordData];
+            } else {
+                filteredData = wordData.filter(item => 
+                    item.word.toLowerCase().includes(searchTerm) || 
+                    item.meaning.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Change items per page
+        entriesSelect.addEventListener('change', () => {
+            itemsPerPage = parseInt(entriesSelect.value);
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Pagination event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+        
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>

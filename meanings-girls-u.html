@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif Sinhala', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffe6f4 100%);
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: #cb4383;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+       }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .entries-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .entries-control select, .entries-control input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        thead {
+            background: linear-gradient(to right, #cb4383, #e64c94);
+            color: white;
+        }
+        
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        tr {
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.2s;
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #fff3f9;
+        }
+        
+        thead:hover {
+            color: black;
+        }
+        
+        td {
+            padding: 16px 15px;
+            color: #444;
+        }
+        
+        td:first-child {
+            font-weight: 600;
+            color: #cb4383;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #cb4383;
+            border-radius: 5px;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            width: 250px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 12px 20px;
+            background: #cb4383;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .pagination button:hover {
+            background: #ea70a9;
+        }
+        
+        .pagination button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .entries-info {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 14px 10px;
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .pagination button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[ර] අකුරෙන් නම් අරුත් සහිතව</h1>
+            <p class="description"></p>
+        </header>
+        
+        <div class="controls">
+            <div class="entries-control">
+                <label for="entriesSelect">Show:</label>
+                <select id="entriesSelect">
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                </select>
+                <span>List</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>නම</th>
+                        <th>නමෙහි අරුත</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination">
+            <button id="prevBtn" disabled>පෙර</button>
+            <button id="nextBtn">ඊළඟ</button>
+        </div>
+        
+        <div class="copyright">
+      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
+        </div>
+      </div>
+
+
+    <script>
+        // Your word data
+        const wordData = [
+              { "word": "රවිදි", "meaning": "උසස් ලෙස විඳින්නි" },
+{ "word": "රවිමානෙල්", "meaning": "හිරුට පිපෙන මානෙල්" },
+{ "word": "රශනා", "meaning": "දිව" },
+{ "word": "රශ්මිණි", "meaning": "බබළන්නා වු මැණික්" },
+{ "word": "රශිනි", "meaning": "රශ්මි මාලා" },
+{ "word": "රසංගා", "meaning": "රස අංගයන්ගෙන් යුතු" },
+{ "word": "රන්ලි", "meaning": "රත්තරං ලිය වැල්" },
+{ "word": "රයිලි", "meaning": "ආලෝකමත්" },
+{ "word": "රන්ෂාරි", "meaning": "රනින් බැබලෙන්නා වු ළඳ" },
+{ "word": "රන්සැදි", "meaning": "රන් ලිය" },
+{ "word": "රන්‍යා", "meaning": "රන් බඳු උතුම් තැනැත්තිය" },
+{ "word": "රනායා", "meaning": "උතුම් යහපත් නායිකාව" },
+{ "word": "රනෝමි", "meaning": "රත්තරන් රුව | හිරුගේ මිහිර" },
+{ "word": "රම්මි", "meaning": "රන් හා මැණික්" },
+{ "word": "රන්දරි", "meaning": "බොහෝ රන් ආයිත්තම් දරන්නිය" },
+{ "word": "රන්දි", "meaning": "රත්රන්" },
+{ "word": "රන්දිමා", "meaning": "උසස් නුවණ" },
+{ "word": "රන්ධි", "meaning": "රන් දෙරණ" },
+{ "word": "රන්පියුමි", "meaning": "රන් නෙළුම" },
+{ "word": "රන්රුමා", "meaning": "මවගේ වැනි රන් රුව" },
+{ "word": "රඟමිණි", "meaning": "පද්මරාග මැණික" },
+{ "word": "රචිකා", "meaning": "ලියන ලද" },
+{ "word": "රජිනි", "meaning": "රජුගේ මෙහෙසිය" },
+{ "word": "රණලි", "meaning": "හංස කණ්ඩායම" },
+{ "word": "රණහසි", "meaning": "රන් පියාපත් යුතු හංසයා" },
+{ "word": "රණේරි", "meaning": "රණවරා ශාකය" },
+{ "word": "රන්දිති", "meaning": "එරන්දති නම් නාග කන්‍යාව" },
+{ "word": "රන්දනා", "meaning": "රැදී සිටින්නිය" },
+{ "word": "රශ්මි", "meaning": "රශ්මිය විහිදුවන්නී" },
+{ "word": "රන්ෂාරී", "meaning": "රනින් බැබලෙන්නා වූ ලද" },
+{ "word": "රන්ධාරා", "meaning": "රනින් දිලිසෙන්නා වූ" },
+{ "word": "රනෝමී", "meaning": "හිරුගේ මිහිර" },
+{ "word": "රන් රූ", "meaning": "රත්තරන් රුව" },
+{ "word": "රන්තුලි", "meaning": "රන් උල්පත" },
+{ "word": "රන්දිතා", "meaning": "සද‍ාකල් රැඳී සිටින්නිය" },
+{ "word": "රසුල්යා", "meaning": "රසාලිප්ත" },
+{ "word": "රසාදිනී", "meaning": "රසය දන්නී" },
+{ "word": "රන්මිතු", "meaning": "රන්වන් මිතුරිය" },
+{ "word": "රන්හසනි", "meaning": "රන්වන් සිනහව" },
+{ "word": "රවිඳි", "meaning": "උසස් ලෙස විඳින" },
+{ "word": "රනුගි", "meaning": "උතුම් වූ නුවණ" },
+{ "word": "රවිශි", "meaning": "දෙවියන්ගේ දියණිය" },
+{ "word": "රණහංසි", "meaning": "ස්වර්ණ හංසිය" },
+{ "word": "රන්සරී", "meaning": "උසස් නාදයන් සහිත" },
+{ "word": "රසංගි", "meaning": "රසවත් අංගයන් සපිරි" },
+{ "word": "රන්දෙව්නි", "meaning": "රන් මෙන් වටිනා දෙව්දුව" },
+{ "word": "රන්සිතුමි", "meaning": "රන් මෙන් සිත් ඇති" },
+{ "word": "රවින්යා", "meaning": "හිරුට අයත්" },
+{ "word": "රචිති", "meaning": "රන්වන් සිතක් ඇති" },
+{ "word": "රෂ්මි", "meaning": "උසස් ලෙස මිහිර විඳින" },
+{ "word": "රසාලි", "meaning": "රසයෙහි ඇලුණු" },
+{ "word": "රනිති", "meaning": "රන් වැනි අගනා" },
+{ "word": "රනේලි", "meaning": "රන් මෙන් දිලෙන ලිය" },
+{ "word": "රන්මිණී", "meaning": "රතු මැණික" },
+{ "word": "රන්දාරා", "meaning": "රනින් බැබලෙන" },
+{ "word": "රමණි", "meaning": "ප්‍රියජනක | ලස්සන" },
+{ "word": "රමිකා", "meaning": "සතුට ගෙන එන්නිය" },
+{ "word": "රම්‍යා", "meaning": "ප්‍රීතිමත් වු | සතුට ගෙනෙන" },
+{ "word": "රවිහාරි", "meaning": "හිරුගේ රුස් මාලාව" },
+{ "word": "රවිනි", "meaning": "හිරු මෙන් බබළන" },
+{ "word": "රනාරා", "meaning": "රන් නදිය" },
+{ "word": "රඟමිනි", "meaning": "පද්මරාග මැණික" },
+{ "word": "රජති", "meaning": "රිදියෙන් තැනූ තැනැත්ති" },
+{ "word": "රජදි", "meaning": "රාජාධි යන අරුත්" },
+{ "word": "රසලි", "meaning": "නා ලොව" },
+{ "word": "රන්මුතු", "meaning": "රන් සහ මුතු" },
+{ "word": "රමිඳි", "meaning": "උසස් මිහිර විඳින" },
+{ "word": "රසිකා", "meaning": "දර්ශනීය බව | රස මවන්නිය" },
+{ "word": "රක්ෂා", "meaning": "ප්‍රවේසම්" },
+{ "word": "රනුල්යා", "meaning": "රන් උල්පත" },
+{ "word": "රණහංසි", "meaning": "රන් පියාපත් හංස ධේනුව" },
+{ "word": "රසාදනී", "meaning": "රසය දන්නී" },
+{ "word": "රසාලා", "meaning": "මිදි" },
+{ "word": "රසාලිතා", "meaning": "ශාඛ විශේෂයකි" },
+{ "word": "රසෝධ්‍යා", "meaning": "රසය ලබා දෙන්නිය" },
+{ "word": "රමිතා", "meaning": "සුන්දර කත" },
+{ "word": "රමිලා", "meaning": "ආදරණීය තැනැත්තිය" },
+{ "word": "රවිජා", "meaning": "හිරුගෙන් උපන්" },
+{ "word": "රංමී", "meaning": "රත්තරං මැණික්" },
+{ "word": "රංවනි", "meaning": "මැණික්" },
+{ "word": "රංගා", "meaning": "රංගනයේ යෙදෙන" },
+{ "word": "රංගි", "meaning": "රංගනයේ යෙදෙන්නිය" },
+{ "word": "රංසි", "meaning": "රැස්මාලා විහිදවන්නි" },
+{ "word": "රංගිකා", "meaning": "රංගනයේ යෙදෙන" },
+{ "word": "රංහිලි", "meaning": "වර්ණවත් ලෙස ආලේපන කරන ලද දෝලාව" },
+{ "word": "රංගිතා", "meaning": "රංගනයේ යෙදෙන්නි" },
+{ "word": "රාජිතා", "meaning": "දීප්තියෙන් බබලන්නී" },
+{ "word": "රාජි", "meaning": "අබ | වන රේඛා" },
+{ "word": "රාජිකා", "meaning": "උතුම් කත | රේඛාව" },
+{ "word": "රාජිනි", "meaning": "රජුගේ දියණිය" },
+{ "word": "රාජිවා", "meaning": "සුදු සහ රතු නෙලුම් | වතුර" },
+{ "word": "රාදිතා", "meaning": "ත්‍යාගශීලි වු" },
+{ "word": "රාජාධිනි", "meaning": "රාජ්‍යකට අධිපතිනිය" },
+{ "word": "රානිතා", "meaning": "කිංකිනි නද කරන්නිය" },
+{ "word": "රැව්මිණි", "meaning": "මැණික් රාවය" },
+{ "word": "රිසිනි", "meaning": "බොහෝ උගත් තැනැත්තිය" },
+{ "word": "රිසින්දී", "meaning": "මහා නුවණැති" },
+{ "word": "රිවිමිණි", "meaning": "හිරුමැණික" },
+{ "word": "රිවිසිනි", "meaning": "හිරු මෙන් උනුසුම් සිතුවිලි" },
+{ "word": "රිවිදිනි", "meaning": "හිරුගේ දියනිය" },
+{ "word": "රිවිනුලි", "meaning": "හිරුලේ නුවන ඇත්ති" },
+{ "word": "රිවිසරා", "meaning": "හිරුගේ ගමන් තාල" },
+{ "word": "රිවිසි", "meaning": "හිරු කත" },
+{ "word": "රිෂ්මා", "meaning": "සඳ කැන්" },
+{ "word": "රිසුරන්", "meaning": "හිරු දෙවියන්" },
+{ "word": "රිහස්නා", "meaning": "උසස් උතුම් නායිකාව" },
+{ "word": "රිංසි", "meaning": "රැස්මාලා විහිදවන්නි" },
+{ "word": "රිතෝකා", "meaning": "නව හිරු" },
+{ "word": "රිද්මි", "meaning": "රිද්මානුකූලව දිවි ගෙවන්නිය" },
+{ "word": "රිනුදි", "meaning": "උසස් නුවණින් යුතු" },
+{ "word": "රිලෝතිකා", "meaning": "හිරු සේ ආලෝකමත්" },
+{ "word": "රිවිකුමුදු", "meaning": "නෙලුම් මල" },
+{ "word": "රිවිකුලි", "meaning": "හිරුගේ කුලයට අයත්" },
+{ "word": "රිවිත්මා", "meaning": "හිරුගේ ආත්මය | ඉර හඳ බඳු තැනැත්තිය" },
+{ "word": "රිවිතාරා", "meaning": "බැබලෙන හිරු" },
+{ "word": "රිවිතුලි", "meaning": "හිරුට සමාන ඇත්ති" },
+{ "word": "රිවිනුලී", "meaning": "හිරුගේ නුවන ඇත්තී" },
+{ "word": "රිලෝකිකා", "meaning": "හිරු සේ ආලෝකමත්" },
+{ "word": "රිසිරි", "meaning": "හිරුට කැමති" },
+{ "word": "රිවිතුලී", "meaning": "හිරුට සම වූ" },
+{ "word": "රිශිනි", "meaning": "හිරුගේ රශ්මිය" },
+{ "word": "රිතිනි", "meaning": "නුවණින් රිසි දේ ලබන" },
+{ "word": "රිවිනි", "meaning": "හිරුගේ නුවණ ඇති" },
+{ "word": "රිතුලි", "meaning": "බැබළීම් සහිත" },
+{ "word": "රිසන්දී", "meaning": "මහ නුවණැති" },
+{ "word": "රිතූ", "meaning": "කාලය" },
+{ "word": "රිවිනි", "meaning": "හිරු මෙන් නුවණ ඇත්තිය" },
+{ "word": "රිවිදුනී", "meaning": "හිරුගේ දියණිය" },
+{ "word": "රිසසි", "meaning": "උතුම් සත්‍යය" },
+{ "word": "රිසති", "meaning": "උතුම් කැමැත්ත" },
+{ "word": "රුචිරා", "meaning": "මිහිරි | ලස්සන" },
+{ "word": "රුද්‍රානි", "meaning": "උමයංගනාවි" },
+{ "word": "රුසංසා", "meaning": "මනා රුවක් ඇත්තිය" },
+{ "word": "රුසත්මි", "meaning": "උසස් මිහිරි රුව" },
+{ "word": "රුසන්සා", "meaning": "මනා රුවක් සහිත කත" },
+{ "word": "රුසිරිනි", "meaning": "රූ සපුවෙන් අනගි කත" },
+{ "word": "රුහන්සා", "meaning": "රුවින් යුතු උත්තමාවිය" },
+{ "word": "රුහානි", "meaning": "ධාර්මික තැනැත්තිය" },
+{ "word": "රුවිනා", "meaning": "රුවින් අගතැම්පත් තැනැත්තිය" },
+{ "word": "රුකුලි", "meaning": "වීර්යවන්ත කාන්තාව" },
+{ "word": "රුචිකා", "meaning": "ප්‍රිය කරන" },
+{ "word": "රුහංසා", "meaning": "මනා රුවක් ඇති" },
+{ "word": "රුවිශිනී", "meaning": "රුවින් පිරි" },
+{ "word": "රුදේශි", "meaning": "රුවැති දේශයට හිතැති" },
+{ "word": "රුමල්යා", "meaning": "මලක් බඳු රුවින් යුතු" },
+{ "word": "රුසිඳි", "meaning": "හිරු මෙන් වැජඹෙන" },
+{ "word": "රුහානා", "meaning": "රුවින් ගෞරව ලබන" },
+{ "word": "රුසංසා", "meaning": "මනා රුවකින් සපිරි" },
+{ "word": "රුක්මා", "meaning": "ගස් වලට අයත්" },
+{ "word": "රුහිරු", "meaning": "රුධිරය" },
+{ "word": "රුවන්ති", "meaning": "මැණික් කන්ද" },
+{ "word": "රුහන්සි", "meaning": "රුවැති" },
+{ "word": "රුහාරා", "meaning": "රූ මාලාව" },
+{ "word": "රූසිරිනි", "meaning": "රූ සපුවෙන් අනගි කත" },
+{ "word": "රෙහිඳි", "meaning": "හිරු සඳු වැනි" },
+{ "word": "රේවතී", "meaning": "නැකතකි" },
+{ "word": "රේඛා", "meaning": "ඉරි | රේඛාව" },
+{ "word": "රෝසලි", "meaning": "ගසක නමකි" },
+{ "word": "රෝපණි", "meaning": "රෝපණය කරන්නා වූ" }
+        ];
+        
+        // Configuration
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const entriesSelect = document.getElementById('entriesSelect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const entriesInfo = document.getElementById('entriesInfo');
+        
+        let currentPage = 1;
+        let itemsPerPage = parseInt(entriesSelect.value);
+        let filteredData = [...wordData];
+        
+        // Render table rows
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            if (pageData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
+                return;
+            }
+            
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.word}</td>
+                    <td>${item.meaning}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            updatePagination();
+        }
+        
+        // Update pagination buttons and info
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredData = [...wordData];
+            } else {
+                filteredData = wordData.filter(item => 
+                    item.word.toLowerCase().includes(searchTerm) || 
+                    item.meaning.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Change items per page
+        entriesSelect.addEventListener('change', () => {
+            itemsPerPage = parseInt(entriesSelect.value);
+            currentPage = 1;
+            renderTable();
+        });
+        
+        // Pagination event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+        
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>
