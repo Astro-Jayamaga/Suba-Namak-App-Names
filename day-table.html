@@ -1,168 +1,183 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>දිනයට සුබ අක්ෂර</title>
-    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala&display=swap" rel="stylesheet">
+    <title>Suba Namak - Daily Subscription Service</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
+        /* Custom styles to enhance the design */
         body {
-            margin: 0;
-            padding: 10px;
-            background-color: #FDF5E6; /* Cream background */
-            color: #7F0000; /* Maroon text */
-            font-family: 'Noto Serif Sinhala', serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
         }
-        
-        h1 {
-            text-align: center;
-            color: #7F0000; /* Maroon */
-            margin-bottom: 25px;
-            font-size: 3.5rem;
-            font-family: 'Gemunu Libre', sans-serif;
-            font-weight: 700;
-            padding: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
         }
-        
-        .table-container {
-            max-width: 600px;
-            margin-bottom: 5rem;
-            overflow-x: auto;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            border-radius: 10px;
-            background: white;
-            border: 2px solid #FFA500; /* Orange border */
+        .card {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease-in-out;
         }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 350px;
+        .card:hover {
+            transform: translateY(-5px);
         }
-        
-        thead tr {
-            background-color: #FFA500 !important; /* Orange header - always visible */
+        .token-display {
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.1em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
+        .copy-button {
+            transition: all 0.2s ease-in-out;
         }
-        
-        th {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: white; /* White text for header by default */
-            transition: color 0.3s ease; /* Smooth transition for text color */
-            background-color: #FFA500 !important; /* Ensure orange background */
+        .copy-button:hover {
+            transform: scale(1.05);
         }
-        
-        thead tr:hover th {
-            color: black; /* Black text when hovering over header */
-            background-color: #FFA500 !important; /* Keep orange background on hover */
-        }
-        
-        td {
-            font-size: 1.2rem;
-            color: #000000; /* Black text for table content */
-        }
-        
-        tbody tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        tbody tr:nth-child(odd) {
-            background-color: #fff;
-        }
-        
-        tbody tr:hover {
-            background-color: #FFE4B5; /* Light orange on hover for table rows only */
-        }
-        
-        .zodiac-name {
-            font-weight: bold;
-            color: #000000; /* Black for day names */
-            white-space: nowrap;
-        }
-        
-        @media (max-width: 768px) {
-            th, td {
-                padding: 12px 8px;
-                font-size: 1rem;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            th, td {
-                padding: 10px 5px;
-                font-size: 0.9rem;
-            }
-            
-            .table-container {
-                border-radius: 5px;
-            }
+        .copy-button:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
-<body>
-    <h1>දිනයට සුබ අක්ෂර</h1>
-    
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>දිනය</th>
-                    <th>අක්ෂර</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="zodiac-name">සඳුදා</td>
-                    <td>ය ර ල ව ශ ෂ ස හ ළ</td>
-                </tr>
-                <tr>
-                    <td class="zodiac-name">අඟහරුවාදා</td>
-                    <td>ක බ ග ඝ ඞ</td>
-                </tr>
-                <tr>
-                    <td class="zodiac-name">බදාදා</td>
-                    <td>ට ඨ ඩ ඪ ණ</td>
-                </tr>
-                <tr>
-                    <td class="zodiac-name">බ්‍රහස්පතින්දා</td>
-                    <td>ත ථ ද ධ න</td>
-                </tr>
-                <tr>
-                    <td class="zodiac-name">සිකුරාදා</td>
-                    <td>ච ඡ ජ ඣ ඤ</td>
-                </tr>
-                <tr>
-                    <td class="zodiac-name">සෙනසුරාදා</td>
-                    <td>ප ඵ බ භ ම</td>
-                </tr>
-                <tr>
-                    <td class="zodiac-name">ඉරිදා</td>
-                    <td>අ ඉ උ එ ඔ</td>
-                </tr>
-            </tbody>
-        </table>
+<body class="antialiased text-gray-800">
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 gradient-bg">
+        <div class="w-full max-w-2xl mx-auto">
+            <!-- Main Card -->
+            <div class="card p-8 md:p-12 text-center">
+                <header class="mb-8">
+                    <h1 class="text-4xl md:text-5xl font-bold text-blue-800 poppins-font">Suba Namak</h1>
+                    <p class="text-gray-500 mt-2 text-lg">Your Daily Premium Service</p>
+                </header>
+
+                <main>
+                    <div class="bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl p-6 mb-8">
+                        <h2 class="text-xl font-semibold text-gray-700 mb-2">Your Service Token for Today</h2>
+                        <p class="text-gray-500 mb-4">This token is valid for 24 hours and is required to access your service.</p>
+                        <!-- Token will be inserted here by JavaScript -->
+                        <div id="token-container" class="bg-blue-600 text-white text-3xl md:text-4xl font-bold rounded-lg py-4 px-6 token-display">
+                            SNA #####
+                        </div>
+                        <button id="copy-btn" class="mt-6 w-full md:w-auto bg-blue-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 copy-button">
+                            Copy Token
+                        </button>
+                        <div id="copy-feedback" class="text-green-600 font-medium mt-3 h-5"></div>
+                    </div>
+
+                    <div class="text-left">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">How to Use Your Token</h3>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong>Step 1:</strong> Copy the unique 5-digit token number provided above. The code changes every day automatically.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong>Step 2:</strong> Contact our service team via WhatsApp at <a href="https://wa.me/1234567890" target="_blank" class="text-blue-600 font-semibold hover:underline">+1 (234) 567-890</a> or email at <a href="mailto:service@subanamak.com" class="text-blue-600 font-semibold hover:underline">service@subanamak.com</a>.</span>
+                            </li>
+                            <li class="flex items-start">
+                               <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong>Step 3:</strong> Provide the token number as a reference to our team to receive your personalized service for the day.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </main>
+            </div>
+
+             <!-- Demo Subscription Plans Section -->
+             <div class="mt-8 text-white text-center">
+                <h3 class="text-2xl font-bold mb-6">Explore Our Plans</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Daily Plan Card -->
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
+                        <h4 class="text-xl font-semibold">Daily Pass</h4>
+                        <p class="text-4xl font-bold my-4">$1.99</p>
+                        <p class="text-white/80">Access for 24 hours. Perfect for trying us out.</p>
+                    </div>
+                    <!-- Weekly Plan Card -->
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 transform scale-105">
+                         <span class="bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase -translate-y-10 inline-block">Popular</span>
+                        <h4 class="text-xl font-semibold -mt-4">Weekly Pro</h4>
+                        <p class="text-4xl font-bold my-4">$9.99</p>
+                        <p class="text-white/80">Best value for regular users. All features included.</p>
+                    </div>
+                    <!-- Monthly Plan Card -->
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
+                        <h4 class="text-xl font-semibold">Monthly Elite</h4>
+                        <p class="text-4xl font-bold my-4">$29.99</p>
+                        <p class="text-white/80">For our most dedicated clients. Includes priority support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tokenContainer = document.getElementById('token-container');
+            const copyBtn = document.getElementById('copy-btn');
+            const copyFeedback = document.getElementById('copy-feedback');
+
+            /**
+             * Generates a deterministic, pseudo-random 5-digit number based on the current date.
+             * This ensures the token is the same for the entire day but changes the next day.
+             * @returns {string} A 5-digit number as a string.
+             */
+            function generateDailyToken() {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = today.getMonth() + 1; // JS months are 0-indexed
+                const day = today.getDate();
+
+                // Create a "seed" from the date. Simple multiplication and addition.
+                // Using prime numbers helps in creating more "random" looking results.
+                let seed = (year * 31) + (month * 17) + (day * 23);
+                
+                // A simple pseudo-random number generator algorithm (Linear Congruential Generator)
+                function seededRandom() {
+                    seed = (seed * 9301 + 49297) % 233280;
+                    return seed / 233280;
+                }
+
+                // Generate a number between 10000 and 99999
+                const min = 10000;
+                const max = 99999;
+                const tokenNumber = Math.floor(seededRandom() * (max - min + 1)) + min;
+                
+                return tokenNumber.toString();
+            }
+
+            const dailyToken = `SNA ${generateDailyToken()}`;
+            tokenContainer.textContent = dailyToken;
+
+            // Copy to clipboard functionality
+            copyBtn.addEventListener('click', () => {
+                // Create a temporary textarea to hold the text and copy it
+                const textArea = document.createElement('textarea');
+                textArea.value = dailyToken;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    // Use execCommand for broader compatibility, especially in iFrames
+                    document.execCommand('copy');
+                    copyFeedback.textContent = 'Copied to clipboard!';
+                } catch (err) {
+                    copyFeedback.textContent = 'Failed to copy.';
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+
+                // Clear the feedback message after a few seconds
+                setTimeout(() => {
+                    copyFeedback.textContent = '';
+                }, 3000);
+            });
+        });
+    </script>
 </body>
 </html>
