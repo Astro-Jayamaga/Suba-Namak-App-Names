@@ -3,180 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suba Namak - Daily Subscription Service</title>
-    <!-- Tailwind CSS for modern styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for a clean, modern look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <title>Singlish to Sinhala Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        /* Custom styles to enhance the design */
+        :root {
+            --primary-color: #4a6baf;
+            --secondary-color: #6c757d;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --background-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --card-gradient: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-        }
-        .card {
-            background-color: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            transition: transform 0.3s ease-in-out;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .token-display {
             font-family: 'Poppins', sans-serif;
-            letter-spacing: 0.1em;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--background-gradient);
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .copy-button {
-            transition: all 0.2s ease-in-out;
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 2rem;
+            margin: 2rem;
         }
-        .copy-button:hover {
-            transform: scale(1.05);
+        header { text-align: center; margin-bottom: 2rem; position: relative; padding-bottom: 1rem; }
+        header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #4a6baf, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
-        .copy-button:active {
-            transform: scale(0.98);
+        .subtitle { color: var(--secondary-color); font-size: 1.2rem; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+        .converter-container {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .input-section, .output-section { margin-bottom: 2rem; position: relative; }
+        textarea {
+            width: 100%;
+            padding: 1.5rem;
+            border: 1px solid #e1e5eb;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 150px;
+            transition: all 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            background: #fff;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(74, 107, 175, 0.2), inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .buttons { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary { background: linear-gradient(to right, #4a6baf, #2575fc); color: white; flex: 1; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 7px 14px rgba(37, 117, 252, 0.3); }
+        .btn-secondary { background: #fff; color: var(--dark-color); border: 1px solid #e1e5eb; flex: 1; }
+        .btn-secondary:hover { background-color: #f0f4f8; transform: translateY(-3px); box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1); }
+        .output-label { font-size: 1rem; color: var(--secondary-color); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 8px; }
+        .output-label i { color: var(--primary-color); }
+        .output-box {
+            width: 100%;
+            min-height: 150px;
+            padding: 1.5rem;
+            border: 1px solid #e1e5eb;
+            border-radius: 12px;
+            background: #fff;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+            color: #333;
+        }
+        footer { text-align: center; padding-top: 2rem; color: var(--secondary-color); font-size: 1rem; display: flex; flex-direction: column; gap: 8px; }
+        .sinhala-text { font-size: 1.4rem; font-weight: 600; color: #4a6baf; letter-spacing: 1px; }
+        .stats { display: flex; justify-content: space-between; margin-top: 1rem; color: var(--secondary-color); font-size: 0.9rem; }
+        .char-count, .word-count { display: flex; align-items: center; gap: 5px; }
+        @media (max-width: 768px) {
+            .container { padding: 1.5rem; margin: 1rem; }
+            header h1 { font-size: 2.2rem; }
+            .converter-container { padding: 1.5rem; }
+            .buttons { flex-direction: column; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
-<body class="antialiased text-gray-800">
+<body>
+    <div class="container animate__animated animate__fadeInUp">
+        <header>
+            <h1>Singlish to Sinhala Converter</h1>
+            <p class="subtitle">Type in English letters to get accurate Sinhala Unicode characters in real-time</p>
+        </header>
 
-    <div class="min-h-screen flex flex-col items-center justify-center p-4 gradient-bg">
-        <div class="w-full max-w-2xl mx-auto">
-            <!-- Main Card -->
-            <div class="card p-8 md:p-12 text-center">
-                <header class="mb-8">
-                    <h1 class="text-4xl md:text-5xl font-bold text-blue-800 poppins-font">Suba Namak</h1>
-                    <p class="text-gray-500 mt-2 text-lg">Your Daily Premium Service</p>
-                </header>
-
-                <main>
-                    <div class="bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl p-6 mb-8">
-                        <h2 class="text-xl font-semibold text-gray-700 mb-2">Your Service Token for Today</h2>
-                        <p class="text-gray-500 mb-4">This token is valid for 24 hours and is required to access your service.</p>
-                        <!-- Token will be inserted here by JavaScript -->
-                        <div id="token-container" class="bg-blue-600 text-white text-3xl md:text-4xl font-bold rounded-lg py-4 px-6 token-display">
-                            SNA #####
+        <main>
+            <div class="converter-container">
+                <div class="input-section">
+                    <textarea id="singlish-input" placeholder="Type Singlish here (e.g., aayuboovan, kroodhhaya, vattakkaa)"
+                              autofocus></textarea>
+                    <div class="stats">
+                        <div class="char-count">
+                            <i class="fas fa-font"></i>
+                            <span id="char-count">0</span> characters
                         </div>
-                        <button id="copy-btn" class="mt-6 w-full md:w-auto bg-blue-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 copy-button">
-                            Copy Token
+                        <div class="word-count">
+                            <i class="fas fa-file-word"></i>
+                            <span id="word-count">0</span> words
+                        </div>
+                    </div>
+                    <div class="buttons">
+                         <button id="convert-btn" class="btn btn-primary">
+                            <i class="fas fa-language"></i> Convert to Sinhala
+                         </button>
+                         <button id="clear-btn" class="btn btn-secondary">
+                            <i class="fas fa-broom"></i> Clear
                         </button>
-                        <div id="copy-feedback" class="text-green-600 font-medium mt-3 h-5"></div>
-                    </div>
-
-                    <div class="text-left">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">How to Use Your Token</h3>
-                        <ul class="space-y-4 text-gray-600">
-                            <li class="flex items-start">
-                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span><strong>Step 1:</strong> Copy the unique 5-digit token number provided above. The code changes every day automatically.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span><strong>Step 2:</strong> Contact our service team via WhatsApp at <a href="https://wa.me/1234567890" target="_blank" class="text-blue-600 font-semibold hover:underline">+1 (234) 567-890</a> or email at <a href="mailto:service@subanamak.com" class="text-blue-600 font-semibold hover:underline">service@subanamak.com</a>.</span>
-                            </li>
-                            <li class="flex items-start">
-                               <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span><strong>Step 3:</strong> Provide the token number as a reference to our team to receive your personalized service for the day.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </main>
-            </div>
-
-             <!-- Demo Subscription Plans Section -->
-             <div class="mt-8 text-white text-center">
-                <h3 class="text-2xl font-bold mb-6">Explore Our Plans</h3>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <!-- Daily Plan Card -->
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                        <h4 class="text-xl font-semibold">Daily Pass</h4>
-                        <p class="text-4xl font-bold my-4">$1.99</p>
-                        <p class="text-white/80">Access for 24 hours. Perfect for trying us out.</p>
-                    </div>
-                    <!-- Weekly Plan Card -->
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 transform scale-105">
-                         <span class="bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase -translate-y-10 inline-block">Popular</span>
-                        <h4 class="text-xl font-semibold -mt-4">Weekly Pro</h4>
-                        <p class="text-4xl font-bold my-4">$9.99</p>
-                        <p class="text-white/80">Best value for regular users. All features included.</p>
-                    </div>
-                    <!-- Monthly Plan Card -->
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                        <h4 class="text-xl font-semibold">Monthly Elite</h4>
-                        <p class="text-4xl font-bold my-4">$29.99</p>
-                        <p class="text-white/80">For our most dedicated clients. Includes priority support.</p>
                     </div>
                 </div>
+
+                <div class="output-section">
+                    <div class="output-label">
+                        <i class="fas fa-text-height"></i> Sinhala Output:
+                    </div>
+                    <div id="sinhala-output" class="output-box">සිංහල පෙළ මෙතන පෙන්වනු ලැබේ</div>
+                    <button id="copy-btn" class="btn btn-secondary">
+                        <i class="fas fa-copy"></i> Copy Text
+                    </button>
+                </div>
             </div>
-        </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Singlish to Sinhala Converter</p>
+            <div class="sinhala-text">සිංහල අකුරු පරිවර්තකය</div>
+        </footer>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const tokenContainer = document.getElementById('token-container');
+            const singlishInput = document.getElementById('singlish-input');
+            const sinhalaOutput = document.getElementById('sinhala-output');
+            const convertBtn = document.getElementById('convert-btn');
+            const clearBtn = document.getElementById('clear-btn');
             const copyBtn = document.getElementById('copy-btn');
-            const copyFeedback = document.getElementById('copy-feedback');
+            const charCountElem = document.getElementById('char-count');
+            const wordCountElem = document.getElementById('word-count');
 
-            /**
-             * Generates a deterministic, pseudo-random 5-digit number based on the current date.
-             * This ensures the token is the same for the entire day but changes the next day.
-             * @returns {string} A 5-digit number as a string.
-             */
-            function generateDailyToken() {
-                const today = new Date();
-                const year = today.getFullYear();
-                const month = today.getMonth() + 1; // JS months are 0-indexed
-                const day = today.getDate();
+            function buildFullMap() {
+                const baseConsonants = {
+                    'k': 'ක', 'kh': 'ඛ', 'g': 'ග', 'gh': 'ඝ',
+                    'ch': 'ච', 'chh': 'ඡ', 'j': 'ජ',
+                    'th': 'ත', 'thh': 'ථ',
+                    'd': 'ඩ', 'dh': 'ද', 'q': 'ද', 'dhh': 'ධ',
+                    'n': 'න', 'N': 'ණ',
+                    'p': 'ප', 'ph': 'ඵ',
+                    'b': 'බ', 'bh': 'භ', 'Ba': 'ඹ',
+                    'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'L': 'ළ',
+                    'v': 'ව', 'w': 'ව', 's': 'ස', 'sh': 'ශ', 'Sh': 'ෂ', 'S': 'ෂ',
+                    'h': 'හ', 'f': 'ෆ', 't': 'ට', 'T': 'ඨ', 'D': 'ඪ',
+                    'zga': 'ඟ', 'zja': 'ඦ', 'zda': 'ඬ', 'zdha': 'ඳ', 'zqa': 'ඳ',
+                    'zk': 'ඤ', 'zh': 'ඥ', 'X': 'ඞ'
+                };
 
-                // Create a "seed" from the date. Simple multiplication and addition.
-                // Using prime numbers helps in creating more "random" looking results.
-                let seed = (year * 31) + (month * 17) + (day * 23);
-                
-                // A simple pseudo-random number generator algorithm (Linear Congruential Generator)
-                function seededRandom() {
-                    seed = (seed * 9301 + 49297) % 233280;
-                    return seed / 233280;
+                const pillaChars = {
+                    'a': '', 'aa': 'ා', 'A': 'ැ', 'Aa': 'ෑ', 'AA': 'ෑ',
+                    'i': 'ි', 'ii': 'ී', 'u': 'ු', 'uu': 'ූ', 'R': 'ෘ', 'Ru': 'ෲ',
+                    'e': 'ෙ', 'ee': 'ේ', 'ai': 'ෛ', 'o': 'ො', 'oo': 'ෝ',
+                    'au': 'ෞ', 'ou': 'ෞ', 'H': 'ඃ'
+                };
+
+                const baseVowels = {
+                    'a': 'අ', 'aa': 'ආ', 'A': 'ඇ', 'Aa': 'ඈ', 'AA': 'ඈ',
+                    'i': 'ඉ', 'ii': 'ඊ', 'u': 'උ', 'uu': 'ඌ', 'R': 'ඍ', 'Ru': 'ඎ',
+                    'e': 'එ', 'ee': 'ඒ', 'ai': 'ඓ', 'o': 'ඔ', 'oo': 'ඕ',
+                    'au': 'ඖ', 'ou': 'ඖ'
+                };
+
+                let consonantBlocks = { ...baseConsonants };
+
+                // Add double consonants manually
+                const doubles = { 'tt': 'ට්ට', 'dd': 'ඩ්ඩ', 'nn': 'න්න', 'mm': 'ම්ම', 'll': 'ල්ල', 'pp': 'ප්ප' };
+                Object.assign(consonantBlocks, doubles);
+
+                // Add conjuncts (yansaya and rakāransaya)
+                const yansaya = '්‍ය';
+                const rakāransaya = '්‍ර';
+                for (const key in baseConsonants) {
+                    if (key !== 'y') consonantBlocks[key + 'y'] = baseConsonants[key] + yansaya;
+                    if (key !== 'r') consonantBlocks[key + 'r'] = baseConsonants[key] + rakāransaya;
                 }
 
-                // Generate a number between 10000 and 99999
-                const min = 10000;
-                const max = 99999;
-                const tokenNumber = Math.floor(seededRandom() * (max - min + 1)) + min;
+                let fullMap = { ...baseVowels, 'Lu': 'ළු', '.': '෴' };
                 
-                return tokenNumber.toString();
+                // Systematically apply pillas to all consonant blocks
+                for (const blockKey in consonantBlocks) {
+                    const blockValue = consonantBlocks[blockKey];
+                    fullMap[blockKey] = blockValue + '්';
+                    
+                    for (const pillaKey in pillaChars) {
+                        const pillaValue = pillaChars[pillaKey];
+                        if (pillaKey === 'a') {
+                            fullMap[blockKey + 'a'] = blockValue;
+                        } else {
+                            fullMap[blockKey + pillaKey] = blockValue + pillaValue;
+                        }
+                    }
+                }
+                
+                // Standalone modifiers
+                fullMap['x'] = 'ං';
+                fullMap['kazn'] = 'කං'; 
+                // Fix for kazBaya -> කඹය. A standalone 'z' should be ignored.
+                fullMap['z'] = '';
+
+                return fullMap;
             }
 
-            const dailyToken = `SNA ${generateDailyToken()}`;
-            tokenContainer.textContent = dailyToken;
+            const conversionMap = buildFullMap();
+            const sortedKeys = Object.keys(conversionMap).sort((a, b) => b.length - a.length);
 
-            // Copy to clipboard functionality
-            copyBtn.addEventListener('click', () => {
-                // Create a temporary textarea to hold the text and copy it
-                const textArea = document.createElement('textarea');
-                textArea.value = dailyToken;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    // Use execCommand for broader compatibility, especially in iFrames
-                    document.execCommand('copy');
-                    copyFeedback.textContent = 'Copied to clipboard!';
-                } catch (err) {
-                    copyFeedback.textContent = 'Failed to copy.';
-                    console.error('Fallback: Oops, unable to copy', err);
+            function updateStats() {
+                const text = singlishInput.value;
+                charCountElem.textContent = text.length;
+                wordCountElem.textContent = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            }
+
+            function convertSinglishToSinhala(text) {
+                const words = text.split(' ');
+                const convertedWords = words.map(word => {
+                    if (word.length === 0) return '';
+                    
+                    let converted = '';
+                    let i = 0;
+                    while (i < word.length) {
+                        let matchFound = false;
+                        for (const key of sortedKeys) {
+                            if (word.substring(i, i + key.length) === key) {
+                                converted += conversionMap[key];
+                                i += key.length;
+                                matchFound = true;
+                                break;
+                            }
+                        }
+                        if (!matchFound) {
+                            converted += word[i];
+                            i++;
+                        }
+                    }
+                    return converted;
+                });
+                return convertedWords.join(' ');
+            }
+
+            function performConversion() {
+                const inputText = singlishInput.value;
+                const outputText = convertSinglishToSinhala(inputText);
+                sinhalaOutput.textContent = outputText || "සිංහල පෙළ මෙතන පෙන්වනු ලැබේ";
+            }
+
+            function clearText() {
+                singlishInput.value = '';
+                performConversion(); // Update output to placeholder
+                updateStats();
+                clearBtn.classList.add('animate__animated', 'animate__shakeX');
+                setTimeout(() => clearBtn.classList.remove('animate__animated', 'animate__shakeX'), 1000);
+            }
+
+            function copyText() {
+                const textToCopy = sinhalaOutput.textContent;
+                if (textToCopy && textToCopy !== 'සිංහල පෙළ මෙතන පෙන්වනු ලැබේ') {
+                    navigator.clipboard.writeText(textToCopy);
+                    // Notification has been removed as per request.
                 }
-                document.body.removeChild(textArea);
-
-                // Clear the feedback message after a few seconds
-                setTimeout(() => {
-                    copyFeedback.textContent = '';
-                }, 3000);
+            }
+            
+            // Event listeners
+            convertBtn.addEventListener('click', performConversion);
+            clearBtn.addEventListener('click', clearText);
+            copyBtn.addEventListener('click', copyText);
+            singlishInput.addEventListener('input', () => {
+                updateStats();
+                performConversion();
             });
+
+            // Initialize
+            updateStats();
+            performConversion();
         });
     </script>
 </body>
