@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>නමේ ගණය සෙවීම</title>
+    <title>සුබ ගණ පිහිටුවීම</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Sans+Sinhala:wght@400;500&display=swap" rel="stylesheet">
@@ -45,6 +45,8 @@
             padding: 30px;
             box-sizing: border-box;
             border: 1px solid var(--border-color);
+            margin-top: 2rem;
+            margin-bottom: 3rem;
         }
 
         .title {
@@ -52,8 +54,8 @@
             color: var(--primary-color);
             font-size: 3rem;
             text-align: center;
-            margin-bottom: 20px;
             letter-spacing: 1px;
+            margin-bottom: 50px;
         }
 
         .input-area {
@@ -97,6 +99,7 @@
         .find-button {
             display: block;
             width: 100%;
+            margin-top: 30px;
             padding: 12px;
             font-size: 1.2rem;
             font-weight: 500;
@@ -213,7 +216,7 @@
 <body>
 
     <div class="container">
-        <h1 class="title">නමේ ගණය සෙවීම</h1>
+        <h1 class="title">සුබ ගණ පිහිටුවීම</h1>
         <div class="input-area">
             <input type="text" id="name-input" class="name-input" placeholder="මෙහි නම ඇතුළත් කරන්න"
             autofocus autocapitalize="none" autocorrect="off" spellcheck="false">
@@ -344,7 +347,7 @@
             "+-+": { ganaStatus: "අසුභයි ⭕", ganaName: "ර - අග්නි ගණය", adhipathi: "කුජ", nakatha: "කැති", prathiphala: "දැඩි ශෝක, මරණ බිය" }
         };
 
-        const guideMessage = "කරුණාකර සිංහල නමක් ඇතුළත් කරන්න. ඔබට ඉංග්‍රීසි අකුරු (Singlish) භාවිතා කළ හැක.";
+        const guideMessage = "කරුණාකර සිංහල නමක් ඇතුළත් කරන්න. ඔබට අවශ්‍ය නම් ඉංග්‍රීසි අකුරු (Singlish) භාවිතා කළ හැක.";
         
         const HAL = '්';
         const BINDUWA = 'ං';
@@ -470,7 +473,7 @@
 
                 // New check for very short names (e.g., one character)
                 if (cleanName.length < 2) {
-                    guideText.innerText = "ගණය සෙවීම සඳහා නම ඉතා කෙටියි. කරුණාකර අක්ෂර දෙකක් හෝ වැඩි ගණනක් ඇතුළත් කරන්න.";
+                    guideText.innerText = "ගණය සෙවීමට නොහැක. කරුණාකර අක්ෂර දෙකක් හෝ වැඩි ගණනක් ඇතුළත් කරන්න.";
                     guideText.style.display = 'block';
                     return;
                 }
@@ -478,7 +481,7 @@
                 const originalSyllables = getSyllables(name);
                 
                 if (originalSyllables.length === 0) {
-                    guideText.innerText = "නම විශ්ලේෂණය කිරීමට නොහැකි විය. කරුණාකර නැවත පරීක්ෂා කරන්න.";
+                    guideText.innerText = "ගණය සෙවීමට නොහැකි විය. කරුණාකර නැවත පරීක්ෂා කරන්න.";
                     guideText.style.display = 'block';
                     return;
                 }
@@ -498,7 +501,7 @@
                 if (resultData) {
                     displayResult(resultData, name, finalSyllables, pattern);
                 } else {
-                    guideText.innerText = `ගණය ගණනය කිරීමට නොහැකි විය. (Pattern: ${pattern})`;
+                    guideText.innerText = `ගණය සෙවීමට නොහැකි විය. (Pattern: ${pattern})`;
                     guideText.style.display = 'block';
                 }
 
