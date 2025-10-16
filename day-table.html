@@ -250,16 +250,22 @@
             border-color: var(--warning-color); 
         }
 
-        #guide-text {
+        #guide-text, #converter-guide-text {
             text-align: center;
             color: #721c24;
-            margin-top: 20px;
             padding: 10px;
             background-color: #f8d7da;
             border: 1px solid #f5c6cb;
             border-radius: 8px;
             display: none;
         }
+        #guide-text {
+             margin-top: 20px;
+        }
+        #converter-guide-text {
+             margin-bottom: 20px;
+        }
+
 
         .note {
             margin-top: 30px;
@@ -320,12 +326,14 @@
                      <span class="tooltip-text">එක් වරකට එක් නමක් පමණක් ඇතුළත් කර පරීක්ෂා කරන්න.</span>
                  </div>
             </div>
-            <input type="text" id="name1" placeholder="නම ඇතුළත් කරන්න...">
+            <input type="text" id="name1" placeholder="නම ඇතුළත් කරන්න..."
+            autofocus autocapitalize="none" autocorrect="off" spellcheck="false">
         </div>
 
         <div class="input-group">
             <label for="name2">ජන්මයාගේ නම</label>
-            <input type="text" id="name2" placeholder="නම ඇතුළත් කරන්න...">
+            <input type="text" id="name2" placeholder="නම ඇතුළත් කරන්න..."
+             autocapitalize="none" autocorrect="off" spellcheck="false">
         </div>
 
         <button class="cta-button" onclick="checkCompatibility()">
@@ -346,7 +354,7 @@
         
         <div class="input-group">
             <textarea id="singlish-input" placeholder="Type in Singlish here..."
-            autofocus autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>
+            autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>
         </div>
         
         <div class="input-group">
@@ -354,6 +362,7 @@
             <div id="sinhala-output">සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ</div>
         </div>
         
+        <div id="converter-guide-text"></div>
         <div>
             <button id="copy-btn" class="converter-btn">
                 <i class="far fa-copy" style="margin-right: 5px;"></i>Copy
@@ -369,18 +378,30 @@
     </footer>
 
     <script>
-        // --- Custom Alert/Guide Message Function ---
+        // --- Custom Alert/Guide Message Functions ---
         const guideDiv = document.getElementById('guide-text');
+        const converterGuideDiv = document.getElementById('converter-guide-text');
         let guideTimeout;
+        let converterGuideTimeout;
 
         function showGuide(message, duration = 4000) {
             clearTimeout(guideTimeout); 
             guideDiv.innerHTML = message;
             guideDiv.style.display = 'block';
-            document.getElementById('result').style.display = 'none'; // Hide main result when showing guide
+            document.getElementById('result').style.display = 'none';
             
             guideTimeout = setTimeout(() => {
                 guideDiv.style.display = 'none';
+            }, duration);
+        }
+        
+        function showConverterGuide(message, duration = 4000) {
+            clearTimeout(converterGuideTimeout);
+            converterGuideDiv.innerHTML = message;
+            converterGuideDiv.style.display = 'block';
+
+            converterGuideTimeout = setTimeout(() => {
+                converterGuideDiv.style.display = 'none';
             }, duration);
         }
 
@@ -449,7 +470,6 @@
             const name1 = name1Input.value;
             const name2 = name2Input.value;
             
-            // --- VALIDATION ---
             const sinhalaPattern = /[\u0D80-\u0DFF]/;
             if (!name1 || !name2) {
                 showGuide("කරුණාකර නම් දෙකම ඇතුළත් කරන්න.");
@@ -464,15 +484,13 @@
                 return;
             }
             
-            guideDiv.style.display = 'none'; // Hide guide text on successful check
+            guideDiv.style.display = 'none';
 
-            // --- LOGIC ---
             const vowel1 = getVowelSound(name1);
             const vowel2 = getVowelSound(name2);
             
             let message = '';
             let resultClass = '';
-
             const relevantVowels = ['අ', 'ආ', 'ඉ', 'ඊ', 'උ', 'ඌ', 'එ', 'ඒ', 'ඔ', 'ඕ'];
             
             if (!vowel1 || !vowel2 || !relevantVowels.includes(vowel1) || !relevantVowels.includes(vowel2)) {
@@ -509,64 +527,35 @@
             const clearBtn = document.getElementById('clear-btn');
             
             function buildFullMap() {
-             const baseConsonants = {
-                     'k': 'ක', 'kh': 'ඛ', 'g': 'ග', 'gh': 'ඝ',
-                     'ch': 'ච', 'chh': 'ඡ', 'j': 'ජ',
-                     'th': 'ත', 'thh': 'ථ',
-                     'd': 'ඩ', 'dh': 'ද', 'q': 'ද', 'dhh': 'ධ',
-                     'n': 'න', 'N': 'ණ',
-                     'p': 'ප', 'ph': 'ඵ',
-                     'b': 'බ', 'bh': 'භ', 'B': 'ඹ',
-                     'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'L': 'ළ',
-                     'v': 'ව', 'w': 'ව', 's': 'ස', 'sh': 'ශ', 'Sh': 'ෂ', 'S': 'ෂ',
-                     'h': 'හ', 'f': 'ෆ', 't': 'ට', 'c': 'ස', 'D': 'ඪ',
-                     'T': 'ඨ', 'C': 'ස', 'F': 'ෆ', 'G': 'ඝ', 'H': 'හ',
-                     'J': 'ජ', 'K': 'ඛ', 'M': 'ම', 'P': 'ඵ', 'Q': 'ධ',
-                     'V': 'ව', 'W': 'ව', 'Y': 'ය',
-                     'zga': 'ඟ', 'zja': 'ඦ', 'zda': 'ඬ', 'zdha': 'ඳ', 'zqa': 'ඳ',
-                     'zk': 'ඤ', 'zh': 'ඥ', 'X': 'ඞ'
-              };
-
-              const pillaChars = {
-                   'a': '', 'aa': 'ා', 'A': 'ැ', 'Aa': 'ෑ', 'AA': 'ෑ',
-                   'i': 'ි', 'ii': 'ී', 'u': 'ු', 'uu': 'ූ', 'R': 'ෘ', 'Ru': 'ෲ',
-                   'e': 'ෙ', 'ee': 'ේ', 'ai': 'ෛ', 'o': 'ො', 'oo': 'ෝ',
-                   'au': 'ෞ', 'ou': 'ෞ', 'H': 'ඃ'
-              };
-
-              const baseVowels = {
-                     'a': 'අ', 'aa': 'ආ', 'A': 'ඇ', 'Aa': 'ඈ', 'AA': 'ඈ',
-                     'i': 'ඉ', 'ii': 'ඊ', 'u': 'උ', 'U': 'උ', 'uu': 'ඌ', 'R': 'ඍ', 'Ru': 'ඎ',
-                     'e': 'එ', 'E': 'එ', 'ee': 'ඒ', 'ai': 'ඓ', 'I': 'ඓ', 'o': 'ඔ', 
-                     'O': 'ඔ', 'oo': 'ඕ', 'au': 'ඖ', 'ou': 'ඖ'
-              };
-               
-                let consonantBlocks = { ...baseConsonants };
-                const doubles = { 'tt': 'ට්ට', 'dd': 'ඩ්ඩ', 'nn': 'න්න', 'mm': 'ම්ම', 'll': 'ල්ල', 'pp': 'ප්ප' };
-                Object.assign(consonantBlocks, doubles);
-                const yansaya = '්‍ය';
-                const rakāransaya = '්‍ර';
-                for (const key in baseConsonants) {
-                    if (key !== 'y') consonantBlocks[key + 'y'] = baseConsonants[key] + yansaya;
-                    if (key !== 'r') consonantBlocks[key + 'r'] = baseConsonants[key] + rakāransaya;
-                }
-                let fullMap = { ...baseVowels, 'Lu': 'ළු', '.': '෴' };
-                for (const blockKey in consonantBlocks) {
-                    const blockValue = consonantBlocks[blockKey];
-                    fullMap[blockKey] = blockValue + '්';
-                    for (const pillaKey in pillaChars) {
-                        const pillaValue = pillaChars[pillaKey];
-                        if (pillaKey === 'a') {
-                            fullMap[blockKey + 'a'] = blockValue;
-                        } else {
-                            fullMap[blockKey + pillaKey] = blockValue + pillaValue;
-                        }
-                    }
-                }
-                fullMap['x'] = 'ං';
-                fullMap['kazn'] = 'කං';
-                fullMap['z'] = '';
-                return fullMap;
+                 const baseConsonants = { 'k': 'ක', 'kh': 'ඛ', 'g': 'ග', 'gh': 'ඝ', 'ch': 'ච', 'chh': 'ඡ', 'j': 'ජ', 'th': 'ත', 'thh': 'ථ', 'd': 'ඩ', 'dh': 'ද', 'q': 'ද', 'dhh': 'ධ', 'n': 'න', 'N': 'ණ', 'p': 'ප', 'ph': 'ඵ', 'b': 'බ', 'bh': 'භ', 'B': 'ඹ', 'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'L': 'ළ', 'v': 'ව', 'w': 'ව', 's': 'ස', 'sh': 'ශ', 'Sh': 'ෂ', 'S': 'ෂ', 'h': 'හ', 'f': 'ෆ', 't': 'ට', 'c': 'ස', 'D': 'ඪ', 'T': 'ඨ', 'C': 'ස', 'F': 'ෆ', 'G': 'ඝ', 'H': 'හ', 'J': 'ජ', 'K': 'ඛ', 'M': 'ම', 'P': 'ඵ', 'Q': 'ධ', 'V': 'ව', 'W': 'ව', 'Y': 'ය', 'zga': 'ඟ', 'zja': 'ඦ', 'zda': 'ඬ', 'zdha': 'ඳ', 'zqa': 'ඳ', 'zk': 'ඤ', 'zh': 'ඥ', 'X': 'ඞ' };
+                 const pillaChars = { 'a': '', 'aa': 'ා', 'A': 'ැ', 'Aa': 'ෑ', 'AA': 'ෑ', 'i': 'ි', 'ii': 'ී', 'u': 'ු', 'uu': 'ූ', 'R': 'ෘ', 'Ru': 'ෲ', 'e': 'ෙ', 'ee': 'ේ', 'ai': 'ෛ', 'o': 'ො', 'oo': 'ෝ', 'au': 'ෞ', 'ou': 'ෞ', 'H': 'ඃ' };
+                 const baseVowels = { 'a': 'අ', 'aa': 'ආ', 'A': 'ඇ', 'Aa': 'ඈ', 'AA': 'ඈ', 'i': 'ඉ', 'ii': 'ඊ', 'u': 'උ', 'U': 'උ', 'uu': 'ඌ', 'R': 'ඍ', 'Ru': 'ඎ', 'e': 'එ', 'E': 'එ', 'ee': 'ඒ', 'ai': 'ඓ', 'I': 'ඓ', 'o': 'ඔ', 'O': 'ඔ', 'oo': 'ඕ', 'au': 'ඖ', 'ou': 'ඖ' };
+                 let consonantBlocks = { ...baseConsonants };
+                 const doubles = { 'tt': 'ට්ට', 'dd': 'ඩ්ඩ', 'nn': 'න්න', 'mm': 'ම්ම', 'll': 'ල්ල', 'pp': 'ප්ප' };
+                 Object.assign(consonantBlocks, doubles);
+                 const yansaya = '්‍ය';
+                 const rakāransaya = '්‍ර';
+                 for (const key in baseConsonants) {
+                     if (key !== 'y') consonantBlocks[key + 'y'] = baseConsonants[key] + yansaya;
+                     if (key !== 'r') consonantBlocks[key + 'r'] = baseConsonants[key] + rakāransaya;
+                 }
+                 let fullMap = { ...baseVowels, 'Lu': 'ළු', '.': '෴' };
+                 for (const blockKey in consonantBlocks) {
+                     const blockValue = consonantBlocks[blockKey];
+                     fullMap[blockKey] = blockValue + '්';
+                     for (const pillaKey in pillaChars) {
+                         const pillaValue = pillaChars[pillaKey];
+                         if (pillaKey === 'a') {
+                             fullMap[blockKey + 'a'] = blockValue;
+                         } else {
+                             fullMap[blockKey + pillaKey] = blockValue + pillaValue;
+                         }
+                     }
+                 }
+                 fullMap['x'] = 'ං';
+                 fullMap['kazn'] = 'කං';
+                 fullMap['z'] = '';
+                 return fullMap;
             }
 
             const conversionMap = buildFullMap();
@@ -608,31 +597,60 @@
                 singlishInput.value = '';
                 performConversion(); 
             }
+            
+            function showCopySuccessFeedback() {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<i class="fas fa-check" style="margin-right: 5px;"></i>Copied`;
+                copyBtn.disabled = true;
+                setTimeout(() => {
+                   copyBtn.innerHTML = originalHTML;
+                   copyBtn.disabled = false;
+                }, 2000);
+            }
+
+            function fallbackCopyTextToClipboard(text) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.top = '-9999px';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        showCopySuccessFeedback();
+                    } else {
+                         showConverterGuide('පිටපත් කිරීමට නොහැකි විය.');
+                    }
+                } catch (err) {
+                    showConverterGuide('පිටපත් කිරීමට නොහැකි විය.');
+                }
+                document.body.removeChild(textArea);
+            }
 
             function copyText() {
                 const textToCopy = sinhalaOutput.textContent;
-                if (textToCopy && textToCopy !== 'සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ') {
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        const originalHTML = copyBtn.innerHTML;
-                        copyBtn.innerHTML = `<i class="fas fa-check" style="margin-right: 5px;"></i>Copied`;
-                        copyBtn.disabled = true;
-                        
-                        setTimeout(() => {
-                           copyBtn.innerHTML = originalHTML;
-                           copyBtn.disabled = false;
-                        }, 2000);
-
-                    }, (err) => {
-                        console.error('Failed to copy: ', err);
-                        showGuide('පිටපත් කිරීමට නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න.');
+                if (!textToCopy || textToCopy === 'සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ') {
+                     showConverterGuide('පිටපත් කිරීමට අකුරු නොමැත.');
+                    return;
+                }
+                
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(textToCopy).then(showCopySuccessFeedback).catch(err => {
+                        console.warn('Clipboard API failed, trying fallback.', err);
+                        fallbackCopyTextToClipboard(textToCopy);
                     });
+                } else {
+                    console.warn('Clipboard API not available, using fallback.');
+                    fallbackCopyTextToClipboard(textToCopy);
                 }
             }
             
             clearBtn.addEventListener('click', clearText);
             copyBtn.addEventListener('click', copyText);
             singlishInput.addEventListener('input', performConversion);
-            
             performConversion();
         });
     </script>
