@@ -1,657 +1,244 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ස්වර වේධ ගැළපීම</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Advanced Compass Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #7F0000;
-            --secondary-color: #FDF5E6;
-            --highlight-color: #FFA500;
-            --border-color: #d4a373;
-            --font-gemunu: 'Gemunu Libre', sans-serif;
-            --font-noto: 'Noto Serif Sinhala', serif;
-            --success-color: #4CAF50;
-            --warning-color: #FFC107;
-            --danger-color: #F44336;
-            --text-color: #333;
-            --text-light: #666;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: var(--font-noto);
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            touch-action: none;
+            overscroll-behavior: none;
         }
-
-        .container, .converter-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 700px;
-            text-align: center;
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
+        .compass-dial {
+            transition: transform 0.2s ease-out;
         }
-
-        h1 {
-            font-family: var(--font-gemunu);
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
+        .compass-container::before {
             content: '';
             position: absolute;
-            bottom: -10px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background-color: var(--highlight-color);
-            border-radius: 3px;
-        }
-
-        h2 {
-            font-family: var(--font-noto);
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin: 30px 0 15px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background-color: var(--highlight-color);
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        
-        .label-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        label {
-            font-weight: bold;
-            color: var(--text-color);
-            font-size: 1.1rem;
-        }
-
-        .info-icon {
-            margin-left: 8px;
-            cursor: pointer;
-            color: var(--highlight-color);
-            transition: transform 0.2s;
-        }
-
-        .info-icon:hover {
-            transform: scale(1.1);
-        }
-        
-        .tooltip-text {
-            visibility: hidden;
-            width: 250px;
-            background-color: var(--text-color);
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            padding: 10px;
-            position: absolute;
-            z-index: 1;
-            top: 25px;
-            left: 50%;
-            margin-left: -125px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.9rem;
-            font-weight: normal;
-            box-shadow: var(--shadow);
-        }
-
-        .info-icon:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: var(--font-noto);
-            transition: border-color 0.3s, box-shadow 0.3s;
-            color: var(--text-color);
-        }
-
-        input[type="text"]:focus, textarea:focus {
-            outline: none;
-            border-color: var(--highlight-color);
-            box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
-        }
-        
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .cta-button, .converter-btn {
-            background-color: var(--highlight-color);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-family: var(--font-noto);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 5px;
-            font-weight: 600;
-            box-shadow: 0 4px 0 rgba(127, 0, 0, 0.2);
-        }
-
-        .cta-button:hover, .converter-btn:hover {
-            background-color: #e69500;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0 rgba(127, 0, 0, 0.2);
-        }
-
-        .cta-button:active, .converter-btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 0 rgba(127, 0, 0, 0.2);
-        }
-        
-        #clear-btn { 
-            background-color: var(--danger-color); 
-        }
-        #clear-btn:hover { 
-            background-color: #d32f2f; 
-        }
-        
-        #copy-btn { 
-            background-color: var(--success-color); 
-        }
-        #copy-btn:hover { 
-            background-color: #388e3c; 
-        }
-        
-        .converter-btn:disabled {
-            background-color: #a5d6a7;
-            cursor: not-allowed;
-            transform: translateY(0);
-            box-shadow: 0 4px 0 rgba(127, 0, 0, 0.2);
-        }
-
-        .result {
-            margin-top: 30px;
-            font-size: 1.2rem;
-            min-height: 50px;
-            text-align: left;
-            border: 2px solid transparent;
-            padding: 20px;
-            border-radius: 10px;
-            transition: all 0.3s;
-            display: none;
-            color: var(--text-color);
-            line-height: 1.7;
-        }
-
-        .result.visible {
-            display: block;
-        }
-
-        .result.compatible { 
-            background-color: rgba(76, 175, 80, 0.1); 
-            border-color: var(--success-color); 
-        }
-        .result.incompatible { 
-            background-color: rgba(244, 67, 54, 0.1); 
-            border-color: var(--danger-color); 
-        }
-        .result.neutral { 
-            background-color: rgba(255, 193, 7, 0.1); 
-            border-color: var(--warning-color); 
-        }
-
-        #guide-text, #converter-guide-text {
-            text-align: center;
-            color: #721c24;
-            padding: 10px;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            border-radius: 8px;
-            display: none;
-        }
-        #guide-text {
-             margin-top: 20px;
-        }
-        #converter-guide-text {
-             margin-bottom: 20px;
-        }
-
-
-        .note {
-            margin-top: 30px;
-            padding: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            background-color: rgba(253, 245, 230, 0.5);
-            text-align: left;
-            font-size: 0.9rem;
-            line-height: 1.7;
-            color: var(--text-color);
-        }
-
-        footer {
-            margin-top: 20px;
-            margin-bottom: 3rem;
-            font-size: 0.8em;
-            color: var(--text-light);
-            text-align: center;
-        }
-        
-        #sinhala-output {
-            padding: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            min-height: 120px;
-            text-align: left;
-            margin-top: 10px;
-            font-size: 1.1rem;
-            color: var(--text-color);
-            background-color: rgba(253, 245, 230, 0.5);
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.3rem; }
-            .container, .converter-container { padding: 20px; }
-            .tooltip-text {
-                width: 200px;
-                left: 0;
-                margin-left: 0;
-            }
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: #f87171; /* Red-400 */
+            border-radius: 50%;
+            z-index: 20;
+            border: 2px solid #1f2937; /* Gray-800 */
         }
     </style>
 </head>
-<body>
-
-    <div class="container">
-        <h1>ස්වර වේධ ගැළපීම</h1>
-
-        <div class="input-group">
-            <div class="label-group">
-                 <label for="name1">මව්පියන්, සහෝදරයන්ගේ නම්</label>
-                 <div class="info-icon">
-                     <i class="fas fa-info-circle"></i>
-                     <span class="tooltip-text">එක් වරකට එක් නමක් පමණක් ඇතුළත් කර පරීක්ෂා කරන්න.</span>
-                 </div>
-            </div>
-            <input type="text" id="name1" placeholder="නම ඇතුළත් කරන්න..."
-            autofocus autocapitalize="none" autocorrect="off" spellcheck="false">
-        </div>
-
-        <div class="input-group">
-            <label for="name2">ජන්මයාගේ නම</label>
-            <input type="text" id="name2" placeholder="නම ඇතුළත් කරන්න..."
-             autocapitalize="none" autocorrect="off" spellcheck="false">
-        </div>
-
-        <button class="cta-button" onclick="checkCompatibility()">
-            <i class="fas fa-search" style="margin-right: 8px;"></i>සොයන්න
-        </button>
-
-        <div id="guide-text"></div>
-        <div id="result" class="result"></div>
-
-        <div class="note">
-            <p><strong>සටහන:</strong> මෙම මෙවලම මගින් ඔබ ලබා දෙන නම් දෙකෙහි මුල් අක්ෂරවලට අදාළ ස්වර ශබ්ද විශ්ලේෂණය කර, ස්වර වේධ ක්‍රමවේදයට අනුව ඒවායේ ගැළපීම හෝ නොගැළපීම පෙන්වයි. මෙය ජ්‍යොතිෂයේ එක් කුඩා කොටසක් පමණක් වන අතර සම්පූර්ණ නාම ගැළපීම් පරීක්ෂාවක් සඳහා සුදුසුකම් ලත් ජ්‍යොතිෂවේදියෙකු හමුවන්න.</p>
-        </div>
-    </div>
+<body class="bg-gray-900 text-gray-200 flex items-center justify-center min-h-screen antialiased select-none">
     
-    <div class="converter-container">
-        <h2>යුනිකෝඩ් පරිවර්තකය</h2>
-        <p>සිංහල නාමය ඉංග්‍රීසි අකුරු (Singlish) යොදා ටයිප් කරන්න.</p>
-        
-        <div class="input-group">
-            <textarea id="singlish-input" placeholder="Type in Singlish here..."
-            autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>
-        </div>
-        
-        <div class="input-group">
-            <label for="sinhala-output">සිංහල ප්‍රතිඵලය</label>
-            <div id="sinhala-output">සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ</div>
-        </div>
-        
-        <div id="converter-guide-text"></div>
-        <div>
-            <button id="copy-btn" class="converter-btn">
-                <i class="far fa-copy" style="margin-right: 5px;"></i>Copy
+    <div id="permission-modal" class="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col items-center justify-center z-50 p-4">
+        <div class="text-center">
+            <svg class="mx-auto h-16 w-16 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h2 class="text-3xl font-bold text-white mt-4">Advanced Compass</h2>
+            <p class="text-gray-400 mt-2 max-w-sm">Please grant permission to access device orientation and location for the compass and GPS to function.</p>
+            <button id="start-btn" class="mt-8 bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                Start Compass
             </button>
-            <button id="clear-btn" class="converter-btn">
-                <i class="fas fa-eraser" style="margin-right: 5px;"></i>Clear
-            </button>
+            <p id="error-message" class="text-red-400 mt-4 h-5"></p>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; <span id="year"></span> Suba Namak | Astro Jayamaga. All Rights Reserved.</p>
-    </footer>
+    <div class="w-full max-w-sm mx-auto p-4 space-y-6">
+        <!-- Header: Time and Date -->
+        <div class="text-center">
+            <h1 id="time-display" class="text-4xl font-bold text-white tracking-wider">00:00:00</h1>
+            <p id="date-display" class="text-gray-400">Monday, January 1</p>
+        </div>
+
+        <!-- Compass -->
+        <div class="relative w-80 h-80 mx-auto compass-container">
+            <!-- Compass Needle (Static) -->
+            <div class="absolute inset-0 flex justify-center z-10">
+                <svg width="24" height="320" viewBox="0 0 24 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0L22 28L12 320L2 28L12 0Z" fill="#f87171"/> <!-- Red-400 -->
+                    <path d="M12 0L2 28L12 320L22 28L12 0Z" fill="#ef4444" fill-opacity="0.5"/> <!-- Red-500 -->
+                </svg>
+            </div>
+            <!-- Compass Dial (Rotates) -->
+            <div id="compass-dial" class="w-full h-full rounded-full bg-gray-800 shadow-2xl compass-dial flex items-center justify-center relative border-4 border-gray-700">
+                <img src="https://placehold.co/300x300/1f2937/a3a3a3?text=%20"
+                     onerror="this.onerror=null;this.src='https://placehold.co/300x300/1f2937/4b5563?text=Compass'"
+                     alt="Compass Dial"
+                     class="absolute w-full h-full object-cover rounded-full dial-image-placeholder">
+            </div>
+        </div>
+
+        <!-- Digital Readout -->
+        <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center">
+            <h2 id="heading-display" class="text-5xl font-bold text-sky-400">0°</h2>
+            <p id="direction-display" class="text-2xl text-gray-300 font-medium">N</p>
+        </div>
+        
+        <!-- GPS Coordinates -->
+        <div class="bg-gray-800 p-4 rounded-xl shadow-lg flex justify-around text-center">
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Latitude</p>
+                <p id="lat-display" class="text-lg font-semibold text-white">--.------</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Longitude</p>
+                <p id="lon-display" class="text-lg font-semibold text-white">--.------</p>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // --- Custom Alert/Guide Message Functions ---
-        const guideDiv = document.getElementById('guide-text');
-        const converterGuideDiv = document.getElementById('converter-guide-text');
-        let guideTimeout;
-        let converterGuideTimeout;
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const startBtn = document.getElementById('start-btn');
+            const permissionModal = document.getElementById('permission-modal');
+            const errorMessage = document.getElementById('error-message');
+            const compassDial = document.getElementById('compass-dial');
+            const headingDisplay = document.getElementById('heading-display');
+            const directionDisplay = document.getElementById('direction-display');
+            const latDisplay = document.getElementById('lat-display');
+            const lonDisplay = document.getElementById('lon-display');
+            const timeDisplay = document.getElementById('time-display');
+            const dateDisplay = document.getElementById('date-display');
+            const dialImage = document.querySelector('.dial-image-placeholder');
 
-        function showGuide(message, duration = 4000) {
-            clearTimeout(guideTimeout); 
-            guideDiv.innerHTML = message;
-            guideDiv.style.display = 'block';
-            document.getElementById('result').style.display = 'none';
-            
-            guideTimeout = setTimeout(() => {
-                guideDiv.style.display = 'none';
-            }, duration);
-        }
-        
-        function showConverterGuide(message, duration = 4000) {
-            clearTimeout(converterGuideTimeout);
-            converterGuideDiv.innerHTML = message;
-            converterGuideDiv.style.display = 'block';
+            let smoothedHeading = 0;
+            const smoothingFactor = 0.1;
 
-            converterGuideTimeout = setTimeout(() => {
-                converterGuideDiv.style.display = 'none';
-            }, duration);
-        }
-
-        // --- Main Tool Logic ---
-        const opposition = {
-            'අ': 'උ', 'උ': 'අ',
-            'ආ': 'ඌ', 'ඌ': 'ආ',
-            'ඉ': ['එ', 'ඒ'], 'ඊ': ['ඔ', 'ඕ'],
-            'එ': 'ඉ', 'ඒ': 'ඉ',
-            'ඔ': 'ඊ', 'ඕ': 'ඊ',
-        };
-
-        const vowelGroups = {
-            'එ': 'එ, ඒ', 'ඒ': 'එ, ඒ',
-            'ඔ': 'ඔ, ඕ', 'ඕ': 'ඔ, ඕ'
-        };
-
-        function getVowelSound(name) {
-            const trimmedName = name.trim();
-            if (!trimmedName) return null;
-
-            const standaloneVowels = ['අ', 'ආ', 'ඇ', 'ඈ', 'ඉ', 'ඊ', 'උ', 'ඌ', 'එ', 'ඒ', 'ඔ', 'ඕ', 'ඓ', 'ඖ'];
-            const piliMap = {
-                'ා': 'ආ', 'ැ': 'ඇ', 'ෑ': 'ඈ', 'ි': 'ඉ', 'ී': 'ඊ',
-                'ු': 'උ', 'ූ': 'ඌ', 'ෙ': 'එ', 'ේ': 'ඒ', 'ො': 'ඔ', 'ෝ': 'ඕ',
-                'ෛ': 'ඓ', 'ෞ': 'ඖ',
-                'ෘ': 'උ', 'ෲ': 'ඌ'
+            // Generate compass dial SVG
+            const generateCompassDialSVG = () => {
+                const svgNS = "http://www.w3.org/2000/svg";
+                let svg = `<svg viewBox="0 0 300 300" xmlns="${svgNS}">`;
+                svg += `<circle cx="150" cy="150" r="148" fill="#1f2937" stroke="#4b5563" stroke-width="2"/>`; // Gray-800, Gray-600
+                const directions = {
+                    'N': 0, 'E': 90, 'S': 180, 'W': 270
+                };
+                for (let i = 0; i < 360; i += 2) {
+                    const angle = i * Math.PI / 180;
+                    const isMajor = i % 30 === 0;
+                    const isCardinal = i % 90 === 0;
+                    const r1 = isCardinal ? 120 : (isMajor ? 130 : 138);
+                    const r2 = 145;
+                    const x1 = 150 + r1 * Math.sin(angle);
+                    const y1 = 150 - r1 * Math.cos(angle);
+                    const x2 = 150 + r2 * Math.sin(angle);
+                    const y2 = 150 - r2 * Math.cos(angle);
+                    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${isMajor ? '#e5e7eb' : '#6b7280'}" stroke-width="${isMajor ? 2 : 1}"/>`;
+                }
+                Object.entries(directions).forEach(([dir, angleDeg]) => {
+                    const angleRad = angleDeg * Math.PI / 180;
+                    const r = 105;
+                    const x = 150 + r * Math.sin(angleRad);
+                    const y = 150 - r * Math.cos(angleRad) + 8;
+                    svg += `<text x="${x}" y="${y}" font-family="Inter, sans-serif" font-size="24" font-weight="bold" fill="#e5e7eb" text-anchor="middle">${dir}</text>`;
+                });
+                svg += '</svg>';
+                return `data:image/svg+xml;base64,${btoa(svg)}`;
             };
 
-            const char1 = trimmedName.charAt(0);
-            if (standaloneVowels.includes(char1)) {
-                return char1;
-            }
+            dialImage.src = generateCompassDialSVG();
 
-            const allConsonants = "කඛගඝඞඟචඡජඣඤඥඦටඨඩඪඬණතථදධඳනඹපඵබභමයරලවශෂසහළෆ";
-            if (!allConsonants.includes(char1)) {
-                return null;
-            }
-
-            let hasSeenHal = false;
-            for (let i = 1; i < trimmedName.length; i++) {
-                const char = trimmedName.charAt(i);
-                if (piliMap[char]) {
-                    return piliMap[char];
-                } else if (char === '්') {
-                    hasSeenHal = true;
-                    continue;
-                } else if (char === '\u200D') { // ZWJ
-                    continue;
-                } else if (allConsonants.includes(char)) {
-                    if (!hasSeenHal) {
-                        return 'අ';
-                    }
-                    hasSeenHal = false;
-                } else {
-                    continue;
-                }
-            }
-            return 'අ';
-        }
-
-        function checkCompatibility() {
-            const name1Input = document.getElementById('name1');
-            const name2Input = document.getElementById('name2');
-            const resultDiv = document.getElementById('result');
-            const name1 = name1Input.value;
-            const name2 = name2Input.value;
-            
-            const sinhalaPattern = /[\u0D80-\u0DFF]/;
-            if (!name1 || !name2) {
-                showGuide("කරුණාකර නම් දෙකම ඇතුළත් කරන්න.");
-                return;
-            }
-            if (!sinhalaPattern.test(name1) || !sinhalaPattern.test(name2)) {
-                showGuide("කරුණාකර සිංහල අකුරු පමණක් භාවිතා කරන්න. අවශ්‍ය නම් පහත ඇති යුනිකෝඩ් පරිවර්තකය භාවිතා කරන්න.");
-                return;
-            }
-            if (name1.trim().split(/\s+/).length > 1 || name2.trim().split(/\s+/).length > 1) {
-                showGuide("එක් වරකට එක් නමක් පමණක් ඇතුළත් කර පරීක්ෂා කරන්න.");
-                return;
-            }
-            
-            guideDiv.style.display = 'none';
-
-            const vowel1 = getVowelSound(name1);
-            const vowel2 = getVowelSound(name2);
-            
-            let message = '';
-            let resultClass = '';
-            const relevantVowels = ['අ', 'ආ', 'ඉ', 'ඊ', 'උ', 'ඌ', 'එ', 'ඒ', 'ඔ', 'ඕ'];
-            
-            if (!vowel1 || !vowel2 || !relevantVowels.includes(vowel1) || !relevantVowels.includes(vowel2)) {
-                message = "මෙම නාමයන් යුගල ස්වර වේධ ක්‍රමවේදයට අනුව බලපෑමක් නොමැති බැවින් ගැළපේ. ✅";
-                resultClass = 'neutral';
-            } else if (
-                (Array.isArray(opposition[vowel1]) && opposition[vowel1].includes(vowel2)) ||
-                (Array.isArray(opposition[vowel2]) && opposition[vowel2].includes(vowel1)) ||
-                (opposition[vowel1] === vowel2)
-            ) {
-                message = `මෙම නාමයන් අයත් වන [${vowel1}] ස්වරය හා [${vowel2}] ස්වරය ස්වර වේධ වන බැවින් නොගැළපේ. ⭕`;
-                resultClass = 'incompatible';
-            } else if (vowel1 === vowel2 || 
-                       (vowelGroups[vowel1] && vowelGroups[vowel1] === vowelGroups[vowel2])) {
-                const displayVowel = vowelGroups[vowel1] || vowel1;
-                message = `මෙම නාමයන් යුගල අයත් ස්වරය වන [${displayVowel}] ස්වර වේධ ක්‍රමවේදයට අනුව ගැළපේ. ✅`;
-                resultClass = 'compatible';
-            } else {
-                 message = `මෙම නාමයන් යුගල අයත් ස්වර වන [${vowel1} | ${vowel2}] ස්වර වේධ ක්‍රමවේදයට අනුව ගැළපේ. ✅`;
-                 resultClass = 'compatible';
-            }
-
-            resultDiv.innerHTML = message;
-            resultDiv.className = 'result ' + resultClass + ' visible';
-        }
-
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // --- Unicode Converter Logic ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const singlishInput = document.getElementById('singlish-input');
-            const sinhalaOutput = document.getElementById('sinhala-output');
-            const copyBtn = document.getElementById('copy-btn');
-            const clearBtn = document.getElementById('clear-btn');
-            
-            function buildFullMap() {
-                 const baseConsonants = { 'k': 'ක', 'kh': 'ඛ', 'g': 'ග', 'gh': 'ඝ', 'ch': 'ච', 'chh': 'ඡ', 'j': 'ජ', 'th': 'ත', 'thh': 'ථ', 'd': 'ඩ', 'dh': 'ද', 'q': 'ද', 'dhh': 'ධ', 'n': 'න', 'N': 'ණ', 'p': 'ප', 'ph': 'ඵ', 'b': 'බ', 'bh': 'භ', 'B': 'ඹ', 'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'L': 'ළ', 'v': 'ව', 'w': 'ව', 's': 'ස', 'sh': 'ශ', 'Sh': 'ෂ', 'S': 'ෂ', 'h': 'හ', 'f': 'ෆ', 't': 'ට', 'c': 'ස', 'D': 'ඪ', 'T': 'ඨ', 'C': 'ස', 'F': 'ෆ', 'G': 'ඝ', 'H': 'හ', 'J': 'ජ', 'K': 'ඛ', 'M': 'ම', 'P': 'ඵ', 'Q': 'ධ', 'V': 'ව', 'W': 'ව', 'Y': 'ය', 'zga': 'ඟ', 'zja': 'ඦ', 'zda': 'ඬ', 'zdha': 'ඳ', 'zqa': 'ඳ', 'zk': 'ඤ', 'zh': 'ඥ', 'X': 'ඞ' };
-                 const pillaChars = { 'a': '', 'aa': 'ා', 'A': 'ැ', 'Aa': 'ෑ', 'AA': 'ෑ', 'i': 'ි', 'ii': 'ී', 'u': 'ු', 'uu': 'ූ', 'R': 'ෘ', 'Ru': 'ෲ', 'e': 'ෙ', 'ee': 'ේ', 'ai': 'ෛ', 'o': 'ො', 'oo': 'ෝ', 'au': 'ෞ', 'ou': 'ෞ', 'H': 'ඃ' };
-                 const baseVowels = { 'a': 'අ', 'aa': 'ආ', 'A': 'ඇ', 'Aa': 'ඈ', 'AA': 'ඈ', 'i': 'ඉ', 'ii': 'ඊ', 'u': 'උ', 'U': 'උ', 'uu': 'ඌ', 'R': 'ඍ', 'Ru': 'ඎ', 'e': 'එ', 'E': 'එ', 'ee': 'ඒ', 'ai': 'ඓ', 'I': 'ඓ', 'o': 'ඔ', 'O': 'ඔ', 'oo': 'ඕ', 'au': 'ඖ', 'ou': 'ඖ' };
-                 let consonantBlocks = { ...baseConsonants };
-                 const doubles = { 'tt': 'ට්ට', 'dd': 'ඩ්ඩ', 'nn': 'න්න', 'mm': 'ම්ම', 'll': 'ල්ල', 'pp': 'ප්ප' };
-                 Object.assign(consonantBlocks, doubles);
-                 const yansaya = '්‍ය';
-                 const rakāransaya = '්‍ර';
-                 for (const key in baseConsonants) {
-                     if (key !== 'y') consonantBlocks[key + 'y'] = baseConsonants[key] + yansaya;
-                     if (key !== 'r') consonantBlocks[key + 'r'] = baseConsonants[key] + rakāransaya;
-                 }
-                 let fullMap = { ...baseVowels, 'Lu': 'ළු', '.': '෴' };
-                 for (const blockKey in consonantBlocks) {
-                     const blockValue = consonantBlocks[blockKey];
-                     fullMap[blockKey] = blockValue + '්';
-                     for (const pillaKey in pillaChars) {
-                         const pillaValue = pillaChars[pillaKey];
-                         if (pillaKey === 'a') {
-                             fullMap[blockKey + 'a'] = blockValue;
-                         } else {
-                             fullMap[blockKey + pillaKey] = blockValue + pillaValue;
-                         }
-                     }
-                 }
-                 fullMap['x'] = 'ං';
-                 fullMap['kazn'] = 'කං';
-                 fullMap['z'] = '';
-                 return fullMap;
-            }
-
-            const conversionMap = buildFullMap();
-            const sortedKeys = Object.keys(conversionMap).sort((a, b) => b.length - a.length);
-
-            function convertSinglishToSinhala(text) {
-                const words = text.split(' ');
-                const convertedWords = words.map(word => {
-                    if (word.length === 0) return '';
-                    let converted = '';
-                    let i = 0;
-                    while (i < word.length) {
-                        let matchFound = false;
-                        for (const key of sortedKeys) {
-                            if (word.substring(i, i + key.length) === key) {
-                                converted += conversionMap[key];
-                                i += key.length;
-                                matchFound = true;
-                                break;
-                            }
-                        }
-                        if (!matchFound) {
-                            converted += word[i];
-                            i++;
-                        }
-                    }
-                    return converted;
-                });
-                return convertedWords.join(' ');
-            }
-
-            function performConversion() {
-                const inputText = singlishInput.value;
-                const outputText = convertSinglishToSinhala(inputText);
-                sinhalaOutput.textContent = outputText || "සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ";
-            }
-            
-            function clearText() {
-                singlishInput.value = '';
-                performConversion(); 
-            }
-            
-            function showCopySuccessFeedback() {
-                const originalHTML = copyBtn.innerHTML;
-                copyBtn.innerHTML = `<i class="fas fa-check" style="margin-right: 5px;"></i>Copied`;
-                copyBtn.disabled = true;
-                setTimeout(() => {
-                   copyBtn.innerHTML = originalHTML;
-                   copyBtn.disabled = false;
-                }, 2000);
-            }
-
-            function fallbackCopyTextToClipboard(text) {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = 'fixed';
-                textArea.style.top = '-9999px';
-                textArea.style.left = '-9999px';
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
+            // --- Permission and Initialization ---
+            startBtn.addEventListener('click', async () => {
                 try {
-                    const successful = document.execCommand('copy');
-                    if (successful) {
-                        showCopySuccessFeedback();
+                    // Request Device Orientation
+                    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                        const permission = await DeviceOrientationEvent.requestPermission();
+                        if (permission === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                        } else {
+                            throw new Error('Device orientation permission denied.');
+                        }
                     } else {
-                         showConverterGuide('පිටපත් කිරීමට නොහැකි විය.');
+                        // For non-iOS 13+ devices
+                        window.addEventListener('deviceorientation', handleOrientation);
                     }
-                } catch (err) {
-                    showConverterGuide('පිටපත් කිරීමට නොහැකි විය.');
-                }
-                document.body.removeChild(textArea);
-            }
 
-            function copyText() {
-                const textToCopy = sinhalaOutput.textContent;
-                if (!textToCopy || textToCopy === 'සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ') {
-                     showConverterGuide('පිටපත් කිරීමට අකුරු නොමැත.');
-                    return;
+                    // Request Geolocation
+                    if ('geolocation' in navigator) {
+                        navigator.geolocation.watchPosition(handleLocation, handleLocationError, {
+                            enableHighAccuracy: true
+                        });
+                    } else {
+                        throw new Error('Geolocation is not supported by your browser.');
+                    }
+                    
+                    permissionModal.style.display = 'none';
+                    
+                } catch (error) {
+                    errorMessage.textContent = error.message;
+                    console.error(error);
                 }
+            });
+
+            // --- Event Handlers ---
+            const handleOrientation = (event) => {
+                let heading = event.webkitCompassHeading || (360 - event.alpha);
                 
-                if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(textToCopy).then(showCopySuccessFeedback).catch(err => {
-                        console.warn('Clipboard API failed, trying fallback.', err);
-                        fallbackCopyTextToClipboard(textToCopy);
-                    });
-                } else {
-                    console.warn('Clipboard API not available, using fallback.');
-                    fallbackCopyTextToClipboard(textToCopy);
+                if (typeof heading === 'undefined' || heading === null) return;
+                
+                // Correct for screen orientation
+                const orientation = window.orientation || 0;
+                heading -= orientation;
+                if (heading < 0) heading += 360;
+
+                // Smoothing the heading value to reduce jitter
+                smoothedHeading = (heading * smoothingFactor) + (smoothedHeading * (1 - smoothingFactor));
+
+                updateCompass(smoothedHeading);
+            };
+
+            const handleLocation = (position) => {
+                const { latitude, longitude } = position.coords;
+                latDisplay.textContent = latitude.toFixed(6);
+                lonDisplay.textContent = longitude.toFixed(6);
+            };
+
+            const handleLocationError = (error) => {
+                let msg = 'Location error.';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        msg = "Location access denied.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        msg = "Location unavailable.";
+                        break;
+                    case error.TIMEOUT:
+                        msg = "Location request timed out.";
+                        break;
                 }
-            }
-            
-            clearBtn.addEventListener('click', clearText);
-            copyBtn.addEventListener('click', copyText);
-            singlishInput.addEventListener('input', performConversion);
-            performConversion();
+                latDisplay.textContent = msg;
+                lonDisplay.textContent = '';
+                console.warn(`LOCATION ERROR(${error.code}): ${error.message}`);
+            };
+
+            // --- UI Update Functions ---
+            const updateCompass = (heading) => {
+                const roundedHeading = Math.round(heading);
+                compassDial.style.transform = `rotate(-${heading}deg)`;
+                headingDisplay.textContent = `${roundedHeading}°`;
+                directionDisplay.textContent = degreesToCardinal(roundedHeading);
+            };
+
+            const updateTime = () => {
+                const now = new Date();
+                timeDisplay.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+                dateDisplay.textContent = now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            };
+
+            // --- Helper Functions ---
+            const degreesToCardinal = (deg) => {
+                const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+                const index = Math.round((deg % 360) / 22.5);
+                return directions[index % 16];
+            };
+
+            // --- Initial Setup ---
+            setInterval(updateTime, 1000);
+            updateTime();
         });
     </script>
 </body>
