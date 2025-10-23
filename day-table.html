@@ -1,245 +1,826 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Compass Tool</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            touch-action: none;
-            overscroll-behavior: none;
-        }
-        .compass-dial {
-            transition: transform 0.2s ease-out;
-        }
-        .compass-container::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 10px;
-            height: 10px;
-            background-color: #f87171; /* Red-400 */
-            border-radius: 50%;
-            z-index: 20;
-            border: 2px solid #1f2937; /* Gray-800 */
-        }
-    </style>
-</head>
-<body class="bg-gray-900 text-gray-200 flex items-center justify-center min-h-screen antialiased select-none">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>රාහු කාලය</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.min.js"></script>
+  <style>
+    /* === RESET & ROOT === */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     
-    <div id="permission-modal" class="absolute inset-0 bg-gray-900 bg-opacity-90 flex flex-col items-center justify-center z-50 p-4">
-        <div class="text-center">
-            <svg class="mx-auto h-16 w-16 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <h2 class="text-3xl font-bold text-white mt-4">Advanced Compass</h2>
-            <p class="text-gray-400 mt-2 max-w-sm">Please grant permission to access device orientation and location for the compass and GPS to function.</p>
-            <button id="start-btn" class="mt-8 bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                Start Compass
-            </button>
-            <p id="error-message" class="text-red-400 mt-4 h-5"></p>
-        </div>
+    :root {
+      --c-primary: #020d47;
+      --c-secondary: #ff6b6b;
+      --c-accent: #ffd166;
+      --c-alert: #dc143c;
+      --c-dark: #2d3436;
+      --c-light: #f7f9fa;
+      --c-sunrise: #FF7F50;
+      --c-sunset: #E25822;
+      --title-color: #020d47;
+      --night-rahu-bg: rgba(142, 22, 60, 1);
+      --night-rahu-text-day: white;
+      --night-rahu-text-night: white; 
+      --bg-day: linear-gradient(135deg, #6dd5ed, #2193b0);
+      --bg-night: linear-gradient(135deg, #00030e, #000723, #020d47);
+      --ff-main: "Noto Serif Sinhala", sans-serif;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: var(--ff-main);
+      color: var(--c-dark);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-day);
+      background-size: cover;
+      background-position: center;
+      transition: var(--transition);
+      padding: 16px;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Sky elements */
+    .sky {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    /* Day sky with clouds */
+    .day-sky {
+      background: linear-gradient(to bottom, #87CEEB 0%, #E0F7FA 100%);
+    }
+    
+    .cloud {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+    
+    .cloud:before, .cloud:after {
+      content: '';
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    .cloud1 {
+      width: 100px;
+      height: 60px;
+      top: 20%;
+      left: 10%;
+      animation: moveCloud 60s linear infinite;
+    }
+    
+    .cloud1:before {
+      width: 50px;
+      height: 50px;
+      top: -20px;
+      left: 10px;
+    }
+    
+    .cloud1:after {
+      width: 70px;
+      height: 40px;
+      top: -10px;
+      right: 20px;
+    }
+    
+    .cloud2 {
+      width: 150px;
+      height: 80px;
+      top: 30%;
+      right: 5%;
+      animation: moveCloud 80s linear infinite reverse;
+    }
+    
+    .cloud2:before {
+      width: 60px;
+      height: 60px;
+      top: -20px;
+      left: 20px;
+    }
+    
+    .cloud2:after {
+      width: 90px;
+      height: 60px;
+      top: -15px;
+      right: 20px;
+    }
+    
+    .cloud3 {
+      width: 120px;
+      height: 70px;
+      top: 15%;
+      left: 30%;
+      animation: moveCloud 100s linear infinite;
+    }
+    
+    .cloud3:before {
+      width: 50px;
+      height: 50px;
+      top: -15px;
+      left: 15px;
+    }
+    
+    .cloud3:after {
+      width: 80px;
+      height: 50px;
+      top: -10px;
+      right: 15px;
+    }
+    
+    /* Night sky with stars */
+    .night-sky {
+      background: var(--bg-night);
+      display: none;
+    }
+    
+    .star {
+      position: absolute;
+      background: #FFD700;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+    }
+    
+    @keyframes moveCloud {
+      0% { transform: translateX(-150px); }
+      100% { transform: translateX(calc(100vw + 150px)); }
+    }
+    
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    
+    body.night {
+      background: var(--bg-night);
+    }
+    
+    body.night .day-sky {
+      display: none;
+    }
+    
+    body.night .night-sky {
+      display: block;
+    }
+    
+    /* Header styles */
+    header {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      color: var(--title-color);
+      text-align: center;
+      padding: 0.6rem;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    
+    .night header {
+      color: var(--c-accent);
+    }
+    
+    header h1 {
+      font-family: 'Gemunu Libre', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    /* Main content */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 650px;
+      margin-inline: auto;
+    }
+    
+    /* Card styles */
+    .card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 1.8rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .night .card {
+      background: rgba(30, 30, 40, 0.85);
+      color: var(--c-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    h2.date {
+      font-size: 1.65rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--c-primary);
+    }
+    
+    .night h2.date {
+      color: var(--c-accent);
+    }
+    
+    .txt-lg {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      color: var(--c-dark);
+    }
+    
+    .night .txt-lg {
+      color: var(--c-light);
+    }
+    
+    /* Rahu active indicator */
+    .rahu-active {
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 1.2rem;
+      border-radius: 12px;
+      background: rgba(220, 20, 60, 0.15);
+      border: 3px solid var(--c-alert);
+      color: var(--c-alert);
+      text-align: center;
+      animation: pulse 2s infinite;
+      transition: var(--transition);
+      display: none;
+    }
+    
+    .night .rahu-active {
+      background: rgba(220, 20, 60, 0.25);
+      color: #ff8e8e;
+      border-color: #ff8e8e;
+    }
+    
+    /* Rahu box */
+    .rahubox {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      background: var(--c-primary);
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      margin: 1.8rem 0;
+      box-shadow: 0 4px 15px rgba(74, 111, 165, 0.3);
+      transition: var(--transition);
+    }
+    
+    .night .rahubox {
+      background: var(--c-accent);
+      color: var(--c-dark);
+      box-shadow: 0 4px 15px rgba(255, 209, 102, 0.3);
+    }
+    
+    /* Pair styles */
+    .pair {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 1rem 0;
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      background: rgba(245, 245, 245, 1);
+      transition: var(--transition);
+    }
+    
+    .night .pair {
+      background: rgba(45, 52, 54, 0.6);
+    }
+    
+    .icon-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .icon {
+      width: 28px;
+      height: 28px;
+    }
+    
+    .sunrise-icon {
+      fill: var(--c-sunrise);
+    }
+    
+    .sunset-icon {
+      fill: var(--c-sunset);
+    }
+    
+    /* Toggle buttons */
+    .dayNight-toggle {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.2rem 0 0.8rem;
+    }
+    
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 2px solid var(--c-primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      background: white;
+      color: var(--c-primary);
+      font-family: 'Noto Serif Sinhala', serif;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .night .btn {
+      background: rgba(30, 30, 40, 0.8);
+      border-color: var(--c-accent);
+      color: var(--c-light);
+    }
+    
+    .btn.active, .btn:hover {
+      background: var(--c-primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .night .btn.active, .night .btn:hover {
+      background: var(--c-accent);
+      color: var(--c-dark);
+    }
+    
+    /* Weekday grid */
+    .weekday-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    
+    .weekday-grid button {
+      padding: 0.8rem 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    /* Date picker container */
+    .date-picker-container {
+      text-align: center;
+      padding: 1rem;
+      width: 100%;
+    }
+    
+    .date-picker-label {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--c-primary);
+    }
+    
+    .night .date-picker-label {
+      color: var(--c-accent);
+    }
+    
+    #datePicker {
+      padding: 1rem;
+      border: 2px solid var(--c-primary);
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-family: var(--ff-main);
+      width: 100%;
+      max-width: 300px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: var(--transition);
+    }
+    
+    .night #datePicker {
+      background: rgba(30, 30, 40, 0.8);
+      border-color: var(--c-accent);
+      color: var(--c-light);
+    }
+    
+    #datePicker:focus {
+      outline: none;
+      border-color: var(--c-secondary);
+      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+    }
+    
+    /* Bottom note */
+    .bottom-note {
+      text-align: center;
+      font-size: 1rem;
+      margin: 0.5rem 0 1.2rem;
+      color: var(--c-dark);
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.5s ease;
+    }
+    
+    .night .bottom-note {
+      color: var(--c-light);
+    }
+    
+    .bottom-note.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 2px dashed var(--c-primary);
+      padding: 1.2rem;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.7);
+      margin-top: 0.5rem;
+    }
+    
+    .night .disclaimer {
+      border-color: var(--c-accent);
+      background: rgba(30, 30, 40, 0.6);
+    }
+    
+    /* Footer */
+    footer {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      margin: 1.5rem 0 0.5rem;
+      color: rgba(2, 13, 71, 1);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    
+    .night footer {
+      color: rgba(255, 255, 255, 1);
+    }
+    
+    /* Animations */
+    @keyframes pulse {
+      0% { 
+        opacity: 0.8; 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.4);
+      }
+      70% { 
+        opacity: 1;
+        transform: scale(1.02);
+        box-shadow: 0 0 0 12px rgba(220, 20, 60, 0);
+      }
+      100% { 
+        opacity: 0.8; 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(220, 20, 60, 0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .weekday-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      header h1 {
+        font-size: 4rem;
+      }
+      
+      .rahu-active {
+        font-size: 1.3rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .rahubox {
+        font-size: 1.5rem;
+      }
+      
+      .btn {
+        padding: 0.8rem;
+        font-size: 1rem;
+      }
+      
+      .weekday-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .rahu-active {
+        font-size: 1.2rem;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sky elements -->
+  <div class="sky day-sky">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+  </div>
+  <div class="sky night-sky" id="nightSky"></div>
+  
+  <header><h1>රාහු කාලය</h1></header>
+  <main>
+    <div class="card fade-in" id="mainCard">
+      <h2 class="date" id="todayDate">--</h2>
+      <p class="txt-lg" id="subTxt">--</p>
+      
+      <div class="dayNight-toggle">
+        <button class="btn active" id="btnDay">දිවා කාලය</button>
+        <button class="btn" id="btnNight">රාත්‍රී කාලය</button>
+      </div>
+      
+      <p class="rahubox" id="rahuRange">-- : --</p>
+      
+      <div class="pair">
+        <span class="icon-text">
+          <svg class="icon sunrise-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 18H21M5 15H19M7 12H17M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2M12 9C9.8 9 8 10.8 8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          ඉර උදාව
+        </span>
+        <span id="sunrise">--:--</span>
+      </div>
+      <div class="pair">
+        <span class="icon-text">
+          <svg class="icon sunset-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 18H21M5 15H19M7 12H17M12 22V19M4 19H20M12 9C9.8 9 8 10.8 8 13M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          ඉර බැසීම
+        </span>
+        <span id="sunset">--:--</span>
+      </div>
     </div>
 
-    <div class="w-full max-w-sm mx-auto p-4 space-y-6">
-        <!-- Header: Time and Date -->
-        <div class="text-center">
-            <h1 id="time-display" class="text-4xl font-bold text-white tracking-wider">00:00:00</h1>
-            <p id="date-display" class="text-gray-400">Monday, January 1</p>
-        </div>
+    <div class="card weekday-grid" id="weekdayButtons"></div>
+    
+    <p class="bottom-note" id="bottomNote">මෙම දින සඳහා අදාළ රාහු කාලය පහතින් දක්වා ඇත.</p>
 
-        <!-- Compass -->
-        <div class="relative w-80 h-80 mx-auto compass-container">
-            <!-- Compass Needle (Static) -->
-            <div class="absolute inset-0 flex justify-center z-10">
-                <svg width="24" height="320" viewBox="0 0 24 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 0L22 28L12 320L2 28L12 0Z" fill="#f87171"/> <!-- Red-400 -->
-                    <path d="M12 0L2 28L12 320L22 28L12 0Z" fill="#ef4444" fill-opacity="0.5"/> <!-- Red-500 -->
-                </svg>
-            </div>
-            <!-- Compass Dial (Rotates) -->
-            <div id="compass-dial" class="w-full h-full rounded-full bg-gray-800 shadow-2xl compass-dial flex items-center justify-center relative border-4 border-gray-700">
-                <img src="https://placehold.co/300x300/1f2937/a3a3a3?text=%20"
-                     onerror="this.onerror=null;this.src='https://placehold.co/300x300/1f2937/4b5563?text=Compass'"
-                     alt="Compass Dial"
-                     class="absolute w-full h-full object-cover rounded-full dial-image-placeholder">
-            </div>
-        </div>
-
-        <!-- Digital Readout -->
-        <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center">
-            <h2 id="heading-display" class="text-5xl font-bold text-sky-400">0°</h2>
-            <p id="direction-display" class="text-2xl text-gray-300 font-medium">N</p>
-        </div>
-        
-        <!-- GPS Coordinates -->
-        <div class="bg-gray-800 p-4 rounded-xl shadow-lg flex justify-around text-center">
-            <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Latitude</p>
-                <p id="lat-display" class="text-lg font-semibold text-white">--.------</p>
-            </div>
-            <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Longitude</p>
-                <p id="lon-display" class="text-lg font-semibold text-white">--.------</p>
-            </div>
-        </div>
+    <div class="card date-picker-container">
+      <div class="date-picker-label">වෙනත් ඕනෑම දිනයක් සඳහා රාහු කාලය දැන ගන්න.</div>
+      <input type="date" id="datePicker">
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // DOM Elements
-            const startBtn = document.getElementById('start-btn');
-            const permissionModal = document.getElementById('permission-modal');
-            const errorMessage = document.getElementById('error-message');
-            const compassDial = document.getElementById('compass-dial');
-            const headingDisplay = document.getElementById('heading-display');
-            const directionDisplay = document.getElementById('direction-display');
-            const latDisplay = document.getElementById('lat-display');
-            const lonDisplay = document.getElementById('lon-display');
-            const timeDisplay = document.getElementById('time-display');
-            const dateDisplay = document.getElementById('date-display');
-            const dialImage = document.querySelector('.dial-image-placeholder');
+    <div class="card" id="bottomCard" style="display: none;"></div>
 
-            let smoothedHeading = 0;
-            const smoothingFactor = 0.1;
+    <div class="card disclaimer">
+      <p>In astrology, the Rahu Kalaya period is considered an inauspicious time to begin new projects due to the potential for failure.</p>
+      <br>
+      <p>Disclaimer: Rahu Kalaya period times are provided in 24-hour format. While we aim for accuracy, we do not guarantee the absolute accuracy of these timings.</p>
+    </div>
+  </main>
+  <footer>© <span id="year"></span> Lanka Lift Solutions. All Rights Reserved.</footer>
 
-            // Generate compass dial SVG
-            const generateCompassDialSVG = () => {
-                const svgNS = "http://www.w3.org/2000/svg";
-                let svg = `<svg viewBox="0 0 300 300" xmlns="${svgNS}">`;
-                svg += `<circle cx="150" cy="150" r="148" fill="#1f2937" stroke="#4b5563" stroke-width="2"/>`; // Gray-800, Gray-600
-                const directions = {
-                    'N': 0, 'E': 90, 'S': 180, 'W': 270
-                };
-                for (let i = 0; i < 360; i += 2) {
-                    const angle = i * Math.PI / 180;
-                    const isMajor = i % 30 === 0;
-                    const isCardinal = i % 90 === 0;
-                    const r1 = isCardinal ? 120 : (isMajor ? 130 : 138);
-                    const r2 = 145;
-                    const x1 = 150 + r1 * Math.sin(angle);
-                    const y1 = 150 - r1 * Math.cos(angle);
-                    const x2 = 150 + r2 * Math.sin(angle);
-                    const y2 = 150 - r2 * Math.cos(angle);
-                    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${isMajor ? '#e5e7eb' : '#6b7280'}" stroke-width="${isMajor ? 2 : 1}"/>`;
-                }
-                Object.entries(directions).forEach(([dir, angleDeg]) => {
-                    const angleRad = angleDeg * Math.PI / 180;
-                    const r = 105;
-                    const x = 150 + r * Math.sin(angleRad);
-                    const y = 150 - r * Math.cos(angleRad) + 8;
-                    svg += `<text x="${x}" y="${y}" font-family="Inter, sans-serif" font-size="24" font-weight="bold" fill="#e5e7eb" text-anchor="middle">${dir}</text>`;
-                });
-                svg += '</svg>';
-                return `data:image/svg+xml;base64,${btoa(svg)}`;
-            };
+<script>
+/* ===== CONSTANTS & HELPERS ===== */
+const LAT = 6.72, LON = 80.07;
+const rahuMap = {0: 8, 1: 2, 2: 7, 3: 5, 4: 6, 5: 4, 6: 3};
+const z = n => n.toString().padStart(2, '0');
+const fmtTimeShort = d => `${z(d.getHours())}:${z(d.getMinutes())}`;
 
-            dialImage.src = generateCompassDialSVG();
+function calcRahu(date, isNight = false) {
+  const sun = SunCalc.getTimes(date, LAT, LON);
+  const sunrise = sun.sunrise;
+  const sunset = sun.sunset;
+  const idx = rahuMap[date.getDay()];
+  let rahuStart, rahuEnd;
 
-            // --- Permission and Initialization ---
-            startBtn.addEventListener('click', async () => {
-                try {
-                    // Request Device Orientation
-                    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                        const permission = await DeviceOrientationEvent.requestPermission();
-                        if (permission === 'granted') {
-                            window.addEventListener('deviceorientation', handleOrientation);
-                        } else {
-                            throw new Error('Device orientation permission denied.');
-                        }
-                    } else {
-                        // For non-iOS 13+ devices
-                        window.addEventListener('deviceorientation', handleOrientation);
-                    }
+  const daySliceDuration = (sunset.getTime() - sunrise.getTime()) / 8;
+  
+  if (!isNight) {
+    const dayStart = sunrise.getTime();
+    rahuStart = new Date(dayStart + (idx - 1) * daySliceDuration);
+    rahuEnd = new Date(rahuStart.getTime() + daySliceDuration);
+  } else {
+    const nightStart = sunset.getTime();
+    rahuStart = new Date(nightStart + (idx - 1) * daySliceDuration);
+    rahuEnd = new Date(rahuStart.getTime() + daySliceDuration);
+  }
+  
+  return { sunrise, sunset, rahuStart, rahuEnd };
+}
 
-                    // Request Geolocation
-                    if ('geolocation' in navigator) {
-                        navigator.geolocation.watchPosition(handleLocation, handleLocationError, {
-                            enableHighAccuracy: true
-                        });
-                    } else {
-                        throw new Error('Geolocation is not supported by your browser.');
-                    }
-                    
-                    permissionModal.style.display = 'none';
-                    
-                } catch (error) {
-                    errorMessage.textContent = error.message;
-                    console.error(error);
-                }
-            });
+/* ===== DOM ELEMENTS ===== */
+const elDate = document.getElementById('todayDate');
+const elSub = document.getElementById('subTxt');
+const elRange = document.getElementById('rahuRange');
+const elSunrise = document.getElementById('sunrise');
+const elSunset = document.getElementById('sunset');
+const elBtnDay = document.getElementById('btnDay');
+const elBtnNight = document.getElementById('btnNight');
+const elWeekGrid = document.getElementById('weekdayButtons');
+const elPicker = document.getElementById('datePicker');
+const bottomCard = document.getElementById('bottomCard');
+const bottomNote = document.getElementById('bottomNote');
+const nightSky = document.getElementById('nightSky');
 
-            // --- Event Handlers ---
-            const handleOrientation = (event) => {
-                let heading = event.webkitCompassHeading || (360 - event.alpha);
-                
-                if (typeof heading === 'undefined' || heading === null) return;
-                
-                // Correct for screen orientation
-                const orientation = window.orientation || 0;
-                heading -= orientation;
-                if (heading < 0) heading += 360;
+/* ===== STATE ===== */
+let isNightView = false;
+let baseDate = new Date();
+baseDate.setHours(0, 0, 0, 0);
 
-                // Smoothing the heading value to reduce jitter
-                smoothedHeading = (heading * smoothingFactor) + (smoothedHeading * (1 - smoothingFactor));
+/* ===== SKY FUNCTIONS ===== */
+function createStars() {
+  // Clear existing stars
+  nightSky.innerHTML = '';
+  
+  // Create 100 stars
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    
+    // Random position
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    
+    // Random size (1-3px)
+    const size = Math.random() * 2 + 1;
+    
+    // Random animation delay
+    const delay = Math.random() * 2;
+    
+    star.style.left = `${x}%`;
+    star.style.top = `${y}%`;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.animationDelay = `${delay}s`;
+    
+    nightSky.appendChild(star);
+  }
+}
 
-                updateCompass(smoothedHeading);
-            };
+/* ===== CORE FUNCTIONS ===== */
+function setBg() {
+  document.body.classList.toggle('night', isNightView);
+}
 
-            const handleLocation = (position) => {
-                const { latitude, longitude } = position.coords;
-                latDisplay.textContent = latitude.toFixed(6);
-                lonDisplay.textContent = longitude.toFixed(6);
-            };
+function updateTopCard() {
+  const rahu = calcRahu(baseDate, isNightView);
+  
+  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+  elDate.textContent = baseDate.toLocaleDateString('si-LK', options);
+  
+  const dirs = [
+    ['උතුර', 'දකුණ'], ['ගිණිකොන', 'වයඹ'], ['නැගෙනහිර', 'වයඹ'],
+    ['ඊසාන', 'නිරිත'], ['උතුර', 'දකුණ'], ['වයඹ', 'ගිණිකොන'],
+    ['බස්නාහිර', 'නැගෙනහිර']
+  ];
+  
+  const d = dirs[baseDate.getDay()];
+  elSub.textContent = `සුභ දිශාව - ${d[0]} | මරු සිටින දිශාව - ${d[1]}`;
+  elRange.textContent = `${fmtTimeShort(rahu.rahuStart)} සිට ${fmtTimeShort(rahu.rahuEnd)} දක්වා`;
+  elSunrise.textContent = fmtTimeShort(rahu.sunrise);
+  elSunset.textContent = fmtTimeShort(rahu.sunset);
+  
+  document.getElementById('mainCard').classList.add('fade-in');
+  setTimeout(() => {
+    document.getElementById('mainCard').classList.remove('fade-in');
+  }, 600);
+}
 
-            const handleLocationError = (error) => {
-                let msg = 'Location error.';
-                switch(error.code) {
-                    case error.PERMISSION_DENIED:
-                        msg = "Location access denied.";
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        msg = "Location unavailable.";
-                        break;
-                    case error.TIMEOUT:
-                        msg = "Location request timed out.";
-                        break;
-                }
-                latDisplay.textContent = msg;
-                lonDisplay.textContent = '';
-                console.warn(`LOCATION ERROR(${error.code}): ${error.message}`);
-            };
+function showBottom(dateObj) {
+  const info = calcRahu(dateObj, false);
+  const nightInfo = calcRahu(dateObj, true);
+  const dirs = [
+    ['උතුර', 'දකුණ'], ['ගිණිකොන', 'වයඹ'], ['නැගෙනහිර', 'වයඹ'],
+    ['ඊසාන', 'නිරිත'], ['උතුර', 'දකුණ'], ['වයඹ', 'ගිණිකොන'],
+    ['බස්නාහිර', 'නැගෙනහිර']
+  ];
+  
+  const d = dirs[dateObj.getDay()];
+  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+  
+  bottomCard.innerHTML = `
+    <h2 class="date">${dateObj.toLocaleDateString('si-LK', options)}</h2>
+  <p class="txt-lg">සුභ දිශාව - ${d[0]} | මරු සිටින දිශාව - ${d[1]}</p>
+  <p class="rahubox">දිවා: ${fmtTimeShort(info.rahuStart)} සිට ${fmtTimeShort(info.rahuEnd)}</p>
+  <p class="rahubox night-rahu-time" style="background-color: var(--night-rahu-bg); color: ${isNightView ? 'var(--night-rahu-text-night)' : 'var(--night-rahu-text-day)'};">රාත්‍රී: ${fmtTimeShort(nightInfo.rahuStart)} සිට ${fmtTimeShort(nightInfo.rahuEnd)}</p>
+    <div class="pair">
+      <span class="icon-text">
+        <svg class="icon sunrise-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 18H21M5 15H19M7 12H17M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2M12 9C9.8 9 8 10.8 8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ඉර උදාව
+      </span>
+      <span>${fmtTimeShort(info.sunrise)}</span>
+    </div>
+    <div class="pair">
+      <span class="icon-text">
+        <svg class="icon sunset-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 18H21M5 15H19M7 12H17M12 22V19M4 19H20M12 9C9.8 9 8 10.8 8 13M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ඉර බැසීම
+      </span>
+      <span>${fmtTimeShort(info.sunset)}</span>
+    </div>
+  `;
+  
+  bottomCard.style.display = 'block';
+  bottomCard.classList.add('fade-in');
+  bottomNote.classList.add('show');
+  setTimeout(() => bottomCard.classList.remove('fade-in'), 600);
+}
 
-            // --- UI Update Functions ---
-            const updateCompass = (heading) => {
-                const roundedHeading = Math.round(heading);
-                compassDial.style.transform = `rotate(-${heading}deg)`;
-                headingDisplay.textContent = `${roundedHeading}°`;
-                directionDisplay.textContent = degreesToCardinal(roundedHeading);
-            };
+/* ===== EVENT LISTENERS ===== */
+elBtnDay.addEventListener('click', () => {
+  isNightView = false;
+  elBtnDay.classList.add('active');
+  elBtnNight.classList.remove('active');
+  setBg();
+  updateTopCard();
+});
 
-            const updateTime = () => {
-                const now = new Date();
-                timeDisplay.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-                dateDisplay.textContent = now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            };
+elBtnNight.addEventListener('click', () => {
+  isNightView = true;
+  elBtnNight.classList.add('active');
+  elBtnDay.classList.remove('active');
+  setBg();
+  updateTopCard();
+});
 
-            // --- Helper Functions ---
-            const degreesToCardinal = (deg) => {
-                const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-                const index = Math.round((deg % 360) / 22.5);
-                return directions[index % 16];
-            };
+const weekdays = ['ඉරිදා', 'සඳුදා', 'අඟහරුවාදා', 'බදාදා', 'බ්‍රහස්පතින්දා', 'සිකුරාදා', 'සෙනසුරාදා'];
+weekdays.forEach((day, i) => {
+  const b = document.createElement('button');
+  b.className = 'btn';
+  b.textContent = day;
+  b.addEventListener('click', () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diff = (i - today.getDay() + 7) % 7;
+    const targetDate = new Date(today.getTime() + diff * 86400000);
+    showBottom(targetDate);
+  });
+  elWeekGrid.appendChild(b);
+});
 
-            // --- Initial Setup ---
-            setInterval(updateTime, 1000);
-            updateTime();
-        });
-    </script>
+elPicker.addEventListener('change', e => {
+  if (e.target.value) {
+    const parts = e.target.value.split('-');
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
+    showBottom(new Date(year, month, day));
+  }
+});
+
+/* ===== INITIALIZATION ===== */
+function init() {
+    createStars();
+    setBg();
+    updateTopCard();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}-${z(today.getMonth() + 1)}-${z(today.getDate())}`;
+    elPicker.value = formattedDate;
+}
+
+init();
+</script>
 </body>
 </html>
