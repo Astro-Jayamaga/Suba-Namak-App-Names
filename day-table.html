@@ -62,85 +62,85 @@
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
 
-  <div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="max-w-4xl mx-auto px-4 py-4">
     <!-- Header -->
-    <header class="text-center mb-10">
-      <h1 class="text-4xl font-bold font-gemunu text-[#020d47] mb-2">ශ්‍රී ලංකා දින දර්ශනය</h1>
+    <header class="text-center mb-4">
+      <h1 id="dynamicTitle" class="text-3xl font-bold font-gemunu text-[#020d47] mb-2">2025</h1>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
       <!-- Calendar Section -->
       <div class="lg:col-span-2">
         <div id="calendarWrapper" class="rounded-2xl card-shadow bg-white overflow-hidden">
           <!-- Calendar Header with Image -->
           <div class="relative">
-            <img id="monthImage" src="" alt="Monthly Theme" class="w-full h-48 object-cover">
+            <img id="monthImage" src="" alt="Monthly Theme" class="w-full h-40 object-cover">
             
             <!-- Today Button -->
-            <button id="todayBtn" class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all">
-              <div class="flex items-center space-x-2">
+            <button id="todayBtn" class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all">
+              <div class="flex items-center space-x-1">
                 <i class="fas fa-calendar-day text-[#020d47]"></i>
-                <span id="todayDate" class="text-sm font-bold text-[#020d47]"></span>
+                <span id="todayDate" class="text-xs font-bold text-[#020d47]"></span>
               </div>
             </button>
             
             <!-- Month/Year Overlay -->
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <h2 id="monthYear" class="text-2xl font-bold text-white font-gemunu"></h2>
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+              <h2 id="monthYear" class="text-xl font-bold text-white font-gemunu"></h2>
             </div>
           </div>
 
           <!-- Calendar Navigation -->
-          <div class="p-4 border-b border-gray-100">
+          <div class="p-3 border-b border-gray-100">
             <div class="flex justify-between items-center">
-              <button id="prevBtn" class="flex items-center space-x-2 px-4 py-2 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
-                <i class="fas fa-chevron-left"></i>
-                <span>Prev</span>
+              <button id="prevBtn" class="flex items-center space-x-1 px-3 py-1.5 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                <i class="fas fa-chevron-left text-sm"></i>
+                <span class="text-sm">Prev</span>
               </button>
               
               <div class="text-center">
-                <p id="monthYearText" class="text-lg font-semibold text-gray-700 font-noto-serif"></p>
+                <p id="monthYearText" class="text-base font-semibold text-gray-700 font-noto-serif"></p>
               </div>
               
-              <button id="nextBtn" class="flex items-center space-x-2 px-4 py-2 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
-                <span>Next</span>
-                <i class="fas fa-chevron-right"></i>
+              <button id="nextBtn" class="flex items-center space-x-1 px-3 py-1.5 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                <span class="text-sm">Next</span>
+                <i class="fas fa-chevron-right text-sm"></i>
               </button>
             </div>
           </div>
 
           <!-- Calendar Grid -->
-          <div class="p-4">
-            <div id="calendar" class="grid grid-cols-7 gap-1 text-center"></div>
+          <div class="p-3">
+            <div id="calendar" class="grid grid-cols-7 gap-0.5 text-center"></div>
           </div>
         </div>
       </div>
 
       <!-- Sidebar Section -->
-      <div class="space-y-6">
+      <div class="space-y-4">
         <!-- Holidays Section -->
-        <div class="rounded-2xl card-shadow bg-white p-5">
-          <div class="flex items-center space-x-2 mb-4">
+        <div class="rounded-2xl card-shadow bg-white p-4">
+          <div class="flex items-center space-x-2 mb-3">
             <i class="fas fa-calendar-check text-[#8e163c]"></i>
-            <h3 class="text-lg font-semibold font-noto-serif">නිවාඩු දින</h3>
+            <h3 class="text-base font-semibold font-noto-serif">නිවාඩු දින</h3>
           </div>
-          <p class="text-sm text-gray-500 mb-3 font-noto-serif">මාසය: <span id="holMonth" class="font-bold text-[#020d47]"></span></p>
-          <div class="h-64 overflow-y-auto pr-2">
-            <ul id="holidays" class="list-none space-y-3 text-gray-800"></ul>
+          <p class="text-xs text-gray-500 mb-2 font-noto-serif">මාසය: <span id="holMonth" class="font-bold text-[#020d47]"></span></p>
+          <div class="h-48 overflow-y-auto pr-2">
+            <ul id="holidays" class="list-none space-y-2 text-gray-800"></ul>
           </div>
         </div>
 
         <!-- Legend Section -->
-        <div class="rounded-2xl card-shadow bg-white p-5">
-          <div class="flex items-center space-x-2 mb-4">
+        <div class="rounded-2xl card-shadow bg-white p-4">
+          <div class="flex items-center space-x-2 mb-3">
           </div>
-          <div id="legend" class="grid grid-cols-1 gap-3 text-sm"></div>
+          <div id="legend" class="grid grid-cols-1 gap-2 text-xs"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <footer class="text-center mt-10 mb-6 text-gray-500 text-sm">
+  <footer class="text-center mt-2 mb-12 text-gray-500 text-sm">
     &copy; <span id="copyrightYear"></span> Developed by Lanka Lift Solutions
   </footer>
 
@@ -244,6 +244,7 @@
 
       // --- DOM ELEMENTS ---
 
+      const dynamicTitleEl = document.getElementById('dynamicTitle');
       const monthYearEl = document.getElementById('monthYear');
       const monthYearTextEl = document.getElementById('monthYearText');
       const calendarEl = document.getElementById('calendar');
@@ -269,7 +270,7 @@
         const item = document.createElement('div');
         item.className = 'flex items-center space-x-2';
         
-        let circleStyle = `w-4 h-4 rounded-full ${colorClass}`;
+        let circleStyle = `w-3 h-3 rounded-full ${colorClass}`;
         if (colorClass.includes('yellow')) {
            circleStyle += ' border border-gray-400';
         }
@@ -292,21 +293,24 @@
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth(); // 0-11
 
-        // 1. Set Header
+        // 1. Set Dynamic Title
+        dynamicTitleEl.textContent = year;
+
+        // 2. Set Header
         monthYearEl.textContent = `${sinhalaMonths[month]} ${year}`;
         monthYearTextEl.textContent = `${sinhalaMonths[month]} ${year}`;
 
-        // 2. Set Background Image
+        // 3. Set Background Image
         monthImageEl.src = monthlyImages[month];
         
-        // 3. Reset Calendar Grid
+        // 4. Reset Calendar Grid
         calendarEl.innerHTML = '';
 
-        // 4. Render Weekday Labels (Mon-Sun) in English
+        // 5. Render Weekday Labels (Mon-Sun) in English
         englishWeekdays.forEach((day, index) => {
           const cell = document.createElement('div');
           cell.textContent = day;
-          cell.className = 'font-bold font-roboto text-sm text-gray-500 py-2';
+          cell.className = 'font-bold font-roboto text-xs text-gray-500 py-1';
           if (index === 5) { // Saturday
             cell.classList.add('text-gray-600');
           }
@@ -316,7 +320,7 @@
           calendarEl.appendChild(cell);
         });
 
-        // 5. Calculate Blank Cells (for Monday start)
+        // 6. Calculate Blank Cells (for Monday start)
         const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0=Sun, 1=Mon... 6=Sat
         const blanksToadd = (firstDayOfWeek + 6) % 7; // (0-Sun -> 6), (1-Mon -> 0)
         
@@ -324,20 +328,20 @@
           calendarEl.appendChild(document.createElement('div'));
         }
 
-        // 6. Render Days
+        // 7. Render Days
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const todayDate = new Date();
 
         for (let d = 1; d <= daysInMonth; d++) {
           const cell = document.createElement('div');
-          cell.className = 'h-14 flex flex-col items-center justify-center rounded-lg transition-all hover:bg-gray-50';
+          cell.className = 'h-10 flex flex-col items-center justify-center rounded transition-all hover:bg-gray-50';
           
           const dayNumber = document.createElement('span');
           dayNumber.textContent = d;
-          dayNumber.className = 'w-8 h-8 flex items-center justify-center rounded-full transition-all';
+          dayNumber.className = 'w-6 h-6 flex items-center justify-center rounded-full transition-all text-xs';
 
           const dotsContainer = document.createElement('div');
-          dotsContainer.className = 'flex space-x-1 h-2 mt-1';
+          dotsContainer.className = 'flex space-x-0.5 h-1.5 mt-0.5';
           
           const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
           const holiday = allHolidays[dateKey];
@@ -384,10 +388,10 @@
           calendarEl.appendChild(cell);
         }
         
-        // 7. Render Holiday List
+        // 8. Render Holiday List
         renderHolidaysList(year, month);
         
-        // 8. Update Navigation Buttons State
+        // 9. Update Navigation Buttons State
         prevBtn.disabled = (year === 2025 && month === 0);
         nextBtn.disabled = (year === 2026 && month === 11);
       }
@@ -405,20 +409,20 @@
         if (hols.length === 0) {
           const li = document.createElement('li');
           li.textContent = 'මෙම මාසයේ පොදු නිවාඩු නොමැත.';
-          li.className = 'text-gray-500 text-center py-2';
+          li.className = 'text-gray-500 text-center py-1 text-xs';
           holidaysList.appendChild(li);
         } else {
           hols.forEach(h => {
             const d = new Date(h.date.replace(/-/g, '/')); 
             const li = document.createElement('li');
-            li.className = 'flex flex-col sm:flex-row justify-between items-start sm:items-center py-2 px-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all';
+            li.className = 'flex flex-col sm:flex-row justify-between items-start sm:items-center py-1 px-2 rounded bg-gray-50 hover:bg-gray-100 transition-all';
             
             const textSpan = document.createElement('span');
-            textSpan.className = 'font-noto-serif text-sm';
+            textSpan.className = 'font-noto-serif text-xs';
             textSpan.textContent = `${d.getDate()}: ${h.name}`;
             
             const dotsContainer = document.createElement('div');
-            dotsContainer.className = 'flex space-x-1 mt-1 sm:mt-0';
+            dotsContainer.className = 'flex space-x-0.5 mt-0.5 sm:mt-0';
             
             const types = h.type.split(' ');
             if (types.includes('F')) {
