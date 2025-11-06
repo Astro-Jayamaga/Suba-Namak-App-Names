@@ -1,826 +1,482 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>රාහු කාලය</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sri Lanka Calendar 2025 - 2026</title>
   
-  <!-- Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
   <style>
-    /* === RESET & ROOT === */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    :root {
-      --c-primary: #020d47;
-      --c-secondary: #ff6b6b;
-      --c-accent: #ffd166;
-      --c-alert: #dc143c;
-      --c-dark: #2d3436;
-      --c-light: #f7f9fa;
-      --c-sunrise: #FF7F50;
-      --c-sunset: #E25822;
-      --title-color: #020d47;
-      --night-rahu-bg: rgba(142, 22, 60, 1);
-      --night-rahu-text-day: white;
-      --night-rahu-text-night: white; 
-      --bg-day: linear-gradient(135deg, #6dd5ed, #2193b0);
-      --bg-night: linear-gradient(135deg, #00030e, #000723, #020d47);
-      --ff-main: "Noto Serif Sinhala", sans-serif;
-      --shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      --radius: 16px;
-      --transition: all 0.3s ease;
-    }
-    
+    /* Apply custom fonts */
     body {
-      font-family: var(--ff-main);
-      color: var(--c-dark);
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      background: var(--bg-day);
-      background-size: cover;
-      background-position: center;
-      transition: var(--transition);
-      padding: 16px;
-      line-height: 1.6;
-      position: relative;
-      overflow-x: hidden;
-    }
-    
-    /* Sky elements */
-    .sky {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-    
-    /* Day sky with clouds */
-    .day-sky {
-      background: linear-gradient(to bottom, #87CEEB 0%, #E0F7FA 100%);
-    }
-    
-    .cloud {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-    }
-    
-    .cloud:before, .cloud:after {
-      content: '';
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-    }
-    
-    .cloud1 {
-      width: 100px;
-      height: 60px;
-      top: 20%;
-      left: 10%;
-      animation: moveCloud 60s linear infinite;
-    }
-    
-    .cloud1:before {
-      width: 50px;
-      height: 50px;
-      top: -20px;
-      left: 10px;
-    }
-    
-    .cloud1:after {
-      width: 70px;
-      height: 40px;
-      top: -10px;
-      right: 20px;
-    }
-    
-    .cloud2 {
-      width: 150px;
-      height: 80px;
-      top: 30%;
-      right: 5%;
-      animation: moveCloud 80s linear infinite reverse;
-    }
-    
-    .cloud2:before {
-      width: 60px;
-      height: 60px;
-      top: -20px;
-      left: 20px;
-    }
-    
-    .cloud2:after {
-      width: 90px;
-      height: 60px;
-      top: -15px;
-      right: 20px;
-    }
-    
-    .cloud3 {
-      width: 120px;
-      height: 70px;
-      top: 15%;
-      left: 30%;
-      animation: moveCloud 100s linear infinite;
-    }
-    
-    .cloud3:before {
-      width: 50px;
-      height: 50px;
-      top: -15px;
-      left: 15px;
-    }
-    
-    .cloud3:after {
-      width: 80px;
-      height: 50px;
-      top: -10px;
-      right: 15px;
-    }
-    
-    /* Night sky with stars */
-    .night-sky {
-      background: var(--bg-night);
-      display: none;
-    }
-    
-    .star {
-      position: absolute;
-      background: #FFD700;
-      border-radius: 50%;
-      animation: twinkle 2s infinite alternate;
-    }
-    
-    @keyframes moveCloud {
-      0% { transform: translateX(-150px); }
-      100% { transform: translateX(calc(100vw + 150px)); }
-    }
-    
-    @keyframes twinkle {
-      0% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
-    
-    body.night {
-      background: var(--bg-night);
-    }
-    
-    body.night .day-sky {
-      display: none;
-    }
-    
-    body.night .night-sky {
-      display: block;
-    }
-    
-    /* Header styles */
-    header {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      color: var(--title-color);
-      text-align: center;
-      padding: 0.6rem;
-      border-radius: var(--radius);
-      margin-bottom: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-    
-    .night header {
-      color: var(--c-accent);
-    }
-    
-    header h1 {
-      font-family: 'Gemunu Libre', sans-serif;
-      font-size: 4rem;
-      font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    /* Main content */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 650px;
-      margin-inline: auto;
-    }
-    
-    /* Card styles */
-    .card {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      padding: 1.8rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-    
-    .night .card {
-      background: rgba(30, 30, 40, 0.85);
-      color: var(--c-light);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    h2.date {
-      font-size: 1.65rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1rem;
-      color: var(--c-primary);
-    }
-    
-    .night h2.date {
-      color: var(--c-accent);
-    }
-    
-    .txt-lg {
-      font-size: 1.25rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1.2rem;
-      color: var(--c-dark);
-    }
-    
-    .night .txt-lg {
-      color: var(--c-light);
-    }
-    
-    /* Rahu active indicator */
-    .rahu-active {
-      font-size: 1.5rem;
-      font-weight: 700;
-      padding: 1.2rem;
-      border-radius: 12px;
-      background: rgba(220, 20, 60, 0.15);
-      border: 3px solid var(--c-alert);
-      color: var(--c-alert);
-      text-align: center;
-      animation: pulse 2s infinite;
-      transition: var(--transition);
-      display: none;
-    }
-    
-    .night .rahu-active {
-      background: rgba(220, 20, 60, 0.25);
-      color: #ff8e8e;
-      border-color: #ff8e8e;
-    }
-    
-    /* Rahu box */
-    .rahubox {
-      font-size: 1.8rem;
-      font-weight: 700;
-      text-align: center;
-      background: var(--c-primary);
-      color: white;
-      padding: 1rem;
-      border-radius: 12px;
-      margin: 1.8rem 0;
-      box-shadow: 0 4px 15px rgba(74, 111, 165, 0.3);
-      transition: var(--transition);
-    }
-    
-    .night .rahubox {
-      background: var(--c-accent);
-      color: var(--c-dark);
-      box-shadow: 0 4px 15px rgba(255, 209, 102, 0.3);
-    }
-    
-    /* Pair styles */
-    .pair {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin: 1rem 0;
-      padding: 0.8rem 1.2rem;
-      border-radius: 10px;
-      background: rgba(245, 245, 245, 1);
-      transition: var(--transition);
-    }
-    
-    .night .pair {
-      background: rgba(45, 52, 54, 0.6);
-    }
-    
-    .icon-text {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .icon {
-      width: 28px;
-      height: 28px;
-    }
-    
-    .sunrise-icon {
-      fill: var(--c-sunrise);
-    }
-    
-    .sunset-icon {
-      fill: var(--c-sunset);
-    }
-    
-    /* Toggle buttons */
-    .dayNight-toggle {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin: 1.2rem 0 0.8rem;
-    }
-    
-    .btn {
-      flex: 1;
-      text-align: center;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 2px solid var(--c-primary);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      background: white;
-      color: var(--c-primary);
       font-family: 'Noto Serif Sinhala', serif;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .font-gemunu {
+      font-family: 'Gemunu Libre', sans-serif;
+    }
+    .font-noto-serif {
+      font-family: 'Noto Serif Sinhala', serif;
+    }
+    /* Font for English weekday headers */
+    .font-roboto {
+      font-family: 'Roboto', sans-serif;
     }
     
-    .night .btn {
-      background: rgba(30, 30, 40, 0.8);
-      border-color: var(--c-accent);
-      color: var(--c-light);
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
     }
     
-    .btn.active, .btn:hover {
-      background: var(--c-primary);
-      color: white;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    /* Smooth transitions */
+    .transition-all {
+      transition: all 0.3s ease;
     }
     
-    .night .btn.active, .night .btn:hover {
-      background: var(--c-accent);
-      color: var(--c-dark);
+    /* Gradient backgrounds */
+    .gradient-bg {
+      background: linear-gradient(135deg, #020d47 0%, #8e163c 100%);
     }
     
-    /* Weekday grid */
-    .weekday-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-    }
-    
-    .weekday-grid button {
-      padding: 0.8rem 0.5rem;
-      font-size: 1.1rem;
-    }
-    
-    /* Date picker container */
-    .date-picker-container {
-      text-align: center;
-      padding: 1rem;
-      width: 100%;
-    }
-    
-    .date-picker-label {
-      display: block;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--c-primary);
-    }
-    
-    .night .date-picker-label {
-      color: var(--c-accent);
-    }
-    
-    #datePicker {
-      padding: 1rem;
-      border: 2px solid var(--c-primary);
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-family: var(--ff-main);
-      width: 100%;
-      max-width: 300px;
-      background: white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: var(--transition);
-    }
-    
-    .night #datePicker {
-      background: rgba(30, 30, 40, 0.8);
-      border-color: var(--c-accent);
-      color: var(--c-light);
-    }
-    
-    #datePicker:focus {
-      outline: none;
-      border-color: var(--c-secondary);
-      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
-    }
-    
-    /* Bottom note */
-    .bottom-note {
-      text-align: center;
-      font-size: 1rem;
-      margin: 0.5rem 0 1.2rem;
-      color: var(--c-dark);
-      font-weight: 500;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.5s ease;
-    }
-    
-    .night .bottom-note {
-      color: var(--c-light);
-    }
-    
-    .bottom-note.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Disclaimer */
-    .disclaimer {
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: 2px dashed var(--c-primary);
-      padding: 1.2rem;
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.7);
-      margin-top: 0.5rem;
-    }
-    
-    .night .disclaimer {
-      border-color: var(--c-accent);
-      background: rgba(30, 30, 40, 0.6);
-    }
-    
-    /* Footer */
-    footer {
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-align: center;
-      margin: 1.5rem 0 0.5rem;
-      color: rgba(2, 13, 71, 1);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    }
-    
-    .night footer {
-      color: rgba(255, 255, 255, 1);
-    }
-    
-    /* Animations */
-    @keyframes pulse {
-      0% { 
-        opacity: 0.8; 
-        transform: scale(1); 
-        box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.4);
-      }
-      70% { 
-        opacity: 1;
-        transform: scale(1.02);
-        box-shadow: 0 0 0 12px rgba(220, 20, 60, 0);
-      }
-      100% { 
-        opacity: 0.8; 
-        transform: scale(1); 
-        box-shadow: 0 0 0 0 rgba(220, 20, 60, 0);
-      }
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .fade-in {
-      animation: fadeIn 0.6s ease-out forwards;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .weekday-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      header h1 {
-        font-size: 4rem;
-      }
-      
-      .rahu-active {
-        font-size: 1.3rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .rahubox {
-        font-size: 1.5rem;
-      }
-      
-      .btn {
-        padding: 0.8rem;
-        font-size: 1rem;
-      }
-      
-      .weekday-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .rahu-active {
-        font-size: 1.2rem;
-        padding: 1rem;
-      }
+    /* Card shadow effect */
+    .card-shadow {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
   </style>
 </head>
-<body>
-  <!-- Sky elements -->
-  <div class="sky day-sky">
-    <div class="cloud cloud1"></div>
-    <div class="cloud cloud2"></div>
-    <div class="cloud cloud3"></div>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-10">
+      <h1 class="text-4xl font-bold font-gemunu text-[#020d47] mb-2">ශ්‍රී ලංකා දින දර්ශනය</h1>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Calendar Section -->
+      <div class="lg:col-span-2">
+        <div id="calendarWrapper" class="rounded-2xl card-shadow bg-white overflow-hidden">
+          <!-- Calendar Header with Image -->
+          <div class="relative">
+            <img id="monthImage" src="" alt="Monthly Theme" class="w-full h-48 object-cover">
+            
+            <!-- Today Button -->
+            <button id="todayBtn" class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all">
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-calendar-day text-[#020d47]"></i>
+                <span id="todayDate" class="text-sm font-bold text-[#020d47]"></span>
+              </div>
+            </button>
+            
+            <!-- Month/Year Overlay -->
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+              <h2 id="monthYear" class="text-2xl font-bold text-white font-gemunu"></h2>
+            </div>
+          </div>
+
+          <!-- Calendar Navigation -->
+          <div class="p-4 border-b border-gray-100">
+            <div class="flex justify-between items-center">
+              <button id="prevBtn" class="flex items-center space-x-2 px-4 py-2 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                <i class="fas fa-chevron-left"></i>
+                <span>Prev</span>
+              </button>
+              
+              <div class="text-center">
+                <p id="monthYearText" class="text-lg font-semibold text-gray-700 font-noto-serif"></p>
+              </div>
+              
+              <button id="nextBtn" class="flex items-center space-x-2 px-4 py-2 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                <span>Next</span>
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Calendar Grid -->
+          <div class="p-4">
+            <div id="calendar" class="grid grid-cols-7 gap-1 text-center"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Section -->
+      <div class="space-y-6">
+        <!-- Holidays Section -->
+        <div class="rounded-2xl card-shadow bg-white p-5">
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fas fa-calendar-check text-[#8e163c]"></i>
+            <h3 class="text-lg font-semibold font-noto-serif">නිවාඩු දින</h3>
+          </div>
+          <p class="text-sm text-gray-500 mb-3 font-noto-serif">මාසය: <span id="holMonth" class="font-bold text-[#020d47]"></span></p>
+          <div class="h-64 overflow-y-auto pr-2">
+            <ul id="holidays" class="list-none space-y-3 text-gray-800"></ul>
+          </div>
+        </div>
+
+        <!-- Legend Section -->
+        <div class="rounded-2xl card-shadow bg-white p-5">
+          <div class="flex items-center space-x-2 mb-4">
+          </div>
+          <div id="legend" class="grid grid-cols-1 gap-3 text-sm"></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="sky night-sky" id="nightSky"></div>
-  
-  <header><h1>රාහු කාලය</h1></header>
-  <main>
-    <div class="card fade-in" id="mainCard">
-      <h2 class="date" id="todayDate">--</h2>
-      <p class="txt-lg" id="subTxt">--</p>
+
+  <footer class="text-center mt-10 mb-6 text-gray-500 text-sm">
+    &copy; <span id="copyrightYear"></span> Developed by Lanka Lift Solutions
+  </footer>
+
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- DATA ---
+
+      // Hardcoded Sri Lankan Holidays for 2025-2026
+      const allHolidays = {
+        '2025-01-13': { name: 'දුරුතු පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-01-14': { name: 'තෛපොංගල් දිනය', type: 'P B M' },
+        '2025-02-04': { name: 'නිදහස් දිනය', type: 'P B M' },
+        '2025-02-12': { name: 'නවම් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-02-26': { name: 'මහා ශිව රාත්‍රී දිනය', type: 'P B' },
+        '2025-03-13': { name: 'මැදින් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-03-31': { name: 'රාමසාන් උත්සව දිනය', type: 'P B' },
+        '2025-04-12': { name: 'බක් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-04-13': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනට පෙර දිනය', type: 'P B M' },
+        '2025-04-14': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනය', type: 'P B M' },
+        '2025-04-18': { name: 'මහ සිකුරාදා දිනය', type: 'P B' },
+        '2025-05-01': { name: 'මැයි දිනය', type: 'P B M' },
+        '2025-05-12': { name: 'වෙසක් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-05-13': { name: 'වෙසක් පුර පසළොස්වක පෝය දිනට පසු දිනය', type: 'P B M' },
+        '2025-06-07': { name: 'හජ්ජි උත්සව දිනය', type: 'P B' },
+        '2025-06-10': { name: 'පොසොන් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-07-10': { name: 'ඇසල පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-08-08': { name: 'නිකිනි පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-09-05': { name: 'නබිනායක තුමාගේ උපන්දිනය', type: 'P B M' },
+        '2025-09-07': { name: 'බිනර පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-10-06': { name: 'වප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-10-20': { name: 'දීපවාලි උත්සව දිනය', type: 'P B' },
+        '2025-11-05': { name: 'ඉල් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-12-04': { name: 'උඳුවප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2025-12-25': { name: 'නත්තල් දිනය', type: 'P B M' },
+        '2026-01-03': { name: 'දුරුතු පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-01-15': { name: 'තෛපොංගල් දිනය', type: 'P B M' },
+        '2026-02-01': { name: 'නවම් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-02-04': { name: 'නිදහස් දිනය', type: 'P B M' },
+        '2026-02-15': { name: 'මහා ශිව රාත්‍රී දිනය', type: 'P B' },
+        '2026-03-02': { name: 'මැදින් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-03-21': { name: 'රාමසාන් උත්සව දිනය', type: 'P B' },
+        '2026-04-01': { name: 'බක් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-04-03': { name: 'මහ සිකුරාදා දිනය', type: 'P B' },
+        '2026-04-13': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනට පෙර දිනය', type: 'P B M' },
+        '2026-04-14': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනය', type: 'P B M' },
+        '2026-05-01': { name: 'මැයි දිනය / වෙසක් පුර පසළොස්වක පෝය දිනය', type: 'P B M F' }, 
+        '2026-05-02': { name: 'වෙසක් පුර පසළොස්වක පෝය දිනට පසු දිනය', type: 'P B M' },
+        '2026-05-28': { name: 'හජ්ජි උත්සව දිනය', type: 'P B' },
+        '2026-05-30': { name: 'අධි පොසොන් පුර පසළොස්වක පෝය දින', type: 'P B F' },
+        '2026-06-29': { name: 'පොසොන් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-07-29': { name: 'ඇසල පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-08-26': { name: 'නබිනායක තුමාගේ උපන්දිනය', type: 'P B M' },
+        '2026-08-27': { name: 'නිකිනි පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-09-26': { name: 'බිනර පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-10-25': { name: 'වප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-11-08': { name: 'දීපවාලී උත්සව දිනය', type: 'P B' },
+        '2026-11-24': { name: 'ඉල් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-12-23': { name: 'උඳුවප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
+        '2026-12-25': { name: 'නත්තල් දිනය', type: 'P B M' }
+      };
+
+      // Sinhala month names
+      const sinhalaMonths = [
+        'ජනවාරි', 'පෙබරවාරි', 'මාර්තු', 'අප්‍රේල්', 'මැයි', 'ජූනි',
+        'ජූලි', 'අගෝස්තු', 'සැප්තැම්බර්', 'ඔක්තෝම්බර්', 'නොවැම්බර්', 'දෙසැම්බර්'
+      ];
+
+      // English weekday names (Mon-Sun)
+      const englishWeekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
       
-      <div class="dayNight-toggle">
-        <button class="btn active" id="btnDay">දිවා කාලය</button>
-        <button class="btn" id="btnNight">රාත්‍රී කාලය</button>
-      </div>
+      // Monthly background images (Sri Lanka themed)
+      const monthlyImages = [
+        'https://imgur.com/OgTdRxL.jpeg', // January - Fireworks
+        'https://imgur.com/abYAnKT.jpeg', // February - Independence
+        'https://imgur.com/xfqaRgn.jpeg', // March - Shiva
+        'https://imgur.com/ZmR4jrG.jpeg', // April - New Year
+        'https://imgur.com/spd4hCC.jpeg', // May - Vesak
+        'https://imgur.com/5n5qRN0.jpeg', // June - Poson
+        'https://imgur.com/YXgJW7q.jpeg', // July - Esala
+        'https://imgur.com/phFEOCI.jpeg', // August - Kites
+        'https://imgur.com/kfmlA1z.jpeg', // September - Books
+        'https://imgur.com/pUojMLs.jpeg', // October - Savings
+        'https://imgur.com/Hlc4uat.jpeg', // November - Lotus Tower
+        'https://imgur.com/u55zRgC.jpeg'  // December - Christmas
+      ];
+
+      // --- DATE INITIALIZATION ---
+
+      let today = new Date();
+      const minDate = new Date(2025, 0, 1); // Jan 1, 2025
+      const maxDate = new Date(2026, 11, 31); // Dec 31, 2026
+
+      if (today < minDate) {
+        today = minDate;
+      } else if (today > maxDate) {
+        today = maxDate;
+      }
       
-      <p class="rahubox" id="rahuRange">-- : --</p>
+      let currentDate = new Date(today.getFullYear(), today.getMonth(), 1); 
+
+      // --- DOM ELEMENTS ---
+
+      const monthYearEl = document.getElementById('monthYear');
+      const monthYearTextEl = document.getElementById('monthYearText');
+      const calendarEl = document.getElementById('calendar');
+      const holidaysList = document.getElementById('holidays');
+      const holMonthEl = document.getElementById('holMonth');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const monthImageEl = document.getElementById('monthImage');
+      const legendEl = document.getElementById('legend');
+      const copyrightYearEl = document.getElementById('copyrightYear');
+      const todayBtn = document.getElementById('todayBtn');
+      const todayDateEl = document.getElementById('todayDate');
       
-      <div class="pair">
-        <span class="icon-text">
-          <svg class="icon sunrise-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 18H21M5 15H19M7 12H17M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2M12 9C9.8 9 8 10.8 8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          ඉර උදාව
-        </span>
-        <span id="sunrise">--:--</span>
-      </div>
-      <div class="pair">
-        <span class="icon-text">
-          <svg class="icon sunset-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 18H21M5 15H19M7 12H17M12 22V19M4 19H20M12 9C9.8 9 8 10.8 8 13M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          ඉර බැසීම
-        </span>
-        <span id="sunset">--:--</span>
-      </div>
-    </div>
+      // --- HELPER FUNCTIONS ---
 
-    <div class="card weekday-grid" id="weekdayButtons"></div>
-    
-    <p class="bottom-note" id="bottomNote">මෙම දින සඳහා අදාළ රාහු කාලය පහතින් දක්වා ඇත.</p>
+      function createDot(colorClass) {
+        const dot = document.createElement('div');
+        dot.className = `w-1.5 h-1.5 rounded-full ${colorClass}`;
+        return dot;
+      }
 
-    <div class="card date-picker-container">
-      <div class="date-picker-label">වෙනත් ඕනෑම දිනයක් සඳහා රාහු කාලය දැන ගන්න.</div>
-      <input type="date" id="datePicker">
-    </div>
+      function createLegendItem(colorClass, text) {
+        const item = document.createElement('div');
+        item.className = 'flex items-center space-x-2';
+        
+        let circleStyle = `w-4 h-4 rounded-full ${colorClass}`;
+        if (colorClass.includes('yellow')) {
+           circleStyle += ' border border-gray-400';
+        }
+        
+        item.innerHTML = `
+          <div class="${circleStyle}"></div>
+          <span class="font-noto-serif">${text}</span>
+        `;
+        return item;
+      }
+      
+      function updateTodayButton() {
+        const today = new Date();
+        todayDateEl.textContent = today.getDate();
+      }
 
-    <div class="card" id="bottomCard" style="display: none;"></div>
+      // --- RENDER FUNCTIONS ---
 
-    <div class="card disclaimer">
-      <p>In astrology, the Rahu Kalaya period is considered an inauspicious time to begin new projects due to the potential for failure.</p>
-      <br>
-      <p>Disclaimer: Rahu Kalaya period times are provided in 24-hour format. While we aim for accuracy, we do not guarantee the absolute accuracy of these timings.</p>
-    </div>
-  </main>
-  <footer>© <span id="year"></span> Lanka Lift Solutions. All Rights Reserved.</footer>
+      function renderCalendar() {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth(); // 0-11
 
-<script>
-/* ===== CONSTANTS & HELPERS ===== */
-const LAT = 6.72, LON = 80.07;
-const rahuMap = {0: 8, 1: 2, 2: 7, 3: 5, 4: 6, 5: 4, 6: 3};
-const z = n => n.toString().padStart(2, '0');
-const fmtTimeShort = d => `${z(d.getHours())}:${z(d.getMinutes())}`;
+        // 1. Set Header
+        monthYearEl.textContent = `${sinhalaMonths[month]} ${year}`;
+        monthYearTextEl.textContent = `${sinhalaMonths[month]} ${year}`;
 
-function calcRahu(date, isNight = false) {
-  const sun = SunCalc.getTimes(date, LAT, LON);
-  const sunrise = sun.sunrise;
-  const sunset = sun.sunset;
-  const idx = rahuMap[date.getDay()];
-  let rahuStart, rahuEnd;
+        // 2. Set Background Image
+        monthImageEl.src = monthlyImages[month];
+        
+        // 3. Reset Calendar Grid
+        calendarEl.innerHTML = '';
 
-  const daySliceDuration = (sunset.getTime() - sunrise.getTime()) / 8;
-  
-  if (!isNight) {
-    const dayStart = sunrise.getTime();
-    rahuStart = new Date(dayStart + (idx - 1) * daySliceDuration);
-    rahuEnd = new Date(rahuStart.getTime() + daySliceDuration);
-  } else {
-    const nightStart = sunset.getTime();
-    rahuStart = new Date(nightStart + (idx - 1) * daySliceDuration);
-    rahuEnd = new Date(rahuStart.getTime() + daySliceDuration);
-  }
-  
-  return { sunrise, sunset, rahuStart, rahuEnd };
-}
+        // 4. Render Weekday Labels (Mon-Sun) in English
+        englishWeekdays.forEach((day, index) => {
+          const cell = document.createElement('div');
+          cell.textContent = day;
+          cell.className = 'font-bold font-roboto text-sm text-gray-500 py-2';
+          if (index === 5) { // Saturday
+            cell.classList.add('text-gray-600');
+          }
+          if (index === 6) { // Sunday
+            cell.classList.add('text-red-600');
+          }
+          calendarEl.appendChild(cell);
+        });
 
-/* ===== DOM ELEMENTS ===== */
-const elDate = document.getElementById('todayDate');
-const elSub = document.getElementById('subTxt');
-const elRange = document.getElementById('rahuRange');
-const elSunrise = document.getElementById('sunrise');
-const elSunset = document.getElementById('sunset');
-const elBtnDay = document.getElementById('btnDay');
-const elBtnNight = document.getElementById('btnNight');
-const elWeekGrid = document.getElementById('weekdayButtons');
-const elPicker = document.getElementById('datePicker');
-const bottomCard = document.getElementById('bottomCard');
-const bottomNote = document.getElementById('bottomNote');
-const nightSky = document.getElementById('nightSky');
+        // 5. Calculate Blank Cells (for Monday start)
+        const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0=Sun, 1=Mon... 6=Sat
+        const blanksToadd = (firstDayOfWeek + 6) % 7; // (0-Sun -> 6), (1-Mon -> 0)
+        
+        for (let i = 0; i < blanksToadd; i++) {
+          calendarEl.appendChild(document.createElement('div'));
+        }
 
-/* ===== STATE ===== */
-let isNightView = false;
-let baseDate = new Date();
-baseDate.setHours(0, 0, 0, 0);
+        // 6. Render Days
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const todayDate = new Date();
 
-/* ===== SKY FUNCTIONS ===== */
-function createStars() {
-  // Clear existing stars
-  nightSky.innerHTML = '';
-  
-  // Create 100 stars
-  for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    
-    // Random position
-    const x = Math.random() * 100;
-    const y = Math.random() * 100;
-    
-    // Random size (1-3px)
-    const size = Math.random() * 2 + 1;
-    
-    // Random animation delay
-    const delay = Math.random() * 2;
-    
-    star.style.left = `${x}%`;
-    star.style.top = `${y}%`;
-    star.style.width = `${size}px`;
-    star.style.height = `${size}px`;
-    star.style.animationDelay = `${delay}s`;
-    
-    nightSky.appendChild(star);
-  }
-}
+        for (let d = 1; d <= daysInMonth; d++) {
+          const cell = document.createElement('div');
+          cell.className = 'h-14 flex flex-col items-center justify-center rounded-lg transition-all hover:bg-gray-50';
+          
+          const dayNumber = document.createElement('span');
+          dayNumber.textContent = d;
+          dayNumber.className = 'w-8 h-8 flex items-center justify-center rounded-full transition-all';
 
-/* ===== CORE FUNCTIONS ===== */
-function setBg() {
-  document.body.classList.toggle('night', isNightView);
-}
+          const dotsContainer = document.createElement('div');
+          dotsContainer.className = 'flex space-x-1 h-2 mt-1';
+          
+          const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+          const holiday = allHolidays[dateKey];
+          
+          let isPoya = false;
+          if (holiday) {
+            const types = holiday.type.split(' ');
+            if (types.includes('F')) {
+              dayNumber.classList.add('bg-yellow-300', 'font-bold', 'border', 'border-gray-400');
+              isPoya = true;
+            }
+            if (types.includes('P')) {
+              dotsContainer.appendChild(createDot('bg-blue-500'));
+            }
+            if (types.includes('B')) {
+              dotsContainer.appendChild(createDot('bg-green-500'));
+            }
+            if (types.includes('M')) {
+              dotsContainer.appendChild(createDot('bg-orange-500'));
+            }
+          }
+          
+          // Highlight today (if not Poya)
+          if (
+            !isPoya &&
+            d === todayDate.getDate() &&
+            month === todayDate.getMonth() &&
+            year === todayDate.getFullYear()
+          ) {
+            dayNumber.classList.add('bg-[#8e163c]', 'text-white', 'font-bold');
+          }
+          
+          // Weekend column TEXT coloring (no background)
+          const dayOfWeek = (blanksToadd + d - 1) % 7; // 0=Mon, 5=Sat, 6=Sun
+          if (dayOfWeek === 5) { // Saturday
+            dayNumber.classList.add('text-gray-600', 'font-medium');
+          }
+          if (dayOfWeek === 6) { // Sunday
+            dayNumber.classList.add('text-red-600', 'font-medium');
+          }
 
-function updateTopCard() {
-  const rahu = calcRahu(baseDate, isNightView);
-  
-  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  elDate.textContent = baseDate.toLocaleDateString('si-LK', options);
-  
-  const dirs = [
-    ['උතුර', 'දකුණ'], ['ගිණිකොන', 'වයඹ'], ['නැගෙනහිර', 'වයඹ'],
-    ['ඊසාන', 'නිරිත'], ['උතුර', 'දකුණ'], ['වයඹ', 'ගිණිකොන'],
-    ['බස්නාහිර', 'නැගෙනහිර']
-  ];
-  
-  const d = dirs[baseDate.getDay()];
-  elSub.textContent = `සුභ දිශාව - ${d[0]} | මරු සිටින දිශාව - ${d[1]}`;
-  elRange.textContent = `${fmtTimeShort(rahu.rahuStart)} සිට ${fmtTimeShort(rahu.rahuEnd)} දක්වා`;
-  elSunrise.textContent = fmtTimeShort(rahu.sunrise);
-  elSunset.textContent = fmtTimeShort(rahu.sunset);
-  
-  document.getElementById('mainCard').classList.add('fade-in');
-  setTimeout(() => {
-    document.getElementById('mainCard').classList.remove('fade-in');
-  }, 600);
-}
+          cell.appendChild(dayNumber);
+          cell.appendChild(dotsContainer);
+          calendarEl.appendChild(cell);
+        }
+        
+        // 7. Render Holiday List
+        renderHolidaysList(year, month);
+        
+        // 8. Update Navigation Buttons State
+        prevBtn.disabled = (year === 2025 && month === 0);
+        nextBtn.disabled = (year === 2026 && month === 11);
+      }
 
-function showBottom(dateObj) {
-  const info = calcRahu(dateObj, false);
-  const nightInfo = calcRahu(dateObj, true);
-  const dirs = [
-    ['උතුර', 'දකුණ'], ['ගිණිකොන', 'වයඹ'], ['නැගෙනහිර', 'වයඹ'],
-    ['ඊසාන', 'නිරිත'], ['උතුර', 'දකුණ'], ['වයඹ', 'ගිණිකොන'],
-    ['බස්නාහිර', 'නැගෙනහිර']
-  ];
-  
-  const d = dirs[dateObj.getDay()];
-  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  
-  bottomCard.innerHTML = `
-    <h2 class="date">${dateObj.toLocaleDateString('si-LK', options)}</h2>
-  <p class="txt-lg">සුභ දිශාව - ${d[0]} | මරු සිටින දිශාව - ${d[1]}</p>
-  <p class="rahubox">දිවා: ${fmtTimeShort(info.rahuStart)} සිට ${fmtTimeShort(info.rahuEnd)}</p>
-  <p class="rahubox night-rahu-time" style="background-color: var(--night-rahu-bg); color: ${isNightView ? 'var(--night-rahu-text-night)' : 'var(--night-rahu-text-day)'};">රාත්‍රී: ${fmtTimeShort(nightInfo.rahuStart)} සිට ${fmtTimeShort(nightInfo.rahuEnd)}</p>
-    <div class="pair">
-      <span class="icon-text">
-        <svg class="icon sunrise-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 18H21M5 15H19M7 12H17M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2M12 9C9.8 9 8 10.8 8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        ඉර උදාව
-      </span>
-      <span>${fmtTimeShort(info.sunrise)}</span>
-    </div>
-    <div class="pair">
-      <span class="icon-text">
-        <svg class="icon sunset-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 18H21M5 15H19M7 12H17M12 22V19M4 19H20M12 9C9.8 9 8 10.8 8 13M12 3V5M5.6 7.6L4.2 6.2M18.4 7.6L19.8 6.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        ඉර බැසීම
-      </span>
-      <span>${fmtTimeShort(info.sunset)}</span>
-    </div>
-  `;
-  
-  bottomCard.style.display = 'block';
-  bottomCard.classList.add('fade-in');
-  bottomNote.classList.add('show');
-  setTimeout(() => bottomCard.classList.remove('fade-in'), 600);
-}
+      function renderHolidaysList(year, month) {
+        holidaysList.innerHTML = '';
+        holMonthEl.textContent = sinhalaMonths[month];
 
-/* ===== EVENT LISTENERS ===== */
-elBtnDay.addEventListener('click', () => {
-  isNightView = false;
-  elBtnDay.classList.add('active');
-  elBtnNight.classList.remove('active');
-  setBg();
-  updateTopCard();
-});
+        const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
+        const hols = Object.keys(allHolidays)
+          .filter(key => key.startsWith(monthKey))
+          .map(key => ({ date: key, ...allHolidays[key] }))
+          .sort((a, b) => new Date(a.date) - new Date(b.date)); 
 
-elBtnNight.addEventListener('click', () => {
-  isNightView = true;
-  elBtnNight.classList.add('active');
-  elBtnDay.classList.remove('active');
-  setBg();
-  updateTopCard();
-});
+        if (hols.length === 0) {
+          const li = document.createElement('li');
+          li.textContent = 'මෙම මාසයේ පොදු නිවාඩු නොමැත.';
+          li.className = 'text-gray-500 text-center py-2';
+          holidaysList.appendChild(li);
+        } else {
+          hols.forEach(h => {
+            const d = new Date(h.date.replace(/-/g, '/')); 
+            const li = document.createElement('li');
+            li.className = 'flex flex-col sm:flex-row justify-between items-start sm:items-center py-2 px-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all';
+            
+            const textSpan = document.createElement('span');
+            textSpan.className = 'font-noto-serif text-sm';
+            textSpan.textContent = `${d.getDate()}: ${h.name}`;
+            
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'flex space-x-1 mt-1 sm:mt-0';
+            
+            const types = h.type.split(' ');
+            if (types.includes('F')) {
+              dotsContainer.appendChild(createDot('bg-yellow-300 border border-gray-400'));
+            }
+            if (types.includes('P')) {
+              dotsContainer.appendChild(createDot('bg-blue-500'));
+            }
+            if (types.includes('B')) {
+              dotsContainer.appendChild(createDot('bg-green-500'));
+            }
+            if (types.includes('M')) {
+              dotsContainer.appendChild(createDot('bg-orange-500'));
+            }
 
-const weekdays = ['ඉරිදා', 'සඳුදා', 'අඟහරුවාදා', 'බදාදා', 'බ්‍රහස්පතින්දා', 'සිකුරාදා', 'සෙනසුරාදා'];
-weekdays.forEach((day, i) => {
-  const b = document.createElement('button');
-  b.className = 'btn';
-  b.textContent = day;
-  b.addEventListener('click', () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const diff = (i - today.getDay() + 7) % 7;
-    const targetDate = new Date(today.getTime() + diff * 86400000);
-    showBottom(targetDate);
-  });
-  elWeekGrid.appendChild(b);
-});
+            li.appendChild(textSpan);
+            li.appendChild(dotsContainer);
+            holidaysList.appendChild(li);
+          });
+        }
+      }
+      
+      function renderLegend() {
+        legendEl.innerHTML = ''; // Clear existing
+        legendEl.appendChild(createLegendItem('bg-blue-500', 'රජයේ නිවාඩු'));
+        legendEl.appendChild(createLegendItem('bg-green-500', 'බැංකු නිවාඩු'));
+        legendEl.appendChild(createLegendItem('bg-orange-500', 'වෙළෙඳ නිවාඩු'));
+        legendEl.appendChild(createLegendItem('bg-yellow-300', 'පෝය නිවාඩු'));
+      }
+      
+      function renderCopyright() {
+        copyrightYearEl.textContent = new Date().getFullYear();
+      }
 
-elPicker.addEventListener('change', e => {
-  if (e.target.value) {
-    const parts = e.target.value.split('-');
-    const year = parseInt(parts[0], 10);
-    const month = parseInt(parts[1], 10) - 1;
-    const day = parseInt(parts[2], 10);
-    showBottom(new Date(year, month, day));
-  }
-});
+      // --- EVENT LISTENERS ---
 
-/* ===== INITIALIZATION ===== */
-function init() {
-    createStars();
-    setBg();
-    updateTopCard();
-    document.getElementById('year').textContent = new Date().getFullYear();
+      prevBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+      });
 
-    const today = new Date();
-    const formattedDate = `${today.getFullYear()}-${z(today.getMonth() + 1)}-${z(today.getDate())}`;
-    elPicker.value = formattedDate;
-}
+      nextBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+      });
+      
+      todayBtn.addEventListener('click', () => {
+        currentDate = new Date(today.getFullYear(), today.getMonth(), 1);
+        renderCalendar();
+      });
 
-init();
-</script>
+      // --- INITIAL RENDER ---
+      
+      renderLegend();
+      renderCopyright();
+      updateTodayButton();
+      renderCalendar();
+    });
+  </script>
 </body>
 </html>
