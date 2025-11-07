@@ -1,486 +1,513 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sri Lanka Calendar 2025 - 2026</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>අවුරුදු නැකැත් 2026</title>
+    
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* ------------------------- */
+        /* --- Global Variables ---- */
+        /* ------------------------- */
+        :root {
+            --deep-navy: #020d47;
+            --maroon: #8e163c;
+            --white: #ffffff;
+            --off-white: #f8f9fa;
+            --light-gray: #f0f4f8;
+            --text-dark: #01061f;
+            
+            /* Fonts from user request */
+            --font-main-title: 'Gemunu Libre', sans-serif;
+            --font-body: 'Noto Serif Sinhala', serif;
+            --font-countdown: 'Gemunu Libre', monospace;
+        }
 
-  <style>
-    /* Apply custom fonts */
-    body {
-      font-family: 'Noto Serif Sinhala', serif;
-    }
-    .font-gemunu {
-      font-family: 'Gemunu Libre', sans-serif;
-    }
-    .font-noto-serif {
-      font-family: 'Noto Serif Sinhala', serif;
-    }
-    /* Font for English weekday headers */
-    .font-roboto {
-      font-family: 'Roboto', sans-serif;
-    }
-    
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #a8a8a8;
-    }
-    
-    /* Smooth transitions */
-    .transition-all {
-      transition: all 0.3s ease;
-    }
-    
-    /* Gradient backgrounds */
-    .gradient-bg {
-      background: linear-gradient(135deg, #020d47 0%, #8e163c 100%);
-    }
-    
-    /* Card shadow effect */
-    .card-shadow {
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-  </style>
+        /* ------------------------- */
+        /* ------ Base Styles ------ */
+        /* ------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* ------------------------- */
+        /* -------- Header --------- */
+        /* ------------------------- */
+        .main-title {
+            font-family: var(--font-main-title);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ------------------------- */
+        /* ----- Banner & Card ----- */
+        /* ------------------------- */
+        .banner {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .content-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ------------------------- */
+        /* ------ Typography ------- */
+        /* ------------------------- */
+        .secondary-title {
+            font-family: var(--font-body);
+            color: var(--maroon);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--deep-navy);
+        }
+
+        /* ------------------------- */
+        /* --- Countdown Section --- */
+        /* ------------------------- */
+        #countdown-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        /* State 1 & 2: Days Countdown */
+        .days-countdown {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+        }
+        
+        /* State 1: Highlighted Days */
+        .days-countdown .highlight {
+            font-size: 1.8rem;
+            color: var(--maroon);
+            display: inline-block;
+            margin: 0 0.3rem;
+            transform: scale(1.1);
+        }
+
+        /* State 2: Special H:M:S Countdown */
+        .special-countdown {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .time-box {
+            background-color: var(--deep-navy);
+            color: var(--white);
+            border-radius: 8px;
+            padding: 0.8rem;
+            min-width: 70px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .time-box span {
+            display: block;
+        }
+
+        .time-box .number {
+            font-family: var(--font-countdown);
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .time-box .label {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+            color: var(--light-gray);
+        }
+
+        /* State 3 & 4: Status Messages */
+        .status-message {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* State 3: Active */
+        .status-message.highlight-active {
+            background-color: var(--maroon);
+            color: var(--white);
+        }
+
+        /* State 4: Passed */
+        .status-message.highlight-passed {
+            background-color: var(--deep-navy);
+            color: var(--white);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ------------------------- */
+        /* --- Info Bullet List ---- */
+        /* ------------------------- */
+        .info-list {
+            list-style: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--deep-navy);
+        }
+
+        .info-list .icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--maroon);
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        /* ------------------------- */
+        /* --- Note & Footer ------- */
+        /* ------------------------- */
+        .note {
+            border: 1px solid var(--maroon);
+            border-radius: 6px;
+            padding: 0.8rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: var(--maroon);
+            background-color: #fcf4f7;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+        
+        /* Requested 3rem space at the bottom */
+        footer {
+            height: 3rem;
+        }
+
+        /* ------------------------- */
+        /* --- Responsive Design --- */
+        /* ------------------------- */
+        @media (max-width: 600px) {
+            html {
+                font-size: 13px;
+            }
+            
+            .container {
+                padding: 0.8rem;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .secondary-title {
+                font-size: 1.3rem;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            .time-box {
+                min-width: 60px;
+                padding: 0.6rem;
+            }
+            
+            .time-box .number {
+                font-size: 1.7rem;
+            }
+            
+            .special-countdown {
+                gap: 0.5rem;
+            }
+            
+            .info-list li {
+                font-size: 0.9rem;
+            }
+        }
+
+    </style>
 </head>
-<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+<body>
 
-  <div class="max-w-4xl mx-auto px-4 py-4">
-    <!-- Header -->
-    <header class="text-center mb-4">
-      <h1 id="dynamicTitle" class="text-3xl font-bold font-gemunu text-[#020d47] mb-2">2025</h1>
-    </header>
+    <div class="container">
+        <header>
+            <h1 class="main-title">අවුරුදු නැකැත් 2026</h1>
+        </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <!-- Calendar Section -->
-      <div class="lg:col-span-2">
-        <div id="calendarWrapper" class="rounded-2xl card-shadow bg-white overflow-hidden">
-          <!-- Calendar Header with Image -->
-          <div class="relative">
-            <img id="monthImage" src="" alt="Monthly Theme" class="w-full h-40 object-cover">
-            
-            <!-- Today Button -->
-            <button id="todayBtn" class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all">
-              <div class="flex items-center space-x-1">
-                <i class="fas fa-calendar-day text-[#020d47]"></i>
-                <span id="todayDate" class="text-xs font-bold text-[#020d47]"></span>
-              </div>
-            </button>
-            
-            <!-- Month/Year Overlay -->
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
-              <h2 id="monthYear" class="text-xl font-bold text-white font-gemunu"></h2>
+        <main>
+            <!-- Banner Image -->
+            <div class="banner">
+                <img src="https://i.imgur.com/fgX8eJo.jpeg" alt="Sinhala New Year Nakath 2026">
             </div>
-          </div>
 
-          <!-- Calendar Navigation -->
-          <div class="p-3 border-b border-gray-100">
-            <div class="flex justify-between items-center">
-              <button id="prevBtn" class="flex items-center space-x-1 px-3 py-1.5 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
-                <i class="fas fa-chevron-left text-sm"></i>
-                <span class="text-sm">Prev</span>
-              </button>
-              
-              <div class="text-center">
-                <p id="monthYearText" class="text-base font-semibold text-gray-700 font-noto-serif"></p>
-              </div>
-              
-              <button id="nextBtn" class="flex items-center space-x-1 px-3 py-1.5 bg-white text-[#020d47] rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
-                <span class="text-sm">Next</span>
-                <i class="fas fa-chevron-right text-sm"></i>
-              </button>
+            <!-- Main Content Card -->
+            <div class="content-card">
+                
+                <!-- Secondary Title -->
+                <h2 class="secondary-title">වැඩ ඇල්ලීම, ගනුදෙනු කිරීම හා ආහාර අනුභවය</h2>
+
+                <!-- Countdown Section -->
+                <section id="countdown-section">
+                    <!-- State 1 & 2: Days Countdown -->
+                    <div id="days-countdown" class="days-countdown"></div>
+                    
+                    <!-- State 2: Special H:M:S Countdown -->
+                    <div id="special-countdown" class="special-countdown" style="display:none;">
+                        <div class="time-box">
+                            <span id="hours" class="number">00</span>
+                            <span class="label">පැය</span>
+                        </div>
+                        <div class="time-box">
+                            <span id="minutes" class="number">00</span>
+                            <span class="label">මිනි</span>
+                        </div>
+                        <div class="time-box">
+                            <span id="seconds" class="number">00</span>
+                            <span class="label">තත්</span>
+                        </div>
+                    </div>
+                    
+                    <!-- State 3 & 4: Status Message -->
+                    <div id="status-message" class="status-message"></div>
+                </section>
+
+                <!-- Paragraph -->
+                <p class="description">
+                    අප්‍රේල් මස 14 වෙනි අඟහරුවාදා අපර භාග 12.05 ට රක්ත වර්ණ වස්ත්‍රාභරණයෙන් සැරසී දකුණු දිශාව බලා සියලු වැඩ අල්ලා ගනුදෙනු කොට ආහාර අනුභව කිරීම මැනවි.
+                </p>
+
+                <!-- Bullet Points Section -->
+                <ul class="info-list">
+                    <li>
+                        <span class="icon">📅</span>
+                        අප්‍රේල් මස 14 වන අඟහරුවාදා
+                    </li>
+                    <li>
+                        <span class="icon">⏰</span>
+                        ප.ව. 12 : 05
+                    </li>
+                    <li>
+                        <span class="icon">🧭</span>
+                        දකුණු දිශාව
+                    </li>
+                    <li>
+                        <span class="icon">👕</span>
+                        රක්ත වර්ණය
+                    </li>
+                </ul>
+                
+                <!-- Note with simple border -->
+                <p class="note">
+                    මෙම නැකැත් වේලාවන් සංස්කෘතික දෙපාර්තමේන්තුවේ අනුග්‍රහය ඇතුව සිංහල අවුරුදු නැකැත් කමිටුව විසින් සපයා ඇති තොරතුරු ඇසුරෙන් සකස් කොට ඇත.
+                </p>
+
             </div>
-          </div>
-
-          <!-- Calendar Grid -->
-          <div class="p-3">
-            <div id="calendar" class="grid grid-cols-7 gap-0.5 text-center"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar Section -->
-      <div class="space-y-4">
-        <!-- Holidays Section -->
-        <div class="rounded-2xl card-shadow bg-white p-4">
-          <div class="flex items-center space-x-2 mb-3">
-            <i class="fas fa-calendar-check text-[#8e163c]"></i>
-            <h3 class="text-base font-semibold font-noto-serif">නිවාඩු දින</h3>
-          </div>
-          <p class="text-xs text-gray-500 mb-2 font-noto-serif">මාසය: <span id="holMonth" class="font-bold text-[#020d47]"></span></p>
-          <div class="h-48 overflow-y-auto pr-2">
-            <ul id="holidays" class="list-none space-y-2 text-gray-800"></ul>
-          </div>
-        </div>
-
-        <!-- Legend Section -->
-        <div class="rounded-2xl card-shadow bg-white p-4">
-          <div class="flex items-center space-x-2 mb-3">
-          </div>
-          <div id="legend" class="grid grid-cols-1 gap-2 text-xs"></div>
-        </div>
-      </div>
+        </main>
+        
+        <!-- Footer for 3rem bottom space -->
+        <footer></footer>
     </div>
-  </div>
 
-  <footer class="text-center mt-2 mb-12 text-gray-500 text-sm">
-    &copy; <span id="copyrightYear"></span> Developed by Lanka Lift Solutions
-  </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-  <script type="module">
-    document.addEventListener('DOMContentLoaded', () => {
+            // --- Countdown Targets (As requested) ---
+            // Note: JavaScript months are 0-indexed (0=Jan, 3=April)
+            
+            // -----------------------------------------------------------------
+            // ----- ⬇️ ⬇️ ⬇️ CUSTOMIZE YOUR DATES HERE ⬇️ ⬇️ ⬇️ -----
+            // -----------------------------------------------------------------
+            
+            // Format: (Year, MonthIndex, Day, Hour_24, Minute, Second)
+            // Example: 14th April 2026, 12:05 PM (Month is 3 for April)
+            const nakathTime = new Date(2026, 3, 14, 12, 5, 0).getTime();
+            
+            // Example: 14th April 2026, 1:05 PM (1 hour duration)
+            const nakathEndTime = new Date(2026, 3, 14, 13, 5, 0).getTime();
+            
+            // Example: 1st April 2026 (When H:M:S timer appears)
+            const transitionDate = new Date(2026, 3, 1, 0, 0, 0).getTime();
 
-      // --- DATA ---
+            // -----------------------------------------------------------------
+            // ----- ⬆️ ⬆️ ⬆️ CUSTOMIZE YOUR DATES HERE ⬆️ ⬆️ ⬆️ -----
+            // -----------------------------------------------------------------
 
-      // Hardcoded Sri Lankan Holidays for 2025-2026
-      const allHolidays = {
-        '2025-01-13': { name: 'දුරුතු පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-01-14': { name: 'තෛපොංගල් දිනය', type: 'P B M' },
-        '2025-02-04': { name: 'නිදහස් දිනය', type: 'P B M' },
-        '2025-02-12': { name: 'නවම් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-02-26': { name: 'මහා ශිව රාත්‍රී දිනය', type: 'P B' },
-        '2025-03-13': { name: 'මැදින් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-03-31': { name: 'රාමසාන් උත්සව දිනය', type: 'P B' },
-        '2025-04-12': { name: 'බක් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-04-13': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනට පෙර දිනය', type: 'P B M' },
-        '2025-04-14': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනය', type: 'P B M' },
-        '2025-04-18': { name: 'මහ සිකුරාදා දිනය', type: 'P B' },
-        '2025-05-01': { name: 'මැයි දිනය', type: 'P B M' },
-        '2025-05-12': { name: 'වෙසක් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-05-13': { name: 'වෙසක් පුර පසළොස්වක පෝය දිනට පසු දිනය', type: 'P B M' },
-        '2025-06-07': { name: 'හජ්ජි උත්සව දිනය', type: 'P B' },
-        '2025-06-10': { name: 'පොසොන් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-07-10': { name: 'ඇසල පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-08-08': { name: 'නිකිනි පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-09-05': { name: 'නබිනායක තුමාගේ උපන්දිනය', type: 'P B M' },
-        '2025-09-07': { name: 'බිනර පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-10-06': { name: 'වප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-10-20': { name: 'දීපවාලි උත්සව දිනය', type: 'P B' },
-        '2025-11-05': { name: 'ඉල් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-12-04': { name: 'උඳුවප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2025-12-25': { name: 'නත්තල් දිනය', type: 'P B M' },
-        '2026-01-03': { name: 'දුරුතු පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-01-15': { name: 'තෛපොංගල් දිනය', type: 'P B M' },
-        '2026-02-01': { name: 'නවම් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-02-04': { name: 'නිදහස් දිනය', type: 'P B M' },
-        '2026-02-15': { name: 'මහා ශිව රාත්‍රී දිනය', type: 'P B' },
-        '2026-03-02': { name: 'මැදින් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-03-21': { name: 'රාමසාන් උත්සව දිනය', type: 'P B' },
-        '2026-04-01': { name: 'බක් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-04-03': { name: 'මහ සිකුරාදා දිනය', type: 'P B' },
-        '2026-04-13': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනට පෙර දිනය', type: 'P B M' },
-        '2026-04-14': { name: 'සිංහල දෙමළ අළුත් අවුරුදු දිනය', type: 'P B M' },
-        '2026-05-01': { name: 'මැයි දිනය / වෙසක් පුර පසළොස්වක පෝය දිනය', type: 'P B M F' }, 
-        '2026-05-02': { name: 'වෙසක් පුර පසළොස්වක පෝය දිනට පසු දිනය', type: 'P B M' },
-        '2026-05-28': { name: 'හජ්ජි උත්සව දිනය', type: 'P B' },
-        '2026-05-30': { name: 'අධි පොසොන් පුර පසළොස්වක පෝය දින', type: 'P B F' },
-        '2026-06-29': { name: 'පොසොන් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-07-29': { name: 'ඇසල පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-08-26': { name: 'නබිනායක තුමාගේ උපන්දිනය', type: 'P B M' },
-        '2026-08-27': { name: 'නිකිනි පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-09-26': { name: 'බිනර පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-10-25': { name: 'වප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-11-08': { name: 'දීපවාලී උත්සව දිනය', type: 'P B' },
-        '2026-11-24': { name: 'ඉල් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-12-23': { name: 'උඳුවප් පුර පසළොස්වක පෝය දිනය', type: 'P B F' },
-        '2026-12-25': { name: 'නත්තල් දිනය', type: 'P B M' }
-      };
 
-      // Sinhala month names
-      const sinhalaMonths = [
-        'ජනවාරි', 'පෙබරවාරි', 'මාර්තු', 'අප්‍රේල්', 'මැයි', 'ජූනි',
-        'ජූලි', 'අගෝස්තු', 'සැප්තැම්බර්', 'ඔක්තෝම්බර්', 'නොවැම්බර්', 'දෙසැම්බර්'
-      ];
+            // --- DOM Elements ---
+            const daysCountdownEl = document.getElementById('days-countdown');
+            const specialCountdownEl = document.getElementById('special-countdown');
+            const statusMessageEl = document.getElementById('status-message');
+            
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
 
-      // English weekday names (Mon-Sun)
-      const englishWeekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-      
-      // Monthly background images (Sri Lanka themed)
-      const monthlyImages = [
-        'https://imgur.com/OgTdRxL.jpeg', // January - Fireworks
-        'https://imgur.com/abYAnKT.jpeg', // February - Independence
-        'https://imgur.com/xfqaRgn.jpeg', // March - Shiva
-        'https://imgur.com/ZmR4jrG.jpeg', // April - New Year
-        'https://imgur.com/spd4hCC.jpeg', // May - Vesak
-        'https://imgur.com/5n5qRN0.jpeg', // June - Poson
-        'https://imgur.com/YXgJW7q.jpeg', // July - Esala
-        'https://imgur.com/phFEOCI.jpeg', // August - Kites
-        'https://imgur.com/kfmlA1z.jpeg', // September - Books
-        'https://imgur.com/pUojMLs.jpeg', // October - Savings
-        'https://imgur.com/Hlc4uat.jpeg', // November - Lotus Tower
-        'https://imgur.com/u55zRgC.jpeg'  // December - Christmas
-      ];
+            // --- Utility Function ---
+            function pad(num) {
+                return String(num).padStart(2, '0');
+            }
 
-      // --- DATE INITIALIZATION ---
+            // --- Main Update Function ---
+            function updateCountdown() {
+                const now = new Date().getTime();
 
-      let today = new Date();
-      const minDate = new Date(2025, 0, 1); // Jan 1, 2025
-      const maxDate = new Date(2026, 11, 31); // Dec 31, 2026
+                // Calculate distances
+                const distanceToNakath = nakathTime - now;
+                const distanceToNakathEnd = nakathEndTime - now;
 
-      if (today < minDate) {
-        today = minDate;
-      } else if (today > maxDate) {
-        today = maxDate;
-      }
-      
-      let currentDate = new Date(today.getFullYear(), today.getMonth(), 1); 
+                // -----------------------------------------------------------------
+                // STATE 4: Nakath time has passed (After 1:05 PM)
+                // -----------------------------------------------------------------
+                if (distanceToNakathEnd <= 0) {
+                    daysCountdownEl.style.display = 'none';
+                    specialCountdownEl.style.display = 'none';
+                    
+                    statusMessageEl.style.display = 'block';
+                    statusMessageEl.innerHTML = 'නැකත පසුවී ඇත.';
+                    statusMessageEl.className = 'status-message highlight-passed';
+                    
+                    clearInterval(countdownInterval); // Stop the timer
+                    return;
+                }
 
-      // --- DOM ELEMENTS ---
+                // -----------------------------------------------------------------
+                // STATE 3: Nakath is active (Between 12:05 PM and 1:05 PM)
+                // -----------------------------------------------------------------
+                if (distanceToNakath <= 0) {
+                    daysCountdownEl.style.display = 'none';
+                    specialCountdownEl.style.display = 'none';
 
-      const dynamicTitleEl = document.getElementById('dynamicTitle');
-      const monthYearEl = document.getElementById('monthYear');
-      const monthYearTextEl = document.getElementById('monthYearText');
-      const calendarEl = document.getElementById('calendar');
-      const holidaysList = document.getElementById('holidays');
-      const holMonthEl = document.getElementById('holMonth');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const monthImageEl = document.getElementById('monthImage');
-      const legendEl = document.getElementById('legend');
-      const copyrightYearEl = document.getElementById('copyrightYear');
-      const todayBtn = document.getElementById('todayBtn');
-      const todayDateEl = document.getElementById('todayDate');
-      
-      // --- HELPER FUNCTIONS ---
+                    statusMessageEl.style.display = 'block';
+                    statusMessageEl.innerHTML = 'නැකත ආරම්භ වී ඇත.';
+                    statusMessageEl.className = 'status-message highlight-active';
+                    return; // Keep timer running to check for end time
+                }
 
-      function createDot(colorClass) {
-        const dot = document.createElement('div');
-        dot.className = `w-1.5 h-1.5 rounded-full ${colorClass}`;
-        return dot;
-      }
+                // -----------------------------------------------------------------
+                // STATES 1 & 2: Before Nakath time (Before 12:05 PM)
+                // -----------------------------------------------------------------
+                
+                // Hide status message
+                statusMessageEl.style.display = 'none';
+                
+                // --- Time parts calculation ---
+                
+                // This is for STATE 1 (before transition)
+                // Use Math.ceil for "days until" (e.g., 10.2 days = 11 days)
+                const totalDays = Math.ceil(distanceToNakath / (1000 * 60 * 60 * 24));
+                
+                // This is for STATE 2 (H:M:S breakdown)
+                // Use Math.floor for full days (e.g., 1.8 days = 1 day)
+                const days = Math.floor(distanceToNakath / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distanceToNakath % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distanceToNakath % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distanceToNakath % (1000 * 60)) / 1000);
 
-      function createLegendItem(colorClass, text) {
-        const item = document.createElement('div');
-        item.className = 'flex items-center space-x-2';
-        
-        let circleStyle = `w-3 h-3 rounded-full ${colorClass}`;
-        if (colorClass.includes('yellow')) {
-           circleStyle += ' border border-gray-400';
-        }
-        
-        item.innerHTML = `
-          <div class="${circleStyle}"></div>
-          <span class="font-noto-serif">${text}</span>
-        `;
-        return item;
-      }
-      
-      function updateTodayButton() {
-        const today = new Date();
-        todayDateEl.textContent = today.getDate();
-      }
+                // Check if we are past the transition date
+                if (now >= transitionDate) {
+                    // -------------------------------------------------------------
+                    // STATE 2: From transitionDate to Nakath Time
+                    // Show days (if > 0) AND H:M:S countdown
+                    // -------------------------------------------------------------
+                    daysCountdownEl.style.display = 'block';
 
-      // --- RENDER FUNCTIONS ---
+                    // ----- ✨ LOGIC FIX v3 ✨ -----
+                    if (days > 0) {
+                        // More than 1 full day left
+                        // Use 'days' (Math.floor) to show full days
+                        daysCountdownEl.innerHTML = `නැකත උදා වීමට තව දින <span class="highlight">${days}</span> යි.`;
+                    } else {
+                        // Less than 1 day left, only show H:M:S
+                        daysCountdownEl.innerHTML = `නැකත උදා වීමට තව`;
+                    }
+                    // ----- ✨ END OF FIX ✨ -----
+                    
+                    specialCountdownEl.style.display = 'flex';
+                    hoursEl.textContent = pad(hours);
+                    minutesEl.textContent = pad(minutes);
+                    secondsEl.textContent = pad(seconds);
 
-      function renderCalendar() {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth(); // 0-11
+                } else {
+                    // -------------------------------------------------------------
+                    // STATE 1: Before transitionDate
+                    // Show ONLY days, with highlight (Traditional way)
+                    // -------------------------------------------------------------
+                    daysCountdownEl.style.display = 'block';
+                    // Use 'totalDays' (Math.ceil) here
+                    daysCountdownEl.innerHTML = `නැකත උදා වීමට තව දින <span class="highlight">${totalDays}</span> යි.`;
+                    
+                    specialCountdownEl.style.display = 'none';
+                }
+            }
 
-        // 1. Set Dynamic Title
-        dynamicTitleEl.textContent = year;
-
-        // 2. Set Header
-        monthYearEl.textContent = `${sinhalaMonths[month]} ${year}`;
-        monthYearTextEl.textContent = `${sinhalaMonths[month]} ${year}`;
-
-        // 3. Set Background Image
-        monthImageEl.src = monthlyImages[month];
-        
-        // 4. Reset Calendar Grid
-        calendarEl.innerHTML = '';
-
-        // 5. Render Weekday Labels (Mon-Sun) in English
-        englishWeekdays.forEach((day, index) => {
-          const cell = document.createElement('div');
-          cell.textContent = day;
-          cell.className = 'font-bold font-roboto text-xs text-gray-500 py-1';
-          if (index === 5) { // Saturday
-            cell.classList.add('text-gray-600');
-          }
-          if (index === 6) { // Sunday
-            cell.classList.add('text-red-600');
-          }
-          calendarEl.appendChild(cell);
+            // --- Run the Clock ---
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            updateCountdown(); // Initial call to load the correct state immediately
         });
+    </script>
 
-        // 6. Calculate Blank Cells (for Monday start)
-        const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0=Sun, 1=Mon... 6=Sat
-        const blanksToadd = (firstDayOfWeek + 6) % 7; // (0-Sun -> 6), (1-Mon -> 0)
-        
-        for (let i = 0; i < blanksToadd; i++) {
-          calendarEl.appendChild(document.createElement('div'));
-        }
-
-        // 7. Render Days
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const todayDate = new Date();
-
-        for (let d = 1; d <= daysInMonth; d++) {
-          const cell = document.createElement('div');
-          cell.className = 'h-10 flex flex-col items-center justify-center rounded transition-all hover:bg-gray-50';
-          
-          const dayNumber = document.createElement('span');
-          dayNumber.textContent = d;
-          dayNumber.className = 'w-6 h-6 flex items-center justify-center rounded-full transition-all text-xs';
-
-          const dotsContainer = document.createElement('div');
-          dotsContainer.className = 'flex space-x-0.5 h-1.5 mt-0.5';
-          
-          const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-          const holiday = allHolidays[dateKey];
-          
-          let isPoya = false;
-          if (holiday) {
-            const types = holiday.type.split(' ');
-            if (types.includes('F')) {
-              dayNumber.classList.add('bg-yellow-300', 'font-bold', 'border', 'border-gray-400');
-              isPoya = true;
-            }
-            if (types.includes('P')) {
-              dotsContainer.appendChild(createDot('bg-blue-500'));
-            }
-            if (types.includes('B')) {
-              dotsContainer.appendChild(createDot('bg-green-500'));
-            }
-            if (types.includes('M')) {
-              dotsContainer.appendChild(createDot('bg-orange-500'));
-            }
-          }
-          
-          // Highlight today (if not Poya)
-          if (
-            !isPoya &&
-            d === todayDate.getDate() &&
-            month === todayDate.getMonth() &&
-            year === todayDate.getFullYear()
-          ) {
-            dayNumber.classList.add('bg-[#8e163c]', 'text-white', 'font-bold');
-          }
-          
-          // Weekend column TEXT coloring (no background)
-          const dayOfWeek = (blanksToadd + d - 1) % 7; // 0=Mon, 5=Sat, 6=Sun
-          if (dayOfWeek === 5) { // Saturday
-            dayNumber.classList.add('text-gray-600', 'font-medium');
-          }
-          if (dayOfWeek === 6) { // Sunday
-            dayNumber.classList.add('text-red-600', 'font-medium');
-          }
-
-          cell.appendChild(dayNumber);
-          cell.appendChild(dotsContainer);
-          calendarEl.appendChild(cell);
-        }
-        
-        // 8. Render Holiday List
-        renderHolidaysList(year, month);
-        
-        // 9. Update Navigation Buttons State
-        prevBtn.disabled = (year === 2025 && month === 0);
-        nextBtn.disabled = (year === 2026 && month === 11);
-      }
-
-      function renderHolidaysList(year, month) {
-        holidaysList.innerHTML = '';
-        holMonthEl.textContent = sinhalaMonths[month];
-
-        const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
-        const hols = Object.keys(allHolidays)
-          .filter(key => key.startsWith(monthKey))
-          .map(key => ({ date: key, ...allHolidays[key] }))
-          .sort((a, b) => new Date(a.date) - new Date(b.date)); 
-
-        if (hols.length === 0) {
-          const li = document.createElement('li');
-          li.textContent = 'මෙම මාසයේ පොදු නිවාඩු නොමැත.';
-          li.className = 'text-gray-500 text-center py-1 text-xs';
-          holidaysList.appendChild(li);
-        } else {
-          hols.forEach(h => {
-            const d = new Date(h.date.replace(/-/g, '/')); 
-            const li = document.createElement('li');
-            li.className = 'flex flex-col sm:flex-row justify-between items-start sm:items-center py-1 px-2 rounded bg-gray-50 hover:bg-gray-100 transition-all';
-            
-            const textSpan = document.createElement('span');
-            textSpan.className = 'font-noto-serif text-xs';
-            textSpan.textContent = `${d.getDate()}: ${h.name}`;
-            
-            const dotsContainer = document.createElement('div');
-            dotsContainer.className = 'flex space-x-0.5 mt-0.5 sm:mt-0';
-            
-            const types = h.type.split(' ');
-            if (types.includes('F')) {
-              dotsContainer.appendChild(createDot('bg-yellow-300 border border-gray-400'));
-            }
-            if (types.includes('P')) {
-              dotsContainer.appendChild(createDot('bg-blue-500'));
-            }
-            if (types.includes('B')) {
-              dotsContainer.appendChild(createDot('bg-green-500'));
-            }
-            if (types.includes('M')) {
-              dotsContainer.appendChild(createDot('bg-orange-500'));
-            }
-
-            li.appendChild(textSpan);
-            li.appendChild(dotsContainer);
-            holidaysList.appendChild(li);
-          });
-        }
-      }
-      
-      function renderLegend() {
-        legendEl.innerHTML = ''; // Clear existing
-        legendEl.appendChild(createLegendItem('bg-blue-500', 'රජයේ නිවාඩු'));
-        legendEl.appendChild(createLegendItem('bg-green-500', 'බැංකු නිවාඩු'));
-        legendEl.appendChild(createLegendItem('bg-orange-500', 'වෙළෙඳ නිවාඩු'));
-        legendEl.appendChild(createLegendItem('bg-yellow-300', 'පෝය නිවාඩු'));
-      }
-      
-      function renderCopyright() {
-        copyrightYearEl.textContent = new Date().getFullYear();
-      }
-
-      // --- EVENT LISTENERS ---
-
-      prevBtn.addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        renderCalendar();
-      });
-
-      nextBtn.addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        renderCalendar();
-      });
-      
-      todayBtn.addEventListener('click', () => {
-        currentDate = new Date(today.getFullYear(), today.getMonth(), 1);
-        renderCalendar();
-      });
-
-      // --- INITIAL RENDER ---
-      
-      renderLegend();
-      renderCopyright();
-      updateTodayButton();
-      renderCalendar();
-    });
-  </script>
 </body>
 </html>
