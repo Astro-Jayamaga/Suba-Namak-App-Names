@@ -3,556 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newspapers සිංහල</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>Lottery Results Sri Lanka</title>
     <style>
-        /* --- Root Variables --- */
+        /* 1. Global Styles & Variables */
         :root {
-            --navy-blue: #020d47;
+            --navy: #020d47;
             --maroon: #8e163c;
             --white: #ffffff;
-            --light-gray: #f4f7fa;
-            --text-dark: #333;
-            --text-light: #666;
-            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --card-shadow-hover: 0 8px 30px rgba(2, 13, 71, 0.15);
-            --transition: all 0.3s ease;
+            --light-gray: #f4f4f4;
+            --gray: #ddd;
+            --dark-gray: #555;
         }
 
-        /* --- Base & Resets --- */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            color: var(--text-dark);
-            overscroll-behavior: none;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
         }
 
-        /* --- Dashboard View --- */
-        #dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem;
+        .hidden {
+            display: none !important;
         }
 
-        /* --- Header --- */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 2.5rem;
-            color: var(--navy-blue);
-            text-align: center;
-            margin: 0;
-        }
-
-        header h1 .sinhala-title {
-            font-family: 'Gemunu Libre', sans-serif;
-            font-weight: 700;
-            font-size: 3rem;
-            color: var(--maroon);
-            margin-left: 0.5rem;
-        }
-
-        .subtitle {
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1.2rem;
-            color: var(--text-light);
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* --- Site Grid (Mobile-First) --- */
-        #site-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .site-card {
-            background-color: var(--white);
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--card-shadow);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 200px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .site-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--navy-blue), var(--maroon));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .site-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--card-shadow-hover);
-        }
-
-        .site-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .site-card .logo-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .site-card:hover .logo-container {
-            transform: scale(1.05);
-        }
-
-        .site-card img {
-            max-width: 100%;
-            height: 50px;
-            object-fit: contain;
-            filter: grayscale(20%);
-            transition: filter 0.3s ease;
-        }
-
-        .site-card:hover img {
-            filter: grayscale(0%);
-        }
-
-        .site-card p {
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--navy-blue);
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .site-card .open-indicator {
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            color: var(--maroon);
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .site-card:hover .open-indicator {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding-top: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 3rem;
-        }
-
-        /* --- Iframe View (Hidden by default) --- */
-        #iframe-view {
-            display: none;
+        /* 2. Preloader */
+        #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            background-color: var(--white);
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
             flex-direction: column;
-            z-index: 1000;
-        }
-
-        /* --- Iframe Navigation Bar --- */
-        #iframe-nav {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1rem 1.5rem;
-            background: linear-gradient(90deg, var(--navy-blue), #1a2568);
-            color: var(--white);
-            flex-shrink: 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #back-button {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 1rem;
-            background-color: var(--maroon);
-            color: var(--white);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #back-button:hover {
-            background-color: #a81a48;
-            transform: translateX(-3px);
-        }
-
-        #site-title {
-            font-family: 'Noto Serif Sinhala', serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-align: center;
-            flex-grow: 1;
-            margin: 0 1rem;
-        }
-
-        /* --- Advanced Preloader --- */
-        #preloader {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 500;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        #preloader.show {
-            visibility: visible;
-            opacity: 1;
+            justify-content: center;
+            z-index: 2000;
         }
 
         .spinner {
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top-color: var(--white);
+            border: 5px solid var(--gray);
+            border-top: 5px solid var(--maroon);
             border-radius: 50%;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
         }
 
+        #preloader p {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* --- Iframe Content Area --- */
-        #content-frame {
-            flex-grow: 1;
-            border: none;
-            width: 100%;
-        }
-
-        /* --- Class to toggle views --- */
-        body.iframe-active {
-            overflow: hidden;
-        }
-
-        body.iframe-active #dashboard {
-            display: none;
-        }
-
-        body.iframe-active #iframe-view {
+        /* 3. Selection Screen (Main Page) */
+        #selection-screen {
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* --- Loading Animation --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 1.5rem 1rem;
+            text-align: center;
         }
 
-        .site-card {
-            animation: fadeInUp 0.5s ease forwards;
-            opacity: 0;
+        .category-tabs {
+            display: flex;
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* --- Responsive Media Queries --- */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            header h1 .sinhala-title {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            #site-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            opacity: 0.8;
+            background-color: #f7f7f7;
+            transition: all 0.3s ease;
+        }
+
+        .tab img {
+            height: 40px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+        }
+
+        .tab.active {
+            border-bottom: 5px solid var(--maroon);
+            opacity: 1;
+            font-weight: 600;
+            background-color: var(--white);
+        }
+
+        .lottery-grid-container {
+            flex-grow: 1;
+            padding: 1rem 0.5rem;
+        }
+
+        .lottery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .lottery-card {
+            background: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 110px;
+        }
+
+        .lottery-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .lottery-card img {
+            width: 100%;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        .lottery-card span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--navy);
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding-bottom: 6rem;
+        }
+
+        /* 4. Modal Popup (Last 7 Days) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--white);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 1rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .date-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light-gray);
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border: 1px solid var(--gray);
+        }
+
+        .date-row:hover {
+            background: #e0e0e0;
+            border-color: var(--navy);
+        }
+
+        .date-row span {
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        /* 5. Iframe Viewer */
+        #iframe-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 500;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iframe-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.75rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #back-button {
+            background: var(--maroon);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 0.65rem 1.1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        #iframe-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: right;
+            padding-left: 1rem;
+        }
+
+        #iframe-container {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            background: var(--light-gray);
+        }
+        
+        #iframe-container .iframe-error {
+            padding: 2rem;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 6. Responsive Styles (Desktop) */
+        @media (min-width: 768px) {
+            .lottery-grid {
+                grid-template-columns: repeat(5, 1fr);
                 gap: 1rem;
             }
-            
-            .site-card {
-                padding: 1.5rem 1rem;
-                min-height: 160px;
-            }
-            
-            .site-card img {
-                height: 40px;
-            }
-            
-            .site-card p {
-                font-size: 1.1rem;
-            }
-        }
 
-        @media (max-width: 480px) {
-            #site-grid {
-                grid-template-columns: 1fr;
+            .lottery-grid-container {
+                padding: 2rem;
             }
-            
-            header h1 {
-                font-size: 1.8rem;
+
+            .lottery-card {
+                padding: 1rem;
+                min-height: 150px;
             }
-            
-            header h1 .sinhala-title {
-                font-size: 2.2rem;
+
+            .lottery-card img {
+                height: 80px;
+            }
+
+            .lottery-card span {
+                font-size: 1rem;
+            }
+
+            .tab img {
+                height: 50px;
+            }
+
+            #back-button {
+                padding: 0.75rem 1.25rem;
+                font-size: 1.05rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <main id="dashboard">
-        <header>
-            <div class="header-content">
-                <h1>Newspapers<span class="sinhala-title">සිංහල</span></h1>
-                <p class="subtitle">ශ්‍රී ලංකාවේ සිංහල පුවත්පත් සහ ප්‍රධාන පුවත් වෙබ් අඩවි</p>
-            </div>
-        </header>
+    <div id="preloader" class="hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <div id="selection-screen">
         
-        <div id="site-grid">
-            <!-- Cards will be populated by JavaScript -->
-        </div>
+        <header class="header">
+            <h1>Lottery Results Sri Lanka</h1>
+        </header>
 
-        <footer>
-            <p>&copy; <span id="current-year"></span> Lanka Lift Solutions</p>
-        </footer>
-    </main>
-
-    <div id="iframe-view">
-        <nav id="iframe-nav">
-            <button id="back-button"><i class="fas fa-arrow-left"></i> Back</button>
-            <div id="site-title">Loading...</div>
-            <div id="preloader">
-                <div class="spinner"></div>
-                <span>Loading...</span>
+        <nav class="category-tabs">
+            <div class="tab active" id="tab-nlb" data-category="nlb">
+                <img src="https://imgur.com/KS6ylO5.png" alt="NLB Logo">
+            </div>
+            <div class="tab" id="tab-dlb" data-category="dlb">
+                <img src="https://imgur.com/jv170Zq.png" alt="DLB Logo">
             </div>
         </nav>
 
-        <iframe id="content-frame" title="Website Content" sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
-        </iframe>
+        <main class="lottery-grid-container">
+            <div class="lottery-grid" id="grid-nlb">
+                </div>
+            <div class="lottery-grid hidden" id="grid-dlb">
+                </div>
+        </main>
+
+        <footer class="footer">
+            © 2025 Lanka Lift Solutions.
+        </footer>
+
+    </div>
+
+    <div id="nlb-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Lottery Name</h3>
+                <button id="modal-close" class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-list">
+                </div>
+        </div>
+    </div>
+
+    <div id="iframe-viewer" class="hidden">
+        
+        <header class="iframe-header">
+            <button id="back-button">&larr; Back</button>
+            <span id="iframe-title"></span>
+        </header>
+
+        <div id="iframe-container">
+            </div>
+
     </div>
 
     <script>
-        // --- Site Data ---
-        const sites = [
-            {
-                name: 'ලංකාදීප',
-                url: 'https://www.lankadeepa.lk/',
-                logo: 'https://i.imgur.com/example.png'
-            },
-            {
-                name: 'දිවයින',
-                url: 'https://www.divaina.lk/',
-                logo: 'https://i.imgur.com/example.png'
-            },
-            {
-                name: 'දිනමිණ',
-                url: 'https://www.dinamina.lk/',
-                logo: 'https://imgur.com/CLe0x1f.png'
-            },
-            {
-                name: 'අද',
-                url: 'https://www.ada.lk/',
-                logo: 'https://i.imgur.com/example.png'
-            },
-            {
-                name: 'Hiru News',
-                url: 'https://www.hirunews.lk/',
-                logo: 'https://i.imgur.com/example.png'
-            },
-            {
-                name: 'Lanka C News',
-                url: 'https://www.lankacnews.com/',
-                logo: 'https://i.imgur.com/example.png'
-            },
-            {
-                name: 'Lanka Truth',
-                url: 'https://lankatruth.com/si/',
-                logo: 'https://i.imgur.com/example.png'
-            }
-        ];
-
-        // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Get DOM Elements ---
-            const body = document.body;
-            const grid = document.getElementById('site-grid');
-            const backButton = document.getElementById('back-button');
-            const iframe = document.getElementById('content-frame');
-            const preloader = document.getElementById('preloader');
-            const yearSpan = document.getElementById('current-year');
-            const siteTitle = document.getElementById('site-title');
+            // --- 1. DATA CONFIGURATION ---
+            const REFERENCE_DATE = new Date('2025-11-11T00:00:00'); // Base date for calculation
+            const GLOBAL_FALLBACK_URL = "https://winway.lk/lottery/results";
+            const GOVDOC_BASE = "https://results.govdoc.lk/results";
 
-            // --- 1. Set Dynamic Copyright Year ---
-            yearSpan.textContent = new Date().getFullYear();
-
-            // --- 2. Populate the Site Grid ---
-            let gridHTML = '';
-            sites.forEach((site, index) => {
-                gridHTML += `
-                    <div class="site-card" data-url="${site.url}" data-name="${site.name}" role="button" tabindex="0" aria-label="Open ${site.name}" style="animation-delay: ${index * 0.05}s">
-                        <div class="logo-container">
-                            <img src="${site.logo}" alt="${site.name} Logo">
-                        </div>
-                        <p>${site.name}</p>
-                        <div class="open-indicator">
-                            <i class="fas fa-external-link-alt"></i>
-                        </div>
-                    </div>
-                `;
-            });
-            grid.innerHTML = gridHTML;
-
-            // --- 3. Add Event Listeners ---
-
-            // Listen for clicks on the grid
-            grid.addEventListener('click', (e) => {
-                const card = e.target.closest('.site-card');
-                if (card) {
-                    const url = card.dataset.url;
-                    const name = card.dataset.name;
-                    loadSite(url, name);
-                }
-            });
-
-            // Listen for 'Enter' key on a focused card for accessibility
-            grid.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    const card = e.target.closest('.site-card');
-                     if (card) {
-                        const url = card.dataset.url;
-                        const name = card.dataset.name;
-                        loadSite(url, name);
+            // NLB Data includes 'slug' for URL construction and 'anchorDraw' (the draw number on 2025-11-11)
+            const lotteryData = {
+                nlb: [
+                    { 
+                        name: "Govi Setha", 
+                        logo: "https://imgur.com/4Xu6SEf.png", 
+                        slug: "govi-setha",
+                        anchorDraw: 4252, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/govi-setha" 
+                    },
+                    { 
+                        name: "Suba Dawasak", 
+                        logo: "https://imgur.com/Wd0pwks.png", 
+                        slug: "suba-dawasak",
+                        anchorDraw: 127, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/suba-dawasak" 
+                    },
+                    { 
+                        name: "Mahajana Sampatha", 
+                        logo: "https://imgur.com/7vOtxQR.png", 
+                        slug: "mahajana-sampatha",
+                        anchorDraw: 6010, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/mahajana-sampatha" 
+                    },
+                    { 
+                        name: "Dhana Nidhanaya", 
+                        logo: "https://imgur.com/WH36mji.png", 
+                        slug: "dhana-nidhanaya",
+                        anchorDraw: 2040, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/dhana-nidhanaya" 
+                    },
+                    { 
+                        name: "Mega Power", 
+                        logo: "https://imgur.com/disMwsT.png", 
+                        slug: "mega-power",
+                        anchorDraw: 2358, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/mega-power" 
+                    },
+                    { 
+                        name: "Handahana", 
+                        logo: "https://imgur.com/YXsebB8.png", 
+                        slug: "handahana",
+                        anchorDraw: 1319, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/handahana" 
+                    },
+                    { 
+                        name: "Ada Sampatha", 
+                        logo: "https://imgur.com/ug03HRR.png", 
+                        slug: "ada-sampatha",
+                        anchorDraw: 585, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/ada-sampatha" 
+                    },
+                    { 
+                        name: "Jaya", 
+                        logo: "https://imgur.com/7ElsVBE.png", 
+                        slug: "jaya",
+                        anchorDraw: 278, 
+                        fallbackUrl: "https://results.govdoc.lk/lottery/nlb/jaya" 
                     }
+                ],
+                dlb: [
+                    { name: "Ada Kotipathi", logo: "https://imgur.com/5Z8VXFR.png", urls: ["https://www.dlb.lk/result/en", "https://results.govdoc.lk/lottery/dlb/ada-kotipathi"] },
+                    { name: "Shanida", logo: "https://imgur.com/gpW2l5Q.png", urls: ["https://www.dlb.lk/result/1/en", "https://results.govdoc.lk/lottery/dlb/saturday-fortune"] },
+                    { name: "Lagna Wasana", logo: "https://imgur.com/QAwGmKN.png", urls: ["https://www.dlb.lk/result/2/en", "https://results.govdoc.lk/lottery/dlb/lagna-wasana"] },
+                    { name: "Dhana Sampatha", logo: "https://imgur.com/ndDQmdJ.png", urls: ["https://www.dlb.lk/result/17/en", "https://results.govdoc.lk/lottery/dlb/supiri-dhana-sampatha"] },
+                    { name: "Super Ball", logo: "https://imgur.com/xdpG31O.png", urls: ["https://www.dlb.lk/result/3/en", "https://results.govdoc.lk/lottery/dlb/super-ball"] },
+                    { name: "Kapruka", logo: "https://imgur.com/kkBDCdj.png", urls: ["https://www.dlb.lk/result/12/en", "https://results.govdoc.lk/lottery/dlb/kapruka"] },
+                    { name: "Jayoda", logo: "https://imgur.com/aVLgnV7.png", urls: ["https://www.dlb.lk/result/6/en", "https://results.govdoc.lk/lottery/dlb/jayoda?page=1"] },
+                    { name: "Sasiri", logo: "https://imgur.com/rTwIIUt.png", urls: ["https://www.dlb.lk/result/13/en", "https://results.govdoc.lk/lottery/dlb/sasiri"] },
+                    { name: "Jaya Sampatha", logo: "https://imgur.com/XmG8tLR.png", urls: ["https://www.dlb.lk/result/18/en", "https://results.govdoc.lk/lottery/dlb/jaya-sampatha"] }
+                ]
+            };
+
+            // --- 2. DOM ELEMENTS ---
+            const selectionScreen = document.getElementById('selection-screen');
+            const iframeViewer = document.getElementById('iframe-viewer');
+            const preloader = document.getElementById('preloader');
+            const backButton = document.getElementById('back-button');
+            const iframeContainer = document.getElementById('iframe-container');
+            const iframeTitle = document.getElementById('iframe-title');
+            const tabNlb = document.getElementById('tab-nlb');
+            const tabDlb = document.getElementById('tab-dlb');
+            const gridNlb = document.getElementById('grid-nlb');
+            const gridDlb = document.getElementById('grid-dlb');
+            
+            // Modal Elements
+            const nlbModal = document.getElementById('nlb-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalList = document.getElementById('modal-list');
+            const modalClose = document.getElementById('modal-close');
+
+            let globalFailureTimer = null;
+
+            // --- 3. UTILITY FUNCTIONS ---
+
+            /**
+             * Determines the latest result date based on the 6:00 AM rule.
+             * If current time < 6:00 AM, the latest available result is effectively "yesterday's" result 
+             * relative to the calendar date.
+             * Note: We interpret "Update new date on next day 6am" to mean that before 6am, 
+             * the list stops at the previous day.
+             */
+            function getLatestResultDate() {
+                const now = new Date();
+                
+                // Create a cutoff date for today at 6:00 AM
+                const cutoff = new Date(now);
+                cutoff.setHours(6, 0, 0, 0);
+
+                // If now is before 6 AM, we are logically still in the "previous update cycle"
+                // So we subtract 1 day from the logical "current" date.
+                // Example: 13th 5 AM -> effectively 12th is the max date we might show? 
+                // Actually, lottery results usually release the *previous* day.
+                // Let's follow user example: "Nov 13 6am update -> shows Nov 12".
+                // So before Nov 13 6am (e.g., Nov 13 5am), we should show max Nov 11.
+                
+                // Step 1: Determine "Effective Layout Date"
+                let effectiveDate = new Date(now);
+                if (now < cutoff) {
+                    effectiveDate.setDate(effectiveDate.getDate() - 1);
+                }
+
+                // Step 2: The result shown is for the day BEFORE the Effective Layout Date
+                // (Because user said on Nov 13 6am, we see Nov 12)
+                effectiveDate.setDate(effectiveDate.getDate() - 1);
+                
+                return effectiveDate;
+            }
+
+            function formatDate(dateObj) {
+                const y = dateObj.getFullYear();
+                const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const d = String(dateObj.getDate()).padStart(2, '0');
+                return `${y} / ${m} / ${d}`;
+            }
+
+            /**
+             * Renders the main selection grids
+             */
+            function renderGrids() {
+                gridNlb.innerHTML = '';
+                gridDlb.innerHTML = '';
+
+                lotteryData.nlb.forEach(lottery => {
+                    gridNlb.innerHTML += `
+                        <div class="lottery-card" data-category="nlb" data-name="${lottery.name}">
+                            <img src="${lottery.logo}" alt="${lottery.name} Logo">
+                            <span>${lottery.name}</span>
+                        </div>
+                    `;
+                });
+
+                lotteryData.dlb.forEach(lottery => {
+                    gridDlb.innerHTML += `
+                        <div class="lottery-card" data-category="dlb" data-name="${lottery.name}">
+                            <img src="${lottery.logo}" alt="${lottery.name} Logo">
+                            <span>${lottery.name}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            /**
+             * Handles loading URL with fallback logic
+             */
+            function loadWithFallback(urls, index) {
+                if (globalFailureTimer) clearTimeout(globalFailureTimer);
+
+                if (index >= urls.length) {
+                    preloader.classList.add('hidden');
+                    iframeContainer.innerHTML = `
+                        <div class="iframe-error">
+                            <p>Could not load result.</p>
+                            <p>Please check your internet connection.</p>
+                            <button onclick="window.open('${GLOBAL_FALLBACK_URL}', '_system')" style="margin-top:10px; padding:10px; background:var(--maroon); color:white; border:none; border-radius:5px;">Open External Site</button>
+                        </div>`;
+                    return;
+                }
+
+                preloader.classList.remove('hidden');
+                iframeContainer.innerHTML = '';
+                
+                const iframe = document.createElement('iframe');
+                iframe.sandbox = "allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
+                
+                iframe.onload = () => {
+                    clearTimeout(globalFailureTimer);
+                    preloader.classList.add('hidden');
+                };
+                
+                iframe.onerror = () => {
+                    clearTimeout(globalFailureTimer);
+                    loadWithFallback(urls, index + 1);
+                };
+
+                iframe.src = urls[index];
+                iframeContainer.appendChild(iframe);
+
+                // Backup timer if onload fails to fire or hangs
+                globalFailureTimer = setTimeout(() => {
+                    loadWithFallback(urls, index + 1);
+                }, 8000); 
+            }
+
+            // --- 4. LOGIC FOR NLB MODAL ---
+
+            function openNlbModal(lottery) {
+                modalTitle.textContent = lottery.name;
+                modalList.innerHTML = '';
+
+                const latestDate = getLatestResultDate();
+                
+                // Calculate days difference between Latest Date and Reference Date (2025-11-11)
+                // Time difference in milliseconds
+                const timeDiff = latestDate.getTime() - REFERENCE_DATE.getTime();
+                // Convert to days (rounding to handle DST or slight offsets)
+                const daysDiff = Math.round(timeDiff / (1000 * 3600 * 24));
+
+                // Determine the draw number for the latest date
+                const currentDrawNumber = lottery.anchorDraw + daysDiff;
+
+                // Generate 7 rows
+                for (let i = 0; i < 7; i++) {
+                    const rowDate = new Date(latestDate);
+                    rowDate.setDate(latestDate.getDate() - i);
+                    
+                    const rowDraw = currentDrawNumber - i;
+                    const formattedDate = formatDate(rowDate);
+                    
+                    // Construct Links
+                    // 1. Specific Deep Link
+                    const deepLink = `${GOVDOC_BASE}/${lottery.slug}-${rowDraw}`;
+                    // 2. Category Link (Fallback 1)
+                    const catLink = lottery.fallbackUrl;
+                    // 3. Global Link (Fallback 2) is GLOBAL_FALLBACK_URL
+
+                    const rowBtn = document.createElement('div');
+                    rowBtn.className = 'date-row';
+                    rowBtn.innerHTML = `<span>${formattedDate}</span> <span>(${rowDraw})</span>`;
+                    
+                    rowBtn.addEventListener('click', () => {
+                        nlbModal.classList.add('hidden');
+                        selectionScreen.classList.add('hidden');
+                        iframeViewer.classList.remove('hidden');
+                        iframeTitle.textContent = `${lottery.name} - ${rowDraw}`;
+                        
+                        // Try Deep Link -> Category Link -> Global Link
+                        loadWithFallback([deepLink, catLink, GLOBAL_FALLBACK_URL], 0);
+                    });
+
+                    modalList.appendChild(rowBtn);
+                }
+
+                nlbModal.classList.remove('hidden');
+            }
+
+            // --- 5. EVENT LISTENERS ---
+
+            tabNlb.addEventListener('click', () => {
+                tabNlb.classList.add('active');
+                tabDlb.classList.remove('active');
+                gridNlb.classList.remove('hidden');
+                gridDlb.classList.add('hidden');
+            });
+
+            tabDlb.addEventListener('click', () => {
+                tabNlb.classList.remove('active');
+                tabDlb.classList.add('active');
+                gridNlb.classList.add('hidden');
+                gridDlb.classList.remove('hidden');
+            });
+
+            // Grid Clicks
+            gridNlb.addEventListener('click', (e) => {
+                const card = e.target.closest('.lottery-card');
+                if (!card) return;
+                const name = card.dataset.name;
+                const lottery = lotteryData.nlb.find(l => l.name === name);
+                if (lottery) openNlbModal(lottery);
+            });
+
+            gridDlb.addEventListener('click', (e) => {
+                const card = e.target.closest('.lottery-card');
+                if (!card) return;
+                const name = card.dataset.name;
+                const lottery = lotteryData.dlb.find(l => l.name === name);
+                
+                if (lottery) {
+                    iframeTitle.textContent = lottery.name;
+                    selectionScreen.classList.add('hidden');
+                    iframeViewer.classList.remove('hidden');
+                    // For DLB, add global fallback at the end of its specific list
+                    const fullUrlList = [...lottery.urls, GLOBAL_FALLBACK_URL];
+                    loadWithFallback(fullUrlList, 0);
                 }
             });
 
-            // Back button click
-            backButton.addEventListener('click', closeIframe);
-
-            // Hide preloader *after* iframe content has loaded
-            iframe.addEventListener('load', () => {
-                preloader.classList.remove('show');
-            });
-            
-            // Also hide preloader if the iframe fails to load (e.g., X-Frame-Options error)
-            iframe.addEventListener('error', () => {
-                 preloader.classList.remove('show');
+            // Modal Close
+            modalClose.addEventListener('click', () => {
+                nlbModal.classList.add('hidden');
             });
 
+            // Close modal on outside click
+            nlbModal.addEventListener('click', (e) => {
+                if (e.target === nlbModal) {
+                    nlbModal.classList.add('hidden');
+                }
+            });
 
-            // --- 4. Define Functions ---
+            // Back Button
+            backButton.addEventListener('click', () => {
+                selectionScreen.classList.remove('hidden');
+                iframeViewer.classList.add('hidden');
+                iframeContainer.innerHTML = ''; 
+                if (globalFailureTimer) clearTimeout(globalFailureTimer);
+                preloader.classList.add('hidden');
+            });
 
-            /**
-             * Loads a URL into the iframe and shows the iframe view.
-             * @param {string} url - The website URL to load.
-             * @param {string} name - The website name.
-             */
-            function loadSite(url, name) {
-                // Show preloader
-                preloader.classList.add('show');
-                
-                // Update site title
-                siteTitle.textContent = name;
-                
-                // Set the iframe source
-                iframe.src = url;
-
-                // Show the iframe view
-                body.classList.add('iframe-active');
-            }
-
-            /**
-             * Closes the iframe view and returns to the dashboard.
-             */
-            function closeIframe() {
-                // Hide the iframe view
-                body.classList.remove('iframe-active');
-
-                // Clear the iframe src to stop any loading/scripts/audio
-                iframe.src = 'about:blank';
-                
-                // Reset site title
-                siteTitle.textContent = 'Loading...';
-            }
-
+            // --- 6. INIT ---
+            renderGrids();
         });
     </script>
+
 </body>
 </html>
