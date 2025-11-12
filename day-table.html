@@ -1,562 +1,535 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- Default to light mode -->
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast Sri Lanka</title>
-    
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Load Inter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Configure Tailwind for 'class' dark mode and custom brand colors -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            navy: '#020d47',
-                            maroon: '#8e163c',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <title>Lottery Results Sri Lanka</title>
     <style>
-        /* Use Inter as the default font */
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent; /* Disable tap highlight on mobile */
-        }
-        /* Simple spinning animation for the loader */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loader {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        
-        /* Dark mode loader */
-        html.dark .loader {
-             border: 4px solid rgba(255, 255, 255, 0.3);
-             border-top-color: #fff;
-        }
-        
-        /* Light mode loader */
-        html:not(.dark) .loader {
-            border: 4px solid rgba(0, 0, 0, 0.2);
-            border-top-color: #020d47; /* Brand navy */
+        /* 1. Global Styles & Variables */
+        :root {
+            --navy: #020d47;
+            --maroon: #8e163c;
+            --white: #ffffff;
+            --light-gray: #f4f4f4;
+            --gray: #ddd;
         }
 
-        /* Styling for disabled pagination buttons */
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 2. Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            border: 5px solid var(--gray);
+            border-top: 5px solid var(--maroon);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        #preloader p {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 3. Selection Screen (Main Page) */
+        #selection-screen {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .category-tabs {
+            display: flex;
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column; /* Changed for text */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            opacity: 0.8; /* Made inactive more visible */
+            background-color: #f7f7f7; /* Highlight inactive */
+            transition: all 0.3s ease;
+            gap: 0.25rem; /* Space between logo and text */
+        }
+
+        .tab img {
+            height: 50px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+        }
+        
+        .tab span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .tab.active {
+            border-bottom: 5px solid var(--maroon);
+            opacity: 1;
+            font-weight: 600;
+            background-color: var(--white); /* Active is white */
+        }
+
+        .lottery-grid-container {
+            flex-grow: 1;
+            padding: 1rem 0.5rem;
+        }
+
+        .lottery-grid {
+            display: grid;
+            /* Mobile-first: 3 per row as requested */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .lottery-card {
+            background: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 110px;
+        }
+
+        .lottery-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .lottery-card img {
+            width: 100%;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        .lottery-card span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--navy);
+            color: var(--gray);
+            font-size: 0.9rem;
+            /* 3rem space at the very bottom, achieved with padding */
+            padding-bottom: 3rem;
+        }
+
+        /* 4. Iframe Viewer */
+        #iframe-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 500;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iframe-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.75rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #back-button {
+            background: var(--maroon);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        #iframe-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: right;
+            padding-left: 1rem;
+        }
+
+        #iframe-container {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            background: var(--light-gray); /* Show background while loading */
+        }
+        
+        #iframe-container .iframe-error {
+            padding: 2rem;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 5. Responsive Styles (Desktop) */
+        @media (min-width: 768px) {
+            .lottery-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1rem;
+            }
+
+            .lottery-grid-container {
+                padding: 2rem;
+            }
+
+            .lottery-card {
+                padding: 1rem;
+                min-height: 150px;
+            }
+
+            .lottery-card img {
+                height: 80px;
+            }
+
+            .lottery-card span {
+                font-size: 1rem;
+            }
+
+            .tab img {
+                height: 50px;
+            }
+            .tab span {
+                font-size: 1rem;
+            }
+
+            #back-button {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-brand-navy text-gray-900 dark:text-white min-h-screen antialiased transition-colors duration-300">
+<body>
 
-    <!-- Main Container -->
-    <div class="container mx-auto max-w-5xl p-3 sm:p-4 md:p-8 pb-12"> <!-- Reduced mobile padding, 3rem bottom space -->
+    <div id="preloader" class="hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <div id="selection-screen">
         
-        <header class="mb-6 sm:mb-8 flex justify-between items-center">
-            <div>
-                <!-- Reduced mobile font size -->
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-maroon dark:text-blue-300">Weather Forecast Sri Lanka</h1>
-                <p id="main-location" class="text-base sm:text-lg text-gray-700 dark:text-gray-300 mt-1 sm:mt-2">Colombo, Sri Lanka</p>
-            </div>
-            
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" class="p-2 rounded-full text-brand-maroon dark:text-blue-300 bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 transition-colors shrink-0">
-                <!-- Sun Icon -->
-                <svg id="theme-icon-sun" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                <!-- Moon Icon -->
-                <svg id="theme-icon-moon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-            </button>
+        <header class="header">
+            <h1>Lottery Results Sri Lanka</h1>
         </header>
 
-        <!-- Loading Spinner -->
-        <div id="loading" class="flex flex-col items-center justify-center p-16">
-            <div class="loader"></div>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">Fetching latest weather data...</p>
-        </div>
+        <nav class="category-tabs">
+            <div class="tab active" id="tab-nlb" data-category="nlb">
+                <img src="https://imgur.com/KS6ylO5.png" alt="NLB Logo">
+            </div>
+            <div class="tab" id="tab-dlb" data-category="dlb">
+                <img src="https://imgur.com/jv170Zq.png" alt="DLB Logo">
+            </div>
+        </nav>
 
-        <!-- Error Message -->
-        <div id="error" class="hidden bg-red-100 dark:bg-red-800 border border-red-300 dark:border-red-600 text-red-700 dark:text-red-100 px-4 py-3 rounded-lg text-center" role="alert">
-            <strong class="font-bold">Error:</strong>
-            <span id="error-message" class="block sm:inline"></span>
-        </div>
-
-        <!-- Weather Content (Hidden by default) -->
-        <div id="weather-content" class="hidden space-y-8 sm:space-y-10">
-            
-            <!-- Current Weather Section -->
-            <section id="current-weather" class="bg-white dark:bg-white/10 rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl backdrop-blur-md border border-gray-200 dark:border-white/20">
-                <h2 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">Current Conditions</h2>
-                <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-                    
-                    <!-- Current Temp & Icon (Smaller on mobile) -->
-                    <div class="flex items-center gap-3 sm:gap-4">
-                        <div id="current-icon" class="text-5xl sm:text-6xl md:text-7xl"></div>
-                        <div>
-                            <div id="current-temp" class="text-4xl sm:text-5xl md:text-6xl font-bold"></div>
-                            <div id="current-description" class="text-base sm:text-lg text-gray-700 dark:text-gray-300"></div>
-                        </div>
-                    </div>
-
-                    <!-- Current Details Grid (Smaller on mobile) -->
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3 text-base sm:text-lg w-full md:w-auto">
-                        <div class="flex flex-col">
-                            <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Feels Like</span>
-                            <span id="current-feels-like" class="font-semibold sm:text-xl"></span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Humidity</span>
-                            <span id="current-humidity" class="font-semibold sm:text-xl"></span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Wind</span>
-                            <span id="current-wind" class="font-semibold sm:text-xl"></span>
-                        </div>
-                         <div class="flex flex-col">
-                            <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Precipitation</span>
-                            <span id="current-precipitation" class="font-semibold sm:text-xl"></span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">UV Index</span>
-                            <span id="current-uv" class="font-semibold sm:text-xl"></span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Last Updated</span>
-                            <span id="current-time" class="font-semibold sm:text-xl"></span>
-                        </div>
-                    </div>
+        <main class="lottery-grid-container">
+            <div class="lottery-grid" id="grid-nlb">
                 </div>
-            </section>
-
-            <!-- 7-Day Forecast Section -->
-            <section id="daily-forecast">
-                <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">7-Day Forecast</h2>
-                <div id="forecast-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
-                    <!-- Forecast cards will be injected here by JavaScript -->
+            <div class="lottery-grid hidden" id="grid-dlb">
                 </div>
-            </section>
+        </main>
 
-            <!-- District Report Section -->
-            <section id="district-report">
-                <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Current Weather Across Sri Lanka</h2>
-                <div class="overflow-hidden bg-white dark:bg-white/10 rounded-2xl shadow-xl border border-gray-200 dark:border-white/20">
-                    <div class="overflow-x-auto">
-                        <table class="w-full min-w-[550px] text-left">
-                            <thead class="border-b border-gray-200 dark:border-white/20">
-                                <!-- Smaller text on mobile -->
-                                <tr class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-                                    <th class="p-3 font-semibold">District</th>
-                                    <th class="p-3 font-semibold">Condition</th>
-                                    <th class="p-3 font-semibold">Temp.</th>
-                                    <th class="p-3 font-semibold">Feels Like</th>
-                                    <th class="p-3 font-semibold">Wind (km/h)</th>
-                                    <th class="p-3 font-semibold">Humidity</th>
-                                </tr>
-                            </thead>
-                            <tbody id="district-table-body" class="divide-y divide-gray-200 dark:divide-white/10 text-sm sm:text-base">
-                                <!-- District rows will be injected here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- Pagination Controls -->
-                    <div class="flex justify-between items-center p-3 border-t border-gray-200 dark:border-white/20">
-                        <button id="prev-btn" class="px-4 py-2 bg-brand-maroon/10 text-brand-maroon dark:bg-blue-300/20 dark:text-blue-300 rounded-lg font-semibold transition-colors hover:bg-brand-maroon/20 dark:hover:bg-blue-300/30">
-                            Prev
-                        </button>
-                        <span id="page-info" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Page 1 of 4
-                        </span>
-                        <button id="next-btn" class="px-4 py-2 bg-brand-maroon/10 text-brand-maroon dark:bg-blue-300/20 dark:text-blue-300 rounded-lg font-semibold transition-colors hover:bg-brand-maroon/20 dark:hover:bg-blue-300/30">
-                            Next
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-        <!-- Footer -->
-        <footer class="text-center text-gray-600 dark:text-gray-400 mt-8 sm:mt-12">
-            <p>&copy; <span id="copyright-year"></span> Lanka Lift Solutions. All Rights Reserved.</p>
+        <footer class="footer">
+            © 2025 Lanka Lift Solutions.
         </footer>
+
+    </div>
+
+    <div id="iframe-viewer" class="hidden">
+        
+        <header class="iframe-header">
+            <button id="back-button">&larr; Back</button>
+            <span id="iframe-title"></span>
+        </header>
+
+        <div id="iframe-container">
+            </div>
+
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            setupTheme();
-            fetchAllWeather();
-            
-            // Set dynamic copyright year
-            document.getElementById('copyright-year').textContent = new Date().getFullYear();
-            
-            // Setup pagination listeners
-            document.getElementById('prev-btn').addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    displayDistrictReport();
-                }
-            });
-            document.getElementById('next-btn').addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    displayDistrictReport();
-                }
-            });
-        });
 
-        // === DOM Elements ===
-        const loadingEl = document.getElementById('loading');
-        const errorEl = document.getElementById('error');
-        const errorMessageEl = document.getElementById('error-message');
-        const weatherContentEl = document.getElementById('weather-content');
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeIconSun = document.getElementById('theme-icon-sun');
-        const themeIconMoon = document.getElementById('theme-icon-moon');
-
-        // Current Weather Elements
-        const currentIconEl = document.getElementById('current-icon');
-        const currentTempEl = document.getElementById('current-temp');
-        const currentDescriptionEl = document.getElementById('current-description');
-        const currentFeelsLikeEl = document.getElementById('current-feels-like');
-        const currentHumidityEl = document.getElementById('current-humidity');
-        const currentWindEl = document.getElementById('current-wind');
-        const currentPrecipitationEl = document.getElementById('current-precipitation');
-        const currentUvEl = document.getElementById('current-uv');
-        const currentTimeEl = document.getElementById('current-time');
-
-        // Forecast Element
-        const forecastGridEl = document.getElementById('forecast-grid');
-        
-        // District Table Elements
-        const districtTableBodyEl = document.getElementById('district-table-body');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const pageInfo = document.getElementById('page-info');
-
-        // === Theme Toggle ===
-        function setupTheme() {
-            // *** CHANGED: Default to light mode ***
-            const savedTheme = localStorage.getItem('theme') || 'light'; 
-            
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-                themeIconSun.classList.remove('hidden');
-                themeIconMoon.classList.add('hidden');
-            } else {
-                document.documentElement.classList.remove('dark');
-                themeIconSun.classList.add('hidden');
-                themeIconMoon.classList.remove('hidden');
-            }
-
-            themeToggleBtn.addEventListener('click', () => {
-                if (document.documentElement.classList.toggle('dark')) {
-                    // Is now dark
-                    localStorage.setItem('theme', 'dark');
-                    themeIconSun.classList.remove('hidden');
-                    themeIconMoon.classList.add('hidden');
-                } else {
-                    // Is now light
-                    localStorage.setItem('theme', 'light');
-                    themeIconSun.classList.add('hidden');
-                    themeIconMoon.classList.remove('hidden');
-                }
-            });
-        }
-        
-        // === Weather Data ===
-        
-        // Coordinates for main forecast (Colombo)
-        const mainLocation = { name: 'Colombo', lat: 6.9271, lon: 79.8612 };
-
-        // *** NEW: Full list of 25 districts ***
-        const districts = [
-            { name: 'Colombo', lat: 6.9271, lon: 79.8612 },
-            { name: 'Gampaha', lat: 7.0930, lon: 80.0088 },
-            { name: 'Kalutara', lat: 6.5854, lon: 79.9607 },
-            { name: 'Kandy', lat: 7.2906, lon: 80.6337 },
-            { name: 'Kurunegala', lat: 7.4818, lon: 80.3609 },
-            { name: 'Matale', lat: 7.4675, lon: 80.6234 },
-            { name: 'Nuwara Eliya', lat: 6.9497, lon: 80.7891 },
-            { name: 'Galle', lat: 6.0535, lon: 80.2210 },
-            { name: 'Matara', lat: 5.9549, lon: 80.5550 },
-            { name: 'Hambantota', lat: 6.1244, lon: 81.1185 },
-            { name: 'Ratnapura', lat: 6.7056, lon: 80.3847 },
-            { name: 'Kegalle', lat: 7.2510, lon: 80.3464 },
-            { name: 'Anuradhapura', lat: 8.3114, lon: 80.4037 },
-            { name: 'Polonnaruwa', lat: 7.9403, lon: 81.0188 },
-            { name: 'Jaffna', lat: 9.6615, lon: 80.0255 },
-            { name: 'Kilinochchi', lat: 9.3828, lon: 80.4034 },
-            { name: 'Mannar', lat: 8.9800, lon: 79.9074 },
-            { name: 'Vavuniya', lat: 8.7516, lon: 80.4981 },
-            { name: 'Mullaitivu', lat: 9.2714, lon: 80.8143 },
-            { name: 'Batticaloa', lat: 7.7218, lon: 81.6963 },
-            { name: 'Ampara', lat: 7.2917, lon: 81.6748 },
-            { name: 'Trincomalee', lat: 8.5874, lon: 81.2152 },
-            { name: 'Puttalam', lat: 8.0347, lon: 79.8315 },
-            { name: 'Badulla', lat: 6.9934, lon: 81.0550 },
-            { name: 'Monaragala', lat: 6.8725, lon: 81.3496 }
-        ];
-
-        // *** NEW: Pagination State ***
-        let fullDistrictData = [];
-        let currentPage = 1;
-        const itemsPerPage = 8;
-        let totalPages = Math.ceil(districts.length / itemsPerPage);
-
-
-        /**
-         * Fetches all required weather data in parallel
-         */
-        async function fetchAllWeather() {
-            try {
-                loadingEl.style.display = 'flex';
-                errorEl.style.display = 'none';
-                weatherContentEl.style.display = 'none';
-
-                const mainForecastPromise = fetchMainForecast(mainLocation.lat, mainLocation.lon);
-                const districtReportPromise = fetchDistrictReport();
-
-                const [mainData, districtData] = await Promise.all([mainForecastPromise, districtReportPromise]);
-
-                // Display main forecast
-                if (mainData && mainData.current && mainData.daily) {
-                    displayCurrentWeather(mainData.current, mainData.daily, mainData.timezone);
-                    displayDailyForecast(mainData.daily);
-                } else {
-                    throw new Error('Invalid main forecast data.');
-                }
-                
-                // *** NEW: Store district data and display first page ***
-                if (districtData && districtData.length > 0) {
-                    fullDistrictData = districtData;
-                    totalPages = Math.ceil(fullDistrictData.length / itemsPerPage);
-                    currentPage = 1; // Reset to first page
-                    displayDistrictReport(); // Display the first page
-                } else {
-                    throw new Error('Invalid district report data.');
-                }
-
-                loadingEl.style.display = 'none';
-                weatherContentEl.style.display = 'block';
-
-            } catch (error) {
-                console.error('Error fetching weather:', error);
-                showError(`Failed to fetch weather data. ${error.message}`);
-            }
-        }
-        
-        /**
-         * Fetches the 7-day and current forecast for the main location
-         */
-        async function fetchMainForecast(latitude, longitude) {
-            const currentParams = 'temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m';
-            const dailyParams = 'weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_probability_max';
-            const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=${currentParams}&daily=${dailyParams}&timezone=Asia%2FColombo&forecast_days=7`;
-
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error(`API request failed: ${response.status}`);
-            return response.json();
-        }
-
-        /**
-         * Fetches current weather for all 25 districts
-         */
-        async function fetchDistrictReport() {
-            // Use Promise.allSettled to ensure all requests complete, even if some fail
-            const districtPromises = districts.map(district => 
-                fetchSingleDistrict(district.lat, district.lon)
-                    .then(data => ({
-                        status: 'fulfilled',
-                        name: district.name,
-                        ...data.current // Add all current data
-                    }))
-                    .catch(error => ({
-                        status: 'rejected',
-                        name: district.name,
-                        reason: error
-                    }))
-            );
-            
-            const results = await Promise.allSettled(districtPromises);
-            
-            // Filter out failed requests but log them
-            const successfulData = [];
-            results.forEach(result => {
-                if (result.status === 'fulfilled') {
-                    successfulData.push(result.value);
-                } else {
-                    console.error(`Failed to fetch weather for ${result.reason.name}: ${result.reason}`);
-                }
-            });
-            return successfulData;
-        }
-
-        /**
-         * Helper to fetch *only current* weather for a single location
-         */
-        async function fetchSingleDistrict(latitude, longitude) {
-            const currentParams = 'temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m';
-            const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=${currentParams}&timezone=Asia%2FColombo`;
-            
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error(`API request failed for district: ${response.status}`);
-            return response.json();
-        }
-
-        /**
-         * Displays the current weather data
-         */
-        function displayCurrentWeather(current, daily, timezone) {
-            const weatherInfo = getWeatherInfo(current.weather_code, current.is_day);
-
-            currentIconEl.textContent = weatherInfo.icon;
-            currentTempEl.textContent = `${Math.round(current.temperature_2m)}°C`;
-            currentDescriptionEl.textContent = weatherInfo.description;
-            
-            currentFeelsLikeEl.textContent = `${Math.round(current.apparent_temperature)}°C`;
-            currentHumidityEl.textContent = `${current.relative_humidity_2m}%`;
-            currentWindEl.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
-            
-            currentPrecipitationEl.textContent = `${daily.precipitation_probability_max[0]}%`;
-            currentUvEl.textContent = `${Math.round(daily.uv_index_max[0])}`;
-
-            const updateTime = new Date(current.time); 
-            currentTimeEl.textContent = updateTime.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                timeZone: timezone
-            });
-        }
-
-        /**
-         * Displays the 7-day forecast
-         */
-        function displayDailyForecast(daily) {
-            forecastGridEl.innerHTML = ''; // Clear previous forecast
-
-            daily.time.forEach((dateString, index) => {
-                const weatherInfo = getWeatherInfo(daily.weather_code[index], true); 
-                const date = new Date(dateString);
-                
-                const day = date.toLocaleString('en-US', { weekday: 'short' });
-                const dateNum = date.getDate();
-                
-                const card = document.createElement('div');
-                // *** NEW: Reduced padding and font sizes ***
-                card.className = 'bg-white dark:bg-white/10 rounded-xl p-3 flex flex-col items-center gap-1 text-center shadow-lg border border-gray-200 dark:border-white/20';
-                
-                card.innerHTML = `
-                    <div class="font-semibold text-base sm:text-lg text-brand-maroon dark:text-blue-300">${day}</div>
-                    <div class="text-gray-700 dark:text-gray-300 text-base">${dateNum}</div>
-                    <div class="text-3xl my-1">${weatherInfo.icon}</div>
-                    <div class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 h-10">${weatherInfo.description}</div>
-                    <div class="text-base sm:text-lg font-semibold mt-1 sm:mt-2">
-                        <span class="text-gray-900 dark:text-white">${Math.round(daily.temperature_2m_max[index])}°</span>
-                        <span class="text-gray-500 dark:text-gray-400">${Math.round(daily.temperature_2m_min[index])}°</span>
-                    </div>
-                    <div class="text-xs sm:text-sm text-gray-700 dark:text-blue-300 mt-1">
-                        <span class="text-gray-500 dark:text-gray-400">Rain:</span> ${daily.precipitation_probability_max[index]}%
-                    </div>
-                `;
-                
-                forecastGridEl.appendChild(card);
-            });
-        }
-
-        /**
-         * *** NEW: Displays the *paginated* district weather report ***
-         */
-        function displayDistrictReport() {
-            districtTableBodyEl.innerHTML = ''; // Clear previous rows
-            
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const paginatedData = fullDistrictData.slice(startIndex, endIndex);
-            
-            paginatedData.forEach(data => {
-                const weatherInfo = getWeatherInfo(data.weather_code, data.is_day);
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="p-3 font-semibold">${data.name}</td>
-                    <td class="p-3">
-                        <span class="mr-2 text-xl sm:text-2xl">${weatherInfo.icon}</span>
-                        <span>${weatherInfo.description}</span>
-                    </td>
-                    <td class="p-3 font-semibold">${Math.round(data.temperature_2m)}°C</td>
-                    <td class="p-3">${Math.round(data.apparent_temperature)}°C</td>
-                    <td class="p-3">${Math.round(data.wind_speed_10m)}</td>
-                    <td class="p-3">${data.relative_humidity_2m}%</td>
-                `;
-                districtTableBodyEl.appendChild(row);
-            });
-
-            // Update pagination controls
-            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-        }
-
-        /**
-         * Maps WMO weather code to description and emoji icon
-         */
-        function getWeatherInfo(code, isDay) {
-            const icons = {
-                day: {
-                    0: { description: 'Clear sky', icon: '☀️' }, 1: { description: 'Mainly clear', icon: '🌤️' },
-                    2: { description: 'Partly cloudy', icon: '⛅️' }, 3: { description: 'Overcast', icon: '☁️' },
-                    45: { description: 'Fog', icon: '🌫️' }, 48: { description: 'Rime fog', icon: '🌫️' },
-                    51: { description: 'Light drizzle', icon: '🌦️' }, 53: { description: 'Drizzle', icon: '🌦️' },
-                    55: { description: 'Dense drizzle', icon: '🌦️' }, 61: { description: 'Slight rain', icon: '🌧️' },
-                    63: { description: 'Rain', icon: '🌧️' }, 65: { description: 'Heavy rain', icon: '🌧️' },
-                    80: { description: 'Slight showers', icon: '🌧️' }, 81: { description: 'Rain showers', icon: '🌧️' },
-                    82: { description: 'Violent showers', icon: '🌧️' }, 95: { description: 'Thunderstorm', icon: '⛈️' },
-                    96: { description: 'Thunderstorm', icon: '⛈️' }, 99: { description: 'Thunderstorm', icon: '⛈️' }
-                },
-                night: {
-                    0: { description: 'Clear sky', icon: '🌙' }, 1: { description: 'Mainly clear', icon: '☁️' },
-                    2: { description: 'Partly cloudy', icon: '☁️' }, 3: { description: 'Overcast', icon: '☁️' }
-                }
+            // --- 1. DATA ---
+            // URLs are re-ordered based on your request.
+            // NLB primary: results.govdoc.lk
+            // DLB primary: www.dlb.lk
+            const lotteryData = {
+                nlb: [
+                    { name: "Govi Setha", logo: "https://imgur.com/4Xu6SEf.png", urls: ["https://results.govdoc.lk/lottery/nlb/govi-setha", "https://www.nlb.lk/lotteries/govisetha"] },
+                    { name: "Suba Dawasak", logo: "https://imgur.com/Wd0pwks.png", urls: ["https://results.govdoc.lk/lottery/nlb/suba-dawasak", "https://www.nlb.lk/lotteries/suba-dawasak"] },
+                    { name: "Mahajana Sampatha", logo: "https://imgur.com/7vOtxQR.png", urls: ["https://results.govdoc.lk/lottery/nlb/mahajana-sampatha", "https://www.nlb.lk/lotteries/mahajana-sampatha"] },
+                    { name: "Dhana Nidhanaya", logo: "https://imgur.com/WH36mji.png", urls: ["https://results.govdoc.lk/lottery/nlb/dhana-nidhanaya", "https://www.nlb.lk/lotteries/dhana-nidhanaya"] },
+                    { name: "Mega Power", logo: "https://imgur.com/disMwsT.png", urls: ["https://results.govdoc.lk/lottery/nlb/mega-power", "https://www.nlb.lk/lotteries/mega-power"] },
+                    { name: "Handahana", logo: "https://imgur.com/YXsebB8.png", urls: ["https://results.govdoc.lk/lottery/nlb/handahana", "https://www.nlb.lk/lotteries/handahana"] },
+                    { name: "Ada Sampatha", logo: "https://imgur.com/ug03HRR.png", urls: ["https://results.govdoc.lk/lottery/nlb/ada-sampatha", "https://www.nlb.lk/lotteries/ada-sampatha"] },
+                    { name: "Jaya", logo: "https://imgur.com/7ElsVBE.png", urls: ["https://results.govdoc.lk/lottery/nlb/jaya", "https://www.nlb.lk/lotteries/nlb-jaya"] }
+                ],
+                dlb: [
+                    { name: "Ada Kotipathi", logo: "https://imgur.com/5Z8VXFR.png", urls: ["https://www.dlb.lk/result/en", "https://results.govdoc.lk/lottery/dlb/ada-kotipathi", "https://www.lankayp.com/dlb/result/ada-kotipathi"] },
+                    { name: "Shanida", logo: "https://imgur.com/gpW2l5Q.png", urls: ["https://www.dlb.lk/result/1/en", "https://results.govdoc.lk/lottery/dlb/saturday-fortune", "https://www.lankayp.com/dlb/result/shanida"] },
+                    { name: "Lagna Wasana", logo: "https://imgur.com/QAwGmKN.png", urls: ["https://www.dlb.lk/result/2/en", "https://results.govdoc.lk/lottery/dlb/lagna-wasana", "https://www.lankayp.com/dlb/result/lagna-wasana"] },
+                    { name: "Dhana Sampatha", logo: "https://imgur.com/ndDQmdJ.png", urls: ["https://www.dlb.lk/result/17/en", "https://results.govdoc.lk/lottery/dlb/supiri-dhana-sampatha", "https://www.lankayp.com/dlb/result/supiri-dhana"] },
+                    { name: "Super Ball", logo: "https://imgur.com/xdpG31O.png", urls: ["https://www.dlb.lk/result/3/en", "https://results.govdoc.lk/lottery/dlb/super-ball", "https://www.lankayp.com/dlb/result/super-ball"] },
+                    { name: "Kapruka", logo: "https://imgur.com/kkBDCdj.png", urls: ["https://www.dlb.lk/result/12/en", "https://results.govdoc.lk/lottery/dlb/kapruka", "https://www.lankayp.com/dlb/result/kotipathi-kapruka"] },
+                    { name: "Jayoda", logo: "https://imgur.com/aVLgnV7.png", urls: ["https://www.dlb.lk/result/6/en", "https://results.govdoc.lk/lottery/dlb/jayoda?page=1", "https://www.lankayp.com/dlb/result/jayoda"] },
+                    { name: "Sasiri", logo: "https://imgur.com/rTwIIUt.png", urls: ["https://www.dlb.lk/result/13/en", "https://results.govdoc.lk/lottery/dlb/sasiri", "https://www.lankayp.com/dlb/result/sasiri"] },
+                    { name: "Jaya Sampatha", logo: "https://imgur.com/XmG8tLR.png", urls: ["https://www.dlb.lk/result/18/en", "https://results.govdoc.lk/lottery/dlb/jaya-sampatha", "https://www.lankayp.com/dlb/result/jaya-sampatha"] }
+                ]
             };
-            const iconSet = isDay ? icons.day : icons.night;
-            // Fallback chain: specific (day/night) -> generic (day) -> unknown
-            return iconSet[code] || icons.day[code] || { description: 'Unknown', icon: '🤷' };
-        }
 
-        /**
-         * Displays an error message
-         */
-        function showError(message) {
-            loadingEl.style.display = 'none';
-            weatherContentEl.style.display = 'none';
-            errorEl.style.display = 'block';
-            errorMessageEl.textContent = message;
-        }
+            // --- 2. DOM Elements ---
+            const selectionScreen = document.getElementById('selection-screen');
+            const iframeViewer = document.getElementById('iframe-viewer');
+            const preloader = document.getElementById('preloader');
+            const backButton = document.getElementById('back-button');
+            const iframeContainer = document.getElementById('iframe-container');
+            const iframeTitle = document.getElementById('iframe-title');
+            const tabNlb = document.getElementById('tab-nlb');
+            const tabDlb = document.getElementById('tab-dlb');
+            const gridNlb = document.getElementById('grid-nlb');
+            const gridDlb = document.getElementById('grid-dlb');
 
+            // --- 3. State ---
+            let globalFailureTimer = null; // To manage the fallback timeout
+
+            // --- 4. Functions ---
+
+            /**
+             * Renders the lottery cards into their respective grids
+             */
+            function renderGrids() {
+                gridNlb.innerHTML = '';
+                gridDlb.innerHTML = '';
+
+                lotteryData.nlb.forEach(lottery => {
+                    gridNlb.innerHTML += `
+                        <div class="lottery-card" data-category="nlb" data-name="${lottery.name}">
+                            <img src="${lottery.logo}" alt="${lottery.name} Logo">
+                            <span>${lottery.name}</span>
+                        </div>
+                    `;
+                });
+
+                lotteryData.dlb.forEach(lottery => {
+                    gridDlb.innerHTML += `
+                        <div class="lottery-card" data-category="dlb" data-name="${lottery.name}">
+                            <img src="${lottery.logo}" alt="${lottery.name} Logo">
+                            <span>${lottery.name}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            /**
+             * NEW: Tries to load an array of URLs one by one with a timeout.
+             */
+            function loadWithFallback(urls, index) {
+                // 1. Clear any existing timer
+                if (globalFailureTimer) {
+                    clearTimeout(globalFailureTimer);
+                }
+
+                // 2. Check if we've run out of URLs
+                if (index >= urls.length) {
+                    preloader.classList.add('hidden');
+                    iframeContainer.innerHTML = '<div class="iframe-error">Could not load any source for this lottery. Please try again later.</div>';
+                    return;
+                }
+
+                // 3. Show preloader and clear container
+                preloader.classList.remove('hidden');
+                iframeContainer.innerHTML = ''; // Clear old iframe or error message
+                const currentUrl = urls[index];
+
+                // 4. Create new iframe
+                const iframe = document.createElement('iframe');
+                iframe.sandbox = "allow-forms allow-scripts allow-same-origin allow-popups";
+
+                // 5. Define success and failure
+                iframe.onload = () => {
+                    clearTimeout(globalFailureTimer); // Success! Clear the timer.
+                    preloader.classList.add('hidden');
+                };
+                
+                iframe.onerror = () => {
+                    clearTimeout(globalFailureTimer); // Failed (e.g., network error). Try next.
+                    loadWithFallback(urls, index + 1);
+                };
+
+                // 6. Load the source
+                iframe.src = currentUrl;
+                iframeContainer.appendChild(iframe);
+
+                // 7. Start the failure timer (8 seconds)
+                // This catches sites that are blocked (X-Frame-Options)
+                // as they won't fire onload or onerror.
+                globalFailureTimer = setTimeout(() => {
+                    loadWithFallback(urls, index + 1);
+                }, 8000); 
+            }
+
+            /**
+             * Switches between NLB and DLB tabs
+             */
+            function switchTab(category) {
+                if (category === 'nlb') {
+                    tabNlb.classList.add('active');
+                    tabDlb.classList.remove('active');
+                    gridNlb.classList.remove('hidden');
+                    gridDlb.classList.add('hidden');
+                } else {
+                    tabNlb.classList.remove('active');
+                    tabDlb.classList.add('active');
+                    gridNlb.classList.add('hidden');
+                    gridDlb.classList.remove('hidden');
+                }
+            }
+
+            /**
+             * Finds the lottery data object by name and category
+             */
+            function getLotteryData(name, category) {
+                return lotteryData[category].find(lottery => lottery.name === name);
+            }
+
+            // --- 5. Event Listeners ---
+
+            // Tab Switching
+            tabNlb.addEventListener('click', () => switchTab('nlb'));
+            tabDlb.addEventListener('click', () => switchTab('dlb'));
+
+            // Lottery Card Clicks (using event delegation)
+            gridNlb.addEventListener('click', handleCardClick);
+            gridDlb.addEventListener('click', handleCardClick);
+
+            function handleCardClick(e) {
+                const card = e.target.closest('.lottery-card');
+                if (!card) return;
+
+                const category = card.dataset.category;
+                const name = card.dataset.name;
+                const lottery = getLotteryData(name, category);
+
+                if (lottery) {
+                    // 1. Set the title
+                    iframeTitle.textContent = lottery.name;
+
+                    // 2. Show the iframe viewer
+                    selectionScreen.classList.add('hidden');
+                    iframeViewer.classList.remove('hidden');
+
+                    // 3. Load the first URL (which will fallback if needed)
+                    loadWithFallback(lottery.urls, 0);
+                }
+            }
+
+            // Back Button Click
+            backButton.addEventListener('click', () => {
+                selectionScreen.classList.remove('hidden');
+                iframeViewer.classList.add('hidden');
+                
+                // Clear the iframe to stop loading
+                iframeContainer.innerHTML = ''; 
+                
+                // Stop any pending fallback timer
+                if (globalFailureTimer) {
+                    clearTimeout(globalFailureTimer);
+                }
+                
+                // Hide preloader just in case
+                preloader.classList.add('hidden');
+            });
+
+            // --- 6. Initial Call ---
+            renderGrids();
+        });
     </script>
+
 </body>
 </html>
