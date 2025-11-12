@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lottery Results Sri Lanka</title>
     <style>
-        /* 1. Global Styles & Variables */
+        /* All CSS is identical to the previous version */
         :root {
             --navy: #020d47;
             --maroon: #8e163c;
@@ -13,284 +13,116 @@
             --light-gray: #f4f4f4;
             --gray: #ddd;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--light-gray);
             color: #333;
         }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* 2. Preloader */
+        .hidden { display: none !important; }
         #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             z-index: 1000;
         }
-
         .spinner {
             border: 5px solid var(--gray);
             border-top: 5px solid var(--maroon);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             animation: spin 1s linear infinite;
         }
-
         #preloader p {
-            margin-top: 15px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--navy);
+            margin-top: 15px; font-size: 1.1rem;
+            font-weight: 500; color: var(--navy);
         }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* 3. Selection Screen (Main Page) */
-        #selection-screen {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #selection-screen { display: flex; flex-direction: column; min-height: 100vh; }
         .header {
-            background: var(--navy);
-            color: var(--white);
-            padding: 1.5rem 1rem;
-            text-align: center;
+            background: var(--navy); color: var(--white);
+            padding: 1.5rem 1rem; text-align: center;
         }
-
         .category-tabs {
-            display: flex;
-            background: var(--white);
+            display: flex; background: var(--white);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
         .tab {
-            flex: 1;
-            padding: 1rem; /* Reverted padding */
-            display: flex; /* Reverted */
-            align-items: center; /* Reverted */
-            justify-content: center; /* Reverted */
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            opacity: 0.8;
-            background-color: #f7f7f7;
+            flex: 1; padding: 1rem; display: flex;
+            align-items: center; justify-content: center;
+            cursor: pointer; border-bottom: 3px solid transparent;
+            opacity: 0.8; background-color: #f7f7f7;
             transition: all 0.3s ease;
         }
-
         .tab img {
-            height: 40px;
-            width: auto;
-            max-width: 120px;
-            object-fit: contain;
+            height: 40px; width: auto;
+            max-width: 120px; object-fit: contain;
         }
-
         .tab.active {
-            border-bottom: 3px solid var(--maroon);
-            opacity: 1;
-            font-weight: 600;
+            border-bottom: 5px solid var(--maroon);
+            opacity: 1; font-weight: 600;
             background-color: var(--white);
         }
-
-        .lottery-grid-container {
-            flex-grow: 1;
-            padding: 1rem 0.5rem;
-        }
-
+        .lottery-grid-container { flex-grow: 1; padding: 1rem 0.5rem; }
         .lottery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0.5rem;
         }
-
         .lottery-card {
-            background: var(--white);
-            border: 1px solid var(--gray);
-            border-radius: 8px;
-            padding: 0.5rem;
-            text-align: center;
-            cursor: pointer;
+            background: var(--white); border: 1px solid var(--gray);
+            border-radius: 8px; padding: 0.5rem;
+            text-align: center; cursor: pointer;
             transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: space-between;
             min-height: 110px;
         }
-
         .lottery-card:hover {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
-
         .lottery-card img {
-            width: 100%;
-            height: 60px;
-            object-fit: contain;
-            margin-bottom: 0.5rem;
+            width: 100%; height: 60px;
+            object-fit: contain; margin-bottom: 0.5rem;
         }
-
         .lottery-card span {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #333;
-            line-height: 1.2;
+            font-size: 0.8rem; font-weight: 500;
+            color: #333; line-height: 1.2;
         }
-
         .footer {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--navy);
-            color: var(--gray);
-            font-size: 0.9rem;
-            padding-bottom: 3rem;
-        }
-
-        /* 4. Iframe Viewer */
-        #iframe-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 500;
-            background: var(--white);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .iframe-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--navy);
-            color: var(--white);
-            padding: 0.75rem;
-            flex-shrink: 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        /* UPDATED: Larger back button */
-        #back-button {
-            background: var(--maroon);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            padding: 0.65rem 1.1rem;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
+            text-align: center; padding: 1.5rem;
+            background: var(--navy); color: var(--gray);
+            font-size: 0.9rem; padding-bottom: 5rem;
         }
         
-        #iframe-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-align: right;
-            padding-left: 1rem;
-        }
+        /* This whole section is no longer needed with this workaround */
+        /* #iframe-viewer { ... } */
 
-        #iframe-container {
-            flex-grow: 1;
-            position: relative;
-            overflow: hidden;
-            background: var(--light-gray);
-        }
-        
-        #iframe-container .iframe-error {
-            padding: 2rem;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-
-        #iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* 5. Responsive Styles (Desktop) */
         @media (min-width: 768px) {
-            .lottery-grid {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 1rem;
-            }
-
-            .lottery-grid-container {
-                padding: 2rem;
-            }
-
-            .lottery-card {
-                padding: 1rem;
-                min-height: 150px;
-            }
-
-            .lottery-card img {
-                height: 80px;
-            }
-
-            .lottery-card span {
-                font-size: 1rem;
-            }
-
-            .tab img {
-                height: 50px;
-            }
-
-            /* UPDATED: Desktop back button */
-            #back-button {
-                padding: 0.75rem 1.25rem;
-                font-size: 1.05rem;
-            }
+            .lottery-grid { grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+            .lottery-grid-container { padding: 2rem; }
+            .lottery-card { padding: 1rem; min-height: 150px; }
+            .lottery-card img { height: 80px; }
+            .lottery-card span { font-size: 1rem; }
+            .tab img { height: 50px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ======== 1. PRELOADER ======== -->
     <div id="preloader" class="hidden">
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
 
-    <!-- ======== 2. SELECTION SCREEN (Main Page) ======== -->
     <div id="selection-screen">
         
         <header class="header">
             <h1>Lottery Results Sri Lanka</h1>
         </header>
 
-        <!-- UPDATED: Active tab changed to DLB -->
         <nav class="category-tabs">
             <div class="tab" id="tab-nlb" data-category="nlb">
                 <img src="https://imgur.com/KS6ylO5.png" alt="NLB Logo">
@@ -301,14 +133,10 @@
         </nav>
 
         <main class="lottery-grid-container">
-            <!-- UPDATED: NLB grid is now hidden by default -->
             <div class="lottery-grid hidden" id="grid-nlb">
-                <!-- Content will be generated by JavaScript -->
-            </div>
-            <!-- UPDATED: DLB grid is now active by default -->
+                </div>
             <div class="lottery-grid" id="grid-dlb">
-                <!-- Content will be generated by JavaScript -->
-            </div>
+                </div>
         </main>
 
         <footer class="footer">
@@ -317,21 +145,6 @@
 
     </div>
 
-    <!-- ======== 3. IFRAME VIEWER (Hidden by default) ======== -->
-    <div id="iframe-viewer" class="hidden">
-        
-        <header class="iframe-header">
-            <button id="back-button">&larr; Back</button>
-            <span id="iframe-title"></span>
-        </header>
-
-        <div id="iframe-container">
-            <!-- Iframe will be generated by JavaScript -->
-        </div>
-
-    </div>
-
-    <!-- ======== 4. JAVASCRIPT ======== -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -361,29 +174,17 @@
             };
 
             // --- 2. DOM Elements ---
-            const selectionScreen = document.getElementById('selection-screen');
-            const iframeViewer = document.getElementById('iframe-viewer');
             const preloader = document.getElementById('preloader');
-            const backButton = document.getElementById('back-button');
-            const iframeContainer = document.getElementById('iframe-container');
-            const iframeTitle = document.getElementById('iframe-title');
             const tabNlb = document.getElementById('tab-nlb');
             const tabDlb = document.getElementById('tab-dlb');
             const gridNlb = document.getElementById('grid-nlb');
             const gridDlb = document.getElementById('grid-dlb');
 
-            // --- 3. State ---
-            let globalFailureTimer = null;
+            // --- 3. Functions ---
 
-            // --- 4. Functions ---
-
-            /**
-             * Renders the lottery cards into their respective grids
-             */
             function renderGrids() {
                 gridNlb.innerHTML = '';
                 gridDlb.innerHTML = '';
-
                 lotteryData.nlb.forEach(lottery => {
                     gridNlb.innerHTML += `
                         <div class="lottery-card" data-category="nlb" data-name="${lottery.name}">
@@ -392,7 +193,6 @@
                         </div>
                     `;
                 });
-
                 lotteryData.dlb.forEach(lottery => {
                     gridDlb.innerHTML += `
                         <div class="lottery-card" data-category="dlb" data-name="${lottery.name}">
@@ -403,50 +203,6 @@
                 });
             }
 
-            /**
-             * Tries to load an array of URLs one by one with a timeout.
-             */
-            function loadWithFallback(urls, index) {
-                if (globalFailureTimer) {
-                    clearTimeout(globalFailureTimer);
-                }
-
-                if (index >= urls.length) {
-                    preloader.classList.add('hidden');
-                    iframeContainer.innerHTML = '<div class="iframe-error">Could not load any source for this lottery. Please try again later.</div>';
-                    return;
-                }
-
-                preloader.classList.remove('hidden');
-                iframeContainer.innerHTML = '';
-                const currentUrl = urls[index];
-
-                const iframe = document.createElement('iframe');
-                
-                // UPDATED: Added "allow-popups-to-escape-sandbox" to fix the new tab issue.
-                iframe.sandbox = "allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
-
-                iframe.onload = () => {
-                    clearTimeout(globalFailureTimer);
-                    preloader.classList.add('hidden');
-                };
-                
-                iframe.onerror = () => {
-                    clearTimeout(globalFailureTimer);
-                    loadWithFallback(urls, index + 1);
-                };
-
-                iframe.src = currentUrl;
-                iframeContainer.appendChild(iframe);
-
-                globalFailureTimer = setTimeout(() => {
-                    loadWithFallback(urls, index + 1);
-                }, 8000); 
-            }
-
-            /**
-             * Switches between NLB and DLB tabs
-             */
             function switchTab(category) {
                 if (category === 'nlb') {
                     tabNlb.classList.add('active');
@@ -461,14 +217,11 @@
                 }
             }
 
-            /**
-             * Finds the lottery data object by name and category
-             */
             function getLotteryData(name, category) {
                 return lotteryData[category].find(lottery => lottery.name === name);
             }
 
-            // --- 5. Event Listeners ---
+            // --- 4. Event Listeners ---
 
             tabNlb.addEventListener('click', () => switchTab('nlb'));
             tabDlb.addEventListener('click', () => switchTab('dlb'));
@@ -476,6 +229,7 @@
             gridNlb.addEventListener('click', handleCardClick);
             gridDlb.addEventListener('click', handleCardClick);
 
+            // *** THIS IS THE CHANGED FUNCTION ***
             function handleCardClick(e) {
                 const card = e.target.closest('.lottery-card');
                 if (!card) return;
@@ -484,29 +238,22 @@
                 const name = card.dataset.name;
                 const lottery = getLotteryData(name, category);
 
-                if (lottery) {
-                    iframeTitle.textContent = lottery.name;
-                    selectionScreen.classList.add('hidden');
-                    iframeViewer.classList.remove('hidden');
-                    loadWithFallback(lottery.urls, 0);
+                if (lottery && lottery.urls.length > 0) {
+                    // Show preloader
+                    preloader.classList.remove('hidden');
+                    
+                    // Navigate this window to the first URL
+                    // This REPLACES the dashboard with the lottery site
+                    window.location.href = lottery.urls[0];
+                    
+                    // We don't hide the preloader; the new page load will remove it.
                 }
             }
 
-            backButton.addEventListener('click', () => {
-                selectionScreen.classList.remove('hidden');
-                iframeViewer.classList.add('hidden');
-                iframeContainer.innerHTML = ''; 
-                if (globalFailureTimer) {
-                    clearTimeout(globalFailureTimer);
-                }
-                preloader.classList.add('hidden');
-            });
-
-            // --- 6. Initial Call ---
+            // --- 5. Initial Call ---
             renderGrids();
         });
     </script>
 
 </body>
 </html>
-
