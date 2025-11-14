@@ -1,473 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newspapers Sri Lanka</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;700&family=Poppins:wght@400;500;700&family=Mukta+Malar:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<html><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    }
 
-    <style>
-        /* --- Root Variables --- */
-        :root {
-            --navy-blue: #020d47;
-            --maroon: #8e163c;
-            --white: #ffffff;
-            --light-gray: #f4f7fa;
-            --text-dark: #333;
-            --text-light: #666;
-            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --card-shadow-hover: 0 8px 30px rgba(2, 13, 71, 0.15);
-            --transition: all 0.3s ease;
-        }
+    #iframeContainer {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: calc(100% - 50px);
+    }
 
-        /* --- Base & Resets --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
+      background: #ffffff;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9990;
+      text-align: center;
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            color: var(--text-dark);
-            overscroll-behavior: none;
-            line-height: 1.6;
-            /* Added spacing at the bottom as requested */
-            padding-bottom: 3rem; 
-        }
+    .loader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        /* --- Dashboard View --- */
-        #dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
+    .spinner {
+      width: 35px;
+      height: 35px;
+      border: 5px solid rgba(255, 165, 0, 0.2);
+      border-radius: 50%;
+      border-top-color: #FFA500;
+      animation: spin 1s ease-in-out infinite;
+    }
 
-        /* --- Header --- */
-        header {
-            position: sticky; /* Kept sticky for better UX */
-            top: 0;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 0;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
+    .loading-text {
+      color: #555;
+      font-size: 14px;
+      margin-top: 15px;
+      font-weight: 500;
+    }
 
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 2.5rem;
-            color: var(--navy-blue);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-
-        /* --- Category Titles --- */
-        .category-section {
-            margin-bottom: 3rem;
-        }
-
-        .category-title {
-            font-size: 1.6rem;
-            color: var(--maroon);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(142, 22, 60, 0.2);
-            display: inline-block;
-            padding-right: 2rem;
-        }
-        
-        /* Specific fonts for languages */
-        .cat-sinhala { font-family: 'Noto Serif Sinhala', serif; font-weight: 700; }
-        .cat-english { font-family: 'Poppins', sans-serif; font-weight: 600; }
-        .cat-tamil { font-family: 'Mukta Malar', sans-serif; font-weight: 700; }
-
-        /* --- Site Grid --- */
-        .site-grid {
-            display: grid;
-            /* Desktop: adaptive columns */
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .site-card {
-            background-color: var(--white);
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--card-shadow);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            /* Increased height for larger logos */
-            min-height: 220px; 
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .site-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-        }
-
-        /* Logo Styling - Modified for larger size */
-        .site-card .logo-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            width: 100%;
-            height: 120px; /* Fixed container height */
-        }
-
-        .site-card img {
-            max-width: 80%;
-            max-height: 80%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            filter: grayscale(10%); /* Reduced grayscale */
-            transition: filter 0.3s ease;
-        }
-
-        .site-card:hover img {
-            filter: grayscale(0%);
-            transform: scale(1.05);
-        }
-
-        .site-card p {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--navy-blue);
-            margin-top: auto;
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding-top: 2rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            margin-top: 2rem;
-        }
-
-        /* --- Iframe View (Hidden by default) --- */
-        #iframe-view {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: var(--white);
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        #iframe-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            background: linear-gradient(90deg, var(--navy-blue), #1a2568);
-            color: var(--white);
-            flex-shrink: 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #back-button {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 0.9rem;
-            background-color: var(--maroon);
-            color: var(--white);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #back-button:hover {
-            background-color: #a81a48;
-        }
-
-        #site-title {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-align: center;
-            flex-grow: 1;
-            margin: 0 1rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        #content-frame {
-            flex-grow: 1;
-            border: none;
-            width: 100%;
-        }
-
-        /* Preloader */
-        #preloader {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            visibility: hidden;
-            opacity: 0;
-        }
-        #preloader.show { visibility: visible; opacity: 1; }
-        .spinner {
-            width: 16px; height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        body.iframe-active { overflow: hidden; }
-        body.iframe-active #dashboard { display: none; }
-        body.iframe-active #iframe-view { display: flex; }
-
-        /* --- Responsive Media Queries --- */
-        @media (max-width: 768px) {
-            header h1 { font-size: 1.8rem; }
-            .site-card { min-height: 180px; }
-            .site-card .logo-container { height: 90px; }
-        }
-
-        @media (max-width: 480px) {
-            header h1 { font-size: 1.7rem; }
-            
-            /* Force 2 columns on mobile */
-            .site-grid {
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 10px;
-            }
-
-            .site-card {
-                padding: 1rem 0.5rem;
-                min-height: 160px;
-            }
-
-            .site-card .logo-container {
-                height: 70px; /* Adjusted for mobile rows */
-                margin-bottom: 0.5rem;
-            }
-
-            .site-card p {
-                font-size: 0.9rem;
-            }
-            
-            .category-title {
-                font-size: 1.4rem;
-                margin-bottom: 1rem;
-            }
-        }
-    </style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
 
-    <main id="dashboard">
-        <header>
-            <div class="header-content">
-                <h1>Newspapers Sri Lanka</h1>
-            </div>
-        </header>
-        
-        <div id="content-area"></div>
+<!-- ⏳ Loading spinner -->
+<div id="loader">
+  <div class="loader-content">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading...</div>
+  </div>
+</div>
 
-        <footer>
-            <p>&copy; <span id="current-year"></span> Lanka Lift Solutions</p>
-        </footer>
-    </main>
+<!-- 🌐 Iframe viewer -->
+<div id="iframeContainer">
+  <iframe src="https://byte-tools.com/en/compass/" onload="this.style.opacity=1; document.getElementById('loader').style.display='none';"></iframe>
+</div>
 
-    <div id="iframe-view">
-        <nav id="iframe-nav">
-            <button id="back-button"><i class="fas fa-arrow-left"></i> Back</button>
-            <div id="site-title">Loading...</div>
-            <div id="preloader">
-                <div class="spinner"></div>
-            </div>
-        </nav>
 
-        <iframe id="content-frame" title="Website Content" sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
-        </iframe>
-    </div>
-
-    <script>
-        // --- Site Data ---
-        // Total 16 sites
-        const sites = [
-            // 1-8: Sinhala
-            { name: 'Lankadeepa', url: 'https://www.lankadeepa.lk/', logo: 'https://imgur.com/OJyJnPa.png' },
-            { name: 'Divaina', url: 'https://www.divaina.lk/', logo: 'https://imgur.com/gq0q9L9.png' },
-            { name: 'Dinamina', url: 'https://www.dinamina.lk/', logo: 'https://imgur.com/x1Cguyz.png' },
-            { name: 'Ada', url: 'https://www.ada.lk/', logo: 'https://imgur.com/FrByj9C.png' },
-            { name: 'Aruna', url: 'https://www.aruna.lk/', logo: 'https://imgur.com/t0URvTl.png' },
-            { name: 'Hiru News', url: 'https://www.hirunews.lk/', logo: 'https://imgur.com/Crt9Nxr.png' },
-            { name: 'Lanka C News', url: 'https://www.lankacnews.com/', logo: 'https://imgur.com/6VquVRW.png' },
-            { name: 'Lanka Truth', url: 'https://lankatruth.com/si/', logo: 'https://imgur.com/h3DwJ0q.png' },
-            
-            // 9-12: English
-            { name: 'Daily Mirror', url: 'https://www.dailymirror.lk/', logo: 'https://imgur.com/6IJ62PP.png' },
-            { name: 'News.lk', url: 'https://www.news.lk/', logo: 'https://imgur.com/b2LgTnR.png' },
-            { name: 'Hiru News', url: 'https://www.hirunews.lk/en/', logo: 'https://imgur.com/WfKpzbp.png' },
-            { name: 'Newswire', url: 'https://www.newswire.lk/', logo: 'https://imgur.com/tqZtVqJ.png' },
-            
-            // 13-16: Tamil
-            { name: 'Thinakaran', url: 'https://www.thinakaran.lk/', logo: 'https://imgur.com/FGZHzsS.png' },
-            { name: 'Jaffna Muslim', url: 'https://www.jaffnamuslim.com/', logo: 'https://imgur.com/laTeVfp.png' },
-            { name: 'Hiru News', url: 'https://www.hirunews.lk/tm/', logo: 'https://imgur.com/LdCwevU.png' },
-            { name: 'Thamilan', url: 'https://www.thamilan.lk/', logo: 'https://imgur.com/cLiuFkN.png' }
-        ];
-
-        // --- Categories Configuration ---
-        const categories = [
-            { 
-                title: 'සිංහල භාෂාව', 
-                className: 'cat-sinhala',
-                startIndex: 0, 
-                endIndex: 8 
-            },
-            { 
-                title: 'English Language', 
-                className: 'cat-english',
-                startIndex: 8, 
-                endIndex: 12 
-            },
-            { 
-                title: 'தமிழ் மொழி', 
-                className: 'cat-tamil',
-                startIndex: 12, 
-                endIndex: 16 
-            }
-        ];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
-            const contentArea = document.getElementById('content-area');
-            const backButton = document.getElementById('back-button');
-            const iframe = document.getElementById('content-frame');
-            const preloader = document.getElementById('preloader');
-            const yearSpan = document.getElementById('current-year');
-            const siteTitle = document.getElementById('site-title');
-
-            // 1. Set Year
-            yearSpan.textContent = new Date().getFullYear();
-
-            // 2. Render Categories and Grids
-            categories.forEach(cat => {
-                // Create Section
-                const section = document.createElement('section');
-                section.className = 'category-section';
-
-                // Create Title
-                const title = document.createElement('h2');
-                title.className = `category-title ${cat.className}`;
-                title.textContent = cat.title;
-                section.appendChild(title);
-
-                // Create Grid
-                const grid = document.createElement('div');
-                grid.className = 'site-grid';
-
-                // Populate Grid
-                const sectionSites = sites.slice(cat.startIndex, cat.endIndex);
-                let gridHTML = '';
-                
-                sectionSites.forEach((site) => {
-                    gridHTML += `
-                        <div class="site-card" data-url="${site.url}" data-name="${site.name}" role="button" tabindex="0">
-                            <div class="logo-container">
-                                <img src="${site.logo}" alt="${site.name}">
-                            </div>
-                            <p>${site.name}</p>
-                        </div>
-                    `;
-                });
-                
-                grid.innerHTML = gridHTML;
-                section.appendChild(grid);
-                contentArea.appendChild(section);
-            });
-
-            // 3. Event Delegation for Clicks
-            contentArea.addEventListener('click', (e) => {
-                const card = e.target.closest('.site-card');
-                if (card) {
-                    loadSite(card.dataset.url, card.dataset.name);
-                }
-            });
-
-            contentArea.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    const card = e.target.closest('.site-card');
-                    if (card) loadSite(card.dataset.url, card.dataset.name);
-                }
-            });
-
-            // 4. Iframe Logic
-            backButton.addEventListener('click', closeIframe);
-
-            iframe.addEventListener('load', () => {
-                preloader.classList.remove('show');
-            });
-            
-            iframe.addEventListener('error', () => {
-                 preloader.classList.remove('show');
-            });
-
-            function loadSite(url, name) {
-                preloader.classList.add('show');
-                siteTitle.textContent = name;
-                iframe.src = url;
-                body.classList.add('iframe-active');
-            }
-
-            function closeIframe() {
-                body.classList.remove('iframe-active');
-                iframe.src = 'about:blank';
-                siteTitle.textContent = 'Loading...';
-            }
-        });
-    </script>
-</body>
-</html>
-
+</body></html>
