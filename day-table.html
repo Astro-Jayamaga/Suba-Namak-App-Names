@@ -1,90 +1,1235 @@
-<html><head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background: #ffffff;
-      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
-    }
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ග්‍රහ බලය අනුව සුබ අක්ෂර සෙවීම - 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Serif+Sinhala:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    #iframeContainer {
-      position: fixed;
-      top: 50px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: calc(100% - 50px);
-    }
+    <style>
+        :root {
+            --primary-color: #FFA500; /* Orange */
+            --secondary-color: #7F0000; /* Maroon */
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-color: #2c2c2c;
+            --error-color: #d32f2f;
+            --border-color: #d8bca8;
+            --bg-cream: #FDF5E6;
+            
+            /* Status Colors */
+            --status-green: #008000;
+            --status-red: #d32f2f;
+            --status-blue: #0000FF;
+            --status-orange: #FFA500;
+        }
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      opacity: 0;
-      transition: opacity 0.4s ease-in;
-      background: #ffffff;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    #loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9990;
-      text-align: center;
-    }
+        body {
+            font-family: 'Noto Serif Sinhala', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            padding: 15px;
+        }
 
-    .loader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        .container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 600px;
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(127, 0, 0, 0.08);
+            border-top: 5px solid var(--secondary-color);
+            text-align: center;
+        }
 
-    .spinner {
-      width: 35px;
-      height: 35px;
-      border: 5px solid rgba(255, 165, 0, 0.2);
-      border-radius: 50%;
-      border-top-color: #FFA500;
-      animation: spin 1s ease-in-out infinite;
-    }
+        h1 {
+            font-family: 'Gemunu Libre', sans-serif;
+            color: var(--secondary-color);
+            font-size: 26px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
 
-    .loading-text {
-      color: #555;
-      font-size: 14px;
-      margin-top: 15px;
-      font-weight: 500;
-    }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: 'Roboto', 'Noto Serif Sinhala', sans-serif;
+            font-size: 15px;
+            color: #333;
+            background-color: #fffdfa;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.2);
+        }
+
+        .cta-button {
+            background-color: var(--secondary-color);
+            color: #ffffff;
+            font-family: 'Noto Serif Sinhala', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(127, 0, 0, 0.25);
+        }
+
+        .cta-button:hover {
+            background-color: #9c1414;
+            transform: translateY(-2px);
+        }
+
+        .error-msg {
+            color: var(--error-color);
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+            font-weight: 600;
+            background: #ffebee;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        /* Chart Result Area */
+        #result-area {
+            margin-top: 30px;
+            display: none;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Astro Chart Styles --- */
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1/1;
+            margin: 20px auto;
+            border: 3px solid var(--secondary-color);
+            position: relative;
+            background-color: #fffaf0;
+        }
+
+        .cell {
+            border: 1px solid var(--border-color);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+
+        .center-cell {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            background-color: var(--bg-cream);
+        }
+
+        .diagonal-line {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .top-content, .bottom-content {
+            position: absolute;
+            z-index: 1;
+            padding: 2px;
+            line-height: 1.1;
+            width: 45%;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        #preview-h2 { top: 7%; left: 45%; text-align: left; }
+        #preview-h3 { bottom: 10%; right: 45%; text-align: right; }
+        #preview-h12 { top: 7%; right: 45%; text-align: right; }
+        #preview-h11 { bottom: 10%; left: 45%; text-align: left; }
+        #preview-h5 { top: 7%; right: 45%; text-align: right; }
+        #preview-h6 { bottom: 10%; left: 45%; text-align: left; }
+        #preview-h9 { top: 7%; left: 45%; text-align: left; }
+        #preview-h8 { bottom: 10%; right: 45%; text-align: right; }
+
+        .zodiac-name {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .lagna-img-center {
+            width: 60px;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Good/Bad Letters Styles --- */
+        #good-bad-letters-area {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .result-box {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .box-good {
+            background-color: #e8f5e9;
+            border: 2px solid var(--status-green);
+        }
+
+        .box-bad {
+            background-color: #ffebee;
+            border: 2px solid var(--status-red);
+        }
+
+        .box-title {
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .title-good { color: var(--status-green); }
+        .title-bad { color: var(--status-red); }
+
+        .letters-display {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        /* --- Graha Balaya Styles --- */
+        #graha-balaya-area {
+            text-align: left;
+            margin-top: 30px;
+        }
+        
+        .balaya-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .balaya-header {
+            font-family: 'Noto Serif Sinhala', serif; /* Font Changed */
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .balaya-row {
+            margin-bottom: 6px;
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #000; /* Default black for labels */
+        }
+
+        .letters-row {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #444;
+            background: #f4f4f4;
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Colors for Result Text Only */
+        .text-green { color: var(--status-green); font-weight: 600; }
+        .text-red { color: var(--status-red); font-weight: 600; }
+        .text-blue { color: var(--status-blue); font-weight: 600; }
+        .text-orange { color: var(--status-orange); font-weight: 600; }
+
+
+        /* Summary Table */
+        .summary-table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: normal;
+        }
+        .summary-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 20px;
+            padding-bottom: 3rem;
+            font-size: 14px;
+            color: #999;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .main-wish {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+    </style>
 </head>
 <body>
 
-<!-- ⏳ Loading spinner -->
-<div id="loader">
-  <div class="loader-content">
-    <div class="spinner"></div>
-    <div class="loading-text">Loading...</div>
-  </div>
-</div>
+    <div class="container">
+        <h1>ග්‍රහ බලය අනුව සුබ අක්ෂර සෙවීම</h1>
 
-<!-- 🌐 Iframe viewer -->
-<div id="iframeContainer">
-  <iframe src="https://onlinecompass.net/" onload="this.style.opacity=1; document.getElementById('loader').style.display='none';"></iframe>
-</div>
+        <div class="form-group">
+            <label for="dateInput">උපන් දිනය තෝරන්න (2026)</label>
+            <input type="date" id="dateInput" min="2026-01-01" max="2026-12-31">
+        </div>
+
+        <div class="form-group">
+            <label for="timeInput">උපන් වේලාව තෝරන්න</label>
+            <input type="time" id="timeInput">
+        </div>
+
+        <div class="form-group">
+            <label for="districtSelect">උපන් දිස්ත්‍රික්කය තෝරන්න</label>
+            <select id="districtSelect" onchange="populateCities()"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="citySelect">උපන් ස්ථානය තෝරන්න</label>
+            <select id="citySelect"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="genderInput">ස්ත්‍රී පුරුෂ භාවය</label>
+            <select id="genderInput">
+                <option value="" disabled selected>තෝරන්න</option>
+                <option value="male">පුරුෂ</option>
+                <option value="female">ස්ත්‍රී</option>
+            </select>
+        </div>
+
+        <div id="errorDisplay" class="error-msg"></div>
+
+        <button class="cta-button" onclick="calculateChart()">සොයන්න</button>
+
+        <div id="result-area">
+            
+            <div class="chart-container">
+                <div class="cell">
+                    <svg class="diagonal-line"><line x1="0" y1="0" x2="100%" y2="100%" stroke="var(--border-color)" stroke-width="1"/></svg>
+                    <div class="top-content" id="preview-h2"></div>
+                    <div class="bottom-content" id="preview-h3"></div>
+                </div>
+                <div class="cell" id="preview-h1"></div>
+                <div class="cell">
+                    <svg class="diagonal-line"><line x1="0" y1="100%" x2="100%" y2="0" stroke="var(--border-color)" stroke-width="1"/></svg>
+                    <div class="top-content" id="preview-h12"></div>
+                    <div class="bottom-content" id="preview-h11"></div>
+                </div>
+                
+                <div class="cell" id="preview-h4"></div>
+                <div class="center-cell">
+                    <img id="center-lagna-img" class="lagna-img-center" src="" alt="Lagna">
+                    <div class="zodiac-name" id="center-lagna-text">--</div>
+                </div>
+                <div class="cell" id="preview-h10"></div>
+
+                <div class="cell">
+                    <svg class="diagonal-line"><line x1="0" y1="100%" x2="100%" y2="0" stroke="var(--border-color)" stroke-width="1"/></svg>
+                    <div class="top-content" id="preview-h5"></div>
+                    <div class="bottom-content" id="preview-h6"></div>
+                </div>
+                <div class="cell" id="preview-h7"></div>
+                <div class="cell">
+                    <svg class="diagonal-line"><line x1="0" y1="0" x2="100%" y2="100%" stroke="var(--border-color)" stroke-width="1"/></svg>
+                    <div class="top-content" id="preview-h9"></div>
+                    <div class="bottom-content" id="preview-h8"></div>
+                </div>
+            </div>
+
+            <div id="good-bad-letters-area"></div>
+
+            <div id="graha-balaya-area">
+                </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>ග්‍රහයා</th>
+                        <th>හිමි රාශිය</th>
+                    </tr>
+                </thead>
+                <tbody id="graha-table-body">
+                    </tbody>
+            </table>
+
+            <div class="main-wish">දීර්ඝායු වේවා !!!</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p class="credits">© <span id="yearSpan"></span> Suba Namak | Astro Jayamaga. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
+        // --- DATA SECTION ---
+
+        const LOCATIONS = {
+            "Colombo": [
+                {name: "Colombo", lat: 6.9172436, lng: 79.8671954},
+                {name: "Kollupitiya", lat: 6.88333, lng: 79.85000},
+                {name: "Nugegoda", lat: 6.8649, lng: 79.8997},
+                {name: "Maharagama", lat: 6.851095, lng: 79.921201},
+                {name: "Homagama", lat: 6.8469074, lng: 79.9923651}
+            ],
+            "Kalutara": [
+                {name: "Kalutara", lat: 6.5630625, lng: 79.9852435},
+                {name: "Panadura", lat: 6.7217149, lng: 79.9067953},
+                {name: "Horana", lat: 6.7112399, lng: 80.0669863}
+            ],
+            "Gampaha": [
+                {name: "Gampaha", lat: 7.0532237, lng: 80.3289831},
+                {name: "Negombo", lat: 7.2121161, lng: 79.849371},
+                {name: "Kelaniya", lat: 6.950415, lng: 79.917142}
+            ],
+            "Galle": [
+                {name: "Galle", lat: 6.036578, lng: 80.216479},
+                {name: "Hikkaduwa", lat: 6.140753, lng: 80.1028181}
+            ],
+            "Matara": [
+                {name: "Matara", lat: 5.9479065, lng: 80.5496589},
+                {name: "Weligama", lat: 5.97503, lng: 80.418828}
+            ],
+            "Kandy": [
+                {name: "Kandy", lat: 7.2865161, lng: 80.631418},
+                {name: "Peradeniya", lat: 7.266409, lng: 80.5981261}
+            ],
+             "Kurunegala": [
+                {name: "Kurunegala", lat: 7.4782607, lng: 80.36},
+                {name: "Kuliyapitiya", lat: 7.484906, lng: 80.04}
+            ],
+             "Ratnapura": [
+                {name: "Ratnapura", lat: 6.6871447, lng: 80.3924992},
+                {name: "Embilipitiya", lat: 6.3261811, lng: 80.8419125}
+            ],
+             "Anuradhapura": [
+                {name: "Anuradhapura", lat: 8.325781, lng: 80.40}
+            ],
+             "Jaffna": [
+                {name: "Jaffna", lat: 9.6664323, lng: 80.0127075}
+            ]
+        };
+
+        const RASHI_INFO = {
+            1: { name: "මේෂ", duration: 6752 },
+            2: { name: "වෘෂභ", duration: 7475 },
+            3: { name: "මිථුන", duration: 7827 },
+            4: { name: "කටක", duration: 7527 },
+            5: { name: "සිංහ", duration: 7071 },
+            6: { name: "කන්‍යා", duration: 6978 },
+            7: { name: "තුලා", duration: 7333 },
+            8: { name: "වෘශ්චික", duration: 7773 },
+            9: { name: "ධනු", duration: 7689 },
+            10: { name: "මකර", duration: 7029 },
+            11: { name: "කුම්භ", duration: 6413 },
+            12: { name: "මීන", duration: 6297 }
+        };
+
+        const LAGNA_ORDER_FOR_CALC = [7,8,9,10,11,12,1,2,3,4,5,6]; 
+
+        const LAGNA_IMAGES = {
+            1: "https://imgur.com/NmQciUL.png", 
+            2: "https://imgur.com/3LaXUNg.png",
+            3: "https://imgur.com/8lAeiRY.png",
+            4: "https://imgur.com/RjLISie.png",
+            5: "https://imgur.com/6GiZQKu.png",
+            6: "https://imgur.com/Uru84T9.png",
+            7: "https://imgur.com/KesFyyY.png",
+            8: "https://imgur.com/DLV95TO.png",
+            9: "https://imgur.com/3fxB9XV.png",
+            10: "https://imgur.com/hANjw6v.png",
+            11: "https://imgur.com/CN49wTe.png",
+            12: "https://imgur.com/Nqx8NZ2.png"
+        };
+
+        const CHANDRA_TRANSITS = [
+            {date: "2026-01-01T00:00:00", signId: 2},
+            {date: "2026-01-02T09:25:50", signId: 3},
+            {date: "2026-01-04T09:43:00", signId: 4},
+            {date: "2026-01-06T12:17:41", signId: 5},
+            {date: "2026-01-08T18:39:08", signId: 6},
+            {date: "2026-01-11T04:52:31", signId: 7},
+            {date: "2026-01-13T17:21:12", signId: 8},
+            {date: "2026-01-16T05:47:43", signId: 9},
+            {date: "2026-01-18T16:40:56", signId: 10},
+            {date: "2026-01-21T01:35:24", signId: 11},
+            {date: "2026-01-23T08:33:36", signId: 12},
+            {date: "2026-01-25T13:35:44", signId: 1},
+            {date: "2026-01-27T16:44:55", signId: 2},
+            {date: "2026-01-29T18:30:57", signId: 3},
+            {date: "2026-01-31T20:01:04", signId: 4},
+            {date: "2026-02-02T22:47:41", signId: 5},
+            {date: "2026-02-05T04:19:51", signId: 6},
+            {date: "2026-02-07T13:21:48", signId: 7},
+            {date: "2026-02-10T01:11:07", signId: 8},
+            {date: "2026-02-12T13:42:19", signId: 9},
+            {date: "2026-02-15T00:42:16", signId: 10},
+            {date: "2026-02-17T09:05:41", signId: 11},
+            {date: "2026-02-19T14:59:57", signId: 12},
+            {date: "2026-02-21T19:07:04", signId: 1},
+            {date: "2026-02-23T22:12:20", signId: 2},
+            {date: "2026-02-26T00:54:42", signId: 3},
+            {date: "2026-02-28T03:52:23", signId: 4},
+            {date: "2026-03-02T07:51:28", signId: 5},
+            {date: "2026-03-04T13:45:35", signId: 6},
+            {date: "2026-03-06T22:18:40", signId: 7},
+            {date: "2026-03-09T09:29:47", signId: 8},
+            {date: "2026-03-11T22:00:14", signId: 9},
+            {date: "2026-03-14T09:33:01", signId: 10},
+            {date: "2026-03-16T18:14:17", signId: 11},
+            {date: "2026-03-18T23:36:02", signId: 12},
+            {date: "2026-03-21T02:27:44", signId: 1},
+            {date: "2026-03-23T04:13:53", signId: 2},
+            {date: "2026-03-25T06:17:13", signId: 3},
+            {date: "2026-03-27T09:35:57", signId: 4},
+            {date: "2026-03-29T14:37:54", signId: 5},
+            {date: "2026-03-31T21:32:44", signId: 6},
+            {date: "2026-04-03T06:28:40", signId: 7},
+            {date: "2026-04-05T17:27:55", signId: 8},
+            {date: "2026-04-08T05:53:52", signId: 9},
+            {date: "2026-04-10T18:03:53", signId: 10},
+            {date: "2026-04-13T03:44:39", signId: 11},
+            {date: "2026-04-15T09:37:30", signId: 12},
+            {date: "2026-04-17T12:02:14", signId: 1},
+            {date: "2026-04-19T12:31:02", signId: 2},
+            {date: "2026-04-21T13:00:46", signId: 3},
+            {date: "2026-04-23T15:13:14", signId: 4},
+            {date: "2026-04-25T20:04:46", signId: 5},
+            {date: "2026-04-28T03:35:46", signId: 6},
+            {date: "2026-04-30T13:14:10", signId: 7},
+            {date: "2026-05-03T00:29:51", signId: 8},
+            {date: "2026-05-05T12:54:39", signId: 9},
+            {date: "2026-05-08T01:26:26", signId: 10},
+            {date: "2026-05-10T12:12:52", signId: 11},
+            {date: "2026-05-12T19:24:54", signId: 12},
+            {date: "2026-05-14T22:33:51", signId: 1},
+            {date: "2026-05-16T22:46:33", signId: 2},
+            {date: "2026-05-18T22:04:46", signId: 3},
+            {date: "2026-05-20T22:38:47", signId: 4},
+            {date: "2026-05-23T02:08:04", signId: 5},
+            {date: "2026-05-25T09:07:13", signId: 6},
+            {date: "2026-05-27T18:59:57", signId: 7},
+            {date: "2026-05-30T06:38:47", signId: 8},
+            {date: "2026-06-01T19:08:34", signId: 9},
+            {date: "2026-06-04T07:41:35", signId: 10},
+            {date: "2026-06-06T19:03:45", signId: 11},
+            {date: "2026-06-09T03:36:32", signId: 12},
+            {date: "2026-06-11T08:16:23", signId: 1},
+            {date: "2026-06-13T09:25:21", signId: 2},
+            {date: "2026-06-15T08:40:44", signId: 3},
+            {date: "2026-06-17T08:13:16", signId: 4},
+            {date: "2026-06-19T10:06:52", signId: 5},
+            {date: "2026-06-21T15:39:59", signId: 6},
+            {date: "2026-06-24T00:52:52", signId: 7},
+            {date: "2026-06-26T12:33:06", signId: 8},
+            {date: "2026-06-29T01:08:49", signId: 9},
+            {date: "2026-07-01T13:31:39", signId: 10},
+            {date: "2026-07-04T00:48:26", signId: 11},
+            {date: "2026-07-06T09:57:24", signId: 12},
+            {date: "2026-07-08T16:00:17", signId: 1},
+            {date: "2026-07-10T18:44:57", signId: 2},
+            {date: "2026-07-12T19:06:25", signId: 3},
+            {date: "2026-07-14T18:48:49", signId: 4},
+            {date: "2026-07-16T19:52:17", signId: 5},
+            {date: "2026-07-18T23:58:50", signId: 6},
+            {date: "2026-07-21T07:54:30", signId: 7},
+            {date: "2026-07-23T19:01:04", signId: 8},
+            {date: "2026-07-26T07:34:47", signId: 9},
+            {date: "2026-07-28T19:49:19", signId: 10},
+            {date: "2026-07-31T06:38:03", signId: 11},
+            {date: "2026-08-02T15:26:48", signId: 12},
+            {date: "2026-08-04T21:54:08", signId: 1},
+            {date: "2026-08-07T01:53:21", signId: 2},
+            {date: "2026-08-09T03:48:57", signId: 3},
+            {date: "2026-08-11T04:43:26", signId: 4},
+            {date: "2026-08-13T06:06:39", signId: 5},
+            {date: "2026-08-15T09:34:36", signId: 6},
+            {date: "2026-08-17T16:19:26", signId: 7},
+            {date: "2026-08-20T02:30:15", signId: 8},
+            {date: "2026-08-22T14:49:13", signId: 9},
+            {date: "2026-08-25T03:06:12", signId: 10},
+            {date: "2026-08-27T13:35:32", signId: 11},
+            {date: "2026-08-29T21:37:34", signId: 12},
+            {date: "2026-09-01T03:23:48", signId: 1},
+            {date: "2026-09-03T07:25:52", signId: 2},
+            {date: "2026-09-05T10:18:21", signId: 3},
+            {date: "2026-09-07T12:38:33", signId: 4},
+            {date: "2026-09-09T15:14:24", signId: 5},
+            {date: "2026-09-11T19:08:10", signId: 6},
+            {date: "2026-09-14T01:26:24", signId: 7},
+            {date: "2026-09-16T10:49:05", signId: 8},
+            {date: "2026-09-18T22:44:42", signId: 9},
+            {date: "2026-09-21T11:14:59", signId: 10},
+            {date: "2026-09-23T21:56:55", signId: 11},
+            {date: "2026-09-26T05:33:00", signId: 12},
+            {date: "2026-09-28T10:16:18", signId: 1},
+            {date: "2026-09-30T13:13:40", signId: 2},
+            {date: "2026-10-02T15:40:26", signId: 3},
+            {date: "2026-10-04T18:31:49", signId: 4},
+            {date: "2026-10-06T22:17:34", signId: 5},
+            {date: "2026-10-09T03:18:05", signId: 6},
+            {date: "2026-10-11T10:04:01", signId: 7},
+            {date: "2026-10-13T19:12:20", signId: 8},
+            {date: "2026-10-16T06:47:34", signId: 9},
+            {date: "2026-10-18T19:33:03", signId: 10},
+            {date: "2026-10-21T07:00:18", signId: 11},
+            {date: "2026-10-23T15:03:52", signId: 12},
+            {date: "2026-10-25T19:22:05", signId: 1},
+            {date: "2026-10-27T21:06:34", signId: 2},
+            {date: "2026-10-29T22:06:33", signId: 3},
+            {date: "2026-11-01T00:00:39", signId: 4},
+            {date: "2026-11-03T03:46:21", signId: 5},
+            {date: "2026-11-05T09:34:32", signId: 6},
+            {date: "2026-11-07T17:15:06", signId: 7},
+            {date: "2026-11-10T02:48:13", signId: 8},
+            {date: "2026-11-12T14:19:02", signId: 9},
+            {date: "2026-11-15T03:11:15", signId: 10},
+            {date: "2026-11-17T15:30:26", signId: 11},
+            {date: "2026-11-20T00:49:56", signId: 12},
+            {date: "2026-11-22T05:54:54", signId: 1},
+            {date: "2026-11-24T07:24:35", signId: 2},
+            {date: "2026-11-26T07:10:59", signId: 3},
+            {date: "2026-11-28T07:22:30", signId: 4},
+            {date: "2026-11-30T09:42:18", signId: 5},
+            {date: "2026-12-02T14:59:13", signId: 6},
+            {date: "2026-12-04T23:02:43", signId: 7},
+            {date: "2026-12-07T09:13:50", signId: 8},
+            {date: "2026-12-09T21:00:34", signId: 9},
+            {date: "2026-12-12T09:51:30", signId: 10},
+            {date: "2026-12-14T22:35:46", signId: 11},
+            {date: "2026-12-17T09:13:01", signId: 12},
+            {date: "2026-12-19T15:58:00", signId: 1},
+            {date: "2026-12-21T18:36:01", signId: 2},
+            {date: "2026-12-23T18:25:51", signId: 3},
+            {date: "2026-12-25T17:32:51", signId: 4},
+            {date: "2026-12-27T18:04:39", signId: 5},
+            {date: "2026-12-29T21:37:24", signId: 6}
+        ];
+
+        const PLANETS = [
+            {
+                name: "රවි", abbr: "ර", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 9},
+                    {date: "2026-01-14T15:07:05", signId: 10},
+                    {date: "2026-02-13T04:08:43", signId: 11},
+                    {date: "2026-03-15T01:02:48", signId: 12},
+                    {date: "2026-04-14T09:32:23", signId: 1},
+                    {date: "2026-05-15T06:21:46", signId: 2},
+                    {date: "2026-06-15T12:52:44", signId: 3},
+                    {date: "2026-07-16T23:39:06", signId: 4},
+                    {date: "2026-08-17T07:58:29", signId: 5},
+                    {date: "2026-09-17T07:52:41", signId: 6},
+                    {date: "2026-10-17T19:51:25", signId: 7},
+                    {date: "2026-11-16T19:42:56", signId: 8},
+                    {date: "2026-12-16T10:24:45", signId: 9}
+                ]
+            },
+            {
+                name: "චන්ද්‍ර", abbr: "ච", transits: CHANDRA_TRANSITS
+            },
+            {
+                name: "කුජ", abbr: "කු", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 9},
+                    {date: "2026-01-16T04:28:18", signId: 10},
+                    {date: "2026-02-23T11:50:08", signId: 11},
+                    {date: "2026-04-02T15:29:21", signId: 12},
+                    {date: "2026-05-11T12:38:24", signId: 1},
+                    {date: "2026-06-20T23:59:19", signId: 2},
+                    {date: "2026-08-02T22:51:12", signId: 3},
+                    {date: "2026-09-18T16:35:19", signId: 4},
+                    {date: "2026-11-12T20:18:16", signId: 5}
+                ]
+            },
+            {
+                name: "බුධ", abbr: "බු", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 9},
+                    {date: "2026-01-17T10:23:51", signId: 10},
+                    {date: "2026-02-03T21:51:48", signId: 11},
+                    {date: "2026-04-11T01:15:51", signId: 12},
+                    {date: "2026-04-30T06:52:20", signId: 1},
+                    {date: "2026-05-15T00:31:50", signId: 2},
+                    {date: "2026-05-29T11:11:41", signId: 3},
+                    {date: "2026-06-22T15:30:21", signId: 4},
+                    {date: "2026-07-07T10:47:00", signId: 3},
+                    {date: "2026-08-05T19:55:00", signId: 4},
+                    {date: "2026-08-22T19:31:37", signId: 5},
+                    {date: "2026-09-07T13:32:41", signId: 6},
+                    {date: "2026-09-26T12:38:19", signId: 7},
+                    {date: "2026-12-02T17:27:16", signId: 8},
+                    {date: "2026-12-22T07:39:26", signId: 9}
+                ]
+            },
+            {
+                name: "ගුරු", abbr: "ගු", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 3},
+                    {date: "2026-06-02T01:50:00", signId: 4},
+                    {date: "2026-10-31T12:02:02", signId: 5}
+                ]
+            },
+            {
+                name: "සිකුරු", abbr: "සි", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 9},
+                    {date: "2026-01-13T03:57:50", signId: 10},
+                    {date: "2026-02-06T01:11:24", signId: 11},
+                    {date: "2026-03-02T00:56:50", signId: 12},
+                    {date: "2026-03-26T05:09:04", signId: 1},
+                    {date: "2026-04-19T15:46:39", signId: 2},
+                    {date: "2026-05-14T10:53:32", signId: 3},
+                    {date: "2026-06-08T17:42:45", signId: 4},
+                    {date: "2026-07-04T19:13:41", signId: 5},
+                    {date: "2026-08-01T09:28:03", signId: 6},
+                    {date: "2026-09-02T13:44:14", signId: 7},
+                    {date: "2026-11-06T01:05:00", signId: 6},
+                    {date: "2026-11-22T17:21:00", signId: 7}
+                ]
+            },
+            {
+                name: "ශනි", abbr: "ශ", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 12}
+                ]
+            },
+            {
+                name: "රාහු", abbr: "රා", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 11},
+                    {date: "2026-12-05T22:32:59", signId: 10}
+                ]
+            },
+            {
+                name: "කේතු", abbr: "කේ", transits: [
+                    {date: "2026-01-01T00:00:00", signId: 5},
+                    {date: "2026-12-05T22:32:59", signId: 4}
+                ]
+            }
+        ];
+
+        // --- GRAHA BALAYA RULES ---
+
+        const BHAVA_NAMES = {
+            1: "ලග්නස්ථානය", 2: "ධනස්ථානය", 3: "වික්‍රමස්ථානය", 4: "සුඛස්ථානය",
+            5: "විධ්‍යස්ථානය", 6: "සතුරු ස්ථානය", 7: "කලත්‍රස්ථානය", 8: "මාරකස්ථානය",
+            9: "පුණ්‍යස්ථානය", 10: "කර්මස්ථානය", 11: "අයස්ථානය", 12: "වැයස්ථානය"
+        };
+
+        const LAGNA_LORDS = {
+            1: "කුජ", 2: "සිකුරු", 3: "කුජ", 4: "චන්ද්‍ර",
+            5: "රවි", 6: "බුධ", 7: "සිකුරු", 8: "කුජ",
+            9: "ගුරු", 10: "ශනි", 11: "ශනි", 12: "ගුරු"
+        };
+
+        const GRAHA_LETTERS = {
+            "රවි": "අ ඉ උ එ ඔ",
+            "චන්ද්‍ර": "ය ර ල ව ස හ ළ",
+            "කුජ": "ක බ ග ඝ ඞ",
+            "බුධ": "ට ඨ ඩ ඪ ණ",
+            "ගුරු": "ත ථ ද ධ න",
+            "සිකුරු": "ච ඡ ජ ඣ ඤ",
+            "ශනි": "ප ඵ බ භ ම"
+        };
+
+        // Planet Rashi Relations (Nested Map: Planet -> SignID -> RelationType)
+        const GRAHA_RASHI_RELATIONS = {
+            "රවි": {1:"උච්ච",2:"ශැත්‍ර",3:"සම",4:"මිත්‍ර",5:["මූල ත්‍රිකෝණ","ස්වක්ෂේත්‍ර"],6:"සම",7:"නීච",8:"මිත්‍ර",9:"මිත්‍ර",10:"ශැත්‍ර",11:"ශැත්‍ර",12:"මිත්‍ර"},
+            "චන්ද්‍ර": {1:"සම",2:["උච්ච","මූල ත්‍රිකෝණ"],3:"මිත්‍ර",4:"ස්වක්ෂේත්‍ර",5:"මිත්‍ර",6:"මිත්‍ර",7:"සම",8:"නීච",9:"සම",10:"සම",11:"සම",12:"සම"},
+            "කුජ": {1:["මූල ත්‍රිකෝණ","ස්වක්ෂේත්‍ර"],2:"සම",3:"ශැත්‍ර",4:"නීච",5:"මිත්‍ර",6:"ශැත්‍ර",7:"සම",8:"ස්වක්ෂේත්‍ර",9:"මිත්‍ර",10:"උච්ච",11:"සම",12:"මිත්‍ර"},
+            "බුධ": {1:"සම",2:"මිත්‍ර",3:"ස්වක්ෂේත්‍ර",4:"ශැත්‍ර",5:"මිත්‍ර",6:["උච්ච","මූල ත්‍රිකෝණ","ස්වක්ෂේත්‍ර"],7:"මිත්‍ර",8:"සම",9:"සම",10:"සම",11:"සම",12:"නීච"},
+            "ගුරු": {1:"මිත්‍ර",2:"ශැත්‍ර",3:"ශැත්‍ර",4:"උච්ච",5:"මිත්‍ර",6:"ශැත්‍ර",7:"ශැත්‍ර",8:"මිත්‍ර",9:["මූල ත්‍රිකෝණ","ස්වක්ෂේත්‍ර"],10:"නීච",11:"සම",12:"ස්වක්ෂේත්‍ර"},
+            "සිකුරු": {1:"සම",2:"ස්වක්ෂේත්‍ර",3:"සම",4:"ශැත්‍ර",5:"ශැත්‍ර",6:"නීච",7:["මූල ත්‍රිකෝණ","ස්වක්ෂේත්‍ර"],8:"සම",9:"සම",10:"මිත්‍ර",11:"මිත්‍ර",12:"උච්ච"},
+            "ශනි": {1:"නීච",2:"මිත්‍ර",3:"මිත්‍ර",4:"ශැත්‍ර",5:"ශැත්‍ර",6:"මිත්‍ර",7:"උච්ච",8:"ශැත්‍ර",9:"සම",10:"ස්වක්ෂේත්‍ර",11:["මූල ත්‍රිකෝණ","ස්වක්ෂේත්‍ර"],12:"සම"}
+        };
+
+        const BHAVA_RESULTS = {
+            "රවි": {1:"සම",2:"සම",3:"සුභ",4:"අසුභ",5:"සුභ",6:"සුභ",7:"අසුභ",8:"අසුභ",9:"සුභ",10:"සුභ",11:"සුභ",12:"සම"},
+            "චන්ද්‍ර": {1:"සුභ",2:"සුභ",3:"සුභ",4:"සුභ",5:"සුභ",6:"අසුභ",7:"සුභ",8:"අසුභ",9:"සුභ",10:"සුභ",11:"සුභ",12:"අසුභ"},
+            "කුජ": {1:"සම",2:"සම",3:"සුභ",4:"සම",5:"අසුභ",6:"සුභ",7:"අසුභ",8:"අසුභ",9:"සම",10:"සුභ",11:"සුභ",12:"අසුභ"},
+            "බුධ": {1:"සුභ",2:"සුභ",3:"සුභ",4:"සුභ",5:"සුභ",6:"අසුභ",7:"සුභ",8:"සම",9:"සුභ",10:"සුභ",11:"සුභ",12:"සම"},
+            "ගුරු": {1:"සුභ",2:"සුභ",3:"අසුභ",4:"සුභ",5:"සුභ",6:"අසුභ",7:"සුභ",8:"සම",9:"සුභ",10:"සුභ",11:"සුභ",12:"අසුභ"},
+            "සිකුරු": {1:"සුභ",2:"සුභ",3:"සුභ",4:"සුභ",5:"සුභ",6:"සම",7:"සුභ",8:"සම",9:"සුභ",10:"සුභ",11:"සුභ",12:"අසුභ"},
+            "ශනි": {1:"අසුභ",2:"අසුභ",3:"සුභ",4:"අසුභ",5:"අසුභ",6:"අසුභ",7:"සම",8:"අසුභ",9:"සුභ",10:"සම",11:"අසුභ",12:"අසුභ"}
+        };
+
+        const OWNED_SIGNS = {
+            "රවි": [5], "චන්ද්‍ර": [4], "කුජ": [1,8], "බුධ": [3,6], "ගුරු": [9,12], "සිකුරු": [2,7], "ශනි": [10,11]
+        };
+
+        const NATURAL_FRIENDSHIPS = {
+            "රවි": {"රවි":"සතුරු නොවේ","චන්ද්‍ර":"මිතුරු","කුජ":"මිතුරු","බුධ":"සම","ගුරු":"මිතුරු","සිකුරු":"සතුරු","ශනි":"සතුරු","රාහු":"සම","කේතු":"මිතුරු"},
+            "චන්ද්‍ර": {"රවි":"මිතුරු","චන්ද්‍ර":"සතුරු නොවේ","කුජ":"සම","බුධ":"මිතුරු","ගුරු":"සම","සිකුරු":"සම","ශනි":"සම","රාහු":"සම","කේතු":"සම"},
+            "කුජ": {"රවි":"මිතුරු","චන්ද්‍ර":"සම","කුජ":"සතුරු නොවේ","බුධ":"සතුරු","ගුරු":"මිතුරු","සිකුරු":"සම","ශනි":"සතුරු","රාහු":"සතුරු","කේතු":"මිතුරු"},
+            "බුධ": {"රවි":"මිතුරු","චන්ද්‍ර":"සතුරු","කුජ":"සම","බුධ":"සතුරු නොවේ","ගුරු":"සම","සිකුරු":"මිතුරු","ශනි":"සම","රාහු":"සම","කේතු":"සම"},
+            "ගුරු": {"රවි":"මිතුරු","චන්ද්‍ර":"සම","කුජ":"මිතුරු","බුධ":"සතුරු","ගුරු":"සතුරු නොවේ","සිකුරු":"සතුරු","ශනි":"සම","රාහු":"සම","කේතු":"මිතුරු"},
+            "සිකුරු": {"රවි":"සතුරු","චන්ද්‍ර":"සතුරු","කුජ":"සම","බුධ":"මිතුරු","ගුරු":"සම","සිකුරු":"සතුරු නොවේ","ශනි":"මිතුරු","රාහු":"මිතුරු","කේතු":"සම"},
+            "ශනි": {"රවි":"සතුරු","චන්ද්‍ර":"සතුරු","කුජ":"සතුරු","බුධ":"මිතුරු","ගුරු":"සම","සිකුරු":"මිතුරු","ශනි":"සතුරු නොවේ","රාහු":"මිතුරු","කේතු":"සම"}
+        };
+
+        // SCORING CONSTANTS
+        const POINTS_RASHI = { "උච්ච": 52, "ස්වක්ෂේත්‍ර": 39, "මූල ත්‍රිකෝණ": 39, "මිත්‍ර": 30, "සම": 26, "ශැත්‍ර": 13, "නීච": 0 };
+        const POINTS_POS = { "සුභ": 24, "සම": 12, "අසුභ": 0 };
+        const POINTS_OWN = { "සුභ": 12, "සම": 6, "අසුභ": 0 };
+        const POINTS_NAI = { "මිතුරු": 12, "සතුරු නොවේ": 12, "සම": 6, "සතුරු": 0 };
+
+        const STATUS_COLORS = {
+            "උච්ච": "text-blue", "ස්වක්ෂේත්‍ර": "text-blue", "මූල ත්‍රිකෝණ": "text-blue",
+            "මිත්‍ර": "text-green", "සම": "text-green",
+            "ශැත්‍ර": "text-orange", "සතුරු": "text-red", "නීච": "text-red",
+            "මිතුරු": "text-green", "සතුරු නොවේ": "text-green",
+            "සුභ": "text-green", "අසුභ": "text-red"
+        };
+
+        // --- UI INITIALIZATION ---
+
+        const districtSelect = document.getElementById('districtSelect');
+        const citySelect = document.getElementById('citySelect');
+        const dateInput = document.getElementById('dateInput');
+        const timeInput = document.getElementById('timeInput');
+
+        // Populate Locations
+        for (const dist in LOCATIONS) {
+            const option = document.createElement('option');
+            option.value = dist;
+            option.text = dist + " District";
+            districtSelect.appendChild(option);
+        }
+        districtSelect.value = "Colombo";
+
+        function populateCities() {
+            const selectedDist = districtSelect.value;
+            const cities = LOCATIONS[selectedDist];
+            citySelect.innerHTML = "";
+            cities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = JSON.stringify({lat: city.lat, lng: city.lng});
+                option.text = city.name;
+                citySelect.appendChild(option);
+            });
+        }
+        populateCities();
+
+        dateInput.value = "2026-01-01";
+        timeInput.value = "09:00";
 
 
-</body></html>
+        // --- LOGIC SECTION ---
 
+        function calculateChart() {
+            const dVal = dateInput.value;
+            const tVal = timeInput.value;
+            const genderVal = document.getElementById('genderInput').value;
+            const cityJson = document.getElementById('citySelect').value;
+            const errorDiv = document.getElementById('errorDisplay');
+            const resultDiv = document.getElementById('result-area');
+
+            // Reset
+            errorDiv.style.display = 'none';
+            resultDiv.style.display = 'none';
+
+            // Validation
+            if(!dVal || !tVal || !genderVal || !cityJson) {
+                errorDiv.innerText = "කරුණාකර සියලු තොරතුරු නිවැරදිව ඇතුලත් කරන්න.";
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            // 1. Calculate Lagna
+            const userDate = new Date(dVal + "T" + tVal + ":00");
+            const city = JSON.parse(cityJson);
+            
+            const BASE_LONGITUDE = 79.85000;
+            const BASE_DATE = new Date("2026-01-01T00:00:00");
+            const BASE_THULA_START = 3778; 
+            const SIDEREAL_CYCLE_SECONDS = 86164;
+
+            const diffTime = new Date(dVal + "T00:00:00") - BASE_DATE;
+            const diffDays = diffTime / (1000 * 60 * 60 * 24);
+            const [h, m] = tVal.split(':').map(Number);
+            const userTimeSeconds = (h * 3600) + (m * 60);
+
+            const lngDiff = city.lng - BASE_LONGITUDE;
+            const timeOffsetSeconds = lngDiff * 4 * 60; 
+
+            let totalSecondsFromBase = (diffDays * 86400) + userTimeSeconds;
+            let adjustedTotalSeconds = totalSecondsFromBase + timeOffsetSeconds;
+
+            let timeRelativeToThula = (adjustedTotalSeconds - BASE_THULA_START) % SIDEREAL_CYCLE_SECONDS;
+            if (timeRelativeToThula < 0) timeRelativeToThula += SIDEREAL_CYCLE_SECONDS;
+
+            let remainingTime = timeRelativeToThula;
+            let currentLagnaId = 0;
+
+            for (let i = 0; i < LAGNA_ORDER_FOR_CALC.length; i++) {
+                let id = LAGNA_ORDER_FOR_CALC[i];
+                let duration = RASHI_INFO[id].duration;
+                if (remainingTime < duration) {
+                    currentLagnaId = id;
+                    break;
+                } else {
+                    remainingTime -= duration;
+                }
+            }
+            if(currentLagnaId === 0) currentLagnaId = 6; 
+
+            // 2. Prepare Chart Houses
+            let houseMapping = {};
+            for(let i=1; i<=12; i++) {
+                let signId = (currentLagnaId + i - 2) % 12 + 1; 
+                houseMapping[i] = signId;
+            }
+
+            // 3. Find Planet Positions
+            let houseContents = {1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[], 12:[]};
+            let tableData = [];
+            let planetResults = {}; 
+
+            const displayOrder = ["රවි", "චන්ද්‍ර", "කුජ", "බුධ", "ගුරු", "සිකුරු", "ශනි", "රාහු", "කේතු"];
+
+            PLANETS.forEach(planet => {
+                let signId = null;
+                let transitIdx = -1;
+                // Find correct sign based on date
+                for(let i = planet.transits.length - 1; i >= 0; i--) {
+                    let tDate = new Date(planet.transits[i].date);
+                    if(userDate >= tDate) {
+                        signId = planet.transits[i].signId;
+                        transitIdx = i;
+                        break;
+                    }
+                }
+                if(!signId) { 
+                    signId = planet.transits[0].signId; 
+                    transitIdx = 0;
+                }
+
+                // Find House
+                let houseNum = (signId - currentLagnaId + 12) % 12 + 1;
+                houseContents[houseNum].push(planet.abbr);
+                
+                planetResults[planet.name] = { 
+                    signId: signId, 
+                    signName: RASHI_INFO[signId].name, 
+                    transitIdx: transitIdx,
+                    transits: planet.transits
+                };
+            });
+            
+            // Build Summary Table
+            displayOrder.forEach(pName => {
+                tableData.push({name: pName, sign: planetResults[pName].signName});
+            });
+
+            // 4. Render Chart & Table
+            document.getElementById('center-lagna-text').innerText = RASHI_INFO[currentLagnaId].name;
+            document.getElementById('center-lagna-img').src = LAGNA_IMAGES[currentLagnaId];
+
+            for(let i=1; i<=12; i++) {
+                const el = document.getElementById(`preview-h${i}`);
+                if(houseContents[i].length > 0) {
+                    el.innerText = houseContents[i].join(' ');
+                } else {
+                    el.innerText = i; 
+                }
+            }
+
+            const tbody = document.getElementById('graha-table-body');
+            tbody.innerHTML = "";
+            tableData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${row.name}</td><td>${row.sign} රාශිය</td>`;
+                tbody.appendChild(tr);
+            });
+
+            // 5. Generate Graha Balaya & Letters
+            generateGrahaBalaya(userDate, currentLagnaId, planetResults);
+
+            resultDiv.style.display = 'block';
+        }
+
+        function generateGrahaBalaya(userDate, lagnaId, planetResults) {
+            const cardContainer = document.getElementById('graha-balaya-area');
+            const lettersContainer = document.getElementById('good-bad-letters-area');
+            
+            cardContainer.innerHTML = "";
+            lettersContainer.innerHTML = "";
+            
+            const targets = ["රවි", "චන්ද්‍ර", "කුජ", "බුධ", "ගුරු", "සිකුරු", "ශනි"];
+            let planetsWithScores = [];
+
+            targets.forEach(pName => {
+                let score = 0;
+                const pInfo = planetResults[pName];
+                const signId = pInfo.signId;
+                const signName = pInfo.signName;
+                const houseNum = (signId - lagnaId + 12) % 12 + 1;
+
+                // --- 1. Rashi Balaya Logic ---
+                let relation = GRAHA_RASHI_RELATIONS[pName][signId];
+                let finalRelation = relation;
+                
+                if (Array.isArray(relation)) {
+                    const currTransit = pInfo.transits[pInfo.transitIdx];
+                    const start = new Date(currTransit.date);
+                    let end;
+                    if (pInfo.transitIdx < pInfo.transits.length - 1) {
+                        end = new Date(pInfo.transits[pInfo.transitIdx + 1].date);
+                    } else {
+                        end = new Date("2026-12-31T23:59:59");
+                    }
+
+                    const totalDur = end - start;
+                    const elapsed = userDate - start;
+                    let part = 0;
+                    if(totalDur > 0) part = (elapsed / totalDur) * 30;
+
+                    if(pName === "රවි" && signId === 5) {
+                        finalRelation = (part < 20) ? "මූල ත්‍රිකෝණ" : "ස්වක්ෂේත්‍ර";
+                    } else if(pName === "චන්ද්‍ර" && signId === 2) {
+                         if(userDate >= new Date("2026-01-01") && userDate < new Date("2026-01-02T09:25:50")) {
+                             finalRelation = "මූල ත්‍රිකෝණ"; 
+                        } else {
+                             finalRelation = (part < 3) ? "උච්ච" : "මූල ත්‍රිකෝණ";
+                        }
+                    } else if(pName === "කුජ" && signId === 1) {
+                        finalRelation = (part < 12) ? "මූල ත්‍රිකෝණ" : "ස්වක්ෂේත්‍ර";
+                    } else if(pName === "බුධ" && signId === 6) {
+                        if(part < 15) finalRelation = "උච්ච";
+                        else if(part < 20) finalRelation = "මූල ත්‍රිකෝණ";
+                        else finalRelation = "ස්වක්ෂේත්‍ර";
+                    } else if(pName === "ගුරු" && signId === 9) {
+                        finalRelation = (part < 10) ? "මූල ත්‍රිකෝණ" : "ස්වක්ෂේත්‍ර";
+                    } else if(pName === "සිකුරු" && signId === 7) {
+                        const sStart = new Date("2026-09-02T13:44:14");
+                        const sEnd = new Date("2026-11-06T01:05:00");
+                        if (userDate >= sStart && userDate < sEnd) {
+                            finalRelation = "මූල ත්‍රිකෝණ";
+                        } else {
+                            finalRelation = (part < 15) ? "මූල ත්‍රිකෝණ" : "ස්වක්ෂේත්‍ර";
+                        }
+                    } else if(pName === "ශනි" && signId === 11) {
+                        finalRelation = (part < 20) ? "මූල ත්‍රිකෝණ" : "ස්වක්ෂේත්‍ර";
+                    } else {
+                         finalRelation = relation[0];
+                    }
+                }
+                
+                let rashiStatus = "සුභ";
+                if(finalRelation === "ශැත්‍ර" || finalRelation === "නීච") rashiStatus = "අසුභ";
+                
+                score += POINTS_RASHI[finalRelation] || 0;
+
+                // --- 2. Bhava Position Logic ---
+                const posResult = BHAVA_RESULTS[pName][houseNum];
+                const posName = `${BHAVA_NAMES[houseNum]} (${houseNum} භාවය)`;
+                
+                score += POINTS_POS[posResult] || 0;
+
+                // --- 3. Owned Bhava Logic ---
+                let ownedHtml = "";
+                let ownedResults = [];
+                let ownedPointsSum = 0;
+                let ownedCount = 0;
+
+                OWNED_SIGNS[pName].forEach(sId => {
+                    const oHouse = (sId - lagnaId + 12) % 12 + 1;
+                    const oRes = BHAVA_RESULTS[pName][oHouse];
+                    ownedResults.push(oRes);
+                    ownedPointsSum += POINTS_OWN[oRes] || 0;
+                    ownedCount++;
+                    
+                    const resClass = STATUS_COLORS[oRes] || "text-green";
+                    ownedHtml += `<div class="balaya-row">${pName} අයත් භාවය - ${oHouse} භාවය: <span class="${resClass}">${oRes}</span></div>`;
+                });
+                score += (ownedPointsSum / ownedCount); // Average points
+
+                // --- 4. Naisargika Logic ---
+                const lLord = LAGNA_LORDS[lagnaId];
+                const naiRel = NATURAL_FRIENDSHIPS[lLord][pName];
+                let naiStatus = "සුභ";
+                if(naiRel === "සතුරු") naiStatus = "අසුභ";
+                
+                score += POINTS_NAI[naiRel] || 0;
+
+                // Push to array for sorting later
+                planetsWithScores.push({
+                    name: pName,
+                    score: score,
+                    letters: GRAHA_LETTERS[pName]
+                });
+
+                // --- Rendering Card ---
+                const rashiClass = STATUS_COLORS[finalRelation];
+                const posClass = STATUS_COLORS[posResult];
+                const naiClass = STATUS_COLORS[naiRel]; 
+                const naiStatusClass = (naiStatus === "සුභ") ? "text-green" : "text-red";
+                
+                // Color entire value string logic
+                const rashiHtml = `<span class="${rashiClass}">${finalRelation} (${signName} රාශිය): ${rashiStatus}</span>`;
+                const posHtml = `<span class="${posClass}">${posResult}</span>`;
+                const naiHtml = `<span class="${naiStatusClass}">${naiRel}: ${naiStatus}</span>`;
+
+                const card = document.createElement('div');
+                card.className = "balaya-card";
+                card.innerHTML = `
+                    <div class="balaya-header">${pName} ග්‍රහයාගේ බලය</div>
+                    <div class="balaya-row">${pName}ගේ රාශි බලය - ${rashiHtml}</div>
+                    <div class="balaya-row">${pName} සිටින භාවය - ${posName}: ${posHtml}</div>
+                    ${ownedHtml}
+                    <div class="balaya-row">නෛසර්ගික ග්‍රහ බලපෑම - ${naiHtml}</div>
+                    <div class="letters-row">හිමි අක්ෂර - ${GRAHA_LETTERS[pName]}</div>
+                `;
+                cardContainer.appendChild(card);
+            });
+
+            // --- Generate Good/Bad Letters Section ---
+            // Sort by Score Descending
+            planetsWithScores.sort((a, b) => b.score - a.score);
+
+            // Determine Good Planets
+            let goodPlanets = [];
+            const highestScore = planetsWithScores[0].score;
+            if (highestScore < 65) {
+                // Only top 1
+                goodPlanets = planetsWithScores.filter(p => p.score === highestScore);
+            } else {
+                // Top 2 (with ties)
+                // Get top 2 unique scores
+                const uniqueScores = [...new Set(planetsWithScores.map(p => p.score))];
+                const targetScores = uniqueScores.slice(0, 2);
+                goodPlanets = planetsWithScores.filter(p => targetScores.includes(p.score));
+            }
+
+            // Determine Bad Planets
+            let badPlanets = [];
+            const lowestScore = planetsWithScores[planetsWithScores.length - 1].score;
+            const anyVeryLow = planetsWithScores.some(p => p.score <= 25);
+            const allHigh = planetsWithScores.every(p => p.score > 50);
+
+            if (!allHigh) {
+                if (anyVeryLow) {
+                    badPlanets = planetsWithScores.filter(p => p.score <= 25);
+                } else {
+                    // Lowest (with ties)
+                    badPlanets = planetsWithScores.filter(p => p.score === lowestScore);
+                }
+            }
+
+            // Render Good Box
+            if(goodPlanets.length > 0) {
+                const goodBox = document.createElement('div');
+                goodBox.className = "result-box box-good";
+                let lettersHtml = goodPlanets.map(p => `<div>${p.letters}</div>`).join('');
+                goodBox.innerHTML = `
+                    <span class="box-title title-good">බලවත් ග්‍රහයින්ට අනුව සුබ අක්ෂර</span>
+                    <div class="letters-display">${lettersHtml}</div>
+                `;
+                lettersContainer.appendChild(goodBox);
+            }
+
+            // Render Bad Box
+            if(badPlanets.length > 0) {
+                const badBox = document.createElement('div');
+                badBox.className = "result-box box-bad";
+                let lettersHtml = badPlanets.map(p => `<div>${p.letters}</div>`).join('');
+                badBox.innerHTML = `
+                    <span class="box-title title-bad">දුර්වල ග්‍රහයින්ට අනුව අසුබ අක්ෂර</span>
+                    <div class="letters-display">${lettersHtml}</div>
+                `;
+                lettersContainer.appendChild(badBox);
+            }
+        }
+
+    </script>
+</body>
+</html>
