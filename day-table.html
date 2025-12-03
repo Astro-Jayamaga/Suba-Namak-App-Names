@@ -225,7 +225,6 @@
         }
         .pada-active {
             font-weight: bold;
-            color: var(--brand-maroon);
         }
 
         /* --- Graha Accordion Styles --- */
@@ -910,7 +909,7 @@
         4: { name: "කටක", lord: "සඳු", lordLets: "ය ර ල ව ස හ ළ", goodBhuta: ["ආපෝ", "පඨවි"], badBhuta: ["වායෝ"], goodLets: "ග ඝ එ හ" },
         5: { name: "සිංහ", lord: "රවි", lordLets: "අ ඉ උ එ ඔ", goodBhuta: ["තේජෝ", "වායෝ"], badBhuta: ["පඨවි"], goodLets: "ඓ ඔ ඖ ළ" },
         6: { name: "කන්‍යා", lord: "බුධ", lordLets: "ට ඨ ඩ ඪ ණ", goodBhuta: ["පඨවි", "ආපෝ"], badBhuta: ["තේජෝ"], goodLets: "අං අඃ" },
-        7: { name: "තුලා", lord: "සිකුරු", lordLets: "ච ඡ ජ ඣ ඤ", goodBhuta: ["ආකාශ"], badBhuta: [], goodLets: "ක ඛ ග ඝ ඞ" },
+        7: { name: "තුලා", lord: "සිකුරු", lordLets: "ච ඡ ජ ඣ ඤ", goodBhuta: ["ආකාශ"], badBhuta: ["ආපෝ"], goodLets: "ක ඛ ග ඝ ඞ" },
         8: { name: "වෘශ්චික", lord: "කුජ", lordLets: "ක බ ග ඝ ඞ", goodBhuta: ["ආපෝ", "තේජෝ"], badBhuta: ["වායෝ", "පඨවි"], goodLets: "ච ඡ ජ ඣ ඤ" },
         9: { name: "ධනු", lord: "ගුරු", lordLets: "ත ථ ද ධ න", goodBhuta: ["තේජෝ", "ආකාශ"], badBhuta: ["පඨවි"], goodLets: "ට ඨ ඩ ඪ ණ" },
         10: { name: "මකර", lord: "ශනි", lordLets: "ප ඵ බ භ ම", goodBhuta: ["පඨවි", "වායෝ"], badBhuta: ["ආපෝ", "තේජෝ"], goodLets: "ත ථ ද ධ න" },
@@ -1985,7 +1984,7 @@ return { lagnaId, navId };
         const nkData = NAKATHA_LETTERS[nkName];
         let padaHtml = `
             <div class="result-card theme-good">
-                <div class="card-header">☑️ ${nkName} නැකැත් පාද හිමි අකුරු</div>
+                <div class="card-header">☑️ ${nkName} නැකතට හිමි අකුරු</div>
                 <div class="card-body">
                     ${[0,1,2,3].map(i => `
                         <div class="pada-info ${i+1 === pada ? 'pada-active' : ''}">
@@ -2276,7 +2275,7 @@ function calculateAndRenderGana(nkName) {
 
     // Helper to generate HTML
     function generateGanaHtml(list, typeClass) {
-        if (!list || list.length === 0) return `<div class="result-card ${typeClass === 'res-good' ? 'theme-good' : 'theme-bad'}">වෙනත් විශේෂ ගණ නොමැත.</div>`;
+        if (!list || list.length === 0) return `<div class="result-card ${typeClass === 'res-good' ? 'theme-good' : 'theme-bad'}">අසුබ ගණ නොමැත! (භූමි, දේව, චන්ද්‍ර හා ජල යන සියලු සුබ ගණ මෙම නැකතට අසුබ නොවේ.)</div>`;
         
         let html = `<div class="result-card ${typeClass === 'res-good' ? 'theme-good' : 'theme-bad'}"><div class="card-body">`;
         list.forEach(item => {
@@ -2307,4 +2306,3 @@ function calculateAndRenderGana(nkName) {
 
 </body>
 </html>
-
