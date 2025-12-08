@@ -1,0 +1,282 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // --- CONFIGURATION ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBHhL_H4gwMqfk5Lx_3dZE2HOxlBArsFax9-vVkvzt7ZnRgFDqLlwQ_K-cDAcsxEBt/exec'; 
+
+        // --- Custom Alert/Guide Message Functions ---
+        const guideDiv = document.getElementById('guide-text');
+        const converterGuideDiv = document.getElementById('converter-guide-text');
+        let guideTimeout, converterGuideTimeout;
+
+        function showGuide(message, duration = 4000) {
+            clearTimeout(guideTimeout); 
+            guideDiv.textContent = message;
+            guideDiv.style.display = 'block';
+            guideTimeout = setTimeout(() => { guideDiv.style.display = 'none'; }, duration);
+        }
+
+        function showConverterGuide(message, duration = 4000) {
+            clearTimeout(converterGuideTimeout);
+            converterGuideDiv.innerHTML = message;
+            converterGuideDiv.style.display = 'block';
+            converterGuideTimeout = setTimeout(() => { converterGuideDiv.style.display = 'none'; }, duration);
+        }
+
+        // --- Nama Yoni Client Logic (Validation & UI Only) ---
+
+        function validateInput(name, errorId) {
+            const errorDiv = document.getElementById(errorId);
+            errorDiv.style.display = 'none';
+            
+            if (!name.trim()) {
+                errorDiv.textContent = "කරුණාකර නමක් ඇතුළත් කරන්න.";
+                errorDiv.style.display = 'block';
+                return false;
+            }
+            const words = name.trim().split(/\s+/);
+            if (words.length > 3) {
+                errorDiv.textContent = "වචන 3කට වඩා ඇතුළත් කළ නොහැක.";
+                errorDiv.style.display = 'block';
+                return false;
+            }
+            let totalLetters = 0;
+            for(let word of words) {
+                if (word.length > 10) {
+                    errorDiv.textContent = `"${word}" වචනයේ අකුරු ගණන වැඩිය (උපරිම 10).`;
+                    errorDiv.style.display = 'block';
+                    return false;
+                }
+                totalLetters += word.length;
+            }
+            if(totalLetters < 2) {
+                errorDiv.textContent = "නම සඳහා අවම වශයෙන් අකුරු 2ක් වත් තිබිය යුතුය.";
+                errorDiv.style.display = 'block';
+                return false;
+            }
+            return true;
+        }
+
+        // Expose this function to the global scope (window) so HTML buttons can call it
+        window.calculateNamaYoni = function() {
+            const name1 = document.getElementById('name1').value;
+            const name2 = document.getElementById('name2').value;
+            const resultElement = document.getElementById('result');
+            const btn = document.querySelector('button[onclick="calculateNamaYoni()"]'); // Assuming you have a button
+
+            resultElement.style.display = 'none';
+            
+            const v1 = validateInput(name1, 'error-name1');
+            const v2 = validateInput(name2, 'error-name2');
+
+            if (!v1 || !v2) return;
+
+            // Show Loading State
+            if(btn) {
+                const originalText = btn.textContent;
+                btn.textContent = "ගණනය කරමින්...";
+                btn.disabled = true;
+            }
+
+            // Call Server
+            fetch(`${SCRIPT_URL}?name1=${encodeURIComponent(name1)}&name2=${encodeURIComponent(name2)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error) {
+                        alert(data.error);
+                        return;
+                    }
+                    renderResult(data, resultElement);
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("දත්ත ලබා ගැනීමේ දෝෂයක්. කරුණාකර නැවත උත්සාහ කරන්න.");
+                })
+                .finally(() => {
+                    if(btn) {
+                        btn.textContent = "ගණනය කරන්න"; // Reset button text
+                        btn.disabled = false;
+                    }
+                });
+        };
+
+        function renderResult(data, resultElement) {
+            let statusHTML = '';
+            let themeColor = '';
+            let themeBg = '';
+            let themeBorder = '';
+
+            if (data.relation === "FRIENDLY") {
+                statusHTML = 'ඉතා සුභයි ⭐<br><span style="font-size: 1rem; font-weight:normal;">නාම යෝනි මිතුරු වේ.</span>';
+                themeColor = 'var(--success-color, #28a745)'; // Fallback color added
+                themeBg = 'var(--success-bg, #d4edda)';
+                themeBorder = 'var(--success-color, #28a745)';
+            } else if (data.relation === "ENEMY") {
+                statusHTML = 'අසුභයි ⭕<br><span style="font-size: 1rem; font-weight:normal;">නාම යෝනි සතුරු වේ.</span>';
+                themeColor = 'var(--danger-color, #dc3545)';
+                themeBg = 'var(--danger-bg, #f8d7da)';
+                themeBorder = 'var(--danger-color, #dc3545)';
+            } else {
+                statusHTML = 'සුභයි ✅';
+                themeColor = 'var(--success-color, #28a745)';
+                themeBg = 'var(--success-bg, #d4edda)';
+                themeBorder = 'var(--success-color, #28a745)';
+            }
+
+            resultElement.innerHTML = `
+                <div class="result-header" style="color: ${themeColor}">
+                    ${statusHTML}
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-title">මව්පිය/ සහෝදරයන්ගේ නාම යෝනිය - ${data.yoniName1.split(' ')[0]} ${data.yoniName1.split(' ')[1] || ''}</div>
+                    <div class="calc-breakdown">${data.data1.list.join(', ')}</div>
+                    <div class="total-value">${data.data1.total}</div>
+                </div>
+
+                <div class="result-section">
+                    <div class="result-title">ජන්මයාගේ නාම යෝනිය - ${data.yoniName2.split(' ')[0]} ${data.yoniName2.split(' ')[1] || ''}</div>
+                    <div class="calc-breakdown">${data.data2.list.join(', ')}</div>
+                    <div class="total-value">${data.data2.total}</div>
+                </div>
+            `;
+            
+            resultElement.style.backgroundColor = themeBg;
+            resultElement.style.borderColor = themeBorder;
+            resultElement.style.display = 'block';
+        }
+
+        // --- Unicode Converter Script (Kept on Client for Speed) ---
+        // Note: Logic kept here to ensure no typing lag for the user
+        const singlishInput = document.getElementById('singlish-input');
+        const sinhalaOutput = document.getElementById('sinhala-output');
+        const copyBtn = document.getElementById('copy-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        
+        function buildFullMap() {
+            const baseConsonants = { 'k': 'ක', 'kh': 'ඛ', 'g': 'ග', 'gh': 'ඝ', 'ch': 'ච', 'chh': 'ඡ', 'j': 'ජ', 'th': 'ත', 'thh': 'ථ', 'd': 'ඩ', 'dh': 'ද', 'q': 'ද', 'dhh': 'ධ', 'n': 'න', 'N': 'ණ', 'p': 'ප', 'ph': 'ඵ', 'b': 'බ', 'bh': 'භ', 'B': 'ඹ', 'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'L': 'ළ', 'v': 'ව', 'w': 'ව', 's': 'ස', 'sh': 'ශ', 'Sh': 'ෂ', 'S': 'ෂ', 'h': 'හ', 'f': 'ෆ', 't': 'ට', 'c': 'ස', 'D': 'ඪ', 'T': 'ඨ', 'C': 'ස', 'F': 'ෆ', 'G': 'ඝ', 'H': 'හ', 'J': 'ජ', 'K': 'ඛ', 'M': 'ම', 'P': 'ඵ', 'Q': 'ධ', 'V': 'ව', 'W': 'ව', 'Y': 'ය', 'zga': 'ඟ', 'zja': 'ඦ', 'zda': 'ඬ', 'zdha': 'ඳ', 'zqa': 'ඳ', 'zk': 'ඤ', 'zh': 'ඥ', 'X': 'ඞ' };
+            const pillaChars = { 'a': '', 'aa': 'ා', 'A': 'ැ', 'Aa': 'ෑ', 'AA': 'ෑ', 'i': 'ි', 'ii': 'ී', 'u': 'ු', 'uu': 'ූ', 'R': 'ෘ', 'Ru': 'ෲ', 'e': 'ෙ', 'ee': 'ේ', 'ai': 'ෛ', 'o': 'ො', 'oo': 'ෝ', 'au': 'ෞ', 'ou': 'ෞ', 'H': 'ඃ' };
+            const baseVowels = { 'a': 'අ', 'aa': 'ආ', 'A': 'ඇ', 'Aa': 'ඈ', 'AA': 'ඈ', 'i': 'ඉ', 'ii': 'ඊ', 'u': 'උ', 'U': 'උ', 'uu': 'ඌ', 'R': 'ඍ', 'Ru': 'ඎ', 'e': 'එ', 'E': 'එ', 'ee': 'ඒ', 'ai': 'ඓ', 'I': 'ඓ', 'o': 'ඔ', 'O': 'ඔ', 'oo': 'ඕ', 'au': 'ඖ', 'ou': 'ඖ' };
+            let consonantBlocks = { ...baseConsonants };
+            const doubles = { 'tt': 'ට්ට', 'dd': 'ඩ්ඩ', 'nn': 'න්න', 'mm': 'ම්ම', 'll': 'ල්ල', 'pp': 'ප්ප' };
+            Object.assign(consonantBlocks, doubles);
+            const yansaya = '්‍ය';
+            const rakāransaya = '්‍ර';
+            for (const key in baseConsonants) {
+                if (key !== 'y') consonantBlocks[key + 'y'] = baseConsonants[key] + yansaya;
+                if (key !== 'r') consonantBlocks[key + 'r'] = baseConsonants[key] + rakāransaya;
+            }
+            let fullMap = { ...baseVowels, 'Lu': 'ළු', '.': '෴' };
+            for (const blockKey in consonantBlocks) {
+                const blockValue = consonantBlocks[blockKey];
+                fullMap[blockKey] = blockValue + '්';
+                for (const pillaKey in pillaChars) {
+                    const pillaValue = pillaChars[pillaKey];
+                    if (pillaKey === 'a') {
+                        fullMap[blockKey + 'a'] = blockValue;
+                    } else {
+                        fullMap[blockKey + pillaKey] = blockValue + pillaValue;
+                    }
+                }
+            }
+            fullMap['x'] = 'ං';
+            fullMap['kazn'] = 'කං';
+            fullMap['z'] = '';
+            return fullMap;
+        }
+
+        const conversionMap = buildFullMap();
+        const sortedKeys = Object.keys(conversionMap).sort((a, b) => b.length - a.length);
+
+        function convertSinglishToSinhala(text) {
+            const words = text.split(' ');
+            return words.map(word => {
+                if (word.length === 0) return '';
+                let converted = '';
+                let i = 0;
+                while (i < word.length) {
+                    let matchFound = false;
+                    for (const key of sortedKeys) {
+                        if (word.substring(i, i + key.length) === key) {
+                            converted += conversionMap[key];
+                            i += key.length;
+                            matchFound = true;
+                            break;
+                        }
+                    }
+                    if (!matchFound) {
+                        converted += word[i];
+                        i++;
+                    }
+                }
+                return converted;
+            }).join(' ');
+        }
+
+        function performConversion() {
+            if(!singlishInput) return;
+            const inputText = singlishInput.value;
+            const outputText = convertSinglishToSinhala(inputText);
+            sinhalaOutput.textContent = outputText || "සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ";
+        }
+        
+        function clearText() {
+            singlishInput.value = '';
+            performConversion(); 
+        }
+        
+        function showCopySuccessFeedback() {
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.innerHTML = `<i class="fas fa-check" style="margin-right: 5px;"></i>Copied`;
+            copyBtn.disabled = true;
+            setTimeout(() => {
+                copyBtn.innerHTML = originalHTML;
+                copyBtn.disabled = false;
+            }, 2000);
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.top = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                if (document.execCommand('copy')) {
+                    showCopySuccessFeedback();
+                } else {
+                        showConverterGuide('පිටපත් කිරීමට නොහැකි විය.');
+                }
+            } catch (err) {
+                showConverterGuide('පිටපත් කිරීමට නොහැකි විය.');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function copyText() {
+            const textToCopy = sinhalaOutput.textContent;
+            if (!textToCopy || textToCopy === 'සිංහල අකුරෙන් මෙතැන පෙන්වනු ලැබේ') {
+                showConverterGuide('පිටපත් කිරීමට අකුරු නොමැත.');
+                return;
+            }
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy).then(showCopySuccessFeedback).catch(err => {
+                    fallbackCopyTextToClipboard(textToCopy);
+                });
+            } else {
+                fallbackCopyTextToClipboard(textToCopy);
+            }
+        }
+        
+        if(clearBtn) clearBtn.addEventListener('click', clearText);
+        if(copyBtn) copyBtn.addEventListener('click', copyText);
+        if(singlishInput) {
+            singlishInput.addEventListener('input', performConversion);
+            performConversion();
+        }
+    });
+</script>
