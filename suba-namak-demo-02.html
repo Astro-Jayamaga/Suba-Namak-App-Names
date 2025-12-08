@@ -12,6 +12,7 @@
     <style>
         :root {
             --primary-color: #7F0000; /* Maroon */
+            --primary-light: #a33333;
             --secondary-color: #FDF5E6; /* Cream */
             --accent-color: #FFA500; /* Orange */
             --text-color: #333333;
@@ -176,21 +177,21 @@
         .btn-cta {
             width: 100%;
             padding: 16px;
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
             color: var(--white);
             font-family: 'Gemunu Libre', sans-serif;
             font-size: 1.5rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            margin-top: 30px;
-            box-shadow: 0 4px 10px rgba(127, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .btn-cta:hover {
-            background-color: #900000;
             transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         .btn-cta:active {
@@ -217,6 +218,33 @@
             margin-top: 30px;
             animation: fadeIn 0.6s ease;
         }
+
+        /* Main Score Card */
+        .score-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px solid transparent;
+        }
+        .score-title {
+            font-family: 'Gemunu Libre', sans-serif;
+            font-size: 2rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .score-desc {
+            font-size: 1rem;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        /* Score Themes */
+        .theme-blue { background-color: #e7f1ff; color: #004085; border-color: #b8daff; }
+        .theme-green { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .theme-yellow { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
+        .theme-brown { background-color: #fce4e4; color: #7f3e3e; border-color: #f5c6c6; }
+        .theme-red { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
 
         .result-row {
             display: flex;
@@ -246,6 +274,22 @@
         .text-green { color: var(--success-color) !important; font-weight: 700; }
         .text-red { color: var(--error-color) !important; font-weight: 700; }
         .text-default { color: #444 !important; font-weight: 500; }
+
+        /* Prevent text selection across the entire site */
+body {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
+/* Allow selection on input fields so users can still type */
+input, textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
 
         /* Footer */
         footer {
@@ -310,6 +354,8 @@
 
         <div id="results" class="results-container">
             
+            <div id="finalScoreCard"></div>
+
             <div id="swaraSection" style="display:none;">
                 <h2 class="secondary-title">ස්වර වේධ පරීක්ෂාව</h2>
                 <div id="swaraContent"></div>
@@ -406,24 +452,27 @@
         const squareOrder = ['1', '2', '3', '4'];
         const subBoxOrder = ['A', 'B', 'C', 'D'];
 
-        // Siddhi Result Mapping
+        // Siddhi Result Mapping (Score Pct for Backend Calculation)
         const siddhiResultMap = {
-            'සිද්ධ-සිද්ධ': { t: 'සුභයි', c: 'text-green' },
-            'සිද්ධ-සාධ්‍ය': { t: 'සුභයි', c: 'text-green' },
-            'සිද්ධ-සුසිද්ධ': { t: 'ඉතා සුභයි', c: 'text-green' },
-            'සිද්ධ-අරි': { t: 'අසුභයි', c: 'text-red' },
-            'සාධ්‍ය-සිද්ධ': { t: 'සුභයි', c: 'text-green' },
-            'සාධ්‍ය-සාධ්‍ය': { t: 'අසුභයි', c: 'text-red' },
-            'සාධ්‍ය-සුසිද්ධ': { t: 'සුභයි', c: 'text-green' },
-            'සාධ්‍ය-අරි': { t: 'අසුභයි', c: 'text-red' },
-            'සුසිද්ධ-සිද්ධ': { t: 'ඉතා සුභයි', c: 'text-green' },
-            'සුසිද්ධ-සාධ්‍ය': { t: 'සුභයි', c: 'text-green' },
-            'සුසිද්ධ-සුසිද්ධ': { t: 'ඉතා සුභයි', c: 'text-green' },
-            'සුසිද්ධ-අරි': { t: 'අසුභයි', c: 'text-red' },
-            'අරි-සිද්ධ': { t: 'අසුභයි', c: 'text-red' },
-            'අරි-සාධ්‍ය': { t: 'අසුභයි', c: 'text-red' },
-            'අරි-සුසිද්ධ': { t: 'අසුභයි', c: 'text-red' },
-            'අරි-අරි': { t: 'අසුභයි', c: 'text-red' }
+            'සිද්ධ-සිද්ධ': { t: 'සුභයි', c: 'text-green', score: 80 },
+            'සිද්ධ-සාධ්‍ය': { t: 'සාමාන්‍යයි', c: 'text-neutral', score: 50 },
+            'සිද්ධ-සුසිද්ධ': { t: 'ඉතා සුභයි', c: 'text-green', score: 100 },
+            'සිද්ධ-අරි': { t: 'අසුභයි', c: 'text-red', score: 0 },
+            
+            'සාධ්‍ය-සිද්ධ': { t: 'සාමාන්‍යයි', c: 'text-neutral', score: 50 },
+            'සාධ්‍ය-සාධ්‍ය': { t: 'අසුභයි', c: 'text-red', score: 0 },
+            'සාධ්‍ය-සුසිද්ධ': { t: 'සාමාන්‍යයි', c: 'text-neutral', score: 50 },
+            'සාධ්‍ය-අරි': { t: 'අසුභයි', c: 'text-red', score: 0 },
+            
+            'සුසිද්ධ-සිද්ධ': { t: 'ඉතා සුභයි', c: 'text-green', score: 100 },
+            'සුසිද්ධ-සාධ්‍ය': { t: 'සාමාන්‍යයි', c: 'text-neutral', score: 50 },
+            'සුසිද්ධ-සුසිද්ධ': { t: 'ඉතා සුභයි', c: 'text-green', score: 100 },
+            'සුසිද්ධ-අරි': { t: 'අසුභයි', c: 'text-red', score: 0 },
+            
+            'අරි-සිද්ධ': { t: 'අසුභයි', c: 'text-red', score: 0 },
+            'අරි-සාධ්‍ය': { t: 'අසුභයි', c: 'text-red', score: 0 },
+            'අරි-සුසිද්ධ': { t: 'අසුභයි', c: 'text-red', score: 0 },
+            'අරි-අරි': { t: 'අසුභයි', c: 'text-red', score: 0 }
         };
 
         // --- Nama Yoni Data ---
@@ -500,23 +549,23 @@
         function checkSwara(v1, v2) {
             const relevantVowels = ['අ', 'ආ', 'ඉ', 'ඊ', 'උ', 'ඌ', 'එ', 'ඒ', 'ඔ', 'ඕ'];
             if (!v1 || !v2 || !relevantVowels.includes(v1) || !relevantVowels.includes(v2)) {
-                return { t: "සුභයි", d: `ස්වර වේධ නොවේ (${v1} | ${v2})`, c: "text-green" };
+                return { t: "සුභයි", d: `ස්වර වේධ නොවේ (${v1} | ${v2})`, c: "text-green", scorePct: 100 };
             }
             if ((Array.isArray(opposition[v1]) && opposition[v1].includes(v2)) ||
                 (Array.isArray(opposition[v2]) && opposition[v2].includes(v1)) ||
                 (opposition[v1] === v2)) {
-                return { t: "අසුභයි", d: `ස්වර වේධ වේ (${v1} | ${v2})`, c: "text-red" };
+                return { t: "අසුභයි", d: `ස්වර වේධ වේ (${v1} | ${v2})`, c: "text-red", scorePct: 0 };
             } 
-            return { t: "සුභයි", d: `ස්වර වේධ නොවේ (${v1} | ${v2})`, c: "text-green" };
+            return { t: "සුභයි", d: `ස්වර වේධ නොවේ (${v1} | ${v2})`, c: "text-green", scorePct: 100 };
         }
 
         // --- Ashta Yoni Logic ---
         function checkYoni(cat1, cat2) {
-            if (!cat1 || !cat2) return { status: "සුභයි", desc: "බලපෑමක් නොමැත", yoniText: "", c: "text-green" };
-            if (cat1.id === cat2.id) return { status: "ඉතා සුභයි", desc: "එකම යෝනියට අයත් වේ.", yoniText: `${cat1.name} යෝනිය -`, c: "text-green" };
-            if (matching[cat1.id] === cat2.id) return { status: "ඉතා සුභයි", desc: "මිතුරු", yoniText: `${cat2.name} යෝනිය -`, c: "text-green" };
-            if (opposites[cat1.id] === cat2.id) return { status: "අසුභයි", desc: "සතුරු", yoniText: `${cat2.name} යෝනිය -`, c: "text-red" };
-            return { status: "සුභයි", desc: "උදාසීන", yoniText: `${cat2.name} යෝනිය -`, c: "text-green" };
+            if (!cat1 || !cat2) return { status: "සුභයි", desc: "බලපෑමක් නොමැත", yoniText: "", c: "text-green", scorePct: 75 };
+            if (cat1.id === cat2.id) return { status: "ඉතා සුභයි", desc: "එකම යෝනියට අයත් වේ.", yoniText: `${cat1.name} යෝනිය -`, c: "text-green", scorePct: 100 };
+            if (matching[cat1.id] === cat2.id) return { status: "ඉතා සුභයි", desc: "මිතුරු", yoniText: `${cat2.name} යෝනිය -`, c: "text-green", scorePct: 100 };
+            if (opposites[cat1.id] === cat2.id) return { status: "අසුභයි", desc: "සතුරු", yoniText: `${cat2.name} යෝනිය -`, c: "text-red", scorePct: 0 };
+            return { status: "සුභයි", desc: "උදාසීන", yoniText: `${cat2.name} යෝනිය -`, c: "text-green", scorePct: 75 };
         }
 
         // --- Siddhi Chakra Logic ---
@@ -588,12 +637,12 @@
         }
 
         function getNamaYoniRelationship(yoni1, yoni2) {
-            if (yoni1 === yoni2) return { t: "ඉතා සුභයි", c: "text-green" }; // Same Yoni
+            if (yoni1 === yoni2) return { t: "ඉතා සුභයි", c: "text-green", scorePct: 100 }; // Same Yoni
 
             const enemies = [[1,5], [2,6], [3,7], [4,8]];
             for (let pair of enemies) {
                 if ((pair[0] === yoni1 && pair[1] === yoni2) || (pair[0] === yoni2 && pair[1] === yoni1)) {
-                    return { t: "අසුභයි", c: "text-red" };
+                    return { t: "අසුභයි", c: "text-red", scorePct: 0 };
                 }
             }
             
@@ -601,15 +650,14 @@
             let fwd = yoni1 + 3; if (fwd > 8) fwd = fwd - 8;
             let bwd = yoni1 - 3; if (bwd < 1) bwd = bwd + 8;
             
-            if (yoni2 === fwd || yoni2 === bwd) return { t: "ඉතා සුභයි", c: "text-green" }; // Friendly
+            if (yoni2 === fwd || yoni2 === bwd) return { t: "ඉතා සුභයි", c: "text-green", scorePct: 100 }; 
             
             let fwd2 = yoni2 + 3; if (fwd2 > 8) fwd2 = fwd2 - 8;
             let bwd2 = yoni2 - 3; if (bwd2 < 1) bwd2 = bwd2 + 8;
-            if (yoni1 === fwd2 || yoni1 === bwd2) return { t: "ඉතා සුභයි", c: "text-green" };
+            if (yoni1 === fwd2 || yoni1 === bwd2) return { t: "ඉතා සුභයි", c: "text-green", scorePct: 100 };
 
-            return { t: "සුභයි", c: "text-green" }; // Neutral
+            return { t: "සුභයි", c: "text-green", scorePct: 75 }; // Neutral
         }
-
 
         // --- Main Event Listener ---
         document.getElementById('findBtn').addEventListener('click', function() {
@@ -624,6 +672,7 @@
             
             errorDiv.style.display = 'none';
             resultsDiv.style.display = 'none';
+            document.getElementById('finalScoreCard').innerHTML = ''; // Clear previous score
 
             // --- Validation ---
             const validateName = (name, maxWords, minLen, maxLen, label) => {
@@ -647,91 +696,258 @@
             const babyFirstChar = mainWords[0].charAt(0);
             const mainVowel = getVowelSound(mainWords[0]);
             const mainCat = getCategory(babyFirstChar);
+            const babyNamaData = calculateNameValue(mainWords[0]);
+            const babyYoniIndex = calculateYoniIndex(babyNamaData.total);
+            const babyYoniName = namaYoniList[babyYoniIndex];
 
-            // 1. Swara Output
+            // Variables for Total Score Calculation
+            let totalScore = 0;
+            let hasMother = motherInput.length > 0;
+            let hasFather = fatherInput.length > 0;
+            let hasSibi = hasSib && siblingInput.length > 0;
+            
+            // Determine Scoring Scenario
+            // Scenario 1: M + F + S
+            // Scenario 2: M + F (No S)
+            // Scenario 3: (M or F) + S
+            // Scenario 4: (M or F) only - falls into split logic if S missing, or handled by weight
+            
+            // Defining Weights per input based on scenario logic provided
+            // Section Totals: Swara(30), Ashta(25), Siddhi(20), Nama(25)
+            
+            let wSwara = {}, wAshta = {}, wSiddhi = {}, wNama = {};
+            
+            if (hasSibi) {
+                // Sibling Exists
+                if(hasMother && hasFather) {
+                    // Scenario: M, F, S
+                    wSwara = { m: 12, f: 12, s: 6 };
+                    wAshta = { m: 10, f: 10, s: 5 };
+                    wSiddhi = { m: 8, f: 8, s: 4 };
+                    wNama = { m: 10, f: 10, s: 5 };
+                } else {
+                    // Scenario: (M or F), S
+                    wSwara = { p: 20, s: 10 };
+                    wAshta = { p: 15, s: 10 };
+                    wSiddhi = { p: 12, s: 8 };
+                    wNama = { p: 15, s: 10 };
+                }
+            } else {
+                // No Sibling (Split logic)
+                // Scenario: M, F or Single Parent (if single, max score drops, but prompt implies 'divide equally')
+                // Assuming if M and F both exist, split. If only one exists, we can't score 100%. 
+                // But Prompt says: "If the user didn't add සහෝදරයා's input name, divide the results equally for mother and father."
+                // This implies M and F.
+                wSwara = { m: 15, f: 15 };
+                wAshta = { m: 12.5, f: 12.5 };
+                wSiddhi = { m: 10, f: 10 };
+                wNama = { m: 12.5, f: 12.5 };
+            }
+
+            // Calculation Helper
+            const calcSectionScore = (resultPct, weight) => {
+                if(resultPct === undefined || weight === undefined) return 0;
+                return (resultPct / 100) * weight;
+            };
+
+            // 1. Swara Output & Scoring
             let swaraHTML = `<div class="result-row"><span class="result-label">ජන්මයා</span> <span class="result-value text-default">[${mainVowel || '-'}] ස්වරය</span></div>`;
-            const processSwaraRel = (n, label) => {
+            const processSwaraRel = (n, label, type) => {
                 if (n) {
                     const v = getVowelSound(n);
                     const r = checkSwara(mainVowel, v);
                     swaraHTML += `<div class="result-row"><span class="result-label">${label}</span> <span class="result-value ${r.c}">${r.t} <br><small style="font-weight:400; color:#666;">${r.d}</small></span></div>`;
+                    
+                    // Score
+                    let weight = 0;
+                    if (hasSibi && (hasMother && hasFather)) { weight = (type==='s')? wSwara.s : (type==='m'?wSwara.m:wSwara.f); }
+                    else if (hasSibi && !(hasMother && hasFather)) { weight = (type==='s')? wSwara.s : wSwara.p; }
+                    else { weight = wSwara.m; /* Equal split uses same value for M/F */ }
+                    
+                    totalScore += calcSectionScore(r.scorePct, weight);
                 }
             };
-            processSwaraRel(motherInput, "මවට");
-            processSwaraRel(fatherInput, "පියාට");
-            if(hasSib) processSwaraRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim() + "ට");
+            processSwaraRel(motherInput, "මව", 'm');
+            processSwaraRel(fatherInput, "පියා", 'f');
+            if(hasSibi) processSwaraRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim().replace('ට', ''), 's');
             document.getElementById('swaraContent').innerHTML = swaraHTML;
             document.getElementById('swaraSection').style.display = 'block';
 
-            // 2. Ashta Yoni Output
+            // 2. Ashta Yoni Output & Scoring
             let yoniHTML = "";
             if(mainCat) {
                 yoniHTML += `<div class="result-row"><span class="result-label">ජන්මයා</span> <span class="result-value text-default">${mainCat.name} යෝනිය</span></div>`;
-                const processYoniRel = (n, label) => {
+                const processYoniRel = (n, label, type) => {
                     if (n) {
                         const relCat = getCategory(n.charAt(0));
                         const r = checkYoni(mainCat, relCat);
                         const detailText = r.yoniText ? `${r.yoniText} ${r.desc}` : r.desc;
                         yoniHTML += `<div class="result-row"><span class="result-label">${label}</span> <span class="result-value ${r.c}">${r.status} <br><small style="font-weight:400; color:#666;">${detailText}</small></span></div>`;
+                        
+                        // Score
+                        let weight = 0;
+                        if (hasSibi && (hasMother && hasFather)) { weight = (type==='s')? wAshta.s : (type==='m'?wAshta.m:wAshta.f); }
+                        else if (hasSibi && !(hasMother && hasFather)) { weight = (type==='s')? wAshta.s : wAshta.p; }
+                        else { weight = wAshta.m; }
+                        
+                        totalScore += calcSectionScore(r.scorePct, weight);
                     }
                 };
-                processYoniRel(motherInput, "මවට");
-                processYoniRel(fatherInput, "පියාට");
-                if(hasSib) processYoniRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim() + "ට");
+                processYoniRel(motherInput, "මව", 'm');
+                processYoniRel(fatherInput, "පියා", 'f');
+                if(hasSibi) processYoniRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim().replace('ට', ''), 's');
                 document.getElementById('yoniContent').innerHTML = yoniHTML;
             } else {
                 document.getElementById('yoniContent').innerHTML = `<div class="result-row"><span class="result-label">ජන්මයා</span> <span class="result-value text-default"> හඳුනාගත නොහැක </span></div>`;
             }
             document.getElementById('yoniSection').style.display = 'block';
 
-            // 3. Siddhi Chakra Output
+            // 3. Siddhi Chakra Output & Scoring
             let siddhiHTML = "";
-            const processSiddhiRel = (n, label) => {
+            const processSiddhiRel = (n, label, type) => {
                 if (n) {
                     const nChar = n.trim().charAt(0);
                     const res = getSiddhiResult(nChar, babyFirstChar);
                     if(res) {
                          siddhiHTML += `<div class="result-row"><span class="result-label">${label} - <span class="${res.c}">${res.t}</span></span> <span class="result-value text-default">${res.key}</span></div>`;
+                         
+                         // Score
+                        let weight = 0;
+                        if (hasSibi && (hasMother && hasFather)) { weight = (type==='s')? wSiddhi.s : (type==='m'?wSiddhi.m:wSiddhi.f); }
+                        else if (hasSibi && !(hasMother && hasFather)) { weight = (type==='s')? wSiddhi.s : wSiddhi.p; }
+                        else { weight = wSiddhi.m; }
+                        
+                        totalScore += calcSectionScore(res.score, weight);
+
                     } else {
                          siddhiHTML += `<div class="result-row"><span class="result-label">${label}</span> <span class="result-value text-default">ගණනය කල නොහැක</span></div>`;
                     }
                 }
             };
-            processSiddhiRel(motherInput, "මවට");
-            processSiddhiRel(fatherInput, "පියාට");
-            if(hasSib) processSiddhiRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim() + "ට");
+            processSiddhiRel(motherInput, "මව", 'm');
+            processSiddhiRel(fatherInput, "පියා", 'f');
+            if(hasSibi) processSiddhiRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim().replace('ට', ''), 's');
             document.getElementById('siddhiContent').innerHTML = siddhiHTML;
             document.getElementById('siddhiSection').style.display = 'block';
 
-            // 4. Nama Yoni Output
+            // 4. Nama Yoni Output & Scoring
             let namaYoniHTML = "";
-            const babyNamaData = calculateNameValue(mainWords[0]);
-            const babyYoniIndex = calculateYoniIndex(babyNamaData.total);
-            const babyYoniName = namaYoniList[babyYoniIndex];
-            
             // Baby Line
             namaYoniHTML += `<div class="result-row"><span class="result-label">ජන්මයා</span> <span class="result-value text-default">නාම යෝනිය - ${babyYoniName} <br><small style="font-weight:400; color:#666;">${babyNamaData.list.join(' + ')} = ${babyNamaData.total}</small></span></div>`;
 
-            const processNamaYoniRel = (n, label) => {
+            const processNamaYoniRel = (n, label, type) => {
                 if (n) {
                     const relData = calculateNameValue(n.trim().split(/\s+/)[0]);
                     const relYoniIndex = calculateYoniIndex(relData.total);
                     const relYoniName = namaYoniList[relYoniIndex];
-                    const rel = getNamaYoniRelationship(babyYoniIndex, relYoniIndex); // Check Baby vs Relation
+                    const rel = getNamaYoniRelationship(babyYoniIndex, relYoniIndex); 
                     
                     namaYoniHTML += `<div class="result-row"><span class="result-label">${label} - <span class="${rel.c}">${rel.t}</span></span> <span class="result-value text-default">නාම යෝනිය - ${relYoniName} <br><small style="font-weight:400; color:#666;">${relData.list.join(' + ')} = ${relData.total}</small></span></div>`;
+
+                     // Score
+                    let weight = 0;
+                    if (hasSibi && (hasMother && hasFather)) { weight = (type==='s')? wNama.s : (type==='m'?wNama.m:wNama.f); }
+                    else if (hasSibi && !(hasMother && hasFather)) { weight = (type==='s')? wNama.s : wNama.p; }
+                    else { weight = wNama.m; }
+                    
+                    totalScore += calcSectionScore(rel.scorePct, weight);
                 }
             };
-            processNamaYoniRel(motherInput, "මවට");
-            processNamaYoniRel(fatherInput, "පියාට");
-            if(hasSib) processNamaYoniRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim() + "ට");
+            processNamaYoniRel(motherInput, "මව", 'm');
+            processNamaYoniRel(fatherInput, "පියා", 'f');
+            if(hasSibi) processNamaYoniRel(siblingInput, document.querySelector('input[name="siblingGender"]:checked').nextSibling.textContent.trim().replace('ට', ''), 's');
 
             document.getElementById('namaYoniContent').innerHTML = namaYoniHTML;
             document.getElementById('namaYoniSection').style.display = 'block';
 
+            // --- Generate Final Score Card ---
+            if(hasMother || hasFather) { // Only show score if relative provided
+                let scoreTitle = "";
+                let scoreDesc = "";
+                let themeClass = "";
+
+                if (totalScore >= 80) {
+                    scoreTitle = "ඉතා සුභයි ⭐";
+                    scoreDesc = "මෙම නම ජන්මයාට ඉතා යහපත් වේ.";
+                    themeClass = "theme-blue";
+                } else if (totalScore >= 60) {
+                    scoreTitle = "සුභයි ✅";
+                    scoreDesc = "මෙම නම ජන්මයාට සුදුසු වේ.";
+                    themeClass = "theme-green";
+                } else if (totalScore >= 40) {
+                    scoreTitle = "මධ්‍යමයි ➡️";
+                    scoreDesc = "මෙම නම ජන්මයාට මධ්‍යස්ථ ඵල ලබා දෙයි.";
+                    themeClass = "theme-yellow";
+                } else if (totalScore >= 20) {
+                    scoreTitle = "අසුභයි ⭕";
+                    scoreDesc = "මෙම නම ජන්මයාට අසුබ ඵල ලබා දිය හැක.";
+                    themeClass = "theme-brown";
+                } else {
+                    scoreTitle = "ඉතා අසුභයි ❌";
+                    scoreDesc = "මෙම නම ජන්මයාට ඉතා අසුබ බැවින් භාවිතා නොකිරීම මැනවි.";
+                    themeClass = "theme-red";
+                }
+
+                document.getElementById('finalScoreCard').innerHTML = `
+                    <div class="score-card ${themeClass}">
+                        <h3 class="score-title">${scoreTitle}</h3>
+                    </div>
+                `;
+            }
+
             resultsDiv.style.display = 'block';
             resultsDiv.scrollIntoView({ behavior: 'smooth' });
         });
+/**
+ * Advanced Client-Side Protection Script
+ * Prevent Right-Click, DevTools hotkeys, and Selection
+ */
+(function() {
+    "use strict";
+
+    // 1. Disable Right-Click (Context Menu)
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        // Optional: Alert the user
+        // alert("Content is protected."); 
+    }, false);
+
+    // 2. Disable Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+P)
+    document.addEventListener('keydown', function(e) {
+        // Check for Ctrl (Windows) or Meta (Mac)
+        if (e.ctrlKey || e.metaKey) {
+            // Block Ctrl+S (Save), Ctrl+U (View Source), Ctrl+P (Print)
+            if (e.key === 's' || e.key === 'u' || e.key === 'p') {
+                e.preventDefault();
+                return false;
+            }
+            // Block Ctrl+Shift+I (DevTools), Ctrl+Shift+J (Console), Ctrl+Shift+C (Inspect)
+            if (e.shiftKey) {
+                if (e.key === 'i' || e.key === 'j' || e.key === 'c') {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        }
+        
+        // Block F12 (DevTools)
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. Disable Dragging (Images/Text)
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+    });
+
+    // 4. Disable Text Selection (CSS backup usually required)
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    });
+
+})();
     </script>
 </body>
 </html>
