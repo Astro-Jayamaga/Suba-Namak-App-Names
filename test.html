@@ -4,12 +4,8 @@
     <style id="security-curtain">
         html { display: none !important; }
     </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>නාම යෝනිය සෙවීම</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        <script>
+
+    <script>
     (function(){
         // CONFIGURATION: Your Whitelist (Encrypted)
         // includes: astro-jayamaga, myappmaker, localhost
@@ -46,14 +42,18 @@
             if (_0xCss) _0xCss.parentNode.removeChild(_0xCss);
         } else {
             // DESTROY SITE (Keep hidden + Nuke HTML)
-            // This prevents the user from inspecting elements to find the curtain
             document.documentElement.innerHTML = "<div style='text-align:center;margin-top:20%;font-family:sans-serif;color:red'><h1>ACCESS DENIED</h1><p>Unauthorized Iframe Detected.</p></div>";
-            
-            // Force Redirection (Plan B)
             try { window.top.location = window.self.location; } catch(e){}
         }
     })();
     </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>නාම යෝනිය සෙවීම</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;700&display=swap');
 
@@ -495,42 +495,6 @@ input, textarea {
 
     
 <script>
-    /* Secure Iframe Whitelist + Self Destruct - Astro Jayamaga */
-(function(){
-    // 1. Encrypted Whitelist: [astro-jayamaga, myappmaker.io, localhost]
-    var _0x9a2b = ["\x61\x73\x74\x72\x6f\x2d\x6a\x61\x79\x61\x6d\x61\x67\x61\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f", "\x6d\x79\x61\x70\x70\x6d\x61\x6b\x65\x72\x2e\x69\x6f", "\x6c\x6f\x63\x61\x6c\x68\x6f\x73\x74"];
-    
-    // 2. Get Referrer (The site embedding us)
-    var _0x4f1c = document['\x72\x65\x66\x65\x72\x72\x65\x72']; 
-    
-    // 3. Check if inside Iframe
-    if (window['\x73\x65\x6c\x66'] !== window['\x74\x6f\x70']) {
-        var _0x7d3e = false;
-        
-        // 4. Loop through whitelist
-        for (var _0x2c = 0; _0x2c < _0x9a2b.length; _0x2c++) {
-            // Check if referrer contains allowed domain
-            if (_0x4f1c['\x69\x6e\x64\x65\x78\x4f\x66'](_0x9a2b[_0x2c]) > -1) {
-                _0x7d3e = true;
-                break;
-            }
-        }
-
-        // 5. PENALTY: If not allowed, Destroy and Redirect
-        if (!_0x7d3e) {
-            // STEP A: NUKE THE PAGE CONTENT IMMEDIATELY
-            // This ensures W3Schools shows nothing, even if they block the redirect
-            document['\x62\x6f\x64\x79']['\x69\x6e\x6e\x65\x72\x48\x54\x4d\x4c'] = '\x3c\x68\x31\x20\x73\x74\x79\x6c\x65\x3d\x22\x63\x6f\x6c\x6f\x72\x3a\x72\x65\x64\x3b\x74\x65\x78\x74\x2d\x61\x6c\x69\x67\x6e\x3a\x63\x65\x6e\x74\x65\x72\x3b\x6d\x61\x72\x67\x69\x6e\x2d\x74\x6f\x70\x3a\x32\x30\x25\x22\x3e\x41\x63\x63\x65\x73\x73\x20\x44\x65\x6e\x69\x65\x64\x3c\x2f\x68\x31\x3e';
-            
-            // STEP B: Try to Break Out (Might fail in sandbox, but page is already gone)
-            try {
-                window['\x74\x6f\x70']['\x6c\x6f\x63\x61\x74\x69\x6f\x6e'] = window['\x73\x65\x6c\x66']['\x6c\x6f\x63\x61\x74\x69\x6f\x6e'];
-            } catch (e) {
-                // Sandbox blocked us, but it doesn't matter because the body is gone.
-            }
-        }
-    }
-})();
     /* Security Check - Astro Jayamaga */
 (function(){
     var _0x1a2b = ["\x61\x73\x74\x72\x6f\x2d\x6a\x61\x79\x61\x6d\x61\x67\x61\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f", "\x6c\x6f\x63\x61\x6c\x68\x6f\x73\x74", "\x31\x32\x37\x2e\x30\x2e\x30\x2e\x31", "\x68\x6f\x73\x74\x6e\x61\x6d\x65", "\x69\x6e\x64\x65\x78\x4f\x66", "\x62\x6f\x64\x79", "\x69\x6e\x6e\x65\x72\x48\x54\x4d\x4c", "\x3c\x68\x31\x3e\x55\x6e\x61\x75\x74\x68\x6f\x72\x69\x7a\x65\x64\x3c\x2f\x68\x31\x3e\x3c\x70\x3e\x50\x6c\x65\x61\x73\x65\x20\x76\x69\x73\x69\x74\x20\x61\x73\x74\x72\x6f\x2d\x6a\x61\x79\x61\x6d\x61\x67\x61\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x3c\x2f\x70\x3e"];
@@ -877,6 +841,7 @@ input, textarea {
 </script>
 </body>
 </html>
+
 
 
 
