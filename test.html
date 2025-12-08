@@ -7,25 +7,20 @@
 
     <script>
     (function(){
-        // CONFIGURATION: Your Whitelist (Encrypted)
-        // includes: astro-jayamaga, myappmaker, localhost
+        // CONFIGURATION: Whitelist
         var _0x5a1 = ["\x61\x73\x74\x72\x6f\x2d\x6a\x61\x79\x61\x6d\x61\x67\x61", "\x6d\x79\x61\x70\x70\x6d\x61\x6b\x65\x72", "\x6c\x6f\x63\x61\x6c\x68\x6f\x73\x74"];
         
         var _0xRef = document.referrer;
         var _0xInFrame = (window.self !== window.top);
         var _0xSafe = false;
 
-        // LOGIC:
+        // 1. CHECK SAFETY
         if (!_0xInFrame) {
-            // If not in an iframe (Direct View), it is always safe
-            _0xSafe = true;
+            _0xSafe = true; // Not in iframe = Safe
         } else {
-            // If inside an iframe, check the Referrer
             if (!_0xRef || _0xRef === "") {
-                // BLOCK EMPTY REFERRERS (Crucial for W3Schools blocking)
-                _0xSafe = false;
+                _0xSafe = false; // Empty referrer = Blocked (W3Schools)
             } else {
-                // Check against whitelist
                 for (var i = 0; i < _0x5a1.length; i++) {
                     if (_0xRef.indexOf(_0x5a1[i]) > -1) {
                         _0xSafe = true;
@@ -35,14 +30,26 @@
             }
         }
 
-        // EXECUTION:
+        // 2. EXECUTION
         if (_0xSafe) {
-            // REMOVE THE CURTAIN (Show Site)
+            // SAFE: Remove the curtain immediately so user sees the site.
             var _0xCss = document.getElementById('security-curtain');
             if (_0xCss) _0xCss.parentNode.removeChild(_0xCss);
         } else {
-            // DESTROY SITE (Keep hidden + Nuke HTML)
-            document.documentElement.innerHTML = "<div style='text-align:center;margin-top:20%;font-family:sans-serif;color:red'><h1>ACCESS DENIED</h1><p>Unauthorized Iframe Detected.</p></div>";
+            // UNSAFE: 
+            // DO NOT remove the curtain yet! Keep the screen white.
+            
+            // Wait for the browser to finish loading ALL the HTML...
+            window.onload = function() {
+                // ...THEN completely wipe the body content
+                document.body.innerHTML = "<div style='text-align:center;margin-top:20%;font-family:sans-serif;color:red'><h1>ACCESS DENIED</h1><p>Unauthorized Iframe Detected.</p></div>";
+                
+                // Finally, lift the curtain so they see ONLY the red text
+                var _0xCss = document.getElementById('security-curtain');
+                if (_0xCss) _0xCss.parentNode.removeChild(_0xCss);
+            };
+
+            // Attempt to break out (Plan B)
             try { window.top.location = window.self.location; } catch(e){}
         }
     })();
@@ -841,6 +848,7 @@ input, textarea {
 </script>
 </body>
 </html>
+
 
 
 
