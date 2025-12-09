@@ -3,2610 +3,694 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සුබ අකුරු සෙවීම | Suba Namak</title>
-    
+    <title>සුබ ගණ පිහිටුවීම</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;700&family=Noto+Serif+Sinhala:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Sans+Sinhala:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-maroon: #7F0000;
-            --brand-orange: #FFA500;
-            --brand-cream: #FDF5E6;
-            --text-dark: #333333;
-            --good-green: #e8f5e9;
-            --good-text: #2e7d32;
-            --bad-red: #ffebee;
-            --bad-text: #c62828;
-            --border-radius: 12px;
+            --primary-color: #7F0000;
+            --secondary-color: #FDF5E6;
+            --background-color: #ffffff;
+            --text-color: #333;
+            --border-color: #dbeaff;
+            --success-color: #28a745;
+            --success-bg-color: #eaf7ec;
+            --success-border-color: #a3d9b1;
+            --error-color: #dc3545;
+            --error-bg-color: #fbe9e7;
+            --error-border-color: #ffcdd2;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
         body {
-            font-family: 'Noto Serif Sinhala', serif;
-            background-color: var(--brand-cream);
-            color: var(--text-dark);
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
             margin: 0;
-            padding: 0;
-            line-height: 1.5;
-            font-size: 14px;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Gemunu Libre', sans-serif;
-            text-transform: uppercase;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            line-height: 1.8;
         }
 
         .container {
+            width: 100%;
             max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
-
-        /* Header */
-        h1.main-title {
-            color: var(--brand-maroon);
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            border-bottom: 3px solid var(--brand-orange);
-            padding-bottom: 10px;
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--brand-maroon);
-        }
-
-        select, input[type="date"], input[type="time"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-family: 'Roboto', 'Noto Serif Sinhala', sans-serif;
-            font-size: 1rem;
+            background-color: var(--background-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            padding: 30px;
             box-sizing: border-box;
+            border: 1px solid var(--border-color);
+            margin-top: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .info-icon {
-            color: var(--brand-orange);
-            cursor: pointer;
-            margin-left: 5px;
-            font-weight: bold;
-        }
-
-        .info-text-box {
-            display: none;
-            background: #fff3cd;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-            border-left: 3px solid var(--brand-orange);
-        }
-
-        .error-msg {
-            color: red;
-            background: #ffebee;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-            margin-bottom: 15px;
+        .title {
+            font-family: 'Gemunu Libre', sans-serif;
+            color: var(--primary-color);
+            font-size: 3rem;
             text-align: center;
-            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
         }
 
-        /* CTA Button */
-        .cta-button {
+        /* --- Input Styles --- */
+        .input-area {
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .input-area:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 90, 141, 0.2);
+        }
+
+        .name-input {
             width: 100%;
-            padding: 15px;
-            background-color: var(--brand-maroon);
-            color: white;
+            padding: 12px 15px;
+            font-size: 1.2rem;
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fcfdff;
+        }
+        
+        .name-input:focus {
+            outline: none;
+        }
+
+        #sinhala-name-display {
+            padding: 10px 15px;
+            font-size: 1.3rem;
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 500;
+            min-height: 28px;
+            background-color: #f0f6ff;
+            border-top: 1px solid var(--border-color);
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* --- Select Styles --- */
+        .select-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            font-size: 1.1rem;
+            color: #444;
+            background-color: #fff;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            text-align: center;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+        }
+
+        select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 90, 141, 0.2);
+        }
+
+        /* --- Button Styles --- */
+        .find-button {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            background-color: var(--primary-color);
+            color: #fff;
             border: none;
             border-radius: 8px;
-            font-family: 'Gemunu Libre', sans-serif;
-            font-size: 1.4rem;
             cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
-        .cta-button:hover {
-            background-color: #5a0000;
+        .find-button:hover {
+            background-color: #FFA500;
+            transform: translateY(-2px);
+        }
+        
+        .find-button:active {
+            transform: translateY(0);
         }
 
-        /* Results Area */
-        #result-area {
-            display: none;
+        /* --- Result Styles --- */
+        #result-container {
             margin-top: 30px;
-            animation: fadeIn 0.5s ease-in;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
         }
-
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .secondary-title {
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1.5rem;
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            padding: 10px;
-            color: #fff;
-            border-radius: 8px;
-        }
-
-        .title-good { background-color: #2e7d32; }
-        .title-bad { background-color: #c62828; }
-
-        .sub-heading {
-            font-family: 'Noto Serif Sinhala', serif;
-            font-weight: 700;
-            color: var(--brand-maroon);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        /* Result Cards */
-        .result-card {
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border-left: 4px solid;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .theme-good {
-            background-color: var(--good-green);
-            border-color: var(--good-text);
-            color: var(--good-text);
-        }
-
-        .theme-bad {
-            background-color: var(--bad-red);
-            border-color: var(--bad-text);
-            color: var(--bad-text);
-        }
-
-        .card-header {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            font-family: 'Noto Serif Sinhala', serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Letters Grid */
-        .letters-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-            text-align: center;
-        }
-
-        .letter-box {
-            padding: 5px;
-            background: rgba(255,255,255,0.6);
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .bold-highlight {
-            font-weight: 900;
-            background: #fff;
-            border: 2px solid currentColor;
-            transform: scale(1.05);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .pada-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.95rem;
-        }
-        .pada-active {
-            font-weight: bold;
-        }
-
-        /* --- Graha Accordion Styles --- */
-        .accordion-item {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .accordion-header {
-            padding: 15px;
-            background-color: #fffbf0; /* Light cream for differentiation */
-            color: var(--brand-maroon);
-            font-weight: 700;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.3s;
-            font-family: 'Noto Serif Sinhala', serif;
-        }
-
-        .accordion-header:hover {
-            background-color: #f0e6d2;
-        }
-
-        .accordion-title {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .accordion-letters {
-            font-size: 0.9em;
-            color: #555;
-            font-weight: normal;
-        }
-
-        .dropdown-icon {
-            transition: transform 0.3s ease;
-            color: var(--brand-orange);
-            font-size: 1.2rem;
-        }
-
-        .accordion-item.active .dropdown-icon {
-            transform: rotate(180deg);
-        }
-
-        .accordion-body {
-            display: none;
-            padding: 15px;
-            background-color: #fff;
-            border-top: 1px solid #eee;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .accordion-item.active .accordion-body {
-            display: block;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .balaya-detail-row {
-            margin-bottom: 8px;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed #eee;
+        
+        .result-subha {
+            background-color: var(--success-bg-color);
+            border: 1px solid var(--success-border-color);
+        }
+        .result-asubha {
+            background-color: var(--error-bg-color);
+            border: 1px solid var(--error-border-color);
         }
 
-        .balaya-detail-row:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
+        .result-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+        }
+        .result-subha .result-title { border-bottom: 1px solid var(--success-border-color); }
+        .result-asubha .result-title { border-bottom: 1px solid var(--error-border-color); }
+        
+        .result-title.subha-text { color: var(--success-color); }
+        .result-title.asubha-text { color: var(--error-color); }
+
+        .result-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 12px;
+            align-items: baseline;
+        }
+        
+        .result-details-grid dt {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .result-details-grid dd {
+            margin: 0;
+            font-weight: 400;
+        }
+        
+        .akshara-visthara {
+            font-family: monospace;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            background-color: rgba(255,255,255,0.6);
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
         }
 
-        .status-good { color: #2e7d32; font-weight: 600; }
-        .status-bad { color: #c62828; font-weight: 600; }
-        .status-neutral { color: #f57c00; font-weight: 600; }
-        .status-highlight { color: #0000FF; font-weight: 600; }
-        
-        /* --- UPDATED ACCORDION STYLES --- */
+        /* --- Match Result Special Styles --- */
+        .match-result-highlight {
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: rgba(255,255,255,0.7);
+        }
+        .match-text-green { color: var(--success-color); }
+        .match-text-red { color: var(--error-color); }
 
-/* Green Theme for Strong Planets */
-.header-good {
-    background-color: #e8f5e9 !important; /* Green Background */
-    color: #2e7d32 !important;           /* Green Text */
-    border: 1px solid #c8e6c9;
-}
-
-/* Red Theme for Weak Planets */
-.header-bad {
-    background-color: #ffebee !important; /* Red Background */
-    color: #c62828 !important;           /* Red Text */
-    border: 1px solid #ffcdd2;
-}
-
-/* Make Letters Larger */
-.accordion-letters {
-    font-size: 1rem;       /* Increased size (was 0.9em) */
-    font-weight: bold;       /* Make it bold */
-    margin-top: 5px;         /* Add a little space */
-    color: inherit;          /* Take color from parent (Green or Red) */
-}
-
-/* Override default hover to match theme */
-.header-good:hover { background-color: #c8e6c9 !important; }
-.header-bad:hover { background-color: #ffcdd2 !important; }
-        
-        /* --- Gana Result Styles --- */
-.gana-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px dashed rgba(0,0,0,0.1);
-    font-size: 1rem;
-}
-
-.gana-row:last-child {
-    border-bottom: none;
-}
-
-.gana-name {
-    font-weight: bold;
-    color: #333;
-}
-
-.gana-symbol {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    margin-left: 5px;
-    margin-right: 5px;
-    color: #555;
-    letter-spacing: 1px;
-}
-
-.gana-result {
-    font-weight: bold;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.9em;
-}
-
-/* Specific colors for results in Gana section */
-.res-good { color: #2e7d32; background: #e8f5e9; }
-.res-bad { color: #c62828; background: #ffebee; }
-
-/* --- Best Letters Section Styles --- */
-.best-letters-card {
-    background: #e3f2fd; /* Light Blue */
-    border: 2px solid #2196f3; /* Blue Border */
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Decorative corner tag */
-.best-letters-card::before {
-    content: '⭐';
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #2196f3;
-    color: white;
-    font-size: 1rem;
-    padding: 4px 12px;
-    border-bottom-left-radius: 12px;
-    font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.best-letters-title {
-    font-family: 'Noto Serif Sinhala', serif;
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #0d47a1; /* Dark Blue */
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    border-bottom: 1px solid #bbdefb;
-    padding-bottom: 10px;
-}
-
-.best-letters-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 15px;
-}
-
-.best-letter-box {
-    background: #ffffff;
-    color: #1565c0;
-    font-family: 'Noto Serif Sinhala', serif;
-    font-size: 1.8rem;
-    font-weight: bold;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border: 1px solid #90caf9;
-    transition: transform 0.2s;
-}
-
-.best-letter-box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-    background: #bbdefb;
-}
-
-.best-vowel-text {
-    font-size: 1.1rem;
-    color: #0d47a1;
-    font-weight: 600;
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px dashed #90caf9;
-}
-
-        /* Footer */
-        .blessing-text {
+        #guide-text {
             text-align: center;
-            font-family: 'Gemunu Libre', sans-serif;
-            font-size: 1.5rem;
-            color: var(--brand-orange);
-            margin-top: 30px;
-            margin-bottom: 20px;
+            color: var(--error-color);
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(220, 53, 69, 0.1);
+            border-radius: 8px;
+            display: none;
         }
-
+        
         .footer {
             text-align: center;
-            font-family: 'Roboto';
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            margin-bottom: 3rem;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            .title { font-size: 2.2rem; }
+            .result-details-grid { grid-template-columns: 1fr; gap: 5px; }
+            .result-details-grid dt { margin-top: 10px; }
+            .result-details-grid dt:first-child { margin-top: 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1 class="main-title">සුබ අකුරු සෙවීම</h1>
-
-    <div class="form-group">
-        <label for="dateInput">උපන් දිනය තෝරන්න</label>
-        <input type="date" id="dateInput" min="2026-01-01" max="2026-12-31">
-    </div>
-
-    <div class="form-group">
-        <label for="timeInput">උපන් වේලාව තෝරන්න</label>
-        <input type="time" id="timeInput">
-    </div>
-
-    <div class="form-group">
-        <label for="districtSelect">උපන් දිස්ත්‍රික්කය තෝරන්න</label>
-        <select id="districtSelect" onchange="populateCities()"></select>
-    </div>
-
-    <div class="form-group">
-        <label for="citySelect">
-            උපන් ස්ථානය තෝරන්න
-            <span class="info-icon" onclick="toggleInfo('cityInfo')">i</span>
-        </label>
-        <div id="cityInfo" class="info-text-box">
-            මෙහි ජන්මයා උපන් ස්ථානය නොමැති නම් ඊට ආසන්නතම නගරය තෝරා ගන්න.
+    <div class="container">
+        <h1 class="title">සුබ ගණ පිහිටුවීම</h1>
+        
+        <div class="input-area">
+            <input type="text" id="name-input" class="name-input" placeholder="මෙහි නම ඇතුළත් කරන්න"
+            autofocus autocapitalize="none" autocorrect="off" spellcheck="false">
+             <div id="sinhala-name-display">සිංහල නම මෙතැනින් දිස්වේ >></div>
         </div>
-        <select id="citySelect"></select>
+        
+        <div class="select-group">
+            <select id="nakatha">
+              <option value="" selected disabled>උපන් නැකත තෝරන්න</option>
+              <option value="අස්විද">අස්විද</option>
+              <option value="බෙරණ">බෙරණ</option>
+              <option value="කැති">කැති</option>
+              <option value="රෙහෙණ">රෙහෙණ</option>
+              <option value="මුවසිරස">මුවසිරස</option>
+              <option value="අද">අද</option>
+              <option value="පුනාවස">පුනාවස</option>
+              <option value="පුෂ">පුෂ</option>
+              <option value="අස්ලිස">අස්ලිස</option>
+              <option value="මා">මා</option>
+              <option value="පුවපල්">පුවපල්</option>
+              <option value="උත්‍රපල්">උත්‍රපල්</option>
+              <option value="හත">හත</option>
+              <option value="සිත">සිත</option>
+              <option value="සා">සා</option>
+              <option value="විසා">විසා</option>
+              <option value="අනුර">අනුර</option>
+              <option value="දෙට">දෙට</option>
+              <option value="මුල">මුල</option>
+              <option value="පුවසල">පුවසල</option>
+              <option value="උත්‍රසල">උත්‍රසල</option>
+              <option value="සුවණ">සුවණ</option>
+              <option value="දෙනට">දෙනට</option>
+              <option value="සියාවස">සියාවස</option>
+              <option value="පුවපුටුප">පුවපුටුප</option>
+              <option value="උත්‍රපුටුප">උත්‍රපුටුප</option>
+              <option value="රේවතී">රේවතී</option>
+            </select>
+        </div>
+
+        <button class="find-button" onclick="findGana()">ගණය සොයන්න</button>
+
+        <div id="guide-text"></div>
+        <div id="result-container"></div>
+        
+        <div class="footer">
+            &copy; <span id="year"></span> Suba Namak | Astro Jayamaga. All Rights Reserved.
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="genderInput">ස්ත්‍රී පුරුෂ භාවය (තෝරන්න)</label>
-        <select id="genderInput">
-            <option value="" disabled selected>තෝරන්න</option>
-            <option value="male">පුරුෂ</option>
-            <option value="female">ස්ත්‍රී</option>
-        </select>
-    </div>
-
-    <div id="errorDisplay" class="error-msg"></div>
-
-    <button class="cta-button" onclick="calculateLuckyLetters()">සොයන්න</button>
-
-    <div id="result-area">
+    <script>
+        // --- START: SINGLISH TO SINHALA CONVERSION SCRIPT ---
         
-        <div id="bestLettersSection" style="display:none;">
-    <div class="best-letters-card">
-        <div class="best-letters-title">නම සකස් කිරීමට සුබම අකුරු</div>
-        <div id="bestLettersContainer" class="best-letters-grid"></div>
-        <div id="bestVowelContainer" class="best-vowel-text"></div>
-    </div>
-</div>
-        
-        <div class="secondary-title title-good">ජන්මයාට සුබ අකුරු</div>
-
-        <div id="nekathaPadaResult"></div>
-
-        <div class="sub-heading" id="nekathaGoodHeader">නැකතට සුබ අකුරු</div>
-        <div id="nekathaGoodContainer"></div>
-
-        <div class="sub-heading">පක්ෂියාට අනුව සුබ ස්වර</div>
-        <div id="pakshiyaGoodContainer"></div>
-
-        <div class="sub-heading">හඳහනේ බලවත් ග්‍රහයින්ට අනුව සුබ අකුරු</div>
-        <div id="grahaGoodContainer"></div>
-
-        <div class="sub-heading">පංච ධාතු ගුණයට සුබ අකුරු</div>
-        <div id="bhutaGoodContainer"></div>
-
-        <div id="lagnaGoodContainer"></div>
-
-        <div id="navanshakaGoodContainer"></div>
-
-        <div id="lagnaLordGoodContainer"></div>
-
-        <div id="dayGoodContainer"></div>
-        
-        <div class="sub-heading" id="ganaGoodHeader">නැකතට සුබ ගණ</div>
-<div id="ganaGoodContainer"></div>
-
-        <div class="secondary-title title-bad">ජන්මයාට අසුබ අකුරු</div>
-
-        <div class="sub-heading" id="nekathaBadHeader">නැකතට අසුබ අකුරු</div>
-        <div id="nekathaBadContainer"></div>
-
-        <div id="pakshiyaBadContainer"></div>
-
-        <div class="sub-heading">දුර්වල ග්‍රහයින්ට අනුව අසුබ අකුරු</div>
-        <div id="grahaBadContainer"></div>
-
-        <div class="sub-heading">පංච ධාතු ගුණයට අසුබ අකුරු</div>
-        <div id="bhutaBadContainer"></div>
-        
-        <div class="sub-heading" id="ganaBadHeader">නැකතට අසුබ ගණ</div>
-<div id="ganaBadContainer"></div>
-
-
-        <div class="blessing-text">දීර්ඝායු වේවා!</div>
-    </div>
-
-    <div class="footer">
-        &copy; <span id="yearSpan"></span> Suba Namak | Astro Jayamaga. All Rights Reserved.
-    </div>
-</div>
-
-<script>
-    // --- 1. CONFIG & DATA ---
-    document.getElementById('yearSpan').textContent = new Date().getFullYear();
-
-    function toggleInfo(id) {
-        const el = document.getElementById(id);
-        el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Toggle Accordion Function
-    function toggleAccordion(element) {
-        element.classList.toggle('active');
-    }
-
-    // Location Data
-    const BASE_LONGITUDE = 79.85000;
-    const LOCATIONS = {
-        "Colombo": [
-                {name: "Colombo", lat: 6.9172436, lng: 79.8671954},
-                {name: "Athurugiriya", lat: 6.872319, lng: 80.000388},
-                {name: "Avissawella", lat: 6.957381, lng: 80.2076654},
-                {name: "Bambalapitiya", lat: 6.904361, lng: 79.85404},
-                {name: "Battaramulla", lat: 6.897994, lng: 79.922287},
-                {name: "Borella", lat: 6.914784, lng: 79.877595},
-                {name: "Boralesgamuwa", lat: 6.841, lng: 79.9017},
-                {name: "Dehiwala", lat: 6.855949, lng: 79.862968},
-                {name: "Homagama", lat: 6.8469074, lng: 79.9923651},
-                {name: "Hokandara", lat: 6.8804849, lng: 79.9599002},
-                {name: "Kaduwela", lat: 6.929061, lng: 79.982775},
-                {name: "Kalubowila", lat: 6.8676907, lng: 79.8762476},
-                {name: "Kesbewa", lat: 6.7787, lng: 79.9473},
-                {name: "Kollupitiya", lat: 6.88333, lng: 79.85000},
-                {name: "Kolonnawa", lat: 6.9284, lng: 79.8952},
-                {name: "Maharagama", lat: 6.851095, lng: 79.921201},
-                {name: "Maligawatta", lat: 6.9352912, lng: 79.8721056},
-                {name: "Moratuwa", lat: 6.7879, lng: 79.8851},
-                {name: "Mount Lavinia", lat: 6.831716, lng: 79.862865},
-                {name: "Narahenpita", lat: 6.9057266, lng: 79.8821297},
-                {name: "Nugegoda", lat: 6.8649, lng: 79.8997},
-                {name: "Padukka", lat: 6.8431, lng: 80.0917},
-                {name: "Pannipitiya", lat: 6.8464, lng: 79.9484},
-                {name: "Piliyandala", lat: 6.799951, lng: 79.9231171},
-                {name: "Rathmalana", lat: 6.8195, lng: 79.8801},
-                {name: "Sri Jayawardenepura Kotte", lat: 6.8683337, lng: 79.9261518},
-                {name: "Wellawatte", lat: 6.8743844, lng: 79.8591176}
-            ],
-            "Kalutara": [
-                {name: "Kalutara", lat: 6.5630625, lng: 79.9852435},
-                {name: "Agalawatta", lat: 6.5423445, lng: 80.157362},
-                {name: "Aluthgama", lat: 6.4339065, lng: 80.0016286},
-                {name: "Baduraliya", lat: 6.517122, lng: 80.23118},
-                {name: "Bandaragama", lat: 6.716396, lng: 79.991651},
-                {name: "Beruwala", lat: 6.473838, lng: 79.991997},
-                {name: "Bulathsinhala", lat: 6.648747, lng: 80.179137},
-                {name: "Dodangoda", lat: 6.532057, lng: 79.986418},
-                {name: "Horana", lat: 6.7112399, lng: 80.0669863},
-                {name: "Ingiriya", lat: 6.741412, lng: 80.162144},
-                {name: "Matugama", lat: 6.521943, lng: 80.113685},
-                {name: "Neboda", lat: 6.5929145, lng: 80.0878027},
-                {name: "Panadura", lat: 6.7217149, lng: 79.9067953},
-                {name: "Payagala", lat: 6.5218775, lng: 79.9788422},
-                {name: "Wadduwa", lat: 6.6639728, lng: 79.9305102},
-                {name: "Walallavita", lat: 6.376967, lng: 80.195794}
-            ],
-            "Gampaha": [
-                {name: "Gampaha", lat: 7.0532237, lng: 80.3289831},
-                {name: "Biyagama", lat: 6.9469426, lng: 79.9939404},
-                {name: "Divulapitiya", lat: 7.224568, lng: 80.019462},
-                {name: "Ganemulla", lat: 7.062396, lng: 79.966831},
-                {name: "Ja-Ela", lat: 7.0750452, lng: 79.8940656},
-                {name: "Kadawatha", lat: 7.0005, lng: 79.9494},
-                {name: "Katana", lat: 7.249524, lng: 79.904294},
-                {name: "Katunayake", lat: 7.172485, lng: 79.885348},
-                {name: "Kelaniya", lat: 6.950415, lng: 79.917142},
-                {name: "Kiribathgoda", lat: 6.9835, lng: 79.9289},
-                {name: "Kirindiwela", lat: 7.0431455, lng: 80.1317271},
-                {name: "Mahara", lat: 6.991667, lng: 79.938326},
-                {name: "Marawila", lat: 7.4130318, lng: 79.8309525},
-                {name: "Minuwangoda", lat: 7.1725525, lng: 79.9563284},
-                {name: "Mirigama", lat: 7.2475144, lng: 80.1299215},
-                {name: "Negombo", lat: 7.2121161, lng: 79.849371},
-                {name: "Ragama", lat: 7.0263493, lng: 79.9236484},
-                {name: "Seeduwa", lat: 7.1311776, lng: 79.8762627},
-                {name: "Veyangoda", lat: 7.1534492, lng: 80.0602466},
-                {name: "Wattala", lat: 6.990668, lng: 79.893171},
-                {name: "Wathupitiwala", lat: 7.125555, lng: 80.110852},
-                {name: "Weliweriya", lat: 7.033592, lng: 80.027151},
-                {name: "Welisara", lat: 7.027756, lng: 79.898279}
-            ],
-            "Galle": [
-                {name: "Galle", lat: 6.036578, lng: 80.216479},
-                {name: "Ambalangoda", lat: 6.2491338, lng: 80.0625085},
-                {name: "Baddegama", lat: 6.1614238, lng: 80.1804779},
-                {name: "Balapitiya", lat: 6.2601723, lng: 80.0384209},
-                {name: "Bentota", lat: 6.4236093, lng: 79.9994893},
-                {name: "Elpitiya", lat: 6.2938317, lng: 80.1642436},
-                {name: "Hikkaduwa", lat: 6.140753, lng: 80.1028181},
-                {name: "Hiniduma", lat: 6.3313532, lng: 80.3223076},
-                {name: "Imaduwa", lat: 6.037848, lng: 80.391439},
-                {name: "Karandeniya", lat: 6.2692305, lng: 80.0992584},
-                {name: "Karapitiya", lat: 6.0665678, lng: 80.225809},
-                {name: "Mahamodara", lat: 6.038818, lng: 80.206995},
-                {name: "Meetiyagoda", lat: 6.189834, lng: 80.095394},
-                {name: "Nagoda", lat: 6.197985, lng: 80.274697},
-                {name: "Udugama", lat: 6.217905, lng: 80.338021},
-                {name: "Unawatuna", lat: 6.017447, lng: 80.24886},
-                {name: "Yakkalamulla", lat: 6.106426, lng: 80.348315}
-            ],
-            "Matara": [
-                {name: "Matara", lat: 5.9479065, lng: 80.5496589},
-                {name: "Akuressa", lat: 6.100501, lng: 80.477581},
-                {name: "Deiyandara", lat: 6.153956, lng: 80.601041},
-                {name: "Deniyaya", lat: 6.342485, lng: 80.559658},
-                {name: "Devinuwara", lat: 5.932041, lng: 80.591057},
-                {name: "Dikwella", lat: 5.962513, lng: 80.677591},
-                {name: "Hakmana", lat: 6.083926, lng: 80.6449735},
-                {name: "Kamburupitiya", lat: 6.0957342, lng: 80.5647207},
-                {name: "Morawaka", lat: 6.24315, lng: 80.492674},
-                {name: "Urubokka", lat: 6.283109, lng: 80.632868},
-                {name: "Weligama", lat: 5.97503, lng: 80.418828}
-            ],
-            "Hambantota": [
-                {name: "Hambantota", lat: 6.1271953, lng: 81.1224549},
-                {name: "Angunakolapelessa", lat: 6.16524, lng: 80.899793},
-                {name: "Ambalantota", lat: 6.1147035, lng: 81.0220545},
-                {name: "Beliatta", lat: 6.048163, lng: 80.733427},
-                {name: "Kataragama", lat: 6.4126218, lng: 81.3388947},
-                {name: "Ranna", lat: 6.097728, lng: 80.87579},
-                {name: "Sooriyawewa", lat: 6.304564, lng: 81.003978},
-                {name: "Tangalle", lat: 6.022708, lng: 80.796871},
-                {name: "Tissamaharama", lat: 6.284974, lng: 81.268557},
-                {name: "Walasmulla", lat: 6.149682, lng: 80.698166},
-                {name: "Weeraketiya", lat: 6.145085, lng: 80.765208}
-            ],
-            "Kandy": [
-                {name: "Kandy", lat: 7.2865161, lng: 80.631418},
-                {name: "Gampola", lat: 7.1557723, lng: 80.564403},
-                {name: "Peradeniya", lat: 7.266409, lng: 80.5981261}
-            ],
-            "Matale": [
-                {name: "Matale", lat: 7.4619973, lng: 80.6252308},
-                {name: "Dambulla", lat: 7.8728249, lng: 80.650505},
-                {name: "Galewela", lat: 7.7606317, lng: 80.5716613},
-                {name: "Rattota", lat: 7.5184272, lng: 80.6767853}
-            ],
-            "Nuwara Eliya": [
-                {name: "Nuwara Eliya", lat: 6.9741095, lng: 80.7803117},
-                {name: "Bogawantalawa", lat: 6.794878, lng: 80.6784721},
-                {name: "Kothmale", lat: 7.062514, lng: 80.6854689},
-                {name: "Maskeliya", lat: 6.8339695, lng: 80.5744472},
-                {name: "Walapane", lat: 7.102328, lng: 80.8584394}
-            ],
-            "Ratnapura": [
-                {name: "Ratnapura", lat: 6.6871447, lng: 80.3924992},
-                {name: "Ayagama", lat: 6.640133, lng: 80.309431},
-                {name: "Balangoda", lat: 6.6588306, lng: 80.7123628},
-                {name: "Eheliyagoda", lat: 6.848231, lng: 80.264407},
-                {name: "Embilipitiya", lat: 6.3261811, lng: 80.8419125},
-                {name: "Godakawela", lat: 6.504906, lng: 80.652114},
-                {name: "Kahawatta", lat: 6.578639, lng: 80.575125},
-                {name: "Kalawana", lat: 6.530609, lng: 80.397405},
-                {name: "Kolonna", lat: 6.401483, lng: 80.691844},
-                {name: "Kuruwita", lat: 6.7761011, lng: 80.3668957},
-                {name: "Pelmadulla", lat: 6.50193, lng: 80.656525},
-                {name: "Rakwana", lat: 6.4715878, lng: 80.614724}
-            ],
-            "Kegalle": [
-                {name: "Kegalle", lat: 7.2474986, lng: 80.345705},
-                {name: "Aranayake", lat: 7.148791, lng: 80.464859},
-                {name: "Deraniyagala", lat: 6.9321167, lng: 80.3366163},
-                {name: "Dehiowita", lat: 6.963895, lng: 80.264191},
-                {name: "Galigamuwa", lat: 7.235281, lng: 80.310177},
-                {name: "Mawanella", lat: 7.2536811, lng: 80.4458988},
-                {name: "Rambukkana", lat: 7.313524, lng: 80.388133},
-                {name: "Ruwanwella", lat: 7.045873, lng: 80.253706},
-                {name: "Warakapola", lat: 7.2252647, lng: 80.1960423},
-                {name: "Yatiyanthota", lat: 7.028882, lng: 80.295542}
-            ],
-            "Kurunegala": [
-                {name: "Kurunegala", lat: 7.4782607, lng: 80.36},
-                {name: "Alawwa", lat: 7.298117, lng: 80.25},
-                {name: "Ambanpola", lat: 7.916775, lng: 80.35},
-                {name: "Galgamuwa", lat: 8.001545, lng: 80.28},
-                {name: "Hettipola", lat: 7.540351, lng: 80.12},
-                {name: "Ibbagamuwa", lat: 7.554821, lng: 80.46},
-                {name: "Kuliyapitiya", lat: 7.484906, lng: 80.04},
-                {name: "Mahawa", lat: 7.823527, lng: 80.27},
-                {name: "Mawathagama", lat: 7.4403955, lng: 80.43},
-                {name: "Narammala", lat: 7.431245, lng: 80.22},
-                {name: "Nikaweratiya", lat: 7.7467077, lng: 80.11},
-                {name: "Pannala", lat: 7.329542, lng: 79.99},
-                {name: "Polgahawela", lat: 7.3371027, lng: 80.29},
-                {name: "Wariyapola", lat: 7.6165329, lng: 80.23}
-            ],
-            "Puttalam": [
-                {name: "Puttalam", lat: 8.0277811, lng: 79.83},
-                {name: "Anamaduwa", lat: 7.8777703, lng: 79.95},
-                {name: "Chilaw", lat: 7.561989, lng: 79.79},
-                {name: "Dankotuwa", lat: 7.296964, lng: 79.88},
-                {name: "Kalpitiya", lat: 8.233942, lng: 79.76},
-                {name: "Marawila", lat: 7.4094, lng: 79.84},
-                {name: "Madampe", lat: 7.497234, lng: 79.84},
-                {name: "Mundalama", lat: 7.788769, lng: 79.82},
-                {name: "Nattandiya", lat: 7.414396, lng: 79.86},
-                {name: "Wennappuwa", lat: 7.341385, lng: 79.84}
-            ],
-            "Anuradhapura": [
-                {name: "Anuradhapura", lat: 8.325781, lng: 80.40},
-                {name: "Horowpothana", lat: 8.552214, lng: 80.84},
-                {name: "Eppawala", lat: 8.146277, lng: 80.41},
-                {name: "Kahatagasdigiliya", lat: 8.422954, lng: 80.56},
-                {name: "Kebitigollewa", lat: 8.642305, lng: 80.64},
-                {name: "Kekirawa", lat: 8.044023, lng: 80.59},
-                {name: "Medawachchiya", lat: 8.537481, lng: 80.49},
-                {name: "Mihintale", lat: 8.3547478, lng: 80.51},
-                {name: "Nochchiyagama", lat: 8.267103, lng: 80.23},
-                {name: "Padaviya", lat: 8.8324065, lng: 80.76},
-                {name: "Tambuttegama", lat: 8.154056, lng: 80.30}
-            ],
-            "Polonnaruwa": [
-                {name: "Polonnaruwa", lat: 7.9433458, lng: 81.0093878},
-                {name: "Aralaganwila", lat: 7.787839, lng: 81.188074},
-                {name: "Bakamuna", lat: 7.774473, lng: 80.819512},
-                {name: "Dimbulagala", lat: 7.859341, lng: 81.103057},
-                {name: "Elahera", lat: 7.734387, lng: 80.79348},
-                {name: "Hingurakgoda", lat: 8.0459371, lng: 80.9648561},
-                {name: "Kaduruwela", lat: 7.931594, lng: 81.034083},
-                {name: "Medirigiriya", lat: 8.143092, lng: 80.967559},
-                {name: "Welikanda", lat: 7.948507, lng: 81.246498}
-            ],
-            "Badulla": [
-                {name: "Badulla", lat: 6.991575, lng: 81.052446},
-                {name: "Bandarawela", lat: 6.8400047, lng: 80.9846979},
-                {name: "Bibilegama", lat: 6.894609, lng: 81.141983},
-                {name: "Diyatalawa", lat: 6.8055733, lng: 80.9571343},
-                {name: "Hali-Ela", lat: 6.956585, lng: 81.03406},
-                {name: "Haputale", lat: 6.783205, lng: 80.964601},
-                {name: "Mahiyanganaya", lat: 7.3261607, lng: 80.9907893},
-                {name: "Passara", lat: 6.9335724, lng: 81.1524924},
-                {name: "Welimada", lat: 6.9090322, lng: 80.9087119}
-            ],
-            "Monaragala": [
-                {name: "Monaragala", lat: 6.891265, lng: 81.342216},
-                {name: "Badalkumbura", lat: 6.894371, lng: 81.232229},
-                {name: "Bibile", lat: 7.1632048, lng: 81.2254243},
-                {name: "Buttala", lat: 6.7581423, lng: 81.2398175},
-                {name: "Inginiyagala", lat: 7.2262613, lng: 81.5421294},
-                {name: "Kataragama", lat: 6.4126218, lng: 81.3388947},
-                {name: "Medagama", lat: 7.03911, lng: 81.274844},
-                {name: "Siyambalanduwa", lat: 6.906219, lng: 81.548426},
-                {name: "Thanamalwila", lat: 6.423918, lng: 81.130428},
-                {name: "Wellawaya", lat: 6.7304832, lng: 81.0984617}
-            ],
-            "Jaffna": [
-                {name: "Jaffna", lat: 9.6664323, lng: 80.0127075},
-                {name: "Analitivu", lat: 9.669823, lng: 79.780518},
-                {name: "Chavakachcheri", lat: 9.6616371, lng: 80.1669594},
-                {name: "Karainagar", lat: 9.7407444, lng: 79.8867057},
-                {name: "Kayts", lat: 9.6981156, lng: 79.8658366},
-                {name: "Kodikamam", lat: 9.6781097, lng: 80.2368417},
-                {name: "Kopay", lat: 9.7062897, lng: 80.0652012},
-                {name: "Mandaithivu", lat: 9.608656, lng: 79.986579},
-                {name: "Nainativu", lat: 9.6048881, lng: 79.7730665},
-                {name: "Nedunthivu", lat: 9.514489, lng: 79.683441},
-                {name: "Point Pedro", lat: 9.8051927, lng: 80.2241181},
-                {name: "Pungudutivu", lat: 9.5725062, lng: 79.8301305},
-                {name: "Tellippalai", lat: 9.7853845, lng: 80.0395793},
-                {name: "Valvettithurai", lat: 9.8257205, lng: 80.1787968},
-                {name: "Velanai", lat: 9.637066, lng: 79.903803}
-            ],
-            "Kilinochchi": [
-                {name: "Kilinochchi", lat: 9.372723, lng: 80.411427},
-                {name: "Akkarayankulam", lat: 9.3117868, lng: 80.3148952},
-                {name: "Dharmapuram", lat: 9.350000, lng: 80.450000},
-                {name: "Mankulam", lat: 9.1280175, lng: 80.4470247},
-                {name: "Pallai", lat: 9.6146574, lng: 80.3254895},
-                {name: "Paranthan", lat: 9.441415, lng: 80.404831},
-                {name: "Poonakary", lat: 9.5074244, lng: 80.2080776},
-                {name: "Vaddakkachchi", lat: 9.374513, lng: 80.454715},
-                {name: "Tharmapuram", lat: 9.410189, lng: 80.517439}
-            ],
-            "Mullaitivu": [
-                {name: "Mullaitivu", lat: 9.261705, lng: 80.813914},
-                {name: "Mallavi", lat: 9.1346083, lng: 80.3087492},
-                {name: "Mankulam", lat: 9.136988, lng: 80.445169},
-                {name: "Mulliyawalai", lat: 9.224977, lng: 80.778716},
-                {name: "Oddusuddan", lat: 9.1627819, lng: 80.6604767},
-                {name: "Puthukkudiyiruppu", lat: 9.3152509, lng: 80.7048246}
-            ],
-            "Vavuniya": [
-                {name: "Vavuniya", lat: 8.761509, lng: 80.4993482},
-                {name: "Cheddikulam", lat: 8.659063, lng: 80.312443},
-                {name: "Kanagarayankulam", lat: 9.046299, lng: 80.517275},
-                {name: "Nedunkerny", lat: 9.0537012, lng: 80.6528729},
-                {name: "Omanthai", lat: 8.865002, lng: 80.502566},
-                {name: "Puliyankulam", lat: 8.9646044, lng: 80.5258698}
-            ],
-            "Mannar": [
-                {name: "Mannar", lat: 8.981363, lng: 79.90288},
-                {name: "Adampan", lat: 8.943329, lng: 79.9966791},
-                {name: "Madhu", lat: 8.856361, lng: 80.204244},
-                {name: "Murunkan", lat: 8.8366766, lng: 80.0378205},
-                {name: "Nanaddan", lat: 8.837082, lng: 79.974729},
-                {name: "Pesalai", lat: 9.08283, lng: 79.810063},
-                {name: "Silavathurai", lat: 8.747651, lng: 79.951446},
-                {name: "Thalaimannar", lat: 9.103228, lng: 79.731174}
-            ],
-            "Ampara": [
-                {name: "Ampara", lat: 7.29895, lng: 81.6892025},
-                {name: "Akkaraipattu", lat: 7.2277333, lng: 81.8513046},
-                {name: "Dehiattakandiya", lat: 7.6735467, lng: 81.0435361},
-                {name: "Kalmunai", lat: 7.417396, lng: 81.807407},
-                {name: "Karaitivu", lat: 7.387521, lng: 81.836911},
-                {name: "Nintavur", lat: 7.353398, lng: 81.856628},
-                {name: "Pottuvil", lat: 6.8759779, lng: 81.8303521},
-                {name: "Sammanthurai", lat: 7.368246, lng: 81.812935},
-                {name: "Sainthamaruthu", lat: 7.387505, lng: 81.836898},
-                {name: "Uhana", lat: 7.363036, lng: 81.635277}
-            ],
-            "Batticaloa": [
-                {name: "Batticaloa", lat: 7.7074301, lng: 81.69035},
-                {name: "Chenkalady", lat: 7.783826, lng: 81.590317},
-                {name: "Eravur", lat: 7.7831262, lng: 81.6061526},
-                {name: "Kaluwanchikudy", lat: 7.516871, lng: 81.785147},
-                {name: "Kattankudy", lat: 7.673166, lng: 81.734489},
-                {name: "Mahaoya", lat: 7.530922, lng: 81.355586},
-                {name: "Vakarai", lat: 8.1341481, lng: 81.4346553},
-                {name: "Valaichchenai", lat: 7.911727, lng: 81.532247}
-            ],
-            "Trincomalee": [
-                {name: "Trincomalee", lat: 8.564149, lng: 81.239806},
-                {name: "Gomarankadawala", lat: 8.682222, lng: 80.953518},
-                {name: "Kantale", lat: 8.367006, lng: 81.004528},
-                {name: "Kinniya", lat: 8.5011915, lng: 81.1874876},
-                {name: "Kuchchaveli", lat: 8.819246, lng: 81.099068},
-                {name: "Muttur", lat: 8.455204, lng: 81.263211},
-                {name: "Nilaveli", lat: 8.680971, lng: 81.193656},
-                {name: "Pulmoddai", lat: 8.9413653, lng: 80.9830161},
-                {name: "Serunuwara", lat: 8.3229365, lng: 81.2997025},
-                {name: "Thambalagamuwa", lat: 8.4774381, lng: 81.1093079}
-            ]
-    };
-
-    // Nekatha & Letters Data
-    const NAKATHA_LETTERS = {
-        'අස්විද': { padas: ['චු', 'චෙ', 'චො', 'ල'], swara: 'අ' },
-        'බෙරණ': { padas: ['ලි', 'ලු', 'ලෙ', 'ලො'], swara: 'අ' },
-        'කැති': { padas: ['අ', 'ඉ', 'උ', 'එ'], swara: 'අ' },
-        'රෙහෙණ': { padas: ['ඔ', 'ව', 'වි', 'වු'], swara: 'අ' },
-        'මුවසිරස': { padas: ['වෙ', 'වො', 'ක', 'කි'], swara: 'අ' },
-        'අද': { padas: ['කු', 'ඝ', 'ඞ', 'ඡ'], swara: 'ඉ' },
-        'පුනාවස': { padas: ['කෙ', 'කො', 'හ', 'හි'], swara: 'ඉ' },
-        'පුෂ': { padas: ['හු', 'හෙ', 'හො', 'ඩ'], swara: 'ඉ' },
-        'අස්ලිස': { padas: ['ඩි', 'ඩු', 'ඩෙ', 'ඩො'], swara: 'ඉ' },
-        'මා': { padas: ['මා', 'මි', 'මු', 'මෙ'], swara: 'ඉ' },
-        'පුවපල්': { padas: ['මො', 'ට', 'ටි', 'ටු'], swara: 'ඉ' },
-        'උත්‍රපල්': { padas: ['ටෙ', 'ටො', 'ප', 'පි'], swara: 'උ' },
-        'හත': { padas: ['පු', 'ෂ', 'ණ', 'ඨ'], swara: 'උ' },
-        'සිත': { padas: ['පෙ', 'පො', 'ර', 'රි'], swara: 'උ' },
-        'සා': { padas: ['රු', 'රෙ', 'රො', 'ත'], swara: 'උ' },
-        'විසා': { padas: ['ති', 'තු', 'තෙ', 'තො'], swara: 'උ' },
-        'අනුර': { padas: ['න', 'නි', 'නු', 'නෙ'], swara: 'එ' },
-        'දෙට': { padas: ['නො', 'ය', 'යි', 'යු'], swara: 'එ' },
-        'මුල': { padas: ['යෙ', 'යො', 'බ', 'බි'], swara: 'එ' },
-        'පුවසල': { padas: ['බු', 'ධ', 'එ', 'ඪ'], swara: 'එ' },
-        'උත්‍රසල': { padas: ['බෙ', 'බො', 'ජ', 'ජි'], swara: 'එ' },
-        'සුවණ': { padas: ['ජු', 'ජෙ', 'ජො', 'ශ'], swara: 'එ' },
-        'දෙනට': { padas: ['ග', 'ගි', 'ගු', 'ගෙ'], swara: 'ඔ' },
-        'සියාවස': { padas: ['ගො', 'ස', 'සි', 'සු'], swara: 'ඔ' },
-        'පුවපුටුප': { padas: ['සෙ', 'සො', 'ද', 'දි'], swara: 'ඔ' },
-        'උත්‍රපුටුප': { padas: ['දු', 'ථ', 'ඣ', 'ඤ'], swara: 'ඔ' },
-        'රේවතී': { padas: ['දෙ', 'දො', 'ච', 'චි'], swara: 'ඔ' }
-    };
-
-    const NAKATHA_ORDER = [
-        "අස්විද", "මා", "මුල", "බෙරණ", "පුවපල්", "පුවසල", "කැති", "උත්‍රපල්", "උත්‍රසල",
-        "රෙහෙණ", "හත", "සුවණ", "මුවසිරස", "සිත", "දෙනට", "අද", "සා", "සියාවස",
-        "පුනාවස", "විසා", "පුවපුටුප", "පුෂ", "අනුර", "උත්‍රපුටුප", "අස්ලිස", "දෙට", "රේවතී"
-    ];
-
-    const PAKSHIYA_DATA = {
-        'භේරුණ්ඩ පක්ෂියා': { alias: 'රාජාලියා', good: 'අ, ආ', bad: 'උ, ඌ' },
-        'පිංගල පක්ෂියා': { alias: 'බකමූණා', good: 'ඉ, ඊ', bad: 'උ, ඌ' }, 
-        'කාක පක්ෂියා': { alias: 'කපුටා', good: 'උ, ඌ', bad: 'අ, ආ' },
-        'කුක්කුට පක්ෂියා': { alias: 'කුකුළා', good: 'එ, ඒ', bad: 'ඉ, ඊ' },
-        'මයුර පක්ෂියා': { alias: 'මොනරා', good: 'ඔ, ඕ', bad: 'එ, ඒ' }
-    };
-
-    const PAKSHIYA_GROUPS = [
-        { name: 'භේරුණ්ඩ පක්ෂියා', stars: ['අස්විද', 'බෙරණ', 'කැති', 'රෙහෙණ', 'මුවසිරස'] },
-        { name: 'පිංගල පක්ෂියා', stars: ['අද', 'පුනාවස', 'පුෂ', 'අස්ලිස', 'මා', 'පුවපල්'] },
-        { name: 'කාක පක්ෂියා', stars: ['උත්‍රපල්', 'හත', 'සිත', 'සා', 'විසා'] },
-        { name: 'කුක්කුට පක්ෂියා', stars: ['අනුර', 'දෙට', 'මුල', 'පුවසල', 'උත්‍රසල', 'සුවණ'] },
-        { name: 'මයුර පක්ෂියා', stars: ['දෙනට', 'සියාවස', 'පුවපුටුප', 'උත්‍රපුටුප', 'රේවතී'] }
-    ];
-
-    const ELEMENTS_LETTERS = {
-        'තේජෝ': 'උ, ඌ, ප්, ර්, ත්',
-        'වායෝ': 'එ, ඒ, න්, බ්, ය්, ජ්, ණ්',
-        'පඨවි': 'අ, ආ, ක්, ව්, ල් ,ළ්',
-        'ආපෝ': 'ඉ, ඊ, හ්, ම්, ට්, ඩ්',
-        'ආකාශ': 'ඔ, ඕ, ග්, ස්, ද්, ච්'
-    };
-
-    const LAGNA_INFO = {
-        1: { name: "මේෂ", lord: "කුජ", lordLets: "ක බ ග ඝ ඞ", goodBhuta: ["තේජෝ", "වායෝ"], badBhuta: ["පඨවි"], goodLets: "අ ආ ශ" },
-        2: { name: "වෘෂභ", lord: "සිකුරු", lordLets: "ච ඡ ජ ඣ ඤ", goodBhuta: ["පඨවි", "ආපෝ"], badBhuta: ["තේජෝ", "වායෝ"], goodLets: "ඉ ඊ උ ෂ" },
-        3: { name: "මිථුන", lord: "බුධ", lordLets: "ට ඨ ඩ ඪ ණ", goodBhuta: ["වායෝ", "පඨවි"], badBhuta: ["ආපෝ", "තේජෝ"], goodLets: "ඌ ඍ ඎ ස" },
-        4: { name: "කටක", lord: "සඳු", lordLets: "ය ර ල ව ස හ ළ", goodBhuta: ["ආපෝ", "පඨවි"], badBhuta: ["වායෝ"], goodLets: "ග ඝ එ හ" },
-        5: { name: "සිංහ", lord: "රවි", lordLets: "අ ඉ උ එ ඔ", goodBhuta: ["තේජෝ", "වායෝ"], badBhuta: ["පඨවි"], goodLets: "ඓ ඔ ඖ ළ" },
-        6: { name: "කන්‍යා", lord: "බුධ", lordLets: "ට ඨ ඩ ඪ ණ", goodBhuta: ["පඨවි", "ආපෝ"], badBhuta: ["තේජෝ"], goodLets: "අං අඃ" },
-        7: { name: "තුලා", lord: "සිකුරු", lordLets: "ච ඡ ජ ඣ ඤ", goodBhuta: ["ආකාශ"], badBhuta: ["ආපෝ"], goodLets: "ක ඛ ග ඝ ඞ" },
-        8: { name: "වෘශ්චික", lord: "කුජ", lordLets: "ක බ ග ඝ ඞ", goodBhuta: ["ආපෝ", "තේජෝ"], badBhuta: ["වායෝ", "පඨවි"], goodLets: "ච ඡ ජ ඣ ඤ" },
-        9: { name: "ධනු", lord: "ගුරු", lordLets: "ත ථ ද ධ න", goodBhuta: ["තේජෝ", "ආකාශ"], badBhuta: ["පඨවි"], goodLets: "ට ඨ ඩ ඪ ණ" },
-        10: { name: "මකර", lord: "ශනි", lordLets: "ප ඵ බ භ ම", goodBhuta: ["පඨවි", "වායෝ"], badBhuta: ["ආපෝ", "තේජෝ"], goodLets: "ත ථ ද ධ න" },
-        11: { name: "කුම්භ", lord: "ශනි", lordLets: "ප ඵ බ භ ම", goodBhuta: ["වායෝ", "තේජෝ"], badBhuta: ["ආපෝ"], goodLets: "ප ඵ බ භ ම" },
-        12: { name: "මීන", lord: "ගුරු", lordLets: "ත ථ ද ධ න", goodBhuta: ["ආපෝ", "ආකාශ"], badBhuta: ["වායෝ"], goodLets: "ය ර ල ව" }
-    };
-
-    const LAGNA_TIMING = [
-        { id: 7, duration: 7333, group: 3 }, { id: 8, duration: 7773, group: 4 }, { id: 9, duration: 7689, group: 1 },
-        { id: 10, duration: 7029, group: 2 }, { id: 11, duration: 6413, group: 3 }, { id: 12, duration: 6297, group: 4 },
-        { id: 1, duration: 6752, group: 1 }, { id: 2, duration: 7475, group: 2 }, { id: 3, duration: 7827, group: 3 },
-        { id: 4, duration: 7527, group: 4 }, { id: 5, duration: 7071, group: 1 }, { id: 6, duration: 6978, group: 2 }
-    ];
-
-    const NAVANSHAKA_SEQUENCES = {
-        1: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        2: [10, 11, 12, 1, 2, 3, 4, 5, 6],
-        3: [7, 8, 9, 10, 11, 12, 1, 2, 3],
-        4: [4, 5, 6, 7, 8, 9, 10, 11, 12]
-    };
-
-    const NAVANSHAKA_LETTERS = {
-        1: "චු චෙ චො ල ලි ලු ලෙ ලො අ", 2: "ඉ උ එ ඔ ව වි වු වෙ වො", 3: "ක කි කු ඝ ඞ ජ කෙ කො හ",
-        4: "හි හු හෙ හො ඩ ඩි ඩු ඩෙ ඩො", 5: "ම මි මු මෙ මො ට ටි ටු ටෙ ටො", 6: "ප පි පු පෙ පො ෂ ඨ",
-        7: "ර රි රු රෙ රො ත ති තෙ", 8: "තො න නි නු නෙ නො ව වි යු", 9: "යෙ යො භ භි භු භෙ ධ ඵ ඪ",
-        10: "භො ජ ජි ජු ජෙ ජො ඛ ඛි ඛු ඛෙ ඛො ග ගි", 11: "ගු ගෙ ගො ස සි සු සෙ සො ද", 12: "දි දෙ දො ථ ඣ ඤ ච චි"
-    };
-
-    const DAY_LETTERS = [
-        "අ ඉ උ එ ඔ", "ය ර ල ව ශ ෂ ස හ ළ", "ක බ ග ඝ ඞ", "ට ඨ ඩ ඪ ණ", "ත ථ ද ධ න", "ච ඡ ජ ඣ ඤ", "ප ඵ බ භ ම"
-    ];
-
-    const RASHI_NAMES = {1:"මේෂ", 2:"වෘෂභ", 3:"මිථුන", 4:"කටක", 5:"සිංහ", 6:"කන්‍යා", 7:"තුලා", 8:"වෘශ්චික", 9:"ධනු", 10:"මකර", 11:"කුම්භ", 12:"මීන"};
-
-    const NEKATHA_TIMELINE = [
-            [1, 1, 0, 0, 0, "කැති"], // From 2025.12.31 03:58:20
-            [1, 1, 1, 29, 59, "රෙහෙණ"],
-            [1, 1, 22, 48, 23, "මුවසිරස"],
-            [1, 2, 20, 3, 57, "අද"],
-            [1, 3, 17, 27, 51, "පුනාවස"],
-            [1, 4, 15, 11, 17, "පුෂ"],
-            [1, 5, 13, 24, 51, "අස්ලිස"],
-            [1, 6, 12, 17, 41, "මා"],
-            [1, 7, 11, 56, 27, "පුවපල්"],
-            [1, 8, 12, 24, 27, "උත්‍රපල්"],
-            [1, 9, 13, 40, 43, "හත"],
-            [1, 10, 15, 39, 48, "සිත"],
-            [1, 11, 18, 12, 6, "සා"],
-            [1, 12, 21, 5, 22, "විසා"],
-            [1, 14, 0, 6, 33, "අනුර"],
-            [1, 15, 3, 3, 45, "දෙට"],
-            [1, 16, 5, 47, 43, "මුල"],
-            [1, 17, 8, 12, 16, "පුවසල"],
-            [1, 18, 10, 14, 10, "උත්‍රසල"],
-            [1, 19, 11, 52, 18, "සුවණ"],
-            [1, 20, 13, 6, 49, "දෙනට"],
-            [1, 21, 13, 58, 15, "සියාවස"],
-            [1, 22, 14, 26, 58, "පුවපුටුප"],
-            [1, 23, 14, 32, 58, "උත්‍රපුටුප"],
-            [1, 24, 14, 15, 56, "රේවතී"],
-            [1, 25, 13, 35, 44, "අස්විද"],
-            [1, 26, 12, 32, 51, "බෙරණ"],
-            [1, 27, 11, 8, 52, "කැති"],
-            [1, 28, 9, 26, 55, "රෙහෙණ"],
-            [1, 29, 7, 31, 40, "මුවසිරස"],
-            [1, 30, 5, 29, 20, "අද"],
-            [1, 31, 3, 27, 21, "පුනාවස"],
-            // FEB
-            [2, 1, 1, 34, 1, "පුෂ"],
-            [2, 1, 23, 57, 59, "අස්ලිස"],
-            [2, 2, 10, 47, 41, "මා"],
-            [2, 3, 22, 10, 40, "පුවපල්"],
-            [2, 4, 22, 12, 46, "උත්‍රපල්"],
-            [2, 5, 22, 57, 13, "හත"],
-            [2, 7, 0, 23, 50, "සිත"],
-            [2, 8, 2, 28, 24, "සා"],
-            [2, 9, 5, 2, 42, "විසා"],
-            [2, 10, 7, 55, 15, "අනුර"],
-            [2, 11, 10, 52, 48, "දෙට"],
-            [2, 12, 13, 42, 19, "මුල"],
-            [2, 13, 16, 12, 46, "පුවසල"],
-            [2, 14, 18, 16, 13, "උත්‍රසල"],
-            [2, 15, 19, 48, 17, "සුවණ"],
-            [2, 16, 20, 47, 47, "දෙනට"],
-            [2, 17, 21, 16, 4, "සියාවස"],
-            [2, 18, 21, 16, 7, "පුවපුටුප"],
-            [2, 19, 20, 51, 50, "උත්‍රපුටුප"],
-            [2, 20, 20, 7, 26, "රේවතී"],
-            [2, 21, 19, 7, 4, "අස්විද"],
-            [2, 22, 17, 54, 35, "බෙරණ"],
-            [2, 23, 16, 33, 33, "කැති"],
-            [2, 24, 15, 7, 11, "රෙහෙණ"],
-            [2, 25, 13, 38, 43, "මුවසිරස"],
-            [2, 26, 12, 11, 24, "අද"],
-            [2, 27, 10, 48, 49, "පුනාවස"],
-            [2, 28, 9, 34, 58, "පුෂ"],
-            // MAR
-            [3, 1, 8, 34, 16, "අස්ලිස"],
-            [3, 2, 7, 51, 28, "මා"],
-            [3, 3, 7, 31, 30, "පුවපල්"],
-            [3, 4, 7, 38, 57, "උත්‍රපල්"],
-            [3, 5, 8, 17, 39, "හත"],
-            [3, 6, 9, 29, 53, "සිත"],
-            [3, 7, 11, 15, 35, "සා"],
-            [3, 8, 13, 31, 39, "විසා"],
-            [3, 9, 16, 11, 28, "අනුර"],
-            [3, 10, 19, 5, 8, "දෙට"],
-            [3, 11, 22, 0, 14, "මුල"],
-            [3, 13, 0, 43, 36, "පුවසල"],
-            [3, 14, 3, 3, 4, "උත්‍රසල"],
-            [3, 15, 4, 49, 10, "සුවණ"],
-            [3, 16, 5, 56, 10, "දෙනට"],
-            [3, 17, 6, 22, 13, "සියාවස"],
-            [3, 18, 6, 9, 3, "පුවපුටුප"],
-            [3, 19, 5, 21, 8, "උත්‍රපුටුප"],
-            [3, 20, 4, 4, 51, "රේවතී"],
-            [3, 21, 2, 27, 44, "අස්විද"],
-            [3, 22, 0, 37, 43, "බෙරණ"],
-            [3, 22, 22, 42, 36, "කැති"],
-            [3, 23, 20, 49, 34, "රෙහෙණ"],
-            [3, 24, 19, 4, 50, "මුවසිරස"],
-            [3, 25, 17, 33, 26, "අද"],
-            [3, 26, 16, 19, 3, "පුනාවස"],
-            [3, 27, 15, 24, 9, "පුෂ"],
-            [3, 28, 14, 50, 10, "අස්ලිස"],
-            [3, 29, 14, 37, 54, "මා"],
-            [3, 30, 14, 47, 55, "පුවපල්"],
-            [3, 31, 15, 20, 50, "උත්‍රපල්"],
-            // APR
-            [4, 1, 16, 17, 28, "හත"],
-            [4, 2, 17, 38, 40, "සිත"],
-            [4, 3, 19, 24, 53, "සා"],
-            [4, 4, 21, 35, 28, "විසා"],
-            [4, 6, 0, 17, 48, "අනුර"],
-            [4, 7, 2, 56, 41, "දෙට"],
-            [4, 8, 5, 53, 52, "මුල"],
-            [4, 9, 8, 48, 25, "පුවසල"],
-            [4, 10, 11, 27, 52, "උත්‍රසල"],
-            [4, 11, 13, 39, 51, "සුවණ"],
-            [4, 12, 3, 14, 2, "දෙනට"],
-            [4, 13, 16, 3, 35, "සියාවස"],
-            [4, 14, 16, 5, 56, "පුවපුටුප"],
-            [4, 15, 15, 22, 37, "උත්‍රපුටුප"],
-            [4, 16, 13, 58, 47, "රේවතී"],
-            [4, 17, 12, 2, 14, "අස්විද"],
-            [4, 18, 9, 42, 29, "බෙරණ"],
-            [4, 19, 7, 9, 55, "කැති"],
-            [4, 20, 4, 35, 10, "රෙහෙණ"],
-            [4, 21, 2, 8, 20, "මුවසිරස"],
-            [4, 21, 23, 58, 28, "අද"],
-            [4, 22, 22, 13, 0, "පුනාවස"],
-            [4, 23, 20, 57, 18, "පුෂ"],
-            [4, 24, 20, 14, 22, "අස්ලිස"],
-            [4, 25, 20, 4, 46, "මා"],
-            [4, 26, 20, 27, 8, "පුවපල්"],
-            [4, 27, 21, 18, 42, "උත්‍රපල්"],
-            [4, 28, 22, 36, 9, "හත"],
-            [4, 30, 0, 16, 21, "සිත"],
-            // MAY
-            [5, 1, 2, 16, 45, "සා"],
-            [5, 2, 4, 35, 16, "විසා"],
-            [5, 3, 7, 9, 53, "අනුර"],
-            [5, 4, 9, 57, 49, "දෙට"],
-            [5, 5, 12, 54, 39, "මුල"],
-            [5, 6, 15, 53, 41, "පුවසල"],
-            [5, 7, 18, 45, 45, "උත්‍රසල"],
-            [5, 8, 21, 19, 56, "සුවණ"],
-            [5, 9, 23, 24, 44, "දෙනට"],
-            [5, 11, 0, 50, 3, "සියාවස"],
-            [5, 12, 1, 28, 39, "පුවපුටුප"],
-            [5, 13, 1, 17, 24, "උත්‍රපුටුප"],
-            [5, 14, 0, 17, 27, "රේවතී"],
-            [5, 14, 22, 33, 51, "අස්විද"],
-            [5, 15, 20, 14, 43, "බෙරණ"],
-            [5, 16, 17, 30, 17, "කැති"],
-            [5, 17, 14, 32, 2, "රෙහෙණ"],
-            [5, 18, 11, 31, 52, "මුවසිරස"],
-            [5, 19, 8, 41, 31, "අද"],
-            [5, 20, 6, 11, 50, "පුනාවස"],
-            [5, 21, 4, 12, 5, "පුෂ"],
-            [5, 22, 2, 49, 24, "අස්ලිස"],
-            [5, 23, 2, 8, 24, "මා"],
-            [5, 24, 2, 9, 13, "පුවපල්"],
-            [5, 25, 2, 50, 56, "උත්‍රපල්"],
-            [5, 26, 4, 8, 45, "හත"],
-            [5, 27, 5, 56, 42, "සිත"],
-            [5, 28, 8, 8, 22, "සා"],
-            [5, 29, 10, 37, 54, "විසා"],
-            [5, 30, 13, 20, 24, "අනුර"],
-            [5, 31, 16, 11, 51, "දෙට"],
-            // JUN
-            [6, 1, 19, 8, 34, "මුල"],
-            [6, 2, 22, 6, 20, "පුවසල"],
-            [6, 4, 0, 59, 44, "උත්‍රසල"],
-            [6, 5, 3, 41, 37, "සුවණ"],
-            [6, 6, 6, 3, 21, "දෙනට"],
-            [6, 7, 7, 55, 39, "සියාවස"],
-            [6, 8, 9, 9, 52, "පුවපුටුප"],
-            [6, 9, 9, 39, 32, "උත්‍රපුටුප"],
-            [6, 10, 9, 21, 29, "රේවතී"],
-            [6, 11, 8, 16, 23, "අස්විද"],
-            [6, 12, 6, 28, 35, "බෙරණ"],
-            [6, 13, 4, 5, 32, "කැති"],
-            [6, 14, 1, 16, 55, "රෙහෙණ"],
-            [6, 14, 22, 13, 55, "මුවසිරස"],
-            [6, 15, 19, 8, 25, "අද"],
-            [6, 16, 16, 12, 19, "පුනාවස"],
-            [6, 17, 13, 36, 57, "පුෂ"],
-            [6, 18, 11, 32, 25, "අස්ලිස"],
-            [6, 19, 10, 6, 52, "මා"],
-            [6, 20, 9, 25, 47, "පුවපල්"],
-            [6, 21, 9, 31, 23, "උත්‍රපල්"],
-            [6, 22, 10, 22, 19, "හත"],
-            [6, 23, 11, 53, 58, "සිත"],
-            [6, 24, 13, 59, 7, "සා"],
-            [6, 25, 16, 29, 16, "විසා"],
-            [6, 26, 19, 15, 50, "අනුර"],
-            [6, 27, 22, 11, 8, "දෙට"],
-            [6, 29, 1, 8, 49, "මුල"],
-            [6, 30, 4, 3, 43, "පුවසල"],
-            // JUL
-            [7, 1, 6, 51, 23, "උත්‍රසල"],
-            [7, 2, 9, 7, 22, "සුවණ"],
-            [7, 3, 11, 46, 43, "දෙනට"],
-            [7, 4, 13, 43, 51, "සියාවස"],
-            [7, 5, 15, 12, 44, "පුවපුටුප"],
-            [7, 6, 16, 7, 41, "උත්‍රපුටුප"],
-            [7, 7, 16, 24, 17, "රේවතී"],
-            [7, 8, 16, 0, 17, "අස්විද"],
-            [7, 9, 14, 56, 10, "බෙරණ"],
-            [7, 10, 13, 15, 16, "කැති"],
-            [7, 11, 11, 3, 34, "රෙහෙණ"],
-            [7, 12, 8, 29, 10, "මුවසිරස"],
-            [7, 13, 5, 41, 40, "අද"],
-            [7, 14, 2, 51, 35, "පුනාවස"],
-            [7, 15, 0, 9, 43, "පුෂ"],
-            [7, 15, 21, 46, 42, "අස්ලිස"],
-            [7, 16, 19, 52, 17, "මා"],
-            [7, 17, 18, 34, 47, "පුවපල්"],
-            [7, 18, 18, 0, 17, "උත්‍රපල්"],
-            [7, 19, 18, 12, 0, "හත"],
-            [7, 20, 19, 9, 35, "සිත"],
-            [7, 21, 20, 49, 7, "සා"],
-            [7, 22, 23, 3, 21, "විසා"],
-            [7, 24, 1, 42, 41, "අනුර"],
-            [7, 25, 4, 36, 33, "දෙට"],
-            [7, 26, 7, 34, 47, "මුල"],
-            [7, 27, 10, 28, 35, "පුවසල"],
-            [7, 28, 13, 11, 5, "උත්‍රසල"],
-            [7, 29, 15, 37, 12, "සුවණ"],
-            [7, 30, 17, 43, 21, "දෙනට"],
-            [7, 31, 19, 26, 48, "සියාවස"],
-            // AUG
-            [8, 1, 20, 45, 23, "පුවපුටුප"],
-            [8, 2, 21, 37, 7, "උත්‍රපුටුප"],
-            [8, 3, 22, 0, 24, "රේවතී"],
-            [8, 4, 21, 54, 8, "අස්විද"],
-            [8, 5, 21, 18, 10, "බෙරණ"],
-            [8, 6, 20, 13, 39, "කැති"],
-            [8, 7, 18, 43, 16, "රෙහෙණ"],
-            [8, 8, 16, 51, 17, "මුවසිරස"],
-            [8, 9, 14, 43, 28, "අද"],
-            [8, 10, 12, 26, 52, "පුනාවස"],
-            [8, 11, 10, 9, 28, "පුෂ"],
-            [8, 12, 7, 59, 49, "අස්ලිස"],
-            [8, 13, 6, 6, 39, "මා"],
-            [8, 14, 4, 38, 26, "පුවපල්"],
-            [8, 15, 3, 42, 42, "උත්‍රපල්"],
-            [8, 16, 3, 25, 32, "හත"],
-            [8, 17, 3, 50, 40, "සිත"],
-            [8, 18, 4, 58, 45, "සා"],
-            [8, 19, 6, 46, 50, "විසා"],
-            [8, 20, 9, 8, 13, "අනුර"],
-            [8, 21, 11, 52, 59, "දෙට"],
-            [8, 22, 14, 49, 13, "මුල"],
-            [8, 23, 17, 44, 40, "පුවසල"],
-            [8, 24, 20, 28, 15, "උත්‍රසල"],
-            [8, 25, 22, 51, 17, "සුවණ"],
-            [8, 27, 0, 48, 2, "දෙනට"],
-            [8, 28, 2, 15, 32, "සියාවස"],
-            [8, 29, 3, 13, 14, "පුවපුටුප"],
-            [8, 30, 3, 42, 15, "උත්‍රපුටුප"],
-            [8, 31, 3, 44, 50, "රේවතී"],
-            // SEP
-            [9, 1, 3, 23, 48, "අස්විද"],
-            [9, 2, 2, 42, 11, "බෙරණ"],
-            [9, 3, 1, 43, 3, "කැති"],
-            [9, 4, 0, 29, 33, "රෙහෙණ"],
-            [9, 4, 23, 4, 14, "මුවසිරස"],
-            [9, 5, 21, 30, 49, "අද"],
-            [9, 6, 19, 52, 45, "පුනාවස"],
-            [9, 7, 18, 14, 4, "පුෂ"],
-            [9, 8, 16, 39, 31, "අස්ලිස"],
-            [9, 9, 15, 14, 24, "මා"],
-            [9, 10, 14, 4, 35, "පුවපල්"],
-            [9, 11, 13, 16, 12, "උත්‍රපල්"],
-            [9, 12, 12, 55, 15, "හත"],
-            [9, 13, 13, 7, 1, "සිත"],
-            [9, 14, 13, 55, 11, "සා"],
-            [9, 15, 15, 21, 3, "විසා"],
-            [9, 16, 17, 22, 32, "අනුර"],
-            [9, 17, 19, 53, 41, "දෙට"],
-            [9, 18, 22, 44, 42, "මුල"],
-            [9, 20, 1, 42, 59, "පුවසල"],
-            [9, 21, 4, 34, 39, "උත්‍රසල"],
-            [9, 22, 7, 6, 48, "සුවණ"],
-            [9, 23, 9, 9, 7, "දෙනට"],
-            [9, 24, 10, 35, 9, "සියාවස"],
-            [9, 25, 11, 22, 25, "පුවපුටුප"],
-            [9, 26, 11, 32, 5, "උත්‍රපුටුප"],
-            [9, 27, 11, 8, 6, "රේවතී"],
-            [9, 28, 10, 16, 18, "අස්විද"],
-            [9, 29, 9, 3, 30, "බෙරණ"],
-            [9, 30, 7, 36, 45, "කැති"],
-            // OCT
-            [10, 1, 6, 2, 42, "රෙහෙණ"],
-            [10, 2, 4, 27, 11, "මුවසිරස"],
-            [10, 3, 2, 55, 0, "අද"],
-            [10, 4, 1, 29, 41, "පුනාවස"],
-            [10, 5, 0, 13, 50, "පුෂ"],
-            [10, 5, 23, 9, 17, "අස්ලිස"],
-            [10, 6, 22, 17, 34, "මා"],
-            [10, 7, 21, 40, 26, "පුවපල්"],
-            [10, 8, 21, 20, 10, "උත්‍රපල්"],
-            [10, 9, 21, 19, 45, "හත"],
-            [10, 10, 21, 42, 40, "සිත"],
-            [10, 11, 22, 32, 30, "සා"],
-            [10, 12, 23, 52, 11, "විසා"],
-            [10, 14, 1, 42, 54, "අනුර"],
-            [10, 15, 4, 3, 6, "දෙට"],
-            [10, 16, 6, 47, 34, "මුල"],
-            [10, 17, 9, 47, 3, "පුවසල"],
-            [10, 18, 12, 48, 54, "උත්‍රසල"],
-            [10, 19, 15, 38, 37, "සුවණ"],
-            [10, 20, 18, 2, 7, "දෙනට"],
-            [10, 21, 19, 47, 58, "සියාවස"],
-            [10, 22, 20, 49, 1, "පුවපුටුප"],
-            [10, 23, 21, 3, 0, "උත්‍රපුටුප"],
-            [10, 24, 20, 32, 5, "රේවතී"],
-            [10, 25, 19, 22, 5, "අස්විද"],
-            [10, 26, 17, 41, 15, "බෙරණ"],
-            [10, 27, 15, 39, 13, "කැති"],
-            [10, 28, 13, 26, 3, "රෙහෙණ"],
-            [10, 29, 11, 11, 32, "මුවසිරස"],
-            [10, 30, 9, 4, 25, "අද"],
-            [10, 31, 7, 12, 0, "පුනාවස"],
-            // NOV
-            [11, 1, 5, 39, 39, "පුෂ"],
-            [11, 2, 4, 30, 39, "අස්ලිස"],
-            [11, 3, 3, 46, 21, "මා"],
-            [11, 4, 3, 26, 32, "පුවපල්"],
-            [11, 5, 3, 30, 7, "උත්‍රපල්"],
-            [11, 6, 3, 55, 56, "හත"],
-            [11, 7, 4, 43, 19, "සිත"],
-            [11, 8, 5, 52, 25, "සා"],
-            [11, 9, 7, 24, 4, "විසා"],
-            [11, 10, 9, 19, 16, "අනුර"],
-            [11, 11, 11, 38, 10, "දෙට"],
-            [11, 12, 14, 19, 2, "මුල"],
-            [11, 13, 17, 17, 11, "පුවසල"],
-            [11, 14, 20, 24, 21, "උත්‍රසල"],
-            [11, 15, 23, 28, 53, "සුවණ"],
-            [11, 17, 2, 16, 58, "දෙනට"],
-            [11, 18, 4, 34, 42, "සියාවස"],
-            [11, 19, 6, 10, 26, "පුවපුටුප"],
-            [11, 20, 6, 56, 36, "උත්‍රපුටුප"],
-            [11, 21, 6, 50, 39, "රේවතී"],
-            [11, 22, 5, 54, 54, "අස්විද"],
-            [11, 23, 4, 15, 40, "බෙරණ"],
-            [11, 24, 2, 2, 6, "කැති"],
-            [11, 24, 23, 25, 4, "රෙහෙණ"],
-            [11, 25, 20, 36, 13, "මුවසිරස"],
-            [11, 26, 17, 47, 6, "අද"],
-            [11, 27, 15, 8, 36, "පුනාවස"],
-            [11, 28, 12, 50, 15, "පුෂ"],
-            [11, 29, 10, 59, 43, "අස්ලිස"],
-            [11, 30, 9, 42, 18, "මා"],
-            // DEC
-            [12, 1, 9, 0, 44, "පුවපල්"],
-            [12, 2, 8, 55, 11, "උත්‍රපල්"],
-            [12, 3, 9, 23, 39, "හත"],
-            [12, 4, 10, 22, 50, "සිත"],
-            [12, 5, 11, 48, 52, "සා"],
-            [12, 6, 13, 38, 14, "විසා"],
-            [12, 7, 15, 48, 6, "අනුර"],
-            [12, 8, 18, 16, 15, "දෙට"],
-            [12, 9, 21, 0, 34, "මුල"],
-            [12, 10, 23, 58, 8, "පුවසල"],
-            [12, 12, 3, 4, 21, "උත්‍රසල"],
-            [12, 13, 6, 12, 14, "සුවණ"],
-            [12, 14, 9, 12, 14, "දෙනට"],
-            [12, 15, 11, 52, 58, "සියාවස"],
-            [12, 16, 14, 2, 34, "පුවපුටුප"],
-            [12, 17, 15, 30, 42, "උත්‍රපුටුප"],
-            [12, 18, 16, 10, 10, "රේවතී"],
-            [12, 19, 15, 58, 0, "අස්විද"],
-            [12, 20, 14, 55, 45, "බෙරණ"],
-            [12, 21, 13, 8, 48, "කැති"],
-            [12, 22, 10, 45, 35, "රෙහෙණ"],
-            [12, 23, 7, 56, 31, "මුවසිරස"],
-            [12, 24, 4, 53, 4, "අද"],
-            [12, 25, 1, 47, 3, "පුනාවස"],
-            [12, 25, 10, 50, 3, "පුෂ"],
-            [12, 26, 20, 12, 47, "අස්ලිස"],
-            [12, 27, 18, 4, 39, "මා"],
-            [12, 28, 16, 33, 4, "පුවපල්"],
-            [12, 29, 15, 43, 5, "උත්‍රපල්"],
-            [12, 30, 15, 36, 49, "හත"],
-            [12, 31, 16, 13, 29, "සිත"] 
-    ];
-
-    // --- GRAHA BALAYA CONSTANTS & DATA ---
-    const PLANET_TRANSITS_2026 = [
-        { 
-            name: "රවි", 
-            letters: "අ ඉ උ එ ඔ", 
-            transits: [
-                {date: "2026-01-01T00:00:00", sign: 9},
-                {date: "2026-01-14T15:07:05", sign: 10},
-                {date: "2026-02-13T04:08:43", sign: 11},
-                {date: "2026-03-15T01:02:48", sign: 12},
-                {date: "2026-04-14T09:32:23", sign: 1},
-                {date: "2026-05-15T06:21:46", sign: 2},
-                {date: "2026-06-15T12:52:44", sign: 3},
-                {date: "2026-07-16T23:39:06", sign: 4},
-                {date: "2026-08-17T07:58:29", sign: 5},
-                {date: "2026-09-17T07:52:41", sign: 6},
-                {date: "2026-10-17T19:51:25", sign: 7},
-                {date: "2026-11-16T19:42:56", sign: 8},
-                {date: "2026-12-16T10:24:45", sign: 9}
-            ]
-        },
-        { 
-            name: "චන්ද්‍ර", 
-            letters: "ය ර ල ව ස හ ළ", 
-            transits: [
-                {date: "2026-01-01T00:00:00", sign: 2},
-                {date: "2026-01-02T09:25:50", sign: 3},
-                {date: "2026-01-04T09:43:00", sign: 4},
-                {date: "2026-01-06T12:17:41", sign: 5},
-                {date: "2026-01-08T18:39:08", sign: 6},
-                {date: "2026-01-11T04:52:31", sign: 7},
-                {date: "2026-01-13T17:21:12", sign: 8},
-                {date: "2026-01-16T05:47:43", sign: 9},
-                {date: "2026-01-18T16:40:56", sign: 10},
-                {date: "2026-01-21T01:35:24", sign: 11},
-                {date: "2026-01-23T08:33:36", sign: 12},
-                {date: "2026-01-25T13:35:44", sign: 1},
-                {date: "2026-01-27T16:44:55", sign: 2},
-                {date: "2026-01-29T18:30:57", sign: 3},
-                {date: "2026-01-31T20:01:04", sign: 4},
-                {date: "2026-02-02T22:47:41", sign: 5},
-                {date: "2026-02-05T04:19:51", sign: 6},
-                {date: "2026-02-07T13:21:48", sign: 7},
-                {date: "2026-02-10T01:11:07", sign: 8},
-                {date: "2026-02-12T13:42:19", sign: 9},
-                {date: "2026-02-15T00:42:16", sign: 10},
-                {date: "2026-02-17T09:05:41", sign: 11},
-                {date: "2026-02-19T14:59:57", sign: 12},
-                {date: "2026-02-21T19:07:04", sign: 1},
-                {date: "2026-02-23T22:12:20", sign: 2},
-                {date: "2026-02-26T00:54:42", sign: 3},
-                {date: "2026-02-28T03:52:23", sign: 4},
-                {date: "2026-03-02T07:51:28", sign: 5},
-                {date: "2026-03-04T13:45:35", sign: 6},
-                {date: "2026-03-06T22:18:40", sign: 7},
-                {date: "2026-03-09T09:29:47", sign: 8},
-                {date: "2026-03-11T22:00:14", sign: 9},
-                {date: "2026-03-14T09:33:01", sign: 10},
-                {date: "2026-03-16T18:14:17", sign: 11},
-                {date: "2026-03-18T23:36:02", sign: 12},
-                {date: "2026-03-21T02:27:44", sign: 1},
-                {date: "2026-03-23T04:13:53", sign: 2},
-                {date: "2026-03-25T06:17:13", sign: 3},
-                {date: "2026-03-27T09:35:57", sign: 4},
-                {date: "2026-03-29T14:37:54", sign: 5},
-                {date: "2026-03-31T21:32:44", sign: 6},
-                {date: "2026-04-03T06:28:40", sign: 7},
-                {date: "2026-04-05T17:27:55", sign: 8},
-                {date: "2026-04-08T05:53:52", sign: 9},
-                {date: "2026-04-10T18:03:53", sign: 10},
-                {date: "2026-04-13T03:44:39", sign: 11},
-                {date: "2026-04-15T09:37:30", sign: 12},
-                {date: "2026-04-17T12:02:14", sign: 1},
-                {date: "2026-04-19T12:31:02", sign: 2},
-                {date: "2026-04-21T13:00:46", sign: 3},
-                {date: "2026-04-23T15:13:14", sign: 4},
-                {date: "2026-04-25T20:04:46", sign: 5},
-                {date: "2026-04-28T03:35:46", sign: 6},
-                {date: "2026-04-30T13:14:10", sign: 7},
-                {date: "2026-05-03T00:29:51", sign: 8},
-                {date: "2026-05-05T12:54:39", sign: 9},
-                {date: "2026-05-08T01:26:26", sign: 10},
-                {date: "2026-05-10T12:12:52", sign: 11},
-                {date: "2026-05-12T19:24:54", sign: 12},
-                {date: "2026-05-14T22:33:51", sign: 1},
-                {date: "2026-05-16T22:46:33", sign: 2},
-                {date: "2026-05-18T22:04:46", sign: 3},
-                {date: "2026-05-20T22:38:47", sign: 4},
-                {date: "2026-05-23T02:08:04", sign: 5},
-                {date: "2026-05-25T09:07:13", sign: 6},
-                {date: "2026-05-27T18:59:57", sign: 7},
-                {date: "2026-05-30T06:38:47", sign: 8},
-                {date: "2026-06-01T19:08:34", sign: 9},
-                {date: "2026-06-04T07:41:35", sign: 10},
-                {date: "2026-06-06T19:03:45", sign: 11},
-                {date: "2026-06-09T03:36:32", sign: 12},
-                {date: "2026-06-11T08:16:23", sign: 1},
-                {date: "2026-06-13T09:25:21", sign: 2},
-                {date: "2026-06-15T08:40:44", sign: 3},
-                {date: "2026-06-17T08:13:16", sign: 4},
-                {date: "2026-06-19T10:06:52", sign: 5},
-                {date: "2026-06-21T15:39:59", sign: 6},
-                {date: "2026-06-24T00:52:52", sign: 7},
-                {date: "2026-06-26T12:33:06", sign: 8},
-                {date: "2026-06-29T01:08:49", sign: 9},
-                {date: "2026-07-01T13:31:39", sign: 10},
-                {date: "2026-07-04T00:48:26", sign: 11},
-                {date: "2026-07-06T09:57:24", sign: 12},
-                {date: "2026-07-08T16:00:17", sign: 1},
-                {date: "2026-07-10T18:44:57", sign: 2},
-                {date: "2026-07-12T19:06:25", sign: 3},
-                {date: "2026-07-14T18:48:49", sign: 4},
-                {date: "2026-07-16T19:52:17", sign: 5},
-                {date: "2026-07-18T23:58:50", sign: 6},
-                {date: "2026-07-21T07:54:30", sign: 7},
-                {date: "2026-07-23T19:01:04", sign: 8},
-                {date: "2026-07-26T07:34:47", sign: 9},
-                {date: "2026-07-28T19:49:19", sign: 10},
-                {date: "2026-07-31T06:38:03", sign: 11},
-                {date: "2026-08-02T15:26:48", sign: 12},
-                {date: "2026-08-04T21:54:08", sign: 1},
-                {date: "2026-08-07T01:53:21", sign: 2},
-                {date: "2026-08-09T03:48:57", sign: 3},
-                {date: "2026-08-11T04:43:26", sign: 4},
-                {date: "2026-08-13T06:06:39", sign: 5},
-                {date: "2026-08-15T09:34:36", sign: 6},
-                {date: "2026-08-17T16:19:26", sign: 7},
-                {date: "2026-08-20T02:30:15", sign: 8},
-                {date: "2026-08-22T14:49:13", sign: 9},
-                {date: "2026-08-25T03:06:12", sign: 10},
-                {date: "2026-08-27T13:35:32", sign: 11},
-                {date: "2026-08-29T21:37:34", sign: 12},
-                {date: "2026-09-01T03:23:48", sign: 1},
-                {date: "2026-09-03T07:25:52", sign: 2},
-                {date: "2026-09-05T10:18:21", sign: 3},
-                {date: "2026-09-07T12:38:33", sign: 4},
-                {date: "2026-09-09T15:14:24", sign: 5},
-                {date: "2026-09-11T19:08:10", sign: 6},
-                {date: "2026-09-14T01:26:24", sign: 7},
-                {date: "2026-09-16T10:49:05", sign: 8},
-                {date: "2026-09-18T22:44:42", sign: 9},
-                {date: "2026-09-21T11:14:59", sign: 10},
-                {date: "2026-09-23T21:56:55", sign: 11},
-                {date: "2026-09-26T05:33:00", sign: 12},
-                {date: "2026-09-28T10:16:18", sign: 1},
-                {date: "2026-09-30T13:13:40", sign: 2},
-                {date: "2026-10-02T15:40:26", sign: 3},
-                {date: "2026-10-04T18:31:49", sign: 4},
-                {date: "2026-10-06T22:17:34", sign: 5},
-                {date: "2026-10-09T03:18:05", sign: 6},
-                {date: "2026-10-11T10:04:01", sign: 7},
-                {date: "2026-10-13T19:12:20", sign: 8},
-                {date: "2026-10-16T06:47:34", sign: 9},
-                {date: "2026-10-18T19:33:03", sign: 10},
-                {date: "2026-10-21T07:00:18", sign: 11},
-                {date: "2026-10-23T15:03:52", sign: 12},
-                {date: "2026-10-25T19:22:05", sign: 1},
-                {date: "2026-10-27T21:06:34", sign: 2},
-                {date: "2026-10-29T22:06:33", sign: 3},
-                {date: "2026-11-01T00:00:39", sign: 4},
-                {date: "2026-11-03T03:46:21", sign: 5},
-                {date: "2026-11-05T09:34:32", sign: 6},
-                {date: "2026-11-07T17:15:06", sign: 7},
-                {date: "2026-11-10T02:48:13", sign: 8},
-                {date: "2026-11-12T14:19:02", sign: 9},
-                {date: "2026-11-15T03:11:15", sign: 10},
-                {date: "2026-11-17T15:30:26", sign: 11},
-                {date: "2026-11-20T00:49:56", sign: 12},
-                {date: "2026-11-22T05:54:54", sign: 1},
-                {date: "2026-11-24T07:24:35", sign: 2},
-                {date: "2026-11-26T07:10:59", sign: 3},
-                {date: "2026-11-28T07:22:30", sign: 4},
-                {date: "2026-11-30T09:42:18", sign: 5},
-                {date: "2026-12-02T14:59:13", sign: 6},
-                {date: "2026-12-04T23:02:43", sign: 7},
-                {date: "2026-12-07T09:13:50", sign: 8},
-                {date: "2026-12-09T21:00:34", sign: 9},
-                {date: "2026-12-12T09:51:30", sign: 10},
-                {date: "2026-12-14T22:35:46", sign: 11},
-                {date: "2026-12-17T09:13:01", sign: 12},
-                {date: "2026-12-19T15:58:00", sign: 1},
-                {date: "2026-12-21T18:36:01", sign: 2},
-                {date: "2026-12-23T18:25:51", sign: 3},
-                {date: "2026-12-25T17:32:51", sign: 4},
-                {date: "2026-12-27T18:04:39", sign: 5},
-                {date: "2026-12-29T21:37:24", sign: 6}
-            ]
-        },
-        { 
-            name: "කුජ", 
-            letters: "ක බ ග ඝ ඞ", 
-            transits: [
-                {date: "2026-01-01T00:00:00", sign: 9},
-                {date: "2026-01-16T04:28:18", sign: 10},
-                {date: "2026-02-23T11:50:08", sign: 11},
-                {date: "2026-04-02T15:29:21", sign: 12},
-                {date: "2026-05-11T12:38:24", sign: 1},
-                {date: "2026-06-20T23:59:19", sign: 2},
-                {date: "2026-08-02T22:51:12", sign: 3},
-                {date: "2026-09-18T16:35:19", sign: 4},
-                {date: "2026-11-12T20:18:16", sign: 5}
-            ]
-        },
-        { 
-            name: "බුධ", 
-            letters: "ට ඨ ඩ ඪ ණ", 
-            transits: [
-                {date: "2026-01-01T00:00:00", sign: 9},
-                {date: "2026-01-17T10:23:51", sign: 10},
-                {date: "2026-02-03T21:51:48", sign: 11},
-                {date: "2026-04-11T01:15:51", sign: 12},
-                {date: "2026-04-30T06:52:20", sign: 1},
-                {date: "2026-05-15T00:31:50", sign: 2},
-                {date: "2026-05-29T11:11:41", sign: 3},
-                {date: "2026-06-22T15:30:21", sign: 4},
-                {date: "2026-07-07T10:47:00", sign: 3},
-                {date: "2026-08-05T19:55:00", sign: 4},
-                {date: "2026-08-22T19:31:37", sign: 5},
-                {date: "2026-09-07T13:32:41", sign: 6},
-                {date: "2026-09-26T12:38:19", sign: 7},
-                {date: "2026-12-02T17:27:16", sign: 8},
-                {date: "2026-12-22T07:39:26", sign: 9}
-            ]
-        },
-        { 
-            name: "ගුරු", 
-            letters: "ත ථ ද ධ න", 
-            transits: [
-                {date: "2026-01-01T00:00:00", sign: 3},
-                {date: "2026-06-02T01:50:00", sign: 4},
-                {date: "2026-10-31T12:02:02", sign: 5}
-            ]
-        },
-        { 
-            name: "සිකුරු", 
-            letters: "ච ඡ ජ ඣ ඤ", 
-            transits: [
-                {date: "2026-01-01T00:00:00", sign: 9},
-                {date: "2026-01-13T03:57:50", sign: 10},
-                {date: "2026-02-06T01:11:24", sign: 11},
-                {date: "2026-03-02T00:56:50", sign: 12},
-                {date: "2026-03-26T05:09:04", sign: 1},
-                {date: "2026-04-19T15:46:39", sign: 2},
-                {date: "2026-05-14T10:53:32", sign: 3},
-                {date: "2026-06-08T17:42:45", sign: 4},
-                {date: "2026-07-04T19:13:41", sign: 5},
-                {date: "2026-08-01T09:28:03", sign: 6},
-                {date: "2026-09-02T13:44:14", sign: 7},
-                {date: "2026-11-06T01:05:00", sign: 6},
-                {date: "2026-11-22T17:21:00", sign: 7}
-            ]
-        },
-        { 
-            name: "ශනි", 
-            letters: "ප ඵ බ භ ම", 
-            transits: [
-                {date: "2026-01-01T00:00:00", sign: 12}
-            ]
-        }
-    ];
-
-    const GRAHA_RELATIONS = {
-        "රවි": {1:"උච්ච",2:"ශැත්‍ර",3:"සම",4:"මිත්‍ර",5:"ස්වක්ෂේත්‍ර",6:"සම",7:"නීච",8:"මිත්‍ර",9:"මිත්‍ර",10:"ශැත්‍ර",11:"ශැත්‍ර",12:"මිත්‍ර"},
-        "චන්ද්‍ර": {1:"සම",2:"උච්ච",3:"මිත්‍ර",4:"ස්වක්ෂේත්‍ර",5:"මිත්‍ර",6:"මිත්‍ර",7:"සම",8:"නීච",9:"සම",10:"සම",11:"සම",12:"සම"},
-        "කුජ": {1:"ස්වක්ෂේත්‍ර",2:"සම",3:"ශැත්‍ර",4:"නීච",5:"මිත්‍ර",6:"ශැත්‍ර",7:"සම",8:"ස්වක්ෂේත්‍ර",9:"මිත්‍ර",10:"උච්ච",11:"සම",12:"මිත්‍ර"},
-        "බුධ": {1:"සම",2:"මිත්‍ර",3:"ස්වක්ෂේත්‍ර",4:"ශැත්‍ර",5:"මිත්‍ර",6:"උච්ච",7:"මිත්‍ර",8:"සම",9:"සම",10:"සම",11:"සම",12:"නීච"},
-        "ගුරු": {1:"මිත්‍ර",2:"ශැත්‍ර",3:"ශැත්‍ර",4:"උච්ච",5:"මිත්‍ර",6:"ශැත්‍ර",7:"ශැත්‍ර",8:"මිත්‍ර",9:"ස්වක්ෂේත්‍ර",10:"නීච",11:"සම",12:"ස්වක්ෂේත්‍ර"},
-        "සිකුරු": {1:"සම",2:"ස්වක්ෂේත්‍ර",3:"සම",4:"ශැත්‍ර",5:"ශැත්‍ර",6:"නීච",7:"ස්වක්ෂේත්‍ර",8:"සම",9:"සම",10:"මිත්‍ර",11:"මිත්‍ර",12:"උච්ච"},
-        "ශනි": {1:"නීච",2:"මිත්‍ර",3:"මිත්‍ර",4:"ශැත්‍ර",5:"ශැත්‍ර",6:"මිත්‍ර",7:"උච්ච",8:"ශැත්‍ර",9:"සම",10:"ස්වක්ෂේත්‍ර",11:"ස්වක්ෂේත්‍ර",12:"සම"}
-    };
-
-    const BHAVA_SCORES = {
-        "රවි": {1:"සම",2:"සම",3:"සුභ",4:"අසුභ",5:"සුභ",6:"සුභ",7:"අසුභ",8:"අසුභ",9:"සුභ",10:"සුභ",11:"සුභ",12:"සම"},
-        "චන්ද්‍ර": {1:"සුභ",2:"සුභ",3:"සුභ",4:"සුභ",5:"සුභ",6:"අසුභ",7:"සුභ",8:"අසුභ",9:"සුභ",10:"සුභ",11:"සුභ",12:"අසුභ"},
-        "කුජ": {1:"සම",2:"සම",3:"සුභ",4:"සම",5:"අසුභ",6:"සුභ",7:"අසුභ",8:"අසුභ",9:"සම",10:"සුභ",11:"සුභ",12:"අසුභ"},
-        "බුධ": {1:"සුභ",2:"සුභ",3:"සුභ",4:"සුභ",5:"සුභ",6:"අසුභ",7:"සුභ",8:"සම",9:"සුභ",10:"සුභ",11:"සුභ",12:"සම"},
-        "ගුරු": {1:"සුභ",2:"සුභ",3:"අසුභ",4:"සුභ",5:"සුභ",6:"අසුභ",7:"සුභ",8:"සම",9:"සුභ",10:"සුභ",11:"සුභ",12:"අසුභ"},
-        "සිකුරු": {1:"සුභ",2:"සුභ",3:"සුභ",4:"සුභ",5:"සුභ",6:"සම",7:"සුභ",8:"සම",9:"සුභ",10:"සුභ",11:"සුභ",12:"අසුභ"},
-        "ශනි": {1:"අසුභ",2:"අසුභ",3:"සුභ",4:"අසුභ",5:"අසුභ",6:"අසුභ",7:"සම",8:"අසුභ",9:"සුභ",10:"සම",11:"අසුභ",12:"අසුභ"}
-    };
-
-    const LAGNA_LORDS_MAP = {1:"කුජ", 2:"සිකුරු", 3:"කුජ", 4:"චන්ද්‍ර", 5:"රවි", 6:"බුධ", 7:"සිකුරු", 8:"කුජ", 9:"ගුරු", 10:"ශනි", 11:"ශනි", 12:"ගුරු"};
-    const NATURAL_RELATION = {
-        "රවි": {"රවි":"සතුරු නොවේ","චන්ද්‍ර":"මිතුරු","කුජ":"මිතුරු","බුධ":"සම","ගුරු":"මිතුරු","සිකුරු":"සතුරු","ශනි":"සතුරු"},
-        "චන්ද්‍ර": {"රවි":"මිතුරු","චන්ද්‍ර":"සතුරු නොවේ","කුජ":"සම","බුධ":"මිතුරු","ගුරු":"සම","සිකුරු":"සම","ශනි":"සම"},
-        "කුජ": {"රවි":"මිතුරු","චන්ද්‍ර":"සම","කුජ":"සතුරු නොවේ","බුධ":"සතුරු","ගුරු":"මිතුරු","සිකුරු":"සම","ශනි":"සතුරු"},
-        "බුධ": {"රවි":"මිතුරු","චන්ද්‍ර":"සතුරු","කුජ":"සම","බුධ":"සතුරු නොවේ","ගුරු":"සම","සිකුරු":"මිතුරු","ශනි":"සම"},
-        "ගුරු": {"රවි":"මිතුරු","චන්ද්‍ර":"සම","කුජ":"මිතුරු","බුධ":"සතුරු","ගුරු":"සතුරු නොවේ","සිකුරු":"සතුරු","ශනි":"සම"},
-        "සිකුරු": {"රවි":"සතුරු","චන්ද්‍ර":"සතුරු","කුජ":"සම","බුධ":"මිතුරු","ගුරු":"සම","සිකුරු":"සතුරු නොවේ","ශනි":"මිතුරු"},
-        "ශනි": {"රවි":"සතුරු","චන්ද්‍ර":"සතුරු","කුජ":"සතුරු","බුධ":"මිතුරු","ගුරු":"සම","සිකුරු":"මිතුරු","ශනි":"සතුරු නොවේ"}
-    };
-    const GRAHA_OWNED = {"රවි": [5], "චන්ද්‍ර": [4], "කුජ": [1,8], "බුධ": [3,6], "ගුරු": [9,12], "සිකුරු": [2,7], "ශනි": [10,11]};
-
-
-    // --- 2. INITIALIZATION ---
-    const dateInput = document.getElementById('dateInput');
-    const timeInput = document.getElementById('timeInput');
-    const today = new Date();
-    
-    // Default to 2026
-    if(today.getFullYear() === 2026) {
-        dateInput.valueAsDate = today;
-    } else {
-        dateInput.value = "2026-01-01";
-    }
-    const hours = String(today.getHours()).padStart(2, '0');
-    const minutes = String(today.getMinutes()).padStart(2, '0');
-    timeInput.value = `${hours}:${minutes}`;
-
-    const districtSelect = document.getElementById('districtSelect');
-    const citySelect = document.getElementById('citySelect');
-    
-    for (const dist in LOCATIONS) {
-        const opt = document.createElement('option');
-        opt.value = dist;
-        opt.text = dist + " District";
-        districtSelect.appendChild(opt);
-    }
-    districtSelect.value = "Colombo";
-    populateCities();
-
-    function populateCities() {
-        const selectedDist = districtSelect.value;
-        const cities = LOCATIONS[selectedDist];
-        citySelect.innerHTML = "";
-        cities.forEach(city => {
-            const opt = document.createElement('option');
-            opt.value = JSON.stringify({lat: city.lat, lng: city.lng});
-            opt.text = city.name;
-            citySelect.appendChild(opt);
-        });
-    }
-
-    // --- 3. CALCULATION LOGIC ---
-
-    function calculateLuckyLetters() {
-        const dVal = dateInput.value;
-        const tVal = timeInput.value;
-        const genderVal = document.getElementById('genderInput').value;
-        const cityJson = citySelect.value;
-        const errorDiv = document.getElementById('errorDisplay');
-        const resultArea = document.getElementById('result-area');
-
-        // Validation
-        if(!dVal || !tVal || !genderVal || !cityJson) {
-            errorDiv.style.display = 'block';
-            errorDiv.innerText = "කරුණාකර සියලු තොරතුරු නිවැරදිව ඇතුළත් කරන්න.";
-            resultArea.style.display = 'none';
-            return;
-        }
-        errorDiv.style.display = 'none';
-
-        const userDate = new Date(dVal + "T" + tVal + ":00");
-        const city = JSON.parse(cityJson);
-
-        // A. FIND NEKATHA & PADA
-        const nekathaInfo = findNekatha(userDate);
-        const nekathaName = nekathaInfo.name;
-        const pada = nekathaInfo.pada;
-
-        // B. FIND PAKSHIYA
-        const pakshiyaName = findPakshiya(nekathaName);
-
-        // C. FIND LAGNA & NAVANSHAKA
-        const lagnaInfo = calculateLagnaNavanshaka(userDate, city, genderVal);
-        const lagnaId = lagnaInfo.lagnaId;
-        const navId = lagnaInfo.navId;
-
-        // D. RENDER RESULTS
-        renderGoodLetters(nekathaName, pada, pakshiyaName, lagnaId, navId, userDate);
-        renderBadLetters(nekathaName, pakshiyaName, lagnaId);
-        
-        // E. CALCULATE GRAHA BALAYA (New Feature)
-        calculateAndRenderGrahaBalaya(userDate, lagnaId);
-        
-        // F. CALCULATE GANA
-        calculateAndRenderGana(nekathaName);
-        
-        // G. CALCULATE BEST LETTERS (NEW!)
-    calculateAndRenderBestLetters(userDate, nekathaName, pakshiyaName, lagnaId, navId);
-
-        resultArea.style.display = 'block';
-        resultArea.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function findNekatha(dateObj) {
-        let currentIndex = -1;
-        for(let i = 0; i < NEKATHA_TIMELINE.length; i++) {
-            const [m, d, h, min, s, star] = NEKATHA_TIMELINE[i];
-            const entryDate = new Date(2026, m - 1, d, h, min, s);
-            if (dateObj >= entryDate) currentIndex = i;
-            else break;
-        }
-
-        if (currentIndex === -1) return { name: "අස්විද", pada: 1 }; 
-
-        const currentData = NEKATHA_TIMELINE[currentIndex];
-        const nextData = NEKATHA_TIMELINE[currentIndex + 1];
-        const nkName = currentData[5];
-        
-        let pada = 1;
-        if (nextData) {
-            const [m1, d1, h1, min1, s1] = currentData;
-            const [m2, d2, h2, min2, s2] = nextData;
-            const start = new Date(2026, m1-1, d1, h1, min1, s1).getTime();
-            const end = new Date(2026, m2-1, d2, h2, min2, s2).getTime();
-            const now = dateObj.getTime();
-            const duration = end - start;
-            const elapsed = now - start;
-            const quarter = duration / 4;
-            pada = Math.ceil(elapsed / quarter);
-            if (pada > 4) pada = 4;
-            if (pada < 1) pada = 1;
-        }
-        return { name: nkName, pada: pada };
-    }
-
-    function findPakshiya(nkName) {
-        for(let g of PAKSHIYA_GROUPS) {
-            if(g.stars.includes(nkName)) return g.name;
-        }
-        return "භේරුණ්ඩ පක්ෂියා";
-    }
-
-    function calculateLagnaNavanshaka(dateObj, city, gender) {
-        const BASE_DATE = new Date("2026-01-01T00:00:00");
-        const diffTime = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()) - BASE_DATE;
-        const diffDays = diffTime / (1000 * 60 * 60 * 24);
-
-        const h = dateObj.getHours();
-        const m = dateObj.getMinutes();
-        const userTimeSec = (h * 3600) + (m * 60);
-
-        const lngDiff = city.lng - BASE_LONGITUDE;
-        const offsetSec = lngDiff * 4 * 60;
-
-        let totalSec = (diffDays * 86400) + userTimeSec + offsetSec;
-        
-        const BASE_THULA_START = 3778; 
-        const CYCLE = 86164;
-
-        let timeRel = (totalSec - BASE_THULA_START) % CYCLE;
-        if(timeRel < 0) timeRel += CYCLE;
-
-        // ... existing code to find Lagna ...
-
-// Find Lagna
-let lagnaId = 12; 
-for(let i=0; i<LAGNA_TIMING.length; i++) {
-    if (timeRel < LAGNA_TIMING[i].duration) {
-        lagnaId = LAGNA_TIMING[i].id;
-        break;
-    }
-    timeRel -= LAGNA_TIMING[i].duration;
-}
-
-// Find Navanshaka
-const lgData = LAGNA_TIMING.find(l => l.id === lagnaId);
-const navDur = lgData.duration / 9;
-let navIdx = Math.floor(timeRel / navDur);
-if(navIdx > 8) navIdx = 8;
-
-const seq = NAVANSHAKA_SEQUENCES[lgData.group];
-let navId = seq[navIdx];
-
-// --- GENDER ADJUSTMENT (UPDATED) ---
-
-// Check if calculated Navanshaka matches user gender
-// (Assumes Odd = Male, Even = Female)
-const isMale = (navId % 2 !== 0);
-const userMale = (gender === 'male');
-
-if (isMale !== userMale) {
-    let bestIdx = navIdx;
-    let minTimeDiff = Infinity; // We now track Time Difference, not Index Distance
-
-    for(let i=0; i<9; i++) {
-        const nId = seq[i];
-        const nMale = (nId % 2 !== 0);
-
-        // Only check indices that match the User's Gender
-        if (nMale === userMale) {
-            
-            // 1. Calculate the center time of this specific Navanshaka slot
-            const navStart = i * navDur;
-            const navEnd = (i + 1) * navDur;
-            const navCenter = (navStart + navEnd) / 2;
-
-            // 2. Calculate the difference between User's Time (timeRel) and that Center
-            const diff = Math.abs(timeRel - navCenter);
-
-            // 3. Keep the one with the smallest time difference
-            if(diff < minTimeDiff) {
-                minTimeDiff = diff;
-                bestIdx = i;
-            }
-        }
-    }
-    
-    // Assign the most accurate match
-    navId = seq[bestIdx];
-}
-
-return { lagnaId, navId };
-    }
-
-    // --- 4. GRAHA BALAYA CALCULATION LOGIC (Merged) ---
-    function calculateAndRenderGrahaBalaya(userDate, lagnaId) {
-        const POINTS_RASHI = { "උච්ච": 52, "ස්වක්ෂේත්‍ර": 39, "මූල ත්‍රිකෝණ": 39, "මිත්‍ර": 30, "සම": 26, "ශැත්‍ර": 13, "නීච": 0 };
-        const POINTS_POS = { "සුභ": 24, "සම": 12, "අසුභ": 0 };
-        const POINTS_OWN = { "සුභ": 12, "සම": 6, "අසුභ": 0 };
-        const POINTS_NAI = { "මිතුරු": 12, "සතුරු නොවේ": 12, "සම": 6, "සතුරු": 0 };
-
-        let results = [];
-        
-        PLANET_TRANSITS_2026.forEach(p => {
-            let signId = null;
-            // Simple logic for transits
-            for(let i = p.transits.length - 1; i >= 0; i--) {
-                if(userDate >= new Date(p.transits[i].date)) {
-                    signId = p.transits[i].sign;
-                    break;
-                }
-            }
-            if(!signId) signId = p.transits[0].sign;
-
-            // Strength Calculation
-            let score = 0;
-            let details = [];
-
-            // Rashi Balaya
-            const rashiRel = GRAHA_RELATIONS[p.name][signId];
-            let rashiStatus = (rashiRel === "ශැත්‍ර" || rashiRel === "නීච") ? "අසුභ" : "සුභ";
-            score += POINTS_RASHI[rashiRel] || 0;
-            const rashiName = RASHI_NAMES[signId];
-            
-            details.push({
-                label: `${p.name}ගේ රාශි බලය`,
-                val: `${rashiRel} (${rashiName} රාශිය)`,
-                status: rashiStatus
-            });
-
-            // Bhava Position
-            const houseNum = (signId - lagnaId + 12) % 12 + 1;
-            const posResult = BHAVA_SCORES[p.name][houseNum];
-            score += POINTS_POS[posResult] || 0;
-            const bhavaNames = {1:"ලග්නස්ථානය",2:"ධනස්ථානය",3:"වික්‍රමස්ථානය",4:"සුඛස්ථානය",5:"විධ්‍යස්ථානය",6:"සතුරු ස්ථානය",7:"කලත්‍රස්ථානය",8:"මාරකස්ථානය",9:"පුණ්‍යස්ථානය",10:"කර්මස්ථානය",11:"අයස්ථානය",12:"වැයස්ථානය"};
-            
-            details.push({
-                label: `${p.name} සිටින භාවය`,
-                val: `${bhavaNames[houseNum]} (${houseNum} භාවය)`,
-                status: posResult
-            });
-
-            // Owned Houses
-            let ownedPoints = 0;
-            let count = 0;
-            GRAHA_OWNED[p.name].forEach(sId => {
-                const oHouse = (sId - lagnaId + 12) % 12 + 1;
-                const oRes = BHAVA_SCORES[p.name][oHouse];
-                ownedPoints += POINTS_OWN[oRes] || 0;
-                count++;
-                details.push({
-                    label: `${p.name} අයත් භාවය`,
-                    val: `${oHouse} භාවය`,
-                    status: oRes
-                });
-            });
-            score += (ownedPoints / count);
-
-            // Naisargika
-            const lagnaLord = LAGNA_LORDS_MAP[lagnaId];
-            const naiRel = NATURAL_RELATION[lagnaLord][p.name];
-            const naiStatus = (naiRel === "සතුරු") ? "අසුභ" : "සුභ";
-            score += POINTS_NAI[naiRel] || 0;
-            
-            details.push({
-                label: `නෛසර්ගික ග්‍රහ බලපෑම`,
-                val: naiRel,
-                status: naiStatus
-            });
-
-            results.push({
-                name: p.name,
-                letters: p.letters,
-                score: score,
-                details: details
-            });
-        });
-
-        results.sort((a, b) => b.score - a.score);
-
-        let strongPlanets = [];
-        let weakPlanets = [];
-
-        // Simple filtering based on relative score
-        const topScore = results[0].score;
-        const botScore = results[results.length - 1].score;
-
-        if (topScore < 65) {
-            strongPlanets = [results[0]];
-        } else {
-            strongPlanets = results.filter(p => p.score >= results[1].score); 
-        }
-
-        if (results.some(p => p.score <= 25)) {
-            weakPlanets = results.filter(p => p.score <= 25);
-        } else {
-            weakPlanets = results.filter(p => p.score === botScore);
-        }
-
-        renderAccordion(strongPlanets, 'grahaGoodContainer', true);
-        renderAccordion(weakPlanets, 'grahaBadContainer', false);
-    }
-
-    function renderAccordion(planets, containerId, isGood) {
-    const container = document.getElementById(containerId);
-    
-    // Select the correct color class based on isGood
-    const themeClass = isGood ? 'header-good' : 'header-bad';
-
-    if(planets.length === 0) {
-        // Also style the "No result" message
-        const emptyClass = isGood ? 'theme-good' : 'theme-bad';
-        container.innerHTML = `<div class="result-card ${emptyClass}" style="text-align:center; padding:10px;">විශේෂ ${isGood ? 'සුබ' : 'අසුබ'} ග්‍රහ බලපෑම් නොමැත.</div>`;
-        return;
-    }
-
-    let html = '';
-    planets.forEach((p, index) => {
-        html += `
-            <div class="accordion-item">
-                <div class="accordion-header ${themeClass}" onclick="toggleAccordion(this.parentElement)">
-                    <div class="accordion-title">
-                        <div style="font-size:0.9rem; opacity:0.9;">${p.name} ග්‍රහයාට ${isGood ? 'සුබ' : 'හිමි'} අකුරු</div>
-                        <div class="accordion-letters">${p.letters}</div>
-                    </div>
-                    <div class="dropdown-icon">▼</div>
-                </div>
-                <div class="accordion-body">
-                    <div style="font-weight:bold; margin-bottom:10px; color:#7F0000;">${p.name} ග්‍රහයාගේ බලය</div>
-                    ${p.details.map(d => {
-                        let colorClass = 'status-neutral';
-                        if(d.status === 'සුභ') colorClass = 'status-good';
-                        if(d.status === 'අසුභ') colorClass = 'status-bad';
-                        if(d.val.includes('උච්ච') || d.val.includes('ස්වක්ෂේත්‍ර')) colorClass = 'status-highlight';
-                        
-                        return `
-                        <div class="balaya-detail-row">
-                            <div>${d.label} - ${d.val}: <span class="${colorClass}">${d.status}</span></div>
-                        </div>
-                        `;
-                    }).join('')}
-                </div>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-    // --- 5. RENDER FUNCTIONS ---
-
-    function renderGoodLetters(nkName, pada, pakshiya, lagnaId, navId, dateObj) {
-        const nkData = NAKATHA_LETTERS[nkName];
-        let padaHtml = `
-            <div class="result-card theme-good">
-                <div class="card-header">☑️ ${nkName} නැකතට හිමි අකුරු</div>
-                <div class="card-body">
-                    ${[0,1,2,3].map(i => `
-                        <div class="pada-info ${i+1 === pada ? 'pada-active' : ''}">
-                            <span>${i+1} පාදය</span>
-                            <span>${nkData.padas[i]}</span>
-                        </div>
-                    `).join('')}
-                    <div style="margin-top:10px; border-top:1px dashed #ccc; padding-top:5px;">
-                        හිමි ස්වරය: <strong>${nkData.swara}</strong>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.getElementById('nekathaPadaResult').innerHTML = padaHtml;
-        document.getElementById('nekathaGoodHeader').textContent = `${nkName} නැකතට සුබ අකුරු`;
-
-        const categories = [
-            { name: "ජන්ම", type: "blue", group: "good" },
-            { name: "සම්පත්", type: "green", group: "good" },
-            { name: "ක්ෂේම", type: "green", group: "good" },
-            { name: "සාධක", type: "green", group: "good" },
-            { name: "මෛත්‍රී", type: "green", group: "good" },
-            { name: "පරම මෛත්‍රී", type: "green", group: "good" }
-        ];
-
-        let nkIndex = NAKATHA_ORDER.indexOf(nkName);
-        let groupStart = 0;
-        if (nkIndex >= 0 && nkIndex <= 2) groupStart = 0;
-        else if (nkIndex >= 3 && nkIndex <= 5) groupStart = 3; 
-        else if (nkIndex >= 6 && nkIndex <= 8) groupStart = 6;
-        else if (nkIndex >= 9 && nkIndex <= 11) groupStart = 9;
-        else if (nkIndex >= 12 && nkIndex <= 14) groupStart = 12;
-        else if (nkIndex >= 15 && nkIndex <= 17) groupStart = 15;
-        else if (nkIndex >= 18 && nkIndex <= 20) groupStart = 18;
-        else if (nkIndex >= 21 && nkIndex <= 23) groupStart = 21;
-        else groupStart = 24;
-
-        let triadHtml = "";
-        const goodIndices = [0, 1, 3, 5, 7, 8]; 
-        const triadArr = [
-            "අස්විද", "මා", "මුල", "බෙරණ", "පුවපල්", "පුවසල", "කැති", "උත්‍රපල්", "උත්‍රසල",
-            "රෙහෙණ", "හත", "සුවණ", "මුවසිරස", "සිත", "දෙනට", "අද", "සා", "සියාවස",
-            "පුනාවස", "විසා", "පුවපුටුප", "පුෂ", "අනුර", "උත්‍රපුටුප", "අස්ලිස", "දෙට", "රේවතී"
-        ];
-
-        goodIndices.forEach(catIdx => {
-            const cat = categories.find(c => {
-                if (catIdx === 0) return c.name === "ජන්ම";
-                if (catIdx === 1) return c.name === "සම්පත්";
-                if (catIdx === 3) return c.name === "ක්ෂේම";
-                if (catIdx === 5) return c.name === "සාධක";
-                if (catIdx === 7) return c.name === "මෛත්‍රී";
-                if (catIdx === 8) return c.name === "පරම මෛත්‍රී";
-            });
-            if(!cat) return;
-            let lettersHtml = `<div class="result-card theme-good"><div class="card-header">✅ ${cat.name}</div><div class="card-body">`;
-            for(let j=0; j<3; j++) {
-                const currentNk = triadArr[(groupStart + (catIdx * 3) + j) % triadArr.length];
-                const lets = NAKATHA_LETTERS[currentNk].padas;
-                lettersHtml += `<div class="letters-grid" style="margin-bottom:5px;">`;
-                lets.forEach((l, idx) => {
-                    const isBold = (idx === (pada - 1)); 
-                    lettersHtml += `<div class="letter-box ${isBold ? 'bold-highlight' : ''}">${l}</div>`;
-                });
-                lettersHtml += `</div>`;
-            }
-            lettersHtml += `</div></div>`;
-            triadHtml += lettersHtml;
-        });
-        document.getElementById('nekathaGoodContainer').innerHTML = triadHtml;
-
-        const pData = PAKSHIYA_DATA[pakshiya];
-        let pHtml = `
-            <div class="result-card theme-good">
-                <div class="card-header">ජන්ම නැකතට හිමි පක්ෂියාට සුබ ස්වර</div>
-                <div class="content" style="font-size: 1.1rem;"> ${pData.good} ස්වර <br><small><strong>(${pakshiya} / ${pData.alias})</strong></small></div>
-            </div>
-        `;
-        let friend = "", friendVowels = "", friendAlias = "";
-        if (pakshiya === "භේරුණ්ඩ පක්ෂියා") { friend = "පිංගල පක්ෂියා"; friendVowels = "ඉ, ඊ"; friendAlias = "බකමූණා"; }
-        else if (pakshiya === "පිංගල පක්ෂියා") { friend = "භේරුණ්ඩ පක්ෂියා"; friendVowels = "අ, ආ"; friendAlias = "රාජාලියා"; }
-        else if (pakshiya === "කාක පක්ෂියා") { friend = "කුක්කුට පක්ෂියා"; friendVowels = "එ, ඒ"; friendAlias = "කුකුළා"; }
-        else if (pakshiya === "කුක්කුට පක්ෂියා") { friend = "කාක පක්ෂියා"; friendVowels = "උ, ඌ"; friendAlias = "කපුටා"; }
-        else if (pakshiya === "මයුර පක්ෂියා") { friend = "භේරුණ්ඩ පක්ෂියා"; friendVowels = "අ, ආ"; friendAlias = "රාජාලියා"; } 
-        
-        if(friend) {
-            pHtml += `
-                <div class="result-card theme-good">
-                    <div class="card-header">මිතුරු පක්ෂියාට සුබ ස්වර</div>
-                    <div>${friendVowels} ස්වර <br><small>(${friend} / ${friendAlias})</small></div>
-                </div>
-            `;
-        }
-        document.getElementById('pakshiyaGoodContainer').innerHTML = pHtml;
-
-        const lInfo = LAGNA_INFO[lagnaId];
-        let bhutaHtml = "";
-        lInfo.goodBhuta.forEach(b => {
-            bhutaHtml += `
-                <div class="result-card theme-good">
-                    <div class="card-header">${b} භූතයට සුබ අකුරු</div>
-                    <div>${ELEMENTS_LETTERS[b]}</div>
-                </div>
-            `;
-        });
-        document.getElementById('bhutaGoodContainer').innerHTML = bhutaHtml;
-
-        document.getElementById('lagnaGoodContainer').innerHTML = `
-            <div class="sub-heading">${lInfo.name} ලග්නයට සුබ අකුරු</div>
-            <div class="result-card theme-good">
-                <div>${lInfo.goodLets}</div>
-            </div>
-        `;
-
-        const navNamesList = ["මේෂ", "වෘෂභ", "මිථුන", "කටක", "සිංහ", "කන්‍යා", "තුලා", "වෘශ්චික", "ධනු", "මකර", "කුම්භ", "මීන"];
-        let navNameStr = navNamesList[navId - 1];
-
-        document.getElementById('navanshakaGoodContainer').innerHTML = `
-            <div class="sub-heading">${navNameStr} නවාංශකයට සුබ අකුරු</div>
-            <div class="result-card theme-good">
-                <div>${NAVANSHAKA_LETTERS[navId]}</div>
-            </div>
-        `;
-
-        document.getElementById('lagnaLordGoodContainer').innerHTML = `
-            <div class="sub-heading">ලග්නාධිපති ග්‍රහයාට (${lInfo.lord}) සුබ අකුරු</div>
-            <div class="result-card theme-good">
-                <div>${lInfo.lordLets}</div>
-            </div>
-        `;
-
-        const dayIdx = dateObj.getDay(); 
-        const dayNames = ["ඉරිදා", "සඳුදා", "අඟහරුවාදා", "බදාදා", "බ්‍රහස්පතින්දා", "සිකුරාදා", "සෙනසුරාදා"];
-        document.getElementById('dayGoodContainer').innerHTML = `
-            <div class="sub-heading">${dayNames[dayIdx]} දවසට සුබ අකුරු</div>
-            <div class="result-card theme-good">
-                <div>${DAY_LETTERS[dayIdx]}</div>
-            </div>
-        `;
-    }
-
-    function renderBadLetters(nkName, pakshiya, lagnaId) {
-        const categories = [
-            { name: "විපත්", type: "red", group: "bad" },
-            { name: "ප්‍රත්‍යාරී", type: "red", group: "bad" },
-            { name: "වධ", type: "red", group: "bad" }
-        ];
-
-        let nkIndex = NAKATHA_ORDER.indexOf(nkName);
-        let groupStart = 0;
-        if (nkIndex >= 0 && nkIndex <= 2) groupStart = 0;
-        else if (nkIndex >= 3 && nkIndex <= 5) groupStart = 3;
-        else if (nkIndex >= 6 && nkIndex <= 8) groupStart = 6;
-        else if (nkIndex >= 9 && nkIndex <= 11) groupStart = 9;
-        else if (nkIndex >= 12 && nkIndex <= 14) groupStart = 12;
-        else if (nkIndex >= 15 && nkIndex <= 17) groupStart = 15;
-        else if (nkIndex >= 18 && nkIndex <= 20) groupStart = 18;
-        else if (nkIndex >= 21 && nkIndex <= 23) groupStart = 21;
-        else groupStart = 24;
-
-        const triadArr = [
-            "අස්විද", "මා", "මුල", "බෙරණ", "පුවපල්", "පුවසල", "කැති", "උත්‍රපල්", "උත්‍රසල",
-            "රෙහෙණ", "හත", "සුවණ", "මුවසිරස", "සිත", "දෙනට", "අද", "සා", "සියාවස",
-            "පුනාවස", "විසා", "පුවපුටුප", "පුෂ", "අනුර", "උත්‍රපුටුප", "අස්ලිස", "දෙට", "රේවතී"
-        ];
-
-        let badHtml = "";
-        const badIndices = [2, 4, 6]; 
-
-        badIndices.forEach(catIdx => {
-             const catName = (catIdx === 2) ? "විපත්" : (catIdx === 4) ? "ප්‍රත්‍යාරී" : "වධ";
-             let lettersHtml = `<div class="result-card theme-bad"><div class="card-header">⭕ ${catName}</div><div class="card-body">`;
-             for(let j=0; j<3; j++) {
-                const currentNk = triadArr[(groupStart + (catIdx * 3) + j) % triadArr.length];
-                const lets = NAKATHA_LETTERS[currentNk].padas;
-                lettersHtml += `<div class="letters-grid" style="margin-bottom:5px;">`;
-                lets.forEach(l => {
-                    lettersHtml += `<div class="letter-box">${l}</div>`;
-                });
-                lettersHtml += `</div>`;
+        function buildFullMap() {
+             const baseConsonants = {
+                    'k': 'ක', 'kh': 'ඛ', 'g': 'ග', 'gh': 'ඝ',
+                    'ch': 'ච', 'chh': 'ඡ', 'j': 'ජ',
+                    'th': 'ත', 'thh': 'ථ',
+                    'd': 'ඩ', 'dh': 'ද', 'q': 'ද', 'dhh': 'ධ',
+                    'n': 'න', 'N': 'ණ',
+                    'p': 'ප', 'ph': 'ඵ',
+                    'b': 'බ', 'bh': 'භ', 'B': 'ඹ',
+                    'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'L': 'ළ',
+                    'v': 'ව', 'w': 'ව', 's': 'ස', 'sh': 'ශ', 'Sh': 'ෂ', 'S': 'ෂ',
+                    'h': 'හ', 'f': 'ෆ', 't': 'ට', 'c': 'ස', 'D': 'ඪ',
+                    'T': 'ඨ', 'C': 'ස', 'F': 'ෆ', 'G': 'ඝ', 'H': 'හ',
+                    'J': 'ජ', 'K': 'ඛ', 'M': 'ම', 'P': 'ඵ', 'Q': 'ධ',
+                    'V': 'ව', 'W': 'ව', 'Y': 'ය',
+                    'zga': 'ඟ', 'zja': 'ඦ', 'zda': 'ඬ', 'zdha': 'ඳ', 'zqa': 'ඳ',
+                    'zk': 'ඤ', 'zh': 'ඥ', 'X': 'ඞ'
+             };
+
+             const pillaChars = {
+                 'a': '', 'aa': 'ා', 'A': 'ැ', 'Aa': 'ෑ', 'AA': 'ෑ',
+                 'i': 'ි', 'ii': 'ී', 'u': 'ු', 'uu': 'ූ', 'R': 'ෘ', 'Ru': 'ෲ',
+                 'e': 'ෙ', 'ee': 'ේ', 'ai': 'ෛ', 'o': 'ො', 'oo': 'ෝ',
+                 'au': 'ෞ', 'ou': 'ෞ', 'H': 'ඃ'
+             };
+
+             const baseVowels = {
+                    'a': 'අ', 'aa': 'ආ', 'A': 'ඇ', 'Aa': 'ඈ', 'AA': 'ඈ',
+                    'i': 'ඉ', 'ii': 'ඊ', 'u': 'උ', 'U': 'උ', 'uu': 'ඌ', 'R': 'ඍ', 'Ru': 'ඎ',
+                    'e': 'එ', 'E': 'එ', 'ee': 'ඒ', 'ai': 'ඓ', 'I': 'ඓ', 'o': 'ඔ', 
+                    'O': 'ඔ', 'oo': 'ඕ', 'au': 'ඖ', 'ou': 'ඖ'
+             };
+
+             let consonantBlocks = { ...baseConsonants };
+
+             const doubles = { 'tt': 'ට්ට', 'dd': 'ඩ්ඩ', 'nn': 'න්න', 'mm': 'ම්ම', 'll': 'ල්ල', 'pp': 'ප්ප' };
+             Object.assign(consonantBlocks, doubles);
+
+             const yansaya = '්‍ය';
+             const rakāransaya = '්‍ර';
+             for (const key in baseConsonants) {
+                 if (key !== 'y') consonantBlocks[key + 'y'] = baseConsonants[key] + yansaya;
+                 if (key !== 'r') consonantBlocks[key + 'r'] = baseConsonants[key] + rakāransaya;
              }
-             lettersHtml += `</div></div>`;
-             badHtml += lettersHtml;
-        });
-        document.getElementById('nekathaBadContainer').innerHTML = badHtml;
-        document.getElementById('nekathaBadHeader').textContent = `${nkName} නැකතට අසුබ අකුරු`;
 
-        const pData = PAKSHIYA_DATA[pakshiya];
-        let enemy = "", enemyVowels = "", enemyAlias = "";
-        if (pakshiya === "භේරුණ්ඩ පක්ෂියා") { enemy = "කාක පක්ෂියා"; enemyVowels = "උ, ඌ"; enemyAlias = "කපුටා"; }
-        else if (pakshiya === "පිංගල පක්ෂියා") { enemy = "කුක්කුට පක්ෂියා"; enemyVowels = "එ, ඒ"; enemyAlias = "කුකුළා"; }
-        else if (pakshiya === "කාක පක්ෂියා") { enemy = "භේරුණ්ඩ පක්ෂියා"; enemyVowels = "අ, ආ"; enemyAlias = "රාජාලියා"; }
-        else if (pakshiya === "කුක්කුට පක්ෂියා") { enemy = "පිංගල පක්ෂියා"; enemyVowels = "ඉ, ඊ"; enemyAlias = "බකමූණා"; }
-        else if (pakshiya === "මයුර පක්ෂියා") { enemy = "පිංගල පක්ෂියා"; enemyVowels = "ඉ, ඊ"; enemyAlias = "බකමූණා"; }
+             let fullMap = { ...baseVowels, 'Lu': 'ළු', '.': '෴' };
+            
+             for (const blockKey in consonantBlocks) {
+                 const blockValue = consonantBlocks[blockKey];
+                 fullMap[blockKey] = blockValue + '්';
+                
+                 for (const pillaKey in pillaChars) {
+                     const pillaValue = pillaChars[pillaKey];
+                     if (pillaKey === 'a') {
+                         fullMap[blockKey + 'a'] = blockValue;
+                     } else {
+                         fullMap[blockKey + pillaKey] = blockValue + pillaValue;
+                     }
+                 }
+             }
+            
+             fullMap['x'] = 'ං';
+             fullMap['z'] = '';
 
-        if(enemy) {
-            document.getElementById('pakshiyaBadContainer').innerHTML = `
-                <div class="result-card theme-bad">
-                    <div class="card-header">සතුරු පක්ෂියාට හිමි අසුබ ස්වර</div>
-                    <div>${enemyVowels} ස්වර <br><small>(${enemy} / ${enemyAlias})</small></div>
-                </div>
-            `;
-        }
+             return fullMap;
+         }
 
-        const lInfo = LAGNA_INFO[lagnaId];
-        let bhutaBadHtml = "";
-        lInfo.badBhuta.forEach(b => {
-            bhutaBadHtml += `
-                <div class="result-card theme-bad">
-                    <div class="card-header">${b} භූතයට හිමි අකුරු</div>
-                    <div>${ELEMENTS_LETTERS[b]}</div>
-                </div>
-            `;
-        });
-        document.getElementById('bhutaBadContainer').innerHTML = bhutaBadHtml;
-    }
-    
-    // --- GANA CALCULATION LOGIC ---
+         const conversionMap = buildFullMap();
+         const sortedKeys = Object.keys(conversionMap).sort((a, b) => b.length - a.length);
 
-function calculateAndRenderGana(nkName) {
-    // 1. Definitions
-    const GANA_DETAILS = {
-        "Bhumi": { name: "භූමි ගණය", sym: "(+ + +)" },
-        "Deva": { name: "දේව ගණය", sym: "(- - -)" },
-        "Chandra": { name: "චන්ද්‍ර ගණය", sym: "(+ - -)" },
-        "Jala": { name: "ජල ගණය", sym: "(- + +)" }
-    };
+         function convertSinglishToSinhala(text) {
+             const words = text.split(' ');
+             const convertedWords = words.map(word => {
+                 if (word.length === 0) return '';
+                
+                 let converted = '';
+                 let i = 0;
+                 while (i < word.length) {
+                     let matchFound = false;
+                     for (const key of sortedKeys) {
+                         if (word.substring(i, i + key.length) === key) {
+                             converted += conversionMap[key];
+                             i += key.length;
+                             matchFound = true;
+                             break;
+                         }
+                     }
+                     if (!matchFound) {
+                         converted += word[i];
+                         i++;
+                     }
+                 }
+                 return converted;
+             });
+             return convertedWords.join(' ');
+         }
+        // --- END: SINGLISH TO SINHALA CONVERSION SCRIPT ---
 
-    // 2. Logic Mapping (Groups of Stars)
-    // We categorize the logic based on the 9 Nekatha Groups
-    const NEKATHA_GROUPS = [
-        { 
-            stars: ["අස්විද", "මා", "මුල"],
-            good: [{g:"Bhumi", r:"ක්ෂේම"}, {g:"Deva", r:"පරම මෛත්‍රී"}, {g:"Jala", r:"සාධක"}],
-            bad: [{g:"Chandra", r:"ප්‍රත්‍යාරී"}]
-        },
-        { 
-            stars: ["බෙරණ", "පුවපල්", "පුවසල"],
-            good: [{g:"Deva", r:"මෛත්‍රී"}, {g:"Chandra", r:"ක්ෂේම"}],
-            bad: [{g:"Bhumi", r:"විපත්"}, {g:"Jala", r:"ප්‍රත්‍යාරී"}]
-        },
-        { 
-            stars: ["කැති", "උත්‍රපල්", "උත්‍රසල"],
-            good: [{g:"Bhumi", r:"සම්පත්"}, {g:"Jala", r:"ක්ෂේම"}],
-            bad: [{g:"Deva", r:"වධ"}, {g:"Chandra", r:"විපත්"}]
-        },
-        { 
-            stars: ["රෙහෙණ", "හත", "සුවණ"],
-            good: [{g:"Bhumi", r:"ජන්ම"}, {g:"Deva", r:"සාධක"}, {g:"Chandra", r:"සම්පත්"}],
-            bad: [{g:"Jala", r:"විපත්"}]
-        },
-        { 
-            stars: ["මුවසිරස", "සිත", "දෙනට"],
-            good: [{g:"Bhumi", r:"පරම මෛත්‍රී"}, {g:"Chandra", r:"ජන්ම"}, {g:"Jala", r:"සම්පත්"}],
-            bad: [{g:"Deva", r:"ප්‍රත්‍යාරී"}]
-        },
-        { 
-            stars: ["අද", "සා", "සියාවස"],
-            good: [{g:"Bhumi", r:"මෛත්‍රී"}, {g:"Deva", r:"ක්ෂේම"}, {g:"Chandra", r:"පරම මෛත්‍රී"}, {g:"Jala", r:"ජන්ම"}],
-            bad: []
-        },
-        { 
-            stars: ["පුනාවස", "විසා", "පුවපුටුප"],
-            good: [{g:"Chandra", r:"මෛත්‍රී"}, {g:"Jala", r:"පරම මෛත්‍රී"}],
-            bad: [{g:"Bhumi", r:"වධ"}, {g:"Deva", r:"විපත්"}]
-        },
-        { 
-            stars: ["පුෂ", "අනුර", "උත්‍රපුටුප"],
-            good: [{g:"Bhumi", r:"සාධක"}, {g:"Deva", r:"සම්පත්"}, {g:"Jala", r:"මෛත්‍රී"}],
-            bad: [{g:"Chandra", r:"වධ"}]
-        },
-        { 
-            stars: ["අස්ලිස", "දෙට", "රේවතී"],
-            good: [{g:"Deva", r:"ජන්ම"}, {g:"Chandra", r:"සාධක"}],
-            bad: [{g:"Bhumi", r:"ප්‍රත්‍යාරී"}, {g:"Jala", r:"වධ"}]
-        }
-    ];
 
-    // 3. Find the Group
-    const group = NEKATHA_GROUPS.find(grp => grp.stars.includes(nkName));
+        // --- START: GANA CALCULATION SCRIPT (REVISED) ---
+        const ganaData = {
+            "+++": { ganaStatus: "සුභයි ✅", ganaName: "ම - භූමි ගණය", adhipathi: "බුධ", nakatha: "සුවණ", prathiphala: "ජය, සම්පත්, ලාභ" },
+            "---": { ganaStatus: "සුභයි ✅", ganaName: "න - දේව ගණය", adhipathi: "ගුරු", nakatha: "දෙට", prathiphala: "බලය, තේජස, ආයුෂ" },
+            "+--": { ganaStatus: "සුභයි ✅", ganaName: "බ - චන්ද්‍ර ගණය", adhipathi: "චන්ද්‍ර", nakatha: "මුවසිරස", prathiphala: "සෙත, යසස්, නුවණ" },
+            "-++": { ganaStatus: "සුභයි ✅", ganaName: "ය - ජල ගණය", adhipathi: "ශුක්‍ර", nakatha: "සියාවස", prathiphala: "ආයුෂ, ධෛර්‍යය, දියුණුව" },
+            "--+": { ganaStatus: "අසුභයි ⭕", ganaName: "ස - වායු ගණය", adhipathi: "ශනි", nakatha: "සා", prathiphala: "විකල් වීම, පිටුවහල් කිරීම" },
+            "++-": { ganaStatus: "අසුභයි ⭕", ganaName: "ත - ආකාශ ගණය", adhipathi: "රාහු", nakatha: "බෙරණ", prathiphala: "ධන හානි, විනාශය" },
+            "-+-": { ganaStatus: "අසුභයි ⭕", ganaName: "ජ - සූර්ය ගණය", adhipathi: "රවි", nakatha: "පුනාවස", prathiphala: "රෝදුක්, කැක්කුම්" },
+            "+-+": { ganaStatus: "අසුභයි ⭕", ganaName: "ර - අග්නි ගණය", adhipathi: "කුජ", nakatha: "කැති", prathiphala: "දැඩි ශෝක, මරණ බිය" }
+        };
 
-    // Update Headers
-    document.getElementById('ganaGoodHeader').textContent = `${nkName} නැකතට සුබ ගණ`;
-    document.getElementById('ganaBadHeader').textContent = `${nkName} නැකතට අසුබ ගණ`;
+        // Nakatha list in Standard Order (1-27) for calculation
+        const allNakathas = [
+            "අස්විද", "බෙරණ", "කැති", "රෙහෙණ", "මුවසිරස", "අද", "පුනාවස", "පුෂ", "අස්ලිස",
+            "මා", "පුවපල්", "උත්‍රපල්", "හත", "සිත", "සා", "විසා", "අනුර", "දෙට",
+            "මුල", "පුවසල", "උත්‍රසල", "සුවණ", "දෙනට", "සියාවස", "පුවපුටුප", "උත්‍රපුටුප", "රේවතී"
+        ];
 
-    const goodContainer = document.getElementById('ganaGoodContainer');
-    const badContainer = document.getElementById('ganaBadContainer');
+        // Compatibility Categories (based on distance % 9)
+        // 0=Janma, 1=Sampath, 2=Vipat, 3=Kshema, 4=Prathyari, 5=Sadhaka, 6=Vadha, 7=Maithri, 8=Parama Maithri
+        const compatibilityCategories = [
+            { name: "ජන්ම", type: "birth", status: "සුභයි" },           // 0
+            { name: "සම්පත්", type: "good", status: "සුභයි" },         // 1
+            { name: "විපත්", type: "bad", status: "අසුභයි" },           // 2
+            { name: "ක්ෂේම", type: "good", status: "සුභයි" },          // 3
+            { name: "ප්‍රත්‍යාරී", type: "bad", status: "අසුභයි" },      // 4
+            { name: "සාධක", type: "good", status: "සුභයි" },           // 5
+            { name: "වධ", type: "bad", status: "අසුභයි" },             // 6
+            { name: "මෛත්‍රී", type: "good", status: "සුභයි" },         // 7
+            { name: "පරම මෛත්‍රී", type: "good", status: "සුභයි" }      // 8
+        ];
 
-    // Helper to generate HTML
-    function generateGanaHtml(list, typeClass) {
-        if (!list || list.length === 0) return `<div class="result-card ${typeClass === 'res-good' ? 'theme-good' : 'theme-bad'}">අසුබ ගණ නොමැත! (භූමි, දේව, චන්ද්‍ර හා ජල යන සියලු සුබ ගණ මෙම නැකතට අසුබ නොවේ.)</div>`;
+        const guideMessage = "කරුණාකර සිංහල නමක් ඇතුළත් කරන්න. ඔබට අවශ්‍ය නම් ඉංග්‍රීසි අකුරු (Singlish) භාවිතා කළ හැක.";
         
-        let html = `<div class="result-card ${typeClass === 'res-good' ? 'theme-good' : 'theme-bad'}"><div class="card-body">`;
-        list.forEach(item => {
-            const info = GANA_DETAILS[item.g];
-            html += `
-                <div class="gana-row">
-                    <div>
-                        <span class="gana-name">${info.name}</span>
-                        <span class="gana-symbol">${info.sym}</span>
+        const HAL = '්';
+        const BINDUWA = 'ං';
+        const YANSAYA = '්‍ය';
+        const RAKARANSAYA = '්‍ර';
+        const VOWEL_SIGNS = ['ා', 'ැ', 'ෑ', 'ි', 'ී', 'ු', 'ූ', 'ෘ', 'ෲ', 'ෙ', 'ේ', 'ෛ', 'ො', 'ෝ', 'ෞ'];
+        const CONSONANTS = "කඛගඝචඡජඣඤටඨඩඪණතථදධනපඵබභමඹයරලවශෂසහළෆඟඦඬඳඥ";
+        const VOWELS = "අආඇඈඉඊඋඌඍඎඑඒඓඔඕඖ";
+        
+        function getSyllables(name) {
+            const cleanName = name.replace(/\s+/g, '');
+
+            // Pass 1: Tokenize the name into fundamental units.
+            const tokenize = (str) => {
+                const tokens = [];
+                let i = 0;
+                while (i < str.length) {
+                    const char = str[i];
+                    const next = str[i + 1];
+
+                    if (VOWELS.includes(char)) {
+                        tokens.push(char);
+                        i++;
+                    } else if (CONSONANTS.includes(char)) {
+                        if (next === HAL) {
+                            tokens.push(char + HAL); // e.g., 'ක්'
+                            i += 2;
+                        } else if (next === YANSAYA) {
+                            tokens.push(char + HAL); // Deconstruct 'ක්‍യ' -> 'ක්', 'ය'
+                            tokens.push('ය');
+                            i += 2;
+                        } else if (next === RAKARANSAYA) {
+                            tokens.push(char + HAL); // Deconstruct 'ක්‍ර' -> 'ක්', 'ර'
+                            tokens.push('ර');
+                            i += 2;
+                        } else if (VOWEL_SIGNS.includes(next)) {
+                            tokens.push(char + next); // e.g., 'කා'
+                            i += 2;
+                        } else {
+                            tokens.push(char); // e.g., 'ක'
+                            i++;
+                        }
+                    } else if (char === BINDUWA) {
+                        tokens.push(char);
+                        i++;
+                    } else {
+                        i++; // Skip other characters
+                    }
+                }
+                return tokens;
+            };
+
+            // Pass 2: Group tokens into astrological syllables.
+            const syllabify = (tokens) => {
+                if (!tokens.length) return [];
+                const syllables = [];
+                let currentSyllable = tokens.shift();
+
+                while (tokens.length > 0) {
+                    const nextToken = tokens[0];
+                    const isHalToken = (t) => t.endsWith(HAL);
+
+                    // If the next token is a hal letter, append it to the current syllable.
+                    if (isHalToken(nextToken)) {
+                        currentSyllable += nextToken;
+                        tokens.shift();
+                    } 
+                    // If the next token is a binduwa, append it and finalize the syllable.
+                    else if (nextToken === BINDUWA) {
+                        currentSyllable += nextToken;
+                        tokens.shift();
+                        syllables.push(currentSyllable);
+                        currentSyllable = tokens.shift() || '';
+                    }
+                    // Otherwise, the next token must start a new syllable.
+                    else {
+                        syllables.push(currentSyllable);
+                        currentSyllable = tokens.shift();
+                    }
+                }
+                if (currentSyllable) {
+                    syllables.push(currentSyllable);
+                }
+                return syllables;
+            };
+
+            const tokens = tokenize(cleanName);
+            return syllabify(tokens);
+        }
+
+        function getGanaType(syllable) {
+            if (!syllable) return '';
+            // GURU (+) rules
+            if (syllable.includes('ෘ') || syllable.includes('ෲ')) return '+';
+            if (['ා', 'ෑ', 'ී', 'ූ', 'ේ', 'ෝ'].some(v => syllable.includes(v))) return '+';
+            if (syllable.endsWith(HAL)) return '+';
+            if (syllable.includes(BINDUWA) || syllable.includes('ඃ')) return '+';
+            if (VOWELS.includes(syllable) && 'ආඇඈඊඌඒඕඖ'.includes(syllable)) return '+'; // Note: Diphthongs are often Guru
+
+            // LAGHU (-) rules (everything else)
+            return '-';
+        }
+
+        // Logic to calculate compatibility between User Nakatha and Gana Nakatha
+        function getCompatibility(userNakathaName, ganaNakathaName) {
+            const userIndex = allNakathas.indexOf(userNakathaName);
+            const ganaIndex = allNakathas.indexOf(ganaNakathaName);
+
+            if (userIndex === -1 || ganaIndex === -1) return null;
+
+            // Calculate distance (Cycle of 27)
+            // Logic: Start from User Nakatha, count to Gana Nakatha
+            const distance = (ganaIndex - userIndex + 27) % 27;
+            
+            // Map to 9 categories
+            const categoryIndex = distance % 9;
+            return compatibilityCategories[categoryIndex];
+        }
+
+        function findGana() {
+            const sinhalaNameDisplay = document.getElementById('sinhala-name-display');
+            const guideText = document.getElementById('guide-text');
+            const resultContainer = document.getElementById('result-container');
+            const nakathaSelect = document.getElementById('nakatha');
+            const selectedNakatha = nakathaSelect.value;
+
+            let name = sinhalaNameDisplay.textContent;
+
+            guideText.style.display = 'none';
+            resultContainer.style.display = 'none';
+            resultContainer.className = ''; // Clear previous color classes
+
+            if (!name || name === "සිංහල නම මෙතැනින් දිස්වේ >>" || !/[\u0D80-\u0DFF]/.test(name)) {
+                guideText.innerText = guideMessage;
+                guideText.style.display = 'block';
+                return;
+            }
+
+            try {
+                const cleanName = name.replace(/\s+/g, '');
+
+                if (cleanName.length < 2) {
+                    guideText.innerText = "ගණය සෙවීමට නොහැක. කරුණාකර අක්ෂර දෙකක් හෝ වැඩි ගණනක් ඇතුළත් කරන්න.";
+                    guideText.style.display = 'block';
+                    return;
+                }
+
+                const originalSyllables = getSyllables(name);
+                
+                if (originalSyllables.length === 0) {
+                    guideText.innerText = "ගණය සෙවීමට නොහැකි විය. කරුණාකර නැවත පරීක්ෂා කරන්න.";
+                    guideText.style.display = 'block';
+                    return;
+                }
+
+                // Repeating syllables if the name has fewer than 3 syllables
+                let finalSyllables = [...originalSyllables];
+                if (finalSyllables.length < 3) {
+                    const syllablesToRepeat = [...originalSyllables];
+                    while (finalSyllables.length < 3) {
+                        finalSyllables.push(...syllablesToRepeat);
+                    }
+                }
+
+                const pattern = finalSyllables.slice(0, 3).map(getGanaType).join('');
+                const resultData = ganaData[pattern];
+                
+                if (resultData) {
+                    displayResult(resultData, name, finalSyllables, pattern, selectedNakatha);
+                } else {
+                    guideText.innerText = `ගණය සෙවීමට නොහැකි විය. (Pattern: ${pattern})`;
+                    guideText.style.display = 'block';
+                }
+
+            } catch (error) {
+                console.error("Error during Gana calculation:", error);
+                guideText.innerText = "දෝෂයක් ඇතිවිය. කරුණාකර නම නැවත පරීක්ෂා කරන්න.";
+                guideText.style.display = 'block';
+            }
+        }
+
+        function displayResult(resultData, name, syllables, pattern, userNakatha) {
+            const resultContainer = document.getElementById('result-container');
+            const isAsubha = resultData.ganaStatus.includes("අසුභයි");
+            
+            // Apply color class to container based on MAIN Gana Result
+            resultContainer.classList.add(isAsubha ? 'result-asubha' : 'result-subha');
+            
+            const firstThreeSyllables = syllables.slice(0, 3).join(' | ');
+
+            // Compatibility Check Logic
+            let matchHtml = '';
+            if (userNakatha) {
+                const matchData = getCompatibility(userNakatha, resultData.nakatha);
+                
+                if (matchData) {
+                    const isMatchBad = (matchData.type === 'bad');
+                    // If Match is bad, text is red. If match is good/birth, text is green.
+                    const textColorClass = isMatchBad ? 'match-text-red' : 'match-text-green';
+                    
+                    matchHtml = `
+                    <div class="match-result-highlight ${textColorClass}">
+                        ජන්මයාගේ උපන් නැකතට: &nbsp; ${matchData.name} (${matchData.status})
                     </div>
-                    <span class="gana-result ${typeClass}">${item.r}</span>
-                </div>
-            `;
-        });
-        html += `</div></div>`;
-        return html;
-    }
-
-    if (group) {
-        goodContainer.innerHTML = generateGanaHtml(group.good, 'res-good');
-        badContainer.innerHTML = generateGanaHtml(group.bad, 'res-bad');
-    } else {
-        goodContainer.innerHTML = "";
-        badContainer.innerHTML = "";
-    }
-}
-
-// --- BEST LETTERS CALCULATION LOGIC ---
-
-function calculateAndRenderBestLetters(userDate, nekathaName, pakshiyaName, lagnaId, navId) {
-    const section = document.getElementById('bestLettersSection');
-    const container = document.getElementById('bestLettersContainer');
-    const vowelContainer = document.getElementById('bestVowelContainer');
-    
-    // 1. Helper: Extract Base Consonant/Vowel
-    function getBaseChar(text) {
-        if (!text) return '';
-        text = text.trim();
-        if (text.length === 0) return '';
-        // Sinhala Unicode: First char is the base. Modifiers follow.
-        // Exception: ඍ, ඎ, etc. are single.
-        // We take the first character code.
-        return text.charAt(0);
-    }
-
-    // 2. Helper: Convert string list "අ ඉ උ" to array of base chars
-    function parseLetters(str) {
-        if (!str) return [];
-        // Split by space or comma
-        const parts = str.split(/[\s,]+/);
-        return parts.map(p => getBaseChar(p)).filter(p => p !== '');
-    }
-
-    // 3. Excluded Letters List
-    const EXCLUDED_LETTERS = new Set(['ඛ', 'ඝ', 'ඡ', 'ඨ', 'ඪ', 'ථ', 'ෆ', 'ඍ', 'ඎ', 'ඤ', 'ඣ', 'ඟ', 'ඦ', 'ඬ', 'ඳ', 'ඹ', 'ඞ']);
-
-    // 4. COLLECT BAD LETTERS (Pool B)
-    let badSet = new Set();
-
-    // A. Nekatha Bad (Vipat, Pratyari, Vadha)
-    let nkIndex = NAKATHA_ORDER.indexOf(nekathaName);
-    let groupStart = 0;
-    if (nkIndex <= 2) groupStart = 0;
-    else if (nkIndex <= 5) groupStart = 3;
-    else if (nkIndex <= 8) groupStart = 6;
-    else if (nkIndex <= 11) groupStart = 9;
-    else if (nkIndex <= 14) groupStart = 12;
-    else if (nkIndex <= 17) groupStart = 15;
-    else if (nkIndex <= 20) groupStart = 18;
-    else if (nkIndex <= 23) groupStart = 21;
-    else groupStart = 24;
-
-    const triadArr = [
-        "අස්විද", "මා", "මුල", "බෙරණ", "පුවපල්", "පුවසල", "කැති", "උත්‍රපල්", "උත්‍රසල",
-        "රෙහෙණ", "හත", "සුවණ", "මුවසිරස", "සිත", "දෙනට", "අද", "සා", "සියාවස",
-        "පුනාවස", "විසා", "පුවපුටුප", "පුෂ", "අනුර", "උත්‍රපුටුප", "අස්ලිස", "දෙට", "රේවතී"
-    ];
-
-    [2, 4, 6].forEach(offset => { // Vipat(2), Pratyari(4), Vadha(6)
-        for(let j=0; j<3; j++) {
-            const nk = triadArr[(groupStart + (offset * 3) + j) % 27];
-            NAKATHA_LETTERS[nk].padas.forEach(l => badSet.add(getBaseChar(l)));
-        }
-    });
-
-    // B. Enemy Bird Vowels
-    const pData = PAKSHIYA_DATA[pakshiyaName];
-    // Re-determine enemy (Simplified logic from main code)
-    let enemyBird = "";
-    if (pakshiyaName === "භේරුණ්ඩ පක්ෂියා") enemyBird = "කාක පක්ෂියා";
-    else if (pakshiyaName === "පිංගල පක්ෂියා") enemyBird = "කුක්කුට පක්ෂියා";
-    else if (pakshiyaName === "කාක පක්ෂියා") enemyBird = "භේරුණ්ඩ පක්ෂියා";
-    else if (pakshiyaName === "කුක්කුට පක්ෂියා") enemyBird = "පිංගල පක්ෂියා";
-    else if (pakshiyaName === "මයුර පක්ෂියා") enemyBird = "පිංගල පක්ෂියා";
-
-    if(enemyBird) {
-        parseLetters(PAKSHIYA_DATA[enemyBird].bad).forEach(l => badSet.add(l));
-    }
-
-    // C. Weak Planets (Bottom 1 or Score < 25)
-    // We must re-run partial Graha Logic to get data (copying minimal logic)
-    const POINTS_RASHI = { "උච්ච": 52, "ස්වක්ෂේත්‍ර": 39, "මූල ත්‍රිකෝණ": 39, "මිත්‍ර": 30, "සම": 26, "ශැත්‍ර": 13, "නීච": 0 };
-    const POINTS_POS = { "සුභ": 24, "සම": 12, "අසුභ": 0 };
-    const POINTS_OWN = { "සුභ": 12, "සම": 6, "අසුභ": 0 };
-    const POINTS_NAI = { "මිතුරු": 12, "සතුරු නොවේ": 12, "සම": 6, "සතුරු": 0 };
-    
-    let grahaScores = [];
-    PLANET_TRANSITS_2026.forEach(p => {
-        let signId = null;
-        for(let i = p.transits.length - 1; i >= 0; i--) {
-            if(userDate >= new Date(p.transits[i].date)) { signId = p.transits[i].sign; break; }
-        }
-        if(!signId) signId = p.transits[0].sign;
-        
-        // Calc Score
-        let s = 0;
-        const rr = GRAHA_RELATIONS[p.name][signId];
-        s += POINTS_RASHI[rr] || 0;
-        const hNum = (signId - lagnaId + 12) % 12 + 1;
-        s += POINTS_POS[BHAVA_SCORES[p.name][hNum]] || 0;
-        let oPts = 0, oCnt = 0;
-        GRAHA_OWNED[p.name].forEach(os => {
-            oPts += POINTS_OWN[BHAVA_SCORES[p.name][(os - lagnaId + 12)%12+1]] || 0; oCnt++;
-        });
-        s += (oPts/oCnt);
-        s += POINTS_NAI[NATURAL_RELATION[LAGNA_LORDS_MAP[lagnaId]][p.name]] || 0;
-        grahaScores.push({name: p.name, score: s, letters: p.letters});
-    });
-    grahaScores.sort((a,b) => b.score - a.score);
-    
-    // Add Weak Planets to Bad Set
-    if (grahaScores.some(p => p.score <= 25)) {
-        grahaScores.filter(p => p.score <= 25).forEach(p => parseLetters(p.letters).forEach(l => badSet.add(l)));
-    } else {
-        // Just the last one
-        parseLetters(grahaScores[grahaScores.length-1].letters).forEach(l => badSet.add(l));
-    }
-
-    // D. Bad Pancha Bhuta
-    LAGNA_INFO[lagnaId].badBhuta.forEach(b => {
-        parseLetters(ELEMENTS_LETTERS[b]).forEach(l => badSet.add(l));
-    });
-
-
-    // 5. COLLECT GOOD CANDIDATES (Pool A) with Ranking
-    // Structure: { char: 'අ', rank: 1 } (Keep lowest rank found)
-    let candidates = new Map();
-
-    function addCandidate(letters, rank) {
-        const arr = Array.isArray(letters) ? letters : parseLetters(letters);
-        arr.forEach(rawL => {
-            const base = getBaseChar(rawL);
-            // FILTER: Check if Bad or Excluded
-            if (badSet.has(base) || EXCLUDED_LETTERS.has(base)) return;
-
-            // Add or Update Rank
-            if (!candidates.has(base)) {
-                candidates.set(base, rank);
-            } else {
-                if (rank < candidates.get(base)) {
-                    candidates.set(base, rank);
+                    `;
                 }
             }
-        });
-    }
 
-    // Rank 1: Nekatha Owner
-    addCandidate(NAKATHA_LETTERS[nekathaName].padas, 1);
-
-    // Nekatha Triads
-    // Indices relative to GroupStart: Janma(0), Sampath(1), Kshema(3), Sadhaka(5), Maitri(7), ParamaMaitri(8)
-    const catMap = {0: 2, 1: 3, 3: 7, 5: 5, 7: 6, 8: 4}; // Map Offset to YOUR Rank Number
-    
-    Object.keys(catMap).forEach(offsetStr => {
-        const offset = parseInt(offsetStr);
-        const rank = catMap[offset];
-        for(let j=0; j<3; j++) {
-            const nk = triadArr[(groupStart + (offset * 3) + j) % 27];
-            addCandidate(NAKATHA_LETTERS[nk].padas, rank);
+            resultContainer.innerHTML = `
+                <h2 class="result-title ${isAsubha ? 'asubha-text' : 'subha-text'}">
+                    ${name}: ${resultData.ganaStatus}
+                </h2>
+                <dl class="result-details-grid">
+                    <dt>ගණය</dt> <dd>${resultData.ganaName}</dd>
+                    <dt>අක්ෂර විස්තර</dt>
+                    <dd>
+                        <strong>${firstThreeSyllables}</strong> <br>
+                        <span class="akshara-visthara">${pattern.split('').join(' ')}</span>
+                    </dd>
+                    <dt>අධිපති</dt> <dd>${resultData.adhipathi}</dd>
+                    <dt>හිමි නැකත</dt> <dd>${resultData.nakatha}</dd>
+                    <dt>ප්‍රතිඵල</dt> <dd>${resultData.prathiphala}</dd>
+                </dl>
+                ${matchHtml ? '<hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">' : ''}
+                ${matchHtml}
+            `;
+            resultContainer.style.display = 'block';
         }
-    });
 
-    // Rank 8: Strong Planets
-    // Logic: Top 1 (if < 65) or Top 2 (if >= 65)
-    let strong = [];
-    if(grahaScores[0].score < 65) strong = [grahaScores[0]];
-    else strong = grahaScores.filter(p => p.score >= grahaScores[1].score);
-    strong.forEach(p => addCandidate(p.letters, 8));
+        // --- Event Listeners and Initializers ---
 
-    // Rank 9: Lagna
-    addCandidate(LAGNA_INFO[lagnaId].goodLets, 9);
-
-    // Rank 10: Lagna Lord
-    addCandidate(LAGNA_INFO[lagnaId].lordLets, 10);
-
-    // Rank 11: Pancha Bhuta
-    LAGNA_INFO[lagnaId].goodBhuta.forEach(b => {
-        addCandidate(ELEMENTS_LETTERS[b], 11);
-    });
-
-    // Rank 12: Day
-    const dayIdx = userDate.getDay();
-    addCandidate(DAY_LETTERS[dayIdx], 12);
-
-    // Rank 13: Navanshaka
-    addCandidate(NAVANSHAKA_LETTERS[navId], 13);
-
-
-    // 6. SORT & SELECT
-    let resultList = Array.from(candidates.keys()).map(char => {
-        return { char: char, rank: candidates.get(char) };
-    });
-
-    // Sort by Rank ASC
-    resultList.sort((a, b) => a.rank - b.rank);
-
-    // 7. RENDER
-    // Condition: If count <= 2, hide
-    if (resultList.length <= 2) {
-        section.style.display = 'none';
-    } else {
-        // Limit to 12
-        const finalDisplay = resultList.slice(0, 12);
+        document.getElementById('year').textContent = new Date().getFullYear();
         
-        let html = '';
-        finalDisplay.forEach(item => {
-            html += `<div class="best-letter-box">${item.char}</div>`;
+        const nameInput = document.getElementById('name-input');
+        const sinhalaNameDisplay = document.getElementById('sinhala-name-display');
+
+        nameInput.addEventListener('input', () => {
+            const sinhalaText = convertSinglishToSinhala(nameInput.value);
+            sinhalaNameDisplay.textContent = sinhalaText || "සිංහල නම මෙතැනින් දිස්වේ >>";
         });
-        container.innerHTML = html;
 
-        // Vowel
-        vowelContainer.innerHTML = `සුබ ස්වරය: ${NAKATHA_LETTERS[nekathaName].swara} ස්වරය`;
-        
-        section.style.display = 'block';
-        
-        // Scroll to top to show this important section
-        section.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-</script>
-
+        nameInput.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                findGana();
+            }
+        });
+    </script>
 </body>
 </html>
