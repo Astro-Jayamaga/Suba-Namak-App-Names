@@ -275,22 +275,6 @@
         .text-red { color: var(--error-color) !important; font-weight: 700; }
         .text-default { color: #444 !important; font-weight: 500; }
 
-        /* Prevent text selection across the entire site */
-body {
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE10+/Edge */
-    user-select: none;         /* Standard */
-}
-
-/* Allow selection on input fields so users can still type */
-input, textarea {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-}
-
         /* Footer */
         footer {
             margin-top: auto;
@@ -898,56 +882,6 @@ input, textarea {
             resultsDiv.style.display = 'block';
             resultsDiv.scrollIntoView({ behavior: 'smooth' });
         });
-/**
- * Advanced Client-Side Protection Script
- * Prevent Right-Click, DevTools hotkeys, and Selection
- */
-(function() {
-    "use strict";
-
-    // 1. Disable Right-Click (Context Menu)
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        // Optional: Alert the user
-        // alert("Content is protected."); 
-    }, false);
-
-    // 2. Disable Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+P)
-    document.addEventListener('keydown', function(e) {
-        // Check for Ctrl (Windows) or Meta (Mac)
-        if (e.ctrlKey || e.metaKey) {
-            // Block Ctrl+S (Save), Ctrl+U (View Source), Ctrl+P (Print)
-            if (e.key === 's' || e.key === 'u' || e.key === 'p') {
-                e.preventDefault();
-                return false;
-            }
-            // Block Ctrl+Shift+I (DevTools), Ctrl+Shift+J (Console), Ctrl+Shift+C (Inspect)
-            if (e.shiftKey) {
-                if (e.key === 'i' || e.key === 'j' || e.key === 'c') {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-        }
-        
-        // Block F12 (DevTools)
-        if (e.key === 'F12') {
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    // 3. Disable Dragging (Images/Text)
-    document.addEventListener('dragstart', function(e) {
-        e.preventDefault();
-    });
-
-    // 4. Disable Text Selection (CSS backup usually required)
-    document.addEventListener('selectstart', function(e) {
-        e.preventDefault();
-    });
-
-})();
     </script>
 </body>
 </html>
