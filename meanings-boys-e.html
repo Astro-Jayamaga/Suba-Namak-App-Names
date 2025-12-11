@@ -1,418 +1,66 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Noto Serif Sinhala', serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
-            color: #000;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 1.5rem;
-            color: #0e47a1;
-        }
-        
-        .description {
-            font-size: 1.1rem;
-            color: #000;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .copyright {
-            text-align: center;
-            font-size: 0.65rem;
-            color: #888;
-            margin-top: 1.5rem;
-            margin-bottom: 3rem;
-       }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .entries-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .entries-control select, .entries-control input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Noto Serif Sinhala', serif;
-        }
-        
-        .table-container {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1.1rem;
-        }
-        
-        thead {
-            background: linear-gradient(to right, #0e47a1, #1d89e4);
-            color: white;
-        }
-        
-        th {
-            padding: 18px 15px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        
-        tr {
-            border-bottom: 1px solid #eaeaea;
-            transition: background-color 0.2s;
-        }
-        
-        tr:last-child {
-            border-bottom: none;
-        }
-        
-        tr:hover {
-            background-color: #e4f1ff;
-        }
-        
-        thead:hover {
-            color: black;
-        }
-        
-        td {
-            padding: 16px 15px;
-            color: #444;
-        }
-        
-        td:first-child {
-            font-weight: 600;
-            color: #0e47a1;
-        }
-        
-        .search-container {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .search-box {
-            padding: 10px 15px;
-            border: 2px solid #0e47a1;
-            border-radius: 5px;
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1rem;
-            width: 250px;
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 10px;
-        }
-        
-        .pagination button {
-            padding: 12px 20px;
-            background: #0e47a1;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1rem;
-            transition: background 0.3s;
-        }
-        
-        .pagination button:hover {
-            background: #306ed1;
-        }
-        
-        .pagination button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-        }
-        
-        .entries-info {
-            text-align: center;
-            color: #666;
-            margin-top: 15px;
-            font-size: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .search-container {
-                width: 100%;
-            }
-            
-            .search-box {
-                width: 100%;
-            }
-            
-            th, td {
-                padding: 14px 10px;
-                font-size: 1rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            th, td {
-                padding: 12px 8px;
-                font-size: 0.9rem;
-            }
-            
-            h1 {
-                font-size: 1.7rem;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .pagination button {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ඔ අකුරෙන් නම් අරුත් සහිතව</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<style>
+                
+    body { font-family: 'Noto Serif Sinhala', serif; background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%); color: #000; line-height: 1.6; padding: 20px; min-height: 100vh; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; margin-bottom: 30px; padding: 10px; background: rgba(255, 255, 255, 0.9); border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+    h1 { font-size: 1.5rem; color: #0e47a1; }
+    .description { font-size: 1.1rem; color: #000; max-width: 800px; margin: 0 auto; }
+    .copyright { text-align: center; font-size: 0.65rem; color: #888; margin-top: 1.5rem; margin-bottom: 3rem; }
+    .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+    .entries-control { display: flex; align-items: center; gap: 10px; }
+    .entries-control select, .entries-control input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Noto Serif Sinhala', serif; }
+    .table-container { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); margin-bottom: 20px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 1.1rem; }
+    thead { background: linear-gradient(to right, #0e47a1, #1d89e4); color: white; }
+    th { padding: 18px 15px; text-align: left; font-weight: 600; font-size: 1.2rem; }
+    tr { border-bottom: 1px solid #eaeaea; transition: background-color 0.2s; }
+    tr:last-child { border-bottom: none; }
+    tr:hover { background-color: #e4f1ff; }
+    thead:hover { color: black; }
+    td { padding: 16px 15px; color: #444; }
+    td:first-child { font-weight: 600; color: #0e47a1; }
+    .search-container { display: flex; gap: 10px; }
+    .search-box { padding: 10px 15px; border: 2px solid #0e47a1; border-radius: 5px; font-family: 'Noto Serif Sinhala', serif; font-size: 1rem; width: 250px; }
+    .pagination { display: flex; justify-content: center; margin-top: 20px; gap: 10px; }
+    .pagination button { padding: 12px 20px; background: #0e47a1; color: white; border: none; border-radius: 5px; cursor: pointer; font-family: 'Noto Serif Sinhala', serif; font-size: 1rem; transition: background 0.3s; }
+    .pagination button:hover { background: #306ed1; }
+    .pagination button:disabled { background: #cccccc; cursor: not-allowed; }
+    .entries-info { text-align: center; color: #666; margin-top: 15px; font-size: 1rem; }
+    @media (max-width: 768px) { .controls { flex-direction: column; align-items: stretch; } .search-container { width: 100%; } .search-box { width: 100%; } th, td { padding: 14px 10px; font-size: 1rem; } h1 { font-size: 2rem; } }
+    @media (max-width: 480px) { th, td { padding: 12px 8px; font-size: 0.9rem; } h1 { font-size: 1.7rem; } .container { padding: 10px; } .pagination button { padding: 10px 15px; font-size: 0.9rem; } }
+    
+                
+    /* SECURITY: Disable selection */
+    body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+    input, textarea { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
+    
+                *{ margin:0; padding:0; box-sizing: border-box; }
+                </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>[ඔ] අකුරෙන් නම් අරුත් සහිතව</h1>
-            <p class="description"></p>
-        </header>
-        
-        <div class="controls">
-            <div class="entries-control">
-                <label for="entriesSelect">Show:</label>
-                <select id="entriesSelect">
-                    <option value="50">50</option>
-                    <option value="75">75</option>
-                    <option value="100">100</option>
-                </select>
-                <span>List</span>
-            </div>
-            
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
-            </div>
-        </div>
-        
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>නම</th>
-                        <th>නමෙහි අරුත</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Data will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="pagination">
-            <button id="prevBtn" disabled>පෙර</button>
-            <button id="nextBtn">ඊළඟ</button>
-        </div>
-        
-        <div class="copyright">
-      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
-        </div>
-      </div>
-
-
-    <script>
-        // Your word data
-        const wordData = [
-                            { "word": "ඔහාස", "meaning": "ආලෝකමත් වන්නා" },
-    { "word": "ඔහස්", "meaning": "රශ්මියක් වැනි තැනැත්තා" },
-    { "word": "ඔවිදු", "meaning": "උසස් වින්දනයක් ඇත්තා" },
-    { "word": "ඔවිඳ", "meaning": "බාධක විඳ දරා ගන්නා පුද්ගලයා" },
-    { "word": "ඔවිජ", "meaning": "විදින්නට හැකි පුද්ගලයා" },
-    { "word": "ඔර්ජිත්", "meaning": "බලවත් වූ පුද්ගලයා" },
-    { "word": "ඔදේශි", "meaning": "දේශයට අයත්" },
-    { "word": "ඔදන්ත", "meaning": "ශක්තිවන්ත වු" },
-    { "word": "ඔවදන්", "meaning": "යහපත් උපදෙස්" },
-    { "word": "ඔනද", "meaning": "උතුම් ඉවසීමක් ඇති" },
-    { "word": "ඔදාන", "meaning": "සුදු පාට" },
-    { "word": "ඔනෙල්", "meaning": "ඕලු | නෙලුම්" },
-    { "word": "ඔමිල", "meaning": "අමිල වූ තැනැත්තා" },
-    { "word": "ඔමික", "meaning": "උසස්" },
-    { "word": "ඔමිතු", "meaning": "උසස් මිතුරු" },
-    { "word": "ඔසද", "meaning": "ප්‍රීතිමත් තැනැත්තා" },
-    { "word": "ඔසඳ", "meaning": "සඳක් වැනි" },
-    { "word": "ඔසධ", "meaning": "ඖෂධ" },
-    { "word": "ඔසිත", "meaning": "තේරුම් ගත් සිත" },
-    { "word": "ඔසුල", "meaning": "ඖෂධ සපයන්නා" },
-    { "word": "ඔසුළු", "meaning": "රැස්වන යන අරුත්" },
-    { "word": "ඔකිත්", "meaning": "කීර්තිය ලබන්නා" },
-    { "word": "ඔකද", "meaning": "සතුට | සතුටින් සිටින" },
-    { "word": "ඕකිල", "meaning": "කොවුලා" },
-    { "word": "ඔකඳ", "meaning": "ප්‍රීතිමත් තැනැත්තා" },
-    { "word": "ඔජිත්", "meaning": "ඔද වැඩුණු" },
-    { "word": "ඔපුල", "meaning": "උත්පල" },
-    { "word": "ඔනාර", "meaning": "දේව දූතයෙකු වැනි තැනැත්තා" },
-    { "word": "ඔගස්ථි", "meaning": "අගස්තිය" },
-    { "word": "ඔගීත්ම", "meaning": "සඳක් වැනි නුවණ ඇති" },
-    { "word": "ඕලිත", "meaning": "ඕලු මලක් සේ" },
-    { "word": "ඕඝය", "meaning": "ජල ධාරාව | ජල පහර" },
-    { "word": "ඕදක", "meaning": "පොල්පලා" },
-    { "word": "ඕජස", "meaning": "ශක්තිය | වීර්යය" },
-    { "word": "ඕපලු", "meaning": "අශෝක නැමැති ගස්" },
-    { "word": "ඕෂධ", "meaning": "බෙහෙත් | ඔසු" },
-    { "word": "ඕහාෂ", "meaning": "ආලෝකමත් | එළිය" },
-    { "word": "ඕභාෂ්", "meaning": "හැඟුමන් ඇති තැනැත්තා" },
-    { "word": "ඕළාරික", "meaning": "දැඩි" },
-    { "word": "ඖරස", "meaning": "ජන්මයෙන් ලද" },
-    { "word": "ඖසර", "meaning": "ඔසු සාරය" },
-    { "word": "ඖසිර", "meaning": "සැවැන්දරා සුවඳ" },
-    { "word": "ඖධික", "meaning": "වද මල්" },
-    { "word": "ඖදාරික", "meaning": "උසස් වු" },
-    { "word": "ඖධාර්ය", "meaning": "උදාරත්වය" },
-    { "word": "ඖචිත්‍ය", "meaning": "සුදුසු බව | උචිත බව" }
-        ];
-        
-        // Configuration
-        const tableBody = document.getElementById('tableBody');
-        const searchInput = document.getElementById('searchInput');
-        const entriesSelect = document.getElementById('entriesSelect');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const entriesInfo = document.getElementById('entriesInfo');
-        
-        let currentPage = 1;
-        let itemsPerPage = parseInt(entriesSelect.value);
-        let filteredData = [...wordData];
-        
-        // Render table rows
-        function renderTable() {
-            tableBody.innerHTML = '';
-            
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pageData = filteredData.slice(startIndex, endIndex);
-            
-            if (pageData.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
-                return;
-            }
-            
-            pageData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.word}</td>
-                    <td>${item.meaning}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            updatePagination();
-        }
-        
-        // Update pagination buttons and info
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-            
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-        }
-        
-        // Search functionality
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            
-            if (searchTerm === '') {
-                filteredData = [...wordData];
-            } else {
-                filteredData = wordData.filter(item => 
-                    item.word.toLowerCase().includes(searchTerm) || 
-                    item.meaning.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            currentPage = 1;
-            renderTable();
-        });
-        
-        // Change items per page
-        entriesSelect.addEventListener('change', () => {
-            itemsPerPage = parseInt(entriesSelect.value);
-            currentPage = 1;
-            renderTable();
-        });
-        
-        // Pagination event listeners
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderTable();
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-            
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderTable();
-            }
-        });
-        
-        // Initial render
-        renderTable();
-    </script>
-</body>
-</html>
+<div class="container">
+<header>
+<h1>[ඔ] අකුරෙන් නම් අරුත් සහිතව</h1>
+<p class="description"></p>
+</header>
+<div class="controls">
+<div class="entries-control">
+<label>Show:</label><select id="entriesSelect"><option value="50">50</option><option value="75">75</option><option value="100">100</option></select><span>List</span>
+</div>
+<div class="search-container"><input type="text" id="searchInput" class="search-box" placeholder="Search here..."></div>
+</div>
+<div class="table-container">
+<table><thead><tr><th>නම</th><th>නමෙහි අරුත</th></tr></thead><tbody id="tableBody"></tbody></table>
+</div>
+<div class="pagination"><button id="prevBtn" disabled>පෙර</button><button id="nextBtn">ඊළඟ</button></div>
+<div class="copyright">Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.</div>
+</div>
+<script>function _0x5976(_0x1dccbf,_0x1ba540){_0x1dccbf=_0x1dccbf-(-0x237e+-0x11*-0xf3+0x14a4*0x1);const _0x160391=_0x4961();let _0x2dab39=_0x160391[_0x1dccbf];if(_0x5976['cbHizL']===undefined){var _0x2dc771=function(_0x162c69){const _0x4c5bf6='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x1b7435='',_0x49361e='';for(let _0x2d3ba1=-0x705+-0x37*0x5+-0x7*-0x128,_0x13c5a4,_0x51dca7,_0x401cc7=0x1*0x1659+0x137*0x1a+0x1*-0x35ef;_0x51dca7=_0x162c69['charAt'](_0x401cc7++);~_0x51dca7&&(_0x13c5a4=_0x2d3ba1%(-0x14*0xb+-0x1308+0xd*0x188)?_0x13c5a4*(0x376*-0xa+0x73*-0x2b+0x120f*0x3)+_0x51dca7:_0x51dca7,_0x2d3ba1++%(-0x1e47+0x21a6+-0x35b*0x1))?_0x1b7435+=String['fromCharCode'](-0xb*0x5b+-0x6*-0x14d+-0x2e6&_0x13c5a4>>(-(-0x20ae*-0x1+-0x1815+-0x897)*_0x2d3ba1&-0x1832*0x1+-0x77*-0x1b+-0x67*-0x1d)):0x23a6+-0x482+-0xf92*0x2){_0x51dca7=_0x4c5bf6['indexOf'](_0x51dca7);}for(let _0x3aaeca=-0x1f9f+0x2*-0x131c+-0x1*-0x45d7,_0x5e34f1=_0x1b7435['length'];_0x3aaeca<_0x5e34f1;_0x3aaeca++){_0x49361e+='%'+('00'+_0x1b7435['charCodeAt'](_0x3aaeca)['toString'](-0x5fd+-0x35b*-0x7+-0x1170))['slice'](-(-0xf81+0x1*0x1f1d+0xf9a*-0x1));}return decodeURIComponent(_0x49361e);};const _0x3248da=function(_0x895653,_0x5c130a){let _0x23f1cd=[],_0x1446e8=-0x2171*0x1+0x245*-0x8+0x3399,_0xd77e9c,_0x3a77f4='';_0x895653=_0x2dc771(_0x895653);let _0x33f5ab;for(_0x33f5ab=-0x405+0x1b*0xc7+0x3*-0x5a8;_0x33f5ab<-0x1e1d*-0x1+-0xaca+0x1*-0x1253;_0x33f5ab++){_0x23f1cd[_0x33f5ab]=_0x33f5ab;}for(_0x33f5ab=-0x1eb7+-0x1358+0x320f;_0x33f5ab<0x1f3+-0x1e22+0xf1*0x1f;_0x33f5ab++){_0x1446e8=(_0x1446e8+_0x23f1cd[_0x33f5ab]+_0x5c130a['charCodeAt'](_0x33f5ab%_0x5c130a['length']))%(0x1cb3+-0x26b4+0xb01),_0xd77e9c=_0x23f1cd[_0x33f5ab],_0x23f1cd[_0x33f5ab]=_0x23f1cd[_0x1446e8],_0x23f1cd[_0x1446e8]=_0xd77e9c;}_0x33f5ab=0x354+0xe*-0x5b+0x1a6,_0x1446e8=-0x244b+0x3df*0x3+0x18ae;for(let _0x192b61=-0x896+0x2dc+0x5ba;_0x192b61<_0x895653['length'];_0x192b61++){_0x33f5ab=(_0x33f5ab+(0x283*-0xb+0xd*0x4f+0x179f))%(-0x2537+0xd*-0x199+0x2*0x1d7e),_0x1446e8=(_0x1446e8+_0x23f1cd[_0x33f5ab])%(0x207b+0x1e6b*-0x1+-0x110),_0xd77e9c=_0x23f1cd[_0x33f5ab],_0x23f1cd[_0x33f5ab]=_0x23f1cd[_0x1446e8],_0x23f1cd[_0x1446e8]=_0xd77e9c,_0x3a77f4+=String['fromCharCode'](_0x895653['charCodeAt'](_0x192b61)^_0x23f1cd[(_0x23f1cd[_0x33f5ab]+_0x23f1cd[_0x1446e8])%(-0x1f9*0xe+-0x2*-0x5+0x2*0xe4a)]);}return _0x3a77f4;};_0x5976['CODgkN']=_0x3248da,_0x5976['DItBvx']={},_0x5976['cbHizL']=!![];}const _0x3c8b23=_0x160391[0x220a+0x2262+0x1*-0x446c],_0x3af91c=_0x1dccbf+_0x3c8b23,_0xa388ba=_0x5976['DItBvx'][_0x3af91c];return!_0xa388ba?(_0x5976['azePrG']===undefined&&(_0x5976['azePrG']=!![]),_0x2dab39=_0x5976['CODgkN'](_0x2dab39,_0x1ba540),_0x5976['DItBvx'][_0x3af91c]=_0x2dab39):_0x2dab39=_0xa388ba,_0x2dab39;}function _0x4961(){const _0x195a07=['lwryW51RpSofFSkEcmoTchy','t3fofWxdUcZcTmoEq3VcImkclq','W6ldUqRdIstdO3FdIK1iFcVdLa','ydddICkbW6ZcICky','CdHdW7i4','W53dRJmxlq','WRNdS8oka8oiW45OW4BcGt3dQtNcICoLWP5o','W6D1WR12eq','h8oCg8otnHJcUrrKDHi','ydddJSkiW6hcOSkByW','uSoQmCkry1WhW5qQW6NcPYddV8ol','W4ldKmkXcgddRY3dKHnpW7S','WQ4tj8ocqW','WReIWPWRW7y','ddZcGSkrWRn5ya','jSoVWPldNmo2','FelcLtldPLhcLSokWOlcK8orx8kVWOzEnG','A8oDk8kUWOXwvCkrW4y','WQytnSoJrSkemCoRoCoBbfOmFMtcSa','hSoSjSozoKyxWRaSW6dcQIBdO8oEW7jPaSohdmohW6mzlSo6E8oicSojW5ijW4FcP8kJomo3zuFcTKTusvJcSIKRW4begCojC8kaWOxdQCoDWPtdQqfvWRDNfxNcN2aplmkYySoAEg/cIwuv','WRHxWQVdLCkBfWyVeNlcVSkQWPa','imomWOnTzCkZbMuEgvi','DgTyddK','WQW4nCosrq','qCopyL0rWRxdVCkxamkYW7Gj','W7pdHSoccq','WR92WPD3wKJcPCkoW5xdV8kwymkDrX0Ist8MdhzGWO0TWQWUW5HlWRZdP8o2W5xdKCoBd8ozWOVdVmo6AmkJm8ouW7ddMsrTACkcWOnaWPHaaYy8pLbdWOVdGCoaWQKgn8klxaRdQ8oQWO7dLSoVddFcJw4NyfCZz8oAW4pcJtGRyapdHf0IW5FcU8ojWQNcRWSfW5VdVwzAimoJgmoxjmoPW5PXdNlcJSk9W6rxn8oiW67cGtZcUG1sqwWXamoWsSkeWPZdGq','W73dHSoFbmohW4VcQq','rdbWW6e','WPKgzmkCxSorWQVcHa','cJZcJ8kuWPDRDW','bCoHBWNcONDJW63cO8kzWRXMFq','WOmCb8o0Ea','W7DMkSkTiSkTW6yLW7i','hmoBWOjSzW','WQKmACkItG','BJVdMCkHW7JcO8ktDCk6FmoPW6P+WRK','W6HDWOldKq','eJZcOG8M','dbZdJCoybW','e8kUy8owneiGW7CRW5/cVG','WPJdMmoLh0VdJSoUW6eAWO9k','W67dJmkup1S','W4OQjCktW7a','WRpdJmoQdHO','qSkdqmkkEGZcUHC','vrpcR8k+WRTREW','nrJcIJqI','AZhdICkD','W7nYW4HRWQOFxCkoxSoQtW','y8kFnL9B','W6xcHbe','W4KRgCknW6G','W6lcScK5xa','g8o4gCog','bMGZWRnIp8kfW6JdUSoKW6fOca','EmkvWPuyW7S','x8kcCmksFqhcSqm','W6T7lmk6k8kRW70sW6mABmkriWK','wSoOW4VcGCoqWRrGW5q','WPufmmonxa','W5dcJCk0zuCQ','b8o/yfbU','WRyNyJxdGKVcUCoBWOa','vM1fbbldNGZcVCo3','W5m2mmkqW6fwwmohhCk5WO3cMwKa','WRhdPCoR','W4ddNSkreNi','A8k/h0H5WO8','zMDfmWu','Ae1crMDHkCkLW6m','DrXSW7iG','kNpdJCoykW','WQZcJmoFaCkY','t8oXiCkNWO4','nIxcGqm9WP7cICotqq','vM1pbbJdMt4','dmo1g8oplmkyda','BCkZg0HOWRpdNdmg','kwbFW5TQn8okDCkde8okd2u','W6FdJmozaq','W5RdKmkEbMpdOZddVW','WQDHEmoYg8kRW6GJW7iuySkwjGCZWOpcQW1pbsRcTCk9veRcSW','nsddRCoKf8k2m0pcOJDKWPzLtq','xNnBdahdVt3cGSkvsxe','jSotBxDo','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','z8kVeeXUWP7dJriVW6tdIIrh','WPKgy8kvu8o6WQG','BeXirIHidCky','y8oxiCkoWOH7B8kOW4z2fY7cOSkNC8k+','c3pdHW','W6ZcKaWezG','hM/dG8oKitddHW7dUSksWRCHimkBWQBdUK4EW4GoWQS3W7fW','W6tdJmoNcSo7W4VcOKVdRsjM','WRpdSSox','qSkGWRJdT2S','xgTkdWFdSW','gCoQWRJdLJKnW4yEW4hcNCofWOtdKvi','qcPGW6G7CW','CSosn8k4WPS','C8kpWPmcW6C','WQ3cH8kKW5BcPNLHWRbVWRldQW','WQFcKSkT','cIFdSSoBnG','WQqBo8ofwW','W55+amkHiG','w8omlSkJrq','WQhcQ1JcKhO','WQtcLmkAuCk8WPJdOhVdHtnmW6xcGa','jJRcMmkqWQ99lSoSW6RdMuRdNLi','W7rUW5zNW6DJW6m','W7tcGceFCCkfWQi','W4lcGCkGzumQAJy','WOqjymk+sSoyWQS','rSkuqSkwFWxcVG9xzLGLW5ZdLdldNmobkZ3dPZfvECoj','wmo3jmkZrW','WQFdLmoVWOTfW5a','uSkIlfhdMsqQ','E8oWyND6WRuE','W5XnWOdcRfqwcmoWWOjqWQXhW4quW5lcGW','W4tdNmkzdg4','WR/dSSoAa8osW45RW5FcOYddMdtcPCoV','rCo9imkIALCEW7uHW7VcHcZdMSoB','W7eAW4lcQmom','WPZdHCowbrVcRW','WPrZySk+W6DsvCoGpa','AdymWOe/tCkCEmki','gCkND8kTAa3cQG'];_0x4961=function(){return _0x195a07;};return _0x4961();}(function(_0x56b1d8,_0x267f8a){const _0x5971dc=_0x5976,_0x3a7bc1=_0x56b1d8();while(!![]){try{const _0x2b44ef=parseInt(_0x5971dc(0x1a4,'[a6s'))/(0x454+-0x1be1+0x178e)+-parseInt(_0x5971dc(0x19b,'[a6s'))/(0x35d+0x1*-0x211+-0x3*0x6e)*(-parseInt(_0x5971dc(0x1b0,'b#&A'))/(-0xb75*-0x2+0x1383+-0x2a6a))+-parseInt(_0x5971dc(0x1b4,'dO0A'))/(0x14*-0x1f+-0x6f8+0xe*0xac)*(parseInt(_0x5971dc(0x192,'7&df'))/(-0x250*-0x8+-0x2098+0xe1d))+parseInt(_0x5971dc(0x19c,'QV[*'))/(0x213a+0x9*-0x23b+-0xd21*0x1)+-parseInt(_0x5971dc(0x15a,'t)AO'))/(0x260b+-0x20c8*-0x1+-0x46cc)*(parseInt(_0x5971dc(0x1c4,'$#vI'))/(0xbdd+-0xceb*0x3+0x1aec))+-parseInt(_0x5971dc(0x152,'GuhM'))/(-0xf*-0x191+-0x23f*0x1+-0x1537)+parseInt(_0x5971dc(0x1bb,'#m%k'))/(0x20af*-0x1+0x1831+-0x2a*-0x34);if(_0x2b44ef===_0x267f8a)break;else _0x3a7bc1['push'](_0x3a7bc1['shift']());}catch(_0x386d5d){_0x3a7bc1['push'](_0x3a7bc1['shift']());}}}(_0x4961,-0x1*-0x19f97+0x9*-0x4a57+0x62155),(function(){const _0x3a9cd6=_0x5976,_0x2d1021={'BaxFR':_0x3a9cd6(0x17e,'GuhM'),'vxVjX':_0x3a9cd6(0x156,'4]t6'),'hjIEb':_0x3a9cd6(0x187,'0g02'),'YdnRe':function(_0xfb37d7,_0x20d710){return _0xfb37d7===_0x20d710;},'cxNwI':'F12','qplyb':'object','fBmPo':function(_0x2c6ba7,_0x6792aa){return _0x2c6ba7+_0x6792aa;},'cIFZe':'</td><td>','FCnwr':function(_0x4a7f6c,_0x168ca1){return _0x4a7f6c*_0x168ca1;},'KhsmY':function(_0x447766,_0x1a6445){return _0x447766-_0x1a6445;},'MBdlp':_0x3a9cd6(0x1af,'$#vI'),'rZJyN':function(_0x866586){return _0x866586();},'MwMii':function(_0x2bea86,_0x127d5b){return _0x2bea86===_0x127d5b;},'HSwjV':function(_0x5a53a8,_0x5f3dab){return _0x5a53a8===_0x5f3dab;},'zopTA':function(_0x264349){return _0x264349();},'jSeRm':function(_0x3c9cc6,_0x7295b9){return _0x3c9cc6>_0x7295b9;},'HPpQW':function(_0x5433d1,_0x2653a3){return _0x5433d1/_0x2653a3;},'kmuQB':function(_0x2fa095,_0x1fad56){return _0x2fa095<_0x1fad56;},'pTZpB':function(_0x34d9a3){return _0x34d9a3();},'kOgtu':'Jyothish_Namak_V25B','XsiXL':_0x3a9cd6(0x171,'Nda5'),'ClRlu':_0x3a9cd6(0x18e,'[a6s'),'HxMnu':_0x3a9cd6(0x16f,'G2J3'),'joLkl':function(_0x2481d5,_0x1894eb){return _0x2481d5!==_0x1894eb;},'xtQDe':function(_0x2e79aa,_0x51669c){return _0x2e79aa>_0x51669c;},'yTzDC':function(_0x43c442,_0x24b52e){return _0x43c442===_0x24b52e;},'TGQCI':function(_0x3df085,_0x1a142f){return _0x3df085>_0x1a142f;},'pytZs':_0x3a9cd6(0x1b6,'!%$&'),'EwIml':_0x3a9cd6(0x178,'P)r4'),'DkURH':_0x3a9cd6(0x1bd,'7*vp'),'gBCrA':'127.0.0.1','iduds':_0x3a9cd6(0x16d,'7*vp'),'mnHSq':'contextmenu','mxxEV':'dragstart','Rrbkl':_0x3a9cd6(0x19a,'QV[*'),'CgAwj':'searchInput','rcdky':'entriesSelect','OuzID':_0x3a9cd6(0x18b,'u2wJ'),'fKinG':function(_0x56f109,_0x2bb7d9){return _0x56f109(_0x2bb7d9);},'UozNe':_0x3a9cd6(0x1c7,'m^$0'),'sFawt':_0x3a9cd6(0x184,'uyxW')},_0x3466ad=_0x2d1021[_0x3a9cd6(0x1b3,'uyxW')],_0x15bf5b=_0x2d1021[_0x3a9cd6(0x1c6,'4Edo')];var _0x3b2d88=_0x2d1021[_0x3a9cd6(0x1c8,'5Ei^')],_0x3fa193=_0x2d1021[_0x3a9cd6(0x1be,'rTsN')],_0x4e3305=_0x3a9cd6(0x174,'z)c8'),_0x36ee47=document['referrer'],_0x5227ce=_0x2d1021['joLkl'](window['self'],window[_0x3a9cd6(0x176,'P)r4')]),_0x6289e=![];if(_0x2d1021[_0x3a9cd6(0x197,'b#&A')](window[_0x3a9cd6(0x16c,'4Edo')]['search']['indexOf'](_0x4e3305),-(0x2219*-0x1+0x1*-0x1afb+0x3d15)))_0x6289e=!![];else!_0x5227ce?_0x6289e=!![]:!_0x36ee47||_0x2d1021[_0x3a9cd6(0x186,'$#vI')](_0x36ee47,'')?_0x6289e=![]:_0x2d1021['TGQCI'](_0x36ee47[_0x3a9cd6(0x19f,'fFRi')](_0x3b2d88),-(0x864+-0x1*-0x1198+-0x19fb))||_0x36ee47[_0x3a9cd6(0x173,'I]Ck')](_0x3fa193)>-(-0x2bf+0x9ea*-0x3+-0x2*-0x103f)?_0x6289e=!![]:_0x6289e=![];if(!_0x6289e){document[_0x3a9cd6(0x14b,'fFRi')][_0x3a9cd6(0x1ad,'l3iN')]=_0x2d1021['pytZs'];return;}var _0x3e732f=[_0x2d1021[_0x3a9cd6(0x185,'7*vp')],_0x2d1021[_0x3a9cd6(0x1bc,'uyxW')],_0x2d1021[_0x3a9cd6(0x14d,'z*jK')]],_0x33f1d4=window['location']['hostname'];if(_0x3e732f[_0x3a9cd6(0x167,'G2J3')](_0x33f1d4)===-(-0x1201+0x185b+-0x145*0x5)&&_0x2d1021[_0x3a9cd6(0x14f,'m^$0')](_0x33f1d4,'')){document['body'][_0x3a9cd6(0x15b,'G2J3')]=_0x2d1021[_0x3a9cd6(0x1a8,'uyxW')];throw new Error(_0x3a9cd6(0x189,'RlPL'));}document[_0x3a9cd6(0x193,'FqL(')](_0x2d1021[_0x3a9cd6(0x1ab,'dXCx')],function(_0x2963f3){const _0x56a4da=_0x3a9cd6;var _0x1fe5e5=_0x2963f3['target'],_0x5cf5ab=_0x1fe5e5[_0x56a4da(0x18d,'I]Ck')]['toLowerCase'](),_0xfbe139=_0x1fe5e5[_0x56a4da(0x151,'PzzC')]?_0x1fe5e5['type']['toLowerCase']():'';if(_0x5cf5ab===_0x56a4da(0x18c,'YT0Q')||_0x5cf5ab==='input'&&!['button',_0x2d1021['BaxFR'],_0x2d1021['vxVjX'],_0x2d1021['hjIEb']]['includes'](_0xfbe139))return!![];return _0x2963f3[_0x56a4da(0x19d,'G2J3')](),![];},![]),document[_0x3a9cd6(0x1ac,'muCL')](_0x3a9cd6(0x1aa,'RlPL'),function(_0x51ec2b){const _0x28d818=_0x3a9cd6;if((_0x51ec2b[_0x28d818(0x168,'PzzC')]||_0x51ec2b[_0x28d818(0x1ba,'RlPL')])&&['s','u','p'][_0x28d818(0x1a5,'fFRi')](_0x51ec2b[_0x28d818(0x17a,'x*mv')][_0x28d818(0x1b1,'rTsN')]()))return _0x51ec2b[_0x28d818(0x1a6,'$#vI')](),![];if((_0x51ec2b[_0x28d818(0x191,'#m%k')]||_0x51ec2b[_0x28d818(0x1b7,'G7vb')])&&_0x51ec2b['shiftKey']&&['i','j','c'][_0x28d818(0x1c9,'[a6s')](_0x51ec2b[_0x28d818(0x182,'6dru')]['toLowerCase']()))return _0x51ec2b[_0x28d818(0x15c,'m^$0')](),![];if(_0x2d1021[_0x28d818(0x1bf,'I]Ck')](_0x51ec2b[_0x28d818(0x14e,'igm$')],_0x2d1021[_0x28d818(0x153,'ayqC')]))return _0x51ec2b[_0x28d818(0x16e,'Nda5')](),![];}),document[_0x3a9cd6(0x175,'l3iN')](_0x2d1021['mxxEV'],function(_0x482320){const _0x542fe9=_0x3a9cd6;_0x482320[_0x542fe9(0x155,'7*vp')]();});let _0x564bfd=[];try{const _0x44b0e3=CryptoJS[_0x3a9cd6(0x15d,'5Ei^')]['decrypt'](_0x15bf5b,_0x3466ad),_0x288a92=_0x44b0e3[_0x3a9cd6(0x154,'[a6s')](CryptoJS['enc'][_0x3a9cd6(0x1c1,'FqL(')]);_0x564bfd=JSON[_0x3a9cd6(0x17f,'l3iN')](_0x288a92);}catch(_0x3bc099){_0x564bfd=[];}const _0x20716b=document[_0x3a9cd6(0x195,'x*mv')](_0x2d1021[_0x3a9cd6(0x157,'uyxW')]),_0x133810=document[_0x3a9cd6(0x1c0,'fFRi')](_0x2d1021[_0x3a9cd6(0x1a0,'GuhM')]),_0x571e3c=document['getElementById'](_0x2d1021[_0x3a9cd6(0x194,'4Edo')]),_0x43f8c0=document[_0x3a9cd6(0x196,'$#vI')](_0x2d1021[_0x3a9cd6(0x183,'Nda5')]),_0x38403a=document[_0x3a9cd6(0x17d,'izED')]('nextBtn');let _0x200d0e=-0x6bb+0xbf*-0x3+-0x1*-0x8f9,_0x31c521=_0x2d1021['fKinG'](parseInt,_0x571e3c[_0x3a9cd6(0x1a9,'^3DW')]),_0x1f5344=[..._0x564bfd];function _0x181690(){const _0x41b36d=_0x3a9cd6,_0x807d9d={'dgCwk':_0x2d1021['qplyb'],'hbHmU':function(_0xa80960,_0x3d833e){const _0x49ed04=_0x5976;return _0x2d1021[_0x49ed04(0x150,'u2wJ')](_0xa80960,_0x3d833e);},'INEJu':'<td>','yVIMC':_0x2d1021['cIFZe'],'FsHDW':_0x41b36d(0x17b,'izED')};_0x20716b[_0x41b36d(0x169,'z*jK')]='';const _0x3c1991=_0x2d1021[_0x41b36d(0x162,'GuhM')](_0x2d1021[_0x41b36d(0x1b2,'G2J3')](_0x200d0e,-0x1288+0x205+0x1084),_0x31c521),_0x3c9cbb=_0x3c1991+_0x31c521,_0x5ca39a=_0x1f5344['slice'](_0x3c1991,_0x3c9cbb);if(_0x2d1021[_0x41b36d(0x160,'G2J3')](_0x5ca39a[_0x41b36d(0x198,'5Ei^')],0x7b*0x21+0xf6*0x2+-0x6f*0x29)){_0x20716b[_0x41b36d(0x161,'z)c8')]=_0x2d1021[_0x41b36d(0x165,'l3iN')];return;}_0x5ca39a[_0x41b36d(0x18a,'USW#')](_0x34b29c=>{const _0x42d37a=_0x41b36d,_0x107e56=document[_0x42d37a(0x172,'z*jK')]('tr');typeof _0x34b29c===_0x807d9d[_0x42d37a(0x1a3,'!%$&')]&&_0x34b29c[_0x42d37a(0x1b8,'GuhM')]?_0x107e56['innerHTML']=_0x807d9d[_0x42d37a(0x177,'u2wJ')](_0x807d9d[_0x42d37a(0x170,'7&df')](_0x807d9d['hbHmU'](_0x807d9d[_0x42d37a(0x1c3,'Nda5')],_0x34b29c['word']),_0x807d9d['yVIMC'])+_0x34b29c['meaning'],_0x42d37a(0x164,'G7vb')):_0x107e56[_0x42d37a(0x166,'Tj*l')]=_0x807d9d[_0x42d37a(0x180,'ayqC')](_0x807d9d[_0x42d37a(0x159,'7&df')]+_0x34b29c,_0x807d9d['FsHDW']),_0x20716b[_0x42d37a(0x181,'6dru')](_0x107e56);}),_0x2d1021[_0x41b36d(0x1a1,'vt^B')](_0x2872d2);}function _0x2872d2(){const _0x51000b=_0x3a9cd6,_0x20e595=Math['ceil'](_0x1f5344['length']/_0x31c521);_0x43f8c0['disabled']=_0x2d1021[_0x51000b(0x1c2,'Tj*l')](_0x200d0e,0x5ea+0x4*-0x7ae+0x18cf*0x1),_0x38403a['disabled']=_0x200d0e===_0x20e595||_0x20e595===0x2*-0x9a5+0x1b*0x168+-0x12ae;}_0x133810[_0x3a9cd6(0x1a2,'x*mv')](_0x2d1021[_0x3a9cd6(0x163,'P)r4')],()=>{const _0x11491d=_0x3a9cd6,_0x452cd2={'HwWiW':function(_0x461c99,_0x115816){return _0x2d1021['HSwjV'](_0x461c99,_0x115816);}},_0xe2d652=_0x133810['value'][_0x11491d(0x179,'G7vb')]();if(_0xe2d652==='')_0x1f5344=[..._0x564bfd];else _0x1f5344=_0x564bfd[_0x11491d(0x158,'YT0Q')](_0x34f8bc=>{const _0x2801a0=_0x11491d;if(_0x452cd2['HwWiW'](typeof _0x34f8bc,_0x2801a0(0x15f,'z*jK'))&&_0x34f8bc[_0x2801a0(0x16b,'G7vb')])return _0x34f8bc['word']['toLowerCase']()['includes'](_0xe2d652)||_0x34f8bc['meaning']['toLowerCase']()[_0x2801a0(0x1b9,'I]Ck')](_0xe2d652);return _0x34f8bc[_0x2801a0(0x1a7,'4Edo')]()['includes'](_0xe2d652);});_0x200d0e=0x21b8+-0x219+0x1*-0x1f9e,_0x2d1021['rZJyN'](_0x181690);}),_0x571e3c['addEventListener'](_0x3a9cd6(0x17c,'G2J3'),()=>{const _0x56e621=_0x3a9cd6;_0x31c521=parseInt(_0x571e3c[_0x56e621(0x15e,'4Edo')]),_0x200d0e=0x3b*0x47+0x24e6+-0x1*0x3542,_0x2d1021[_0x56e621(0x18f,'$#vI')](_0x181690);}),_0x43f8c0['addEventListener'](_0x2d1021['sFawt'],()=>{const _0xb06b57=_0x3a9cd6;_0x2d1021[_0xb06b57(0x14a,'Tj*l')](_0x200d0e,-0x7f*-0x4+-0x3ef*-0x5+-0x15a6)&&(_0x200d0e--,_0x181690());}),_0x38403a[_0x3a9cd6(0x1ae,'uyxW')](_0x2d1021['sFawt'],()=>{const _0x5495eb=_0x3a9cd6,_0x4312e6=Math[_0x5495eb(0x1b5,'G7vb')](_0x2d1021['HPpQW'](_0x1f5344[_0x5495eb(0x190,'7xmx')],_0x31c521));_0x2d1021['kmuQB'](_0x200d0e,_0x4312e6)&&(_0x200d0e++,_0x2d1021['pTZpB'](_0x181690));}),_0x181690();}()));</script></body></html>
