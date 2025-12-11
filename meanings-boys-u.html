@@ -1,542 +1,66 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Noto Serif Sinhala', serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
-            color: #000;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 1.5rem;
-            color: #0e47a1;
-        }
-        
-        .description {
-            font-size: 1.1rem;
-            color: #000;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .copyright {
-            text-align: center;
-            font-size: 0.65rem;
-            color: #888;
-            margin-top: 1.5rem;
-            margin-bottom: 3rem;
-       }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .entries-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .entries-control select, .entries-control input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Noto Serif Sinhala', serif;
-        }
-        
-        .table-container {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1.1rem;
-        }
-        
-        thead {
-            background: linear-gradient(to right, #0e47a1, #1d89e4);
-            color: white;
-        }
-        
-        th {
-            padding: 18px 15px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        
-        tr {
-            border-bottom: 1px solid #eaeaea;
-            transition: background-color 0.2s;
-        }
-        
-        tr:last-child {
-            border-bottom: none;
-        }
-        
-        tr:hover {
-            background-color: #e4f1ff;
-        }
-        
-        thead:hover {
-            color: black;
-        }
-        
-        td {
-            padding: 16px 15px;
-            color: #444;
-        }
-        
-        td:first-child {
-            font-weight: 600;
-            color: #0e47a1;
-        }
-        
-        .search-container {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .search-box {
-            padding: 10px 15px;
-            border: 2px solid #0e47a1;
-            border-radius: 5px;
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1rem;
-            width: 250px;
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 10px;
-        }
-        
-        .pagination button {
-            padding: 12px 20px;
-            background: #0e47a1;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1rem;
-            transition: background 0.3s;
-        }
-        
-        .pagination button:hover {
-            background: #306ed1;
-        }
-        
-        .pagination button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-        }
-        
-        .entries-info {
-            text-align: center;
-            color: #666;
-            margin-top: 15px;
-            font-size: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .search-container {
-                width: 100%;
-            }
-            
-            .search-box {
-                width: 100%;
-            }
-            
-            th, td {
-                padding: 14px 10px;
-                font-size: 1rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            th, td {
-                padding: 12px 8px;
-                font-size: 0.9rem;
-            }
-            
-            h1 {
-                font-size: 1.7rem;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .pagination button {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ර අකුරෙන් නම් අරුත් සහිතව</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<style>
+                
+    body { font-family: 'Noto Serif Sinhala', serif; background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%); color: #000; line-height: 1.6; padding: 20px; min-height: 100vh; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; margin-bottom: 30px; padding: 10px; background: rgba(255, 255, 255, 0.9); border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+    h1 { font-size: 1.5rem; color: #0e47a1; }
+    .description { font-size: 1.1rem; color: #000; max-width: 800px; margin: 0 auto; }
+    .copyright { text-align: center; font-size: 0.65rem; color: #888; margin-top: 1.5rem; margin-bottom: 3rem; }
+    .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+    .entries-control { display: flex; align-items: center; gap: 10px; }
+    .entries-control select, .entries-control input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Noto Serif Sinhala', serif; }
+    .table-container { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); margin-bottom: 20px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 1.1rem; }
+    thead { background: linear-gradient(to right, #0e47a1, #1d89e4); color: white; }
+    th { padding: 18px 15px; text-align: left; font-weight: 600; font-size: 1.2rem; }
+    tr { border-bottom: 1px solid #eaeaea; transition: background-color 0.2s; }
+    tr:last-child { border-bottom: none; }
+    tr:hover { background-color: #e4f1ff; }
+    thead:hover { color: black; }
+    td { padding: 16px 15px; color: #444; }
+    td:first-child { font-weight: 600; color: #0e47a1; }
+    .search-container { display: flex; gap: 10px; }
+    .search-box { padding: 10px 15px; border: 2px solid #0e47a1; border-radius: 5px; font-family: 'Noto Serif Sinhala', serif; font-size: 1rem; width: 250px; }
+    .pagination { display: flex; justify-content: center; margin-top: 20px; gap: 10px; }
+    .pagination button { padding: 12px 20px; background: #0e47a1; color: white; border: none; border-radius: 5px; cursor: pointer; font-family: 'Noto Serif Sinhala', serif; font-size: 1rem; transition: background 0.3s; }
+    .pagination button:hover { background: #306ed1; }
+    .pagination button:disabled { background: #cccccc; cursor: not-allowed; }
+    .entries-info { text-align: center; color: #666; margin-top: 15px; font-size: 1rem; }
+    @media (max-width: 768px) { .controls { flex-direction: column; align-items: stretch; } .search-container { width: 100%; } .search-box { width: 100%; } th, td { padding: 14px 10px; font-size: 1rem; } h1 { font-size: 2rem; } }
+    @media (max-width: 480px) { th, td { padding: 12px 8px; font-size: 0.9rem; } h1 { font-size: 1.7rem; } .container { padding: 10px; } .pagination button { padding: 10px 15px; font-size: 0.9rem; } }
+    
+                
+    /* SECURITY: Disable selection */
+    body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+    input, textarea { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
+    
+                *{ margin:0; padding:0; box-sizing: border-box; }
+                </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>[ර] අකුරෙන් නම් අරුත් සහිතව</h1>
-            <p class="description"></p>
-        </header>
-        
-        <div class="controls">
-            <div class="entries-control">
-                <label for="entriesSelect">Show:</label>
-                <select id="entriesSelect">
-                    <option value="50">50</option>
-                    <option value="75">75</option>
-                    <option value="100">100</option>
-                </select>
-                <span>List</span>
-            </div>
-            
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
-            </div>
-        </div>
-        
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>නම</th>
-                        <th>නමෙහි අරුත</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Data will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="pagination">
-            <button id="prevBtn" disabled>පෙර</button>
-            <button id="nextBtn">ඊළඟ</button>
-        </div>
-        
-        <div class="copyright">
-      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
-        </div>
-      </div>
-
-
-    <script>
-        // Your word data
-        const wordData = [
-                              { "word": "රවීන්", "meaning": "හිරු මෙන් බබළන" },
-{ "word": "රනුජ", "meaning": "උසස් උපතක් ලද" },
-{ "word": "රදිල්", "meaning": "රාජ්‍ය නිධානය" },
-{ "word": "රමිඳු", "meaning": "රාම රජතුමා" },
-{ "word": "රශින්", "meaning": "හිරු මෙන් කාන්තිමත්" },
-{ "word": "රජ්ම", "meaning": "උසස් ලෙස මිහිර විඳින" },
-{ "word": "රනුෂ්", "meaning": "රන්වන් නැවණින් සපිරි" },
-{ "word": "රවින්ද්‍ර", "meaning": "හිරු දෙවි" },
-{ "word": "රවිශ්", "meaning": "දෙවියන් දුන් පුත්‍රයා" },
-{ "word": "රචිත්", "meaning": "රන්වන් සිතක් ඇති" },
-{ "word": "රසල්", "meaning": "නා ලොව" },
-{ "word": "රනිත්", "meaning": "රන් වැනි අගනා" },
-{ "word": "රනේල්", "meaning": "ආලෝක රශ්මියෙන් බබළන" },
-{ "word": "රවිජ", "meaning": "හිරුගෙන් උපන්" },
-{ "word": "රනුල", "meaning": "උතුම් යහපත් නායිකයා" },
-{ "word": "රන්‍ය", "meaning": "රන් බඳු" },
-{ "word": "රයේන්", "meaning": "ලස්සන තැනැත්තා" },
-{ "word": "රසාංග", "meaning": "රසවත් අංගයන් සපිරි" },
-{ "word": "රඟමල්", "meaning": "ගණ දෙවියන්ට නමකි" },
-{ "word": "රන්දෙව්", "meaning": "රන් මෙන් වටිනා දෙව්" },
-{ "word": "රන්සිත්", "meaning": "රන් මෙන් සිත් ඇති" },
-{ "word": "රන්හස", "meaning": "රන්වන් සිනහව" },
-{ "word": "රන්දිදු", "meaning": "රන් පැහැයෙන් දිදුළන" },
-{ "word": "රන්මිත්", "meaning": "රන්වන් මිතුරා" },
-{ "word": "රන්ධාර", "meaning": "රනින් බබළන" },
-{ "word": "රන්දීප", "meaning": "රන්වන් දීපයට අයත්" },
-{ "word": "රන්දාර", "meaning": "රනින් බැබලෙන" },
-{ "word": "රවිහාර", "meaning": "හිරුගේ රුස් මාලය" },
-{ "word": "රන්දෙන්නු", "meaning": "රන් මෙන් වටිනා දෙව්" },
-{ "word": "රන්සිතු", "meaning": "රන් මෙන් සිත් ඇති" },
-{ "word": "රවින්ය", "meaning": "හිරුට අයත්" },
-{ "word": "රසංග", "meaning": "රස අංගයන්ගෙන් යුතු" },
-{ "word": "රන්මිතු", "meaning": "රත්රන් මිතුරා" },
-{ "word": "රවින්දු", "meaning": "හිරුට අයත්" },
-{ "word": "රන්ෂාර", "meaning": "රනින් බබළන" },
-{ "word": "රන්තුල්", "meaning": "රන් උල්පත" },
-{ "word": "රසෝධ්‍ය", "meaning": "රසය ලබා දෙන" },
-{ "word": "රවිමානෙල්", "meaning": "හිරුට පිපෙන මානෙල්" },
-{ "word": "රසුල්ය", "meaning": "රසාලිප්ත" },
-{ "word": "රශ්මිණ්", "meaning": "බබළන මැණික්" },
-{ "word": "රවිත්", "meaning": "රත්රන් සිත" },
-{ "word": "රමිතු", "meaning": "හිරුගේ මිතුරා" },
-{ "word": "රම්සිත්", "meaning": "ලස්සන සිත" },
-{ "word": "රදුල්", "meaning": "බැබලෙන සිත" },
-{ "word": "රනිදු", "meaning": "රක්ත වර්ණ වූ" },
-{ "word": "රජ්ජිත", "meaning": "වර්ණවත් කරන ලද" },
-{ "word": "රජින්දා", "meaning": "නර දූතයා" },
-{ "word": "රගීත්", "meaning": "හිරුට ගීතයක් බඳු" },
-{ "word": "රන්දිත", "meaning": "රන් නුවණ" },
-{ "word": "රජස්", "meaning": "රාජකීය ආසනය" },
-{ "word": "රන්සර", "meaning": "උත්තරීතර නාදය" },
-{ "word": "රජඳු", "meaning": "සන්නාහ විශේෂයකි" },
-{ "word": "රවිඳු", "meaning": "හිරුමෙන් දීප්තිමත් තැනැත්තා" },
-{ "word": "රතග", "meaning": "රන්පහැ සිරුරක් ඇත්තා" },
-{ "word": "රණිත", "meaning": "නාද නගන්නා" },
-{ "word": "රමුදු", "meaning": "රන් මුහුදක් වැනි" },
-{ "word": "රනුත්ම", "meaning": "රන් සේ උතුම් ගුණ ඇති" },
-{ "word": "රහමල්", "meaning": "ඝණ දෙවියන්ට නමකි" },
-{ "word": "රන්දිස", "meaning": "රන් පැහැයෙන් දිදුලන්නා වූ" },
-{ "word": "රමමත", "meaning": "බක් මාසය" },
-{ "word": "රසහර", "meaning": "ප්‍රණීත ආහාර" },
-{ "word": "රසඳ", "meaning": "ඇස තවරන අංජනයකි" },
-{ "word": "රහල්", "meaning": "රාහුල කුමරුගේ නම" },
-{ "word": "රගදිව්", "meaning": "සිත්තරා" },
-{ "word": "රජත", "meaning": "රිදී| සුදුපාට| ඇත් දළ" },
-{ "word": "රමණ", "meaning": "පොල්ගස" },
-{ "word": "රම්මත", "meaning": "බක් මාසය" },
-{ "word": "රතඟ", "meaning": "රන්පැහැ සිරුරක් ඇත්තා" },
-{ "word": "රද", "meaning": "තරුණයා" },
-{ "word": "රන්ජත", "meaning": "ගැයුමෙන් වැයුමෙන් ජනයා සතුටු කරවන්නා" },
-{ "word": "රවිහිංස", "meaning": "හිංස කුලයකි" },
-{ "word": "රවී", "meaning": "හිරු තඹ" },
-{ "word": "රශ්මිත", "meaning": "රැස් දහරින් යුක්ත වු තැනැත්තා" },
-{ "word": "රසාංජන", "meaning": "නේතාංජනය" },
-{ "word": "රසිත", "meaning": "රන් හෝ රිදී ආලේපිත" },
-{ "word": "රමාප්‍රිය", "meaning": "නෙලුම්" },
-{ "word": "රමුඳු", "meaning": "රාජ කුමාරයෙකි| රන් මුහුදක් වැනි" },
-{ "word": "රවිත", "meaning": "තපෝ වනය" },
-{ "word": "රවිනාථ", "meaning": "නෙලුම්| බඳුවද" },
-{ "word": "රවිපත්", "meaning": "හිරුට මතුවන කොළ| වරා කොළ" },
-{ "word": "රවිප්‍රිය", "meaning": "රන් නෙලුම්|කනේරු" },
-{ "word": "රවිහංස", "meaning": "ජ්‍යෙතිෂයේ යෝගයකි" },
-{ "word": "රන්දිය", "meaning": "රන් ජලය" },
-{ "word": "රණහංස", "meaning": "රන් පියාපත් ඇති හංසයා" },
-{ "word": "රන්මල්", "meaning": "රන් පැහැති මල්" },
-{ "word": "රතිඳු", "meaning": "රක්ත වර්ණ වූ" },
-{ "word": "රන්නිල", "meaning": "බොහෝ වටිනා තැනැත්තා" },
-{ "word": "රක්සුනු", "meaning": "ආයුර්වේදයේ එන ඖෂධයකි" },
-{ "word": "රන්දිව්", "meaning": "රන් හා සමාන" },
-{ "word": "රචන", "meaning": "ග්‍රන්ථය" },
-{ "word": "රත්න", "meaning": "මැණික්" },
-{ "word": "රම්‍ය", "meaning": "ප්‍රිතිමත් වු | සතුට ගෙනෙන" },
-{ "word": "රන්පත්", "meaning": "රන් පත්‍රය" },
-{ "word": "රන්දද", "meaning": "රත්තරං" },
-{ "word": "රනෙතු", "meaning": "රන්වන් නෙත්" },
-{ "word": "රන්මිණ", "meaning": "රතු මැණික" },
-{ "word": "රතුපුල්", "meaning": "රතු නෙලුම්" },
-{ "word": "රන්", "meaning": "රත්තරන්" },
-{ "word": "රවිමිතු", "meaning": "හිරුගේ මිතුරා" },
-{ "word": "රවීශ්", "meaning": "දෙවියන් දුන් පුතු" },
-{ "word": "රගිත්", "meaning": "හිරුට ගීතයක් මෙන්" },
-{ "word": "රංනිල", "meaning": "බොහෝ වටිනා" },
-{ "word": "රංදුල", "meaning": "රාජකීය පරම්පරාවෙන් පැවත එන්නා වු" },
-{ "word": "රංශ", "meaning": "සවින්දව| මනෝසීල" },
-{ "word": "රංගු", "meaning": "මිනිසුන්ට සංඥා කරන නලාවක් වැනි අණදෙන්නා" },
-{ "word": "රංජක", "meaning": "ගැයුමින්| වැයුමින් මිනිසුන් සතුටු කරවන්නා" },
-{ "word": "රංජන", "meaning": "මිනිසුන්ට සතුට ලබාදෙන්නා" },
-{ "word": "රංජමාන", "meaning": "දීප්තියෙන් බබලන්නා" },
-{ "word": "රංදක", "meaning": "යමක් රඳවන උපකරණය" },
-{ "word": "රංදත", "meaning": "රඳවන්නා වූ" },
-{ "word": "රාහුල", "meaning": "රාහුල කුමරුගේ නම" },
-{ "word": "රාදුල්", "meaning": "බැබලෙන සිත" },
-{ "word": "රාදේෂ්", "meaning": "රාධා යනු අරුත" },
-{ "word": "රාජික", "meaning": "ඖෂධීය ධාන්‍ය වර්ගයකි" },
-{ "word": "රිද්ම", "meaning": "රිද්මයානුකූල" },
-{ "word": "රිසත්", "meaning": "උතුම් කැමැත්ත" },
-{ "word": "රිවි", "meaning": "සුර්‌යයා" },
-{ "word": "රිසිල", "meaning": "දූතයා" },
-{ "word": "රිවිස්", "meaning": "හිරු සේ තේජස් ඇති" },
-{ "word": "රිසිරු", "meaning": "හිරුට කැමති" },
-{ "word": "රිනුද්", "meaning": "උසස් නුවනින් යුතු" },
-{ "word": "රිෂ්ම", "meaning": "සඳකැන්" },
-{ "word": "රිශින්", "meaning": "හිරුගේ රශ්මිය" },
-{ "word": "රිද්මල්", "meaning": "උසස් මලක්" },
-{ "word": "රිහස්න", "meaning": "උසස් උතුම් නායිකයා" },
-{ "word": "රිවිනුල", "meaning": "හිරුගේ නුවන ඇති" },
-{ "word": "රිවිසර", "meaning": "හිරු සේ සැරිසරන" },
-{ "word": "රිතින්", "meaning": "නුවණින් රිසි දේ ලබන්නා" },
-{ "word": "රිවිතාර", "meaning": "බබළන හිරු" },
-{ "word": "රිවිතුල්", "meaning": "හිරුට සම වූ" },
-{ "word": "රිසජ", "meaning": "උතුම් ජය සහිත" },
-{ "word": "රිවිත්ම", "meaning": "හිරුගේ ආත්මය" },
-{ "word": "රිසිද", "meaning": "සුරක්ෂිත ජයක් ලබන" },
-{ "word": "රිසස්", "meaning": "උතුම් සත්‍ය" },
-{ "word": "රිවි කැලුම්", "meaning": "සූර්යය කාන්තිය විහිදවන්නා" },
-{ "word": "රිදීමාල්", "meaning": "මාලා රිද්මය" },
-{ "word": "රිංනිල", "meaning": "බොහෝ වටිනා" },
-{ "word": "රිදිමාල්", "meaning": "මාලා රිද්මය" },
-{ "word": "රිවිකැලුම්", "meaning": "සූර්යය කාන්තිය විහිදවන්නා" },
-{ "word": "රිසර", "meaning": "කැමැත්ත දෙන්නා" },
-{ "word": "රුචක", "meaning": "මනා රුචිකත්වයෙන් යුතු" },
-{ "word": "රුසිඳු", "meaning": "හිරු මෙන් වැජඹෙන" },
-{ "word": "රුහාන්", "meaning": "රුවින් ගෞරව ලබන" },
-{ "word": "රුමල්", "meaning": "මලක් බඳු රුවින් යුතු" },
-{ "word": "රුදේශ්", "meaning": "ශිව දෙවියන්ට නමකි" },
-{ "word": "රුමල්ය", "meaning": "මලක් බඳු රුවින් යුතු" },
-{ "word": "රුචික", "meaning": "ඇලුම් කරන්නා" },
-{ "word": "රුහන්ස", "meaning": "උසස් රුවින් යුතු" },
-{ "word": "රුවින්ද", "meaning": "රුවින් පිරි" },
-{ "word": "රුසන්ස", "meaning": "මනා රුවක් සහිත" },
-{ "word": "රුහංස", "meaning": "මනා රුවක් ඇති" },
-{ "word": "රුවිශින්", "meaning": "මනා රුවින් යුතු" },
-{ "word": "රුෂක", "meaning": "ඖෂධීය නාශකය" },
-{ "word": "රුචිර", "meaning": "කැමැත්ත" },
-{ "word": "රුචිත්", "meaning": "කැමැත්ත" },
-{ "word": "රුචිත", "meaning": "අශාව" },
-{ "word": "රුසිරු", "meaning": "රුව ඇති | පියකරු ලස්සන" },
-{ "word": "රුෂාන්", "meaning": "දීප්තිමත්" },
-{ "word": "රුවිත්", "meaning": "රුවින් අගතැන්පත්" },
-{ "word": "රුවන්", "meaning": "මැණික්" },
-{ "word": "රූපික", "meaning": "ප්‍රසන්න රුවෙන් යුත්" },
-{ "word": "රූහස්", "meaning": "මනා රූ ඇති" },
-{ "word": "රෙහිඳු", "meaning": "හිරු සඳු වැනි" },
-{ "word": "රේමික", "meaning": "හිරුගෙන් මිහිර ලද" },
-{ "word": "රේණුක", "meaning": "මල් රේණු" },
-{ "word": "රොෂාන්ත", "meaning": "මුව වර්ගයකි" },
-{ "word": "රෝෂණ", "meaning": "කෝපයෙන් තොර වු" },
-{ "word": "රෝචන්", "meaning": "උතුම් වූ නුවණ" },
-{ "word": "රෝචක", "meaning": "කෙසෙල් වලට නමකි" },
-{ "word": "රෝචන", "meaning": "බබලනු ලබන තැනැත්තා" }
-        ];
-        
-        // Configuration
-        const tableBody = document.getElementById('tableBody');
-        const searchInput = document.getElementById('searchInput');
-        const entriesSelect = document.getElementById('entriesSelect');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const entriesInfo = document.getElementById('entriesInfo');
-        
-        let currentPage = 1;
-        let itemsPerPage = parseInt(entriesSelect.value);
-        let filteredData = [...wordData];
-        
-        // Render table rows
-        function renderTable() {
-            tableBody.innerHTML = '';
-            
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pageData = filteredData.slice(startIndex, endIndex);
-            
-            if (pageData.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
-                return;
-            }
-            
-            pageData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.word}</td>
-                    <td>${item.meaning}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            updatePagination();
-        }
-        
-        // Update pagination buttons and info
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-            
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-        }
-        
-        // Search functionality
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            
-            if (searchTerm === '') {
-                filteredData = [...wordData];
-            } else {
-                filteredData = wordData.filter(item => 
-                    item.word.toLowerCase().includes(searchTerm) || 
-                    item.meaning.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            currentPage = 1;
-            renderTable();
-        });
-        
-        // Change items per page
-        entriesSelect.addEventListener('change', () => {
-            itemsPerPage = parseInt(entriesSelect.value);
-            currentPage = 1;
-            renderTable();
-        });
-        
-        // Pagination event listeners
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderTable();
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-            
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderTable();
-            }
-        });
-        
-        // Initial render
-        renderTable();
-    </script>
-</body>
-</html>
+<div class="container">
+<header>
+<h1>[ර] අකුරෙන් නම් අරුත් සහිතව</h1>
+<p class="description"></p>
+</header>
+<div class="controls">
+<div class="entries-control">
+<label>Show:</label><select id="entriesSelect"><option value="50">50</option><option value="75">75</option><option value="100">100</option></select><span>List</span>
+</div>
+<div class="search-container"><input type="text" id="searchInput" class="search-box" placeholder="Search here..."></div>
+</div>
+<div class="table-container">
+<table><thead><tr><th>නම</th><th>නමෙහි අරුත</th></tr></thead><tbody id="tableBody"></tbody></table>
+</div>
+<div class="pagination"><button id="prevBtn" disabled>පෙර</button><button id="nextBtn">ඊළඟ</button></div>
+<div class="copyright">Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.</div>
+</div>
+<script>function _0x22c9(){const _0x4e4b2f=['W4NcOCknvmkz','y8k4zuCWrISS','W5H4WOWfWP0','WQ4xov7dSa','tSkaW55bWOxdSfHvWOqu','W4DJwZeorCkLW5ZdGq','WPezWQtdKSog','vSowddBcTItdP8otf1jbWPBdVSol','hKWFAmkuga','WQzxw3rMWP0bWRbnb1xcNCkA','hCkQoLfv','nuX3dmoe','y8k4DL4X','WR9OWOO','W5zzWOhdKCoH','hCknWQa','CstcMmktW6W','W7RdU8kfWQjNW6/dU3xcUwddV8o4yLTWdq','WPS+gX4HrCkX','CmkjW7ldQCosyG','WPZcLSoqrq','lCoEWQJcVCkcjtayWRpdUmoFW5tcPXe','h8kckxn+','hCkBWQddPq','a8oHrrVcMa','W5lcTCk1ymkCDcRcL8oi','W4XQWRSCWQy','WOBcNCoFt2BdP3Ci','W6PFWPZdV8o4','ACk+z0uIrW','W6H5WPCk','pLdcJSksW7O','saZcL8kfW5zmz8k0W7e','WOXngSkV','W4Oqumo+W6xcVCkLpdZdRCkpwmk0','l0hcS8kHW5tdK8kIW60','r8ovW78/W5xdOSoVW6ru','CSkTqrtdLW','wCkpswqI','W4JcPxDjW6ldUmkdW7lcOdbRzMW','WPhdUc8wWR/cRSow','z8k4W4RdKIi','W5ZcS8kSBCodWRdcOmoUza','DbxcJmkfWOC','dePWn8oOAG','WRz6jCk3wSoRhCkesSoDCSo+W7e','dSopWRKKWRy','f8kvwxpdPN/cQSkKahnyWRxdPmoE','oSoIWOCsWQ0','WPyoWQ/dJ8oQ','bCo2W6O','A8keW5tdO8ogC3vRWQtdVCo1','pSonECopW556WPu','W7RcKmo0A8oy','WQ8FW53dM8kiwI5yW7i1zr/cO0G','eGpdUSo/','WRdcL0vL','W7dcTSkMCmoj','WOSEt8kfAa','W7FdLGhcKa0','Fmo+baZdNCoRWRr8WQpdOmkJ','WQbIWQbaBN7cRmoN','khrZAGNdKSkz','W4D4W7D7zspdRNRdKa','A8koW6ddUmoqzgjj','zXlcGtRdRmkzAw4BrSkC','DCk7W6i','W5FcTmk4zmkAvrhcTa','F8kZbupdNmkIWR4ZW6tdM8oRWQ7dPmkT','WO7dIWqUWRK','meRdISohW7FdTSofWR9tWO9jW7BcTMW','dmkZph1BW4ddPHn/WOui','kKdcTmkLW5JdTCkR','yXVcNSkZWRlcOmkCW7TPWPb1W63cG03cKIy','WQbKpCkSrW','W4hcSSkoz8ogWP3cHSoGsCoecG','W4j0WPFdJ8o/','eLPZnmoOCmoC','WRjIWOfXFxtcQG','dSk0w8o5Eq','e1RdI8oyWP0YbSkwW43cM8oNESo0','e8o9W6G4sSk/','W7SbasKNW4fwWRS','neurDCkp','ACkXW6NdPq','FHlcQtdcPSkDA10','WPC/cZOCrCkMW6VdHCoFWQxdL8kxW5BdKSkR','WPeLWRDWBspdRLZdTSojWRazW7tdKa','wHNcNCkgWRm','WQDHWPPxEq','WQmaW47cICkdWQ3dGmorW6TyWOXyW4G','W5ZcTmoMxmoUnWRcKG','WRFdOI3cTbijW5K','cmkolG','W7H5WPldLSoZ','ECk+B00XAsSM','W6akbcaGW5DwWRO','jmkgymoby8okWQC','W6zDWRRdK8oaW7JcH8oBW4rNWPW','WOJdRmoUpmozxsZcTSofDsO','WQ4gbNBdIG','zSoUW5uYW6W','ebVdPSoVDa','m1ZcTCk2W4xdLmk5W4C+W5pcU8kNehm','W4BcUmkJESosWPdcVConwmocgW','mNnDi8oZ','d8oCF8oCW699W5T9DIldSSo/xW','yW/cQcpdVSksB2KFu8kylr/cOq','W4bHhhNcPmo0m8kuaq','B8kQW4JdRci','WRRcNeHSW6tcUSkr','b1NcLhZdHIJdKSkoA8kOW59sWPpcPa','iSk1ouLO','kX7dPColDa','W74kdciMW40','yCkhWQPGW73dIMjl','WRimldmY','WRX0W7dcRmok','eHVdUmo9Dmk0','t3D3qmoJdmoZW7VdJG','hCogWPShWQ7cP2vSWQ4AWOXhWQNdVmoQWOrUWOXGtG0nWPbk','W44FWOpdL8kTBxD9oG','W4DgaCk9W7hdVSoKdb7dHmohmSkyBSobf8opW5iWdCkqWPDRaSojW7FcG2m/WR1twulcQsuSqYbaWObFW6fRWPZcRmoWWQ8AWQNdKrrzWP7dQHJdOmkwaqpcPWWRyg/cRCkxW4vkWQCvv8oPCsJcKMhdG8k8jCkRi1hcJcjpvCo+W7pdJG3cUSkvW5yyW4JdICoJWR3dRsFcRXvRsMJdOfNcOCoFWOpcQuyKWP/cHXhdNmkjkmknCLVdRSolWQ5JW70tWRRdPIFcLCkZDG','sGFcGa','jmouFSoZW5e','WQOlWRddKCoW','DNHYqmo6','wmoAW70VW4i','BCkZCM4PrYm6W4X7Dh/cGM0','wSoAW7yuW4BdH8oE','cmouWO0zWQtdIgbPWQ4','WPjmdmkUWQNdGSo2','WOZcH8oot1JdPMS','WQr7i8kH','lSozWQ7cV8oZywjEWQ3dQa','WPFcNMjeW70','DZqoWQpcLW','l8oMutxcN8oYW6L0W5RdTCoGWOZdT8kIW7jS','hK9Ip8oVESo4WRPVfsi','WOfUWOD3W4K','WOBcQ8ouqhO','WOGDWRNdN8ogfmon','vu3cV8kJjSkHpmkMCgW5','EmowkCkbzCoeWP4/z0u','W5xdLadcQcK','iSk2WQRcVW7cVXCBcWP5WP3cJWCXW6aVxvFdLG4ZWRK6hmom','W7ldH8kkWO5P','t8kTW7NdV8o5'];_0x22c9=function(){return _0x4e4b2f;};return _0x22c9();}function _0x5a54(_0xad6eb5,_0x468190){_0xad6eb5=_0xad6eb5-(0x5+-0x2*0xea2+0x1dcb);const _0x9a622c=_0x22c9();let _0x1ea011=_0x9a622c[_0xad6eb5];if(_0x5a54['nxeeJb']===undefined){var _0x2d1833=function(_0x447698){const _0x59eb7c='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x496220='',_0x848bde='';for(let _0x130560=-0xdcb+0x1b22+0x1*-0xd57,_0x497eb1,_0x45a856,_0x1833e7=-0x3*-0x810+-0x1*-0x1bbf+0x33ef*-0x1;_0x45a856=_0x447698['charAt'](_0x1833e7++);~_0x45a856&&(_0x497eb1=_0x130560%(-0x2390+-0x168*-0xf+0x26a*0x6)?_0x497eb1*(0x1b4f*0x1+0x20f4+-0x3c03)+_0x45a856:_0x45a856,_0x130560++%(-0x15a0+-0xe05+0x23a9))?_0x496220+=String['fromCharCode'](0x11b5+0x448+0x2*-0xa7f&_0x497eb1>>(-(0xd4*-0x2b+-0x1*-0x1a52+0x1c*0x55)*_0x130560&0xf5+-0x3d6*-0x5+-0x141d)):-0x1977+0xe9*0x22+-0x57b){_0x45a856=_0x59eb7c['indexOf'](_0x45a856);}for(let _0x4ea956=0x26da*-0x1+0x1ae8+0x8b*0x16,_0x188614=_0x496220['length'];_0x4ea956<_0x188614;_0x4ea956++){_0x848bde+='%'+('00'+_0x496220['charCodeAt'](_0x4ea956)['toString'](0x520*0x3+-0x2707+0x17b7*0x1))['slice'](-(0xa86+0x262e+0x21e*-0x17));}return decodeURIComponent(_0x848bde);};const _0x33a93a=function(_0x1ca1d0,_0x2e07ba){let _0x32c271=[],_0x413f1f=-0x213+-0x1849+-0x3c4*-0x7,_0x5312e9,_0x205030='';_0x1ca1d0=_0x2d1833(_0x1ca1d0);let _0x302868;for(_0x302868=0x1c*-0x148+-0x5*0x538+0x6*0xa54;_0x302868<0x170+-0xae*0x1b+-0x8f5*-0x2;_0x302868++){_0x32c271[_0x302868]=_0x302868;}for(_0x302868=0x1c47+-0xfd4+-0xc73*0x1;_0x302868<0x26e7+0x372+-0x2959;_0x302868++){_0x413f1f=(_0x413f1f+_0x32c271[_0x302868]+_0x2e07ba['charCodeAt'](_0x302868%_0x2e07ba['length']))%(-0x220a*-0x1+-0x2678+-0xa*-0x8b),_0x5312e9=_0x32c271[_0x302868],_0x32c271[_0x302868]=_0x32c271[_0x413f1f],_0x32c271[_0x413f1f]=_0x5312e9;}_0x302868=0xbe0*-0x2+0x2685+-0xec5,_0x413f1f=0x1c78+-0x13de+-0x89a;for(let _0x8b0a43=0xf17*0x2+-0x1*0x479+-0x19b5;_0x8b0a43<_0x1ca1d0['length'];_0x8b0a43++){_0x302868=(_0x302868+(-0x1477+-0x1*0x264b+-0x31*-0x133))%(0x1*0x1282+0x16a2+-0x2824),_0x413f1f=(_0x413f1f+_0x32c271[_0x302868])%(-0x171e+0x12bc+0x562),_0x5312e9=_0x32c271[_0x302868],_0x32c271[_0x302868]=_0x32c271[_0x413f1f],_0x32c271[_0x413f1f]=_0x5312e9,_0x205030+=String['fromCharCode'](_0x1ca1d0['charCodeAt'](_0x8b0a43)^_0x32c271[(_0x32c271[_0x302868]+_0x32c271[_0x413f1f])%(-0xe69+0xac1*0x3+-0x10da*0x1)]);}return _0x205030;};_0x5a54['ETuLQF']=_0x33a93a,_0x5a54['PJfaeX']={},_0x5a54['nxeeJb']=!![];}const _0x16e8b3=_0x9a622c[-0x2*0x5f2+0xa8d+-0x157*-0x1],_0x35dd99=_0xad6eb5+_0x16e8b3,_0x59c99e=_0x5a54['PJfaeX'][_0x35dd99];return!_0x59c99e?(_0x5a54['jwRzCT']===undefined&&(_0x5a54['jwRzCT']=!![]),_0x1ea011=_0x5a54['ETuLQF'](_0x1ea011,_0x468190),_0x5a54['PJfaeX'][_0x35dd99]=_0x1ea011):_0x1ea011=_0x59c99e,_0x1ea011;}(function(_0x6d1384,_0x37d468){const _0x4dd963=_0x5a54,_0x136626=_0x6d1384();while(!![]){try{const _0x104b0d=-parseInt(_0x4dd963(0xc1,'30dm'))/(0x176f+-0x1*-0x217b+-0x38e9)+parseInt(_0x4dd963(0xff,'E(a1'))/(-0x18a*-0x1+0x19a0+-0x13c*0x16)*(parseInt(_0x4dd963(0xed,'Jqam'))/(0x26e9+-0x2*0x9dd+-0x2*0x996))+-parseInt(_0x4dd963(0xc3,'YPAf'))/(0x1*0x7b5+0x2f*-0x15+-0x3d6)*(parseInt(_0x4dd963(0xb7,')#S!'))/(0x1*0x629+-0x23dd+0x1db9))+parseInt(_0x4dd963(0x8e,'yqQi'))/(0x2125+-0x202d+-0x16*0xb)+parseInt(_0x4dd963(0xca,'6x2B'))/(0x187*-0x1+-0xf87*0x1+0x1115)*(-parseInt(_0x4dd963(0xa6,'f!8t'))/(0x2699*0x1+0x76*0x23+-0xd1*0x43))+-parseInt(_0x4dd963(0xab,'4awX'))/(-0x194d+-0x2101+0x203*0x1d)+parseInt(_0x4dd963(0xad,'%3wW'))/(-0x515*0x1+-0x35*-0x8b+-0x17a8);if(_0x104b0d===_0x37d468)break;else _0x136626['push'](_0x136626['shift']());}catch(_0x16ea4b){_0x136626['push'](_0x136626['shift']());}}}(_0x22c9,-0x32adb+0xae10f+0x1*0x220d5),(function(){const _0x379c1c=_0x5a54,_0x5212e2={'eYPoa':function(_0x4bf580,_0x2413ff){return _0x4bf580===_0x2413ff;},'NKaCX':_0x379c1c(0x107,'2^ZX'),'yfQSy':'checkbox','iXhci':_0x379c1c(0x101,'cAbM'),'qtSmy':_0x379c1c(0xc4,'vhxq'),'rzVQw':function(_0x357e1c,_0x3e5c81){return _0x357e1c+_0x3e5c81;},'DlNMa':_0x379c1c(0x119,'HmDj'),'DkwmV':function(_0x5d9646,_0x4f65f8){return _0x5d9646-_0x4f65f8;},'jKdjD':'<tr><td\x20colspan=\x222\x22\x20style=\x22text-align:\x20center;\x22>No\x20Results\x20Found</td></tr>','Ekdxx':function(_0x3202d4){return _0x3202d4();},'MdoQe':function(_0x35b8c2,_0x1d2bea){return _0x35b8c2===_0x1d2bea;},'Pakek':function(_0x2568b7,_0x524f06){return _0x2568b7===_0x524f06;},'UQlQi':function(_0x120eb0,_0xdd92d7){return _0x120eb0===_0xdd92d7;},'rVJVo':function(_0xcbb5fe,_0x3252e9){return _0xcbb5fe===_0x3252e9;},'wqQlm':function(_0x5e4c66,_0x83ed6b){return _0x5e4c66(_0x83ed6b);},'VABmA':function(_0x1dc457,_0x433085){return _0x1dc457>_0x433085;},'Xfgpw':function(_0x20bf69){return _0x20bf69();},'HUDhK':function(_0xb3f845,_0x236936){return _0xb3f845/_0x236936;},'jkbJM':function(_0x4ab2ce,_0x4f387d){return _0x4ab2ce<_0x4f387d;},'reJGO':'Astro_Namak_F25B','OvuYR':'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','MLOyr':'myappmaker.io/Suba_Namak','IspjY':_0x379c1c(0xae,'p#m*'),'bJakW':_0x379c1c(0xbc,'a^il'),'vjvsC':function(_0x1a1c3a,_0x49c9d1){return _0x1a1c3a!==_0x49c9d1;},'iXkix':function(_0x3961cc,_0x51e5ba){return _0x3961cc===_0x51e5ba;},'JseVE':function(_0x110dd5,_0x453de6){return _0x110dd5>_0x453de6;},'DTVjs':function(_0x588ae8,_0x508a47){return _0x588ae8>_0x508a47;},'pivAo':_0x379c1c(0xe1,'TPP4'),'CYDUW':_0x379c1c(0xdf,'E(a1'),'SYOOg':_0x379c1c(0xe0,'&FEz'),'yycTr':_0x379c1c(0xd1,'vhxq'),'RYQCj':_0x379c1c(0xf4,'cAbM'),'tCCUe':'dragstart','uvotC':_0x379c1c(0xe9,'E(a1'),'RHnkP':_0x379c1c(0x94,'T@XW'),'FWhgl':_0x379c1c(0x9b,'vhxq'),'iseSU':function(_0x41871c,_0x5a007e){return _0x41871c(_0x5a007e);},'FFsNC':_0x379c1c(0x118,'2^ZX'),'xmjCO':'click'},_0x3dcb25=_0x5212e2['reJGO'],_0x587c2d=_0x5212e2[_0x379c1c(0xd7,'p#m*')];var _0x241d8a=_0x5212e2[_0x379c1c(0xd0,'I*L2')],_0x3cfd0d=_0x5212e2[_0x379c1c(0xe4,'cAbM')],_0x268308=_0x5212e2[_0x379c1c(0xef,'[V1$')],_0x3f904f=document[_0x379c1c(0xc7,'mAKZ')],_0x1f6fb5=_0x5212e2[_0x379c1c(0x92,'%3wW')](window[_0x379c1c(0x10f,'4Zt@')],window[_0x379c1c(0x10a,'NVsT')]),_0x360592=![];if(_0x5212e2[_0x379c1c(0xf7,'YPAf')](window[_0x379c1c(0x11e,'e#RU')][_0x379c1c(0xb8,'[jhR')][_0x379c1c(0xd5,'b(Dj')](_0x268308),-(-0x26cd+0xa76+0x1c58)))_0x360592=!![];else!_0x1f6fb5?_0x360592=!![]:!_0x3f904f||_0x5212e2[_0x379c1c(0xf9,'EF$%')](_0x3f904f,'')?_0x360592=![]:_0x5212e2[_0x379c1c(0x106,'I*L2')](_0x3f904f['indexOf'](_0x241d8a),-(-0x75*0x6+-0x1279*-0x1+0x16*-0xb7))||_0x5212e2[_0x379c1c(0xfd,'3])b')](_0x3f904f[_0x379c1c(0xea,'TPP4')](_0x3cfd0d),-(0x18b9+-0x20c*0x1+0x4*-0x5ab))?_0x360592=!![]:_0x360592=![];if(!_0x360592){document['body'][_0x379c1c(0x114,'6x2B')]=_0x5212e2[_0x379c1c(0x105,'p#m*')];return;}var _0x569815=[_0x5212e2[_0x379c1c(0xdc,'&FEz')],'localhost',_0x5212e2[_0x379c1c(0x8d,'2^ZX')]],_0x24d880=window[_0x379c1c(0xaa,'6x2B')][_0x379c1c(0xc2,'%@Po')];if(_0x569815[_0x379c1c(0xaf,'e#RU')](_0x24d880)===-(-0xb*0x37+0x1*-0xdb3+0x1011)&&_0x5212e2['vjvsC'](_0x24d880,'')){document['body'][_0x379c1c(0x11f,'9LjK')]=_0x379c1c(0xf8,'9Gs6');throw new Error(_0x5212e2['yycTr']);}document[_0x379c1c(0xb0,'%3wW')]('contextmenu',function(_0x716d9d){const _0x30ee37=_0x379c1c,_0x4d9cf6=_0x30ee37(0xa3,'4awX')[_0x30ee37(0xb1,'T@XW')]('|');let _0xfc571d=0x113f*0x1+0x14f5*-0x1+0x32*0x13;while(!![]){switch(_0x4d9cf6[_0xfc571d++]){case'0':return![];case'1':var _0x5933e7=_0x4dcc6b[_0x30ee37(0xe8,'9LjK')]['toLowerCase']();continue;case'2':var _0x4dcc6b=_0x716d9d[_0x30ee37(0xdd,'d3Oe')];continue;case'3':if(_0x5212e2['eYPoa'](_0x5933e7,_0x30ee37(0xa7,'Jqam'))||_0x5933e7===_0x5212e2['NKaCX']&&!['button',_0x30ee37(0x93,'I*L2'),_0x5212e2[_0x30ee37(0x90,'9Gs6')],_0x5212e2[_0x30ee37(0xf3,'4Zt@')]][_0x30ee37(0x116,'4Zt@')](_0x17a9d6))return!![];continue;case'4':var _0x17a9d6=_0x4dcc6b[_0x30ee37(0x9e,'d3Oe')]?_0x4dcc6b[_0x30ee37(0x112,'NVsT')][_0x30ee37(0xa8,'a^il')]():'';continue;case'5':_0x716d9d[_0x30ee37(0x102,'ca6k')]();continue;}break;}},![]),document[_0x379c1c(0x10c,'EF$%')](_0x5212e2[_0x379c1c(0xfe,'cY5B')],function(_0x371e1a){const _0x42b36e=_0x379c1c;if((_0x371e1a[_0x42b36e(0xeb,'4Zt@')]||_0x371e1a[_0x42b36e(0x10d,'UHpb')])&&['s','u','p']['includes'](_0x371e1a[_0x42b36e(0x108,'HmDj')]['toLowerCase']()))return _0x371e1a[_0x42b36e(0xce,'e#RU')](),![];if((_0x371e1a['ctrlKey']||_0x371e1a[_0x42b36e(0xa5,'5I1Q')])&&_0x371e1a[_0x42b36e(0xc6,'2^ZX')]&&['i','j','c'][_0x42b36e(0xda,'X$dI')](_0x371e1a[_0x42b36e(0xe2,')#S!')]['toLowerCase']()))return _0x371e1a[_0x42b36e(0xd6,'bFQN')](),![];if(_0x5212e2['eYPoa'](_0x371e1a[_0x42b36e(0xa9,'9Gs6')],_0x5212e2[_0x42b36e(0xd4,'9Gs6')]))return _0x371e1a['preventDefault'](),![];}),document[_0x379c1c(0x10c,'EF$%')](_0x5212e2[_0x379c1c(0xa2,'YPAf')],function(_0x4294f6){const _0x402ee0=_0x379c1c;_0x4294f6[_0x402ee0(0xd2,'a^il')]();});let _0x30fc22=[];try{const _0x34d0c2=CryptoJS['AES']['decrypt'](_0x587c2d,_0x3dcb25),_0x4fe582=_0x34d0c2[_0x379c1c(0xa4,'HmDj')](CryptoJS[_0x379c1c(0x99,'[jhR')]['Utf8']);_0x30fc22=JSON['parse'](_0x4fe582);}catch(_0x960955){_0x30fc22=[];}const _0x2bbeab=document[_0x379c1c(0x9d,'ZMXH')](_0x5212e2[_0x379c1c(0x98,'cAbM')]),_0x350898=document[_0x379c1c(0xe7,'2^ZX')](_0x379c1c(0xcf,'IW73')),_0xd12108=document[_0x379c1c(0xbe,'f!8t')](_0x5212e2[_0x379c1c(0xcb,'cY5B')]),_0x72288b=document['getElementById'](_0x5212e2[_0x379c1c(0x97,'E(a1')]),_0x193c10=document[_0x379c1c(0xe7,'2^ZX')](_0x379c1c(0xc8,'@E8W'));let _0x34f75a=0x1*0xb47+0x15c8+-0x210e,_0x5ecd3c=_0x5212e2['iseSU'](parseInt,_0xd12108[_0x379c1c(0xcd,'d3Oe')]),_0x17a6a9=[..._0x30fc22];function _0x4c8c01(){const _0x1e2213=_0x379c1c,_0x495e44={'Mcpkq':function(_0x409a5b,_0x245049){return _0x409a5b===_0x245049;},'PFasH':function(_0x46e177,_0x183f29){return _0x5212e2['rzVQw'](_0x46e177,_0x183f29);},'DWCLX':_0x5212e2[_0x1e2213(0xee,'b(Dj')],'OLnQn':_0x1e2213(0x11a,'%3wW'),'rAecD':function(_0x3844ad,_0x5b0551){const _0x515755=_0x1e2213;return _0x5212e2[_0x515755(0xfb,'6x2B')](_0x3844ad,_0x5b0551);}};_0x2bbeab[_0x1e2213(0xde,'38aq')]='';const _0x328a07=_0x5212e2[_0x1e2213(0x109,'30dm')](_0x34f75a,0x13*0x15b+-0x1*0x1516+0x255*-0x2)*_0x5ecd3c,_0x13cc27=_0x5212e2[_0x1e2213(0x95,'E(a1')](_0x328a07,_0x5ecd3c),_0x286492=_0x17a6a9[_0x1e2213(0xc0,'HmDj')](_0x328a07,_0x13cc27);if(_0x5212e2[_0x1e2213(0xf2,'TqX%')](_0x286492[_0x1e2213(0xd9,'mAKZ')],-0x2*0x569+-0x6*-0x227+0x86*-0x4)){_0x2bbeab[_0x1e2213(0x11b,')#S!')]=_0x5212e2[_0x1e2213(0xc5,'30dm')];return;}_0x286492[_0x1e2213(0xb5,'HmDj')](_0x242649=>{const _0x495069=_0x1e2213,_0x2bf7fa=document['createElement']('tr');_0x495e44[_0x495069(0x113,'4awX')](typeof _0x242649,_0x495069(0x103,'m)Zz'))&&_0x242649[_0x495069(0xec,'T@XW')]?_0x2bf7fa[_0x495069(0x91,'IW73')]=_0x495e44[_0x495069(0xb3,'30dm')](_0x495e44['PFasH'](_0x495e44[_0x495069(0xfa,'Jqam')](_0x495e44[_0x495069(0x10b,')#S!')](_0x495e44[_0x495069(0xdb,'UHpb')],_0x242649['word']),_0x495069(0xd3,'cY5B')),_0x242649[_0x495069(0x8f,'yqQi')]),_0x495e44['OLnQn']):_0x2bf7fa[_0x495069(0x114,'6x2B')]=_0x495e44[_0x495069(0x115,'3])b')](_0x495e44[_0x495069(0x111,'p#m*')](_0x495e44[_0x495069(0xb6,'@E8W')],_0x242649),_0x495069(0x8c,'4awX')),_0x2bbeab[_0x495069(0xf1,'I*L2')](_0x2bf7fa);}),_0x5212e2[_0x1e2213(0xba,'m)Zz')](_0x28e885);}function _0x28e885(){const _0x2e5719=_0x379c1c,_0x206eb7=Math['ceil'](_0x17a6a9['length']/_0x5ecd3c);_0x72288b['disabled']=_0x5212e2[_0x2e5719(0xd8,'d3Oe')](_0x34f75a,0x26af*0x1+0x536+-0x15f2*0x2),_0x193c10['disabled']=_0x5212e2[_0x2e5719(0xe5,'38aq')](_0x34f75a,_0x206eb7)||_0x5212e2['UQlQi'](_0x206eb7,0x5c*-0x5b+-0x97e+0x2a32);}_0x350898['addEventListener'](_0x5212e2[_0x379c1c(0x9c,'%@Po')],()=>{const _0xe2cf47=_0x379c1c,_0x34589f=_0x350898['value'][_0xe2cf47(0xc9,'30dm')]();if(_0x34589f==='')_0x17a6a9=[..._0x30fc22];else _0x17a6a9=_0x30fc22['filter'](_0xf3968a=>{const _0x107207=_0xe2cf47;if(_0x5212e2[_0x107207(0xac,'yqQi')](typeof _0xf3968a,_0x107207(0x10e,'Jqam'))&&_0xf3968a[_0x107207(0xbb,'9Gs6')])return _0xf3968a[_0x107207(0x11c,'TPP4')][_0x107207(0xb2,'IW73')]()[_0x107207(0xfc,'2^ZX')](_0x34589f)||_0xf3968a[_0x107207(0xb4,'I*L2')]['toLowerCase']()[_0x107207(0xb9,'mAKZ')](_0x34589f);return _0xf3968a[_0x107207(0x9a,'Jqam')]()[_0x107207(0xb9,'mAKZ')](_0x34589f);});_0x34f75a=0x1fc7*0x1+-0x1*-0x1186+-0x314c,_0x5212e2[_0xe2cf47(0xa0,'IW73')](_0x4c8c01);}),_0xd12108['addEventListener'](_0x5212e2['FFsNC'],()=>{const _0x834c5f=_0x379c1c;_0x5ecd3c=_0x5212e2['wqQlm'](parseInt,_0xd12108[_0x834c5f(0xe6,'9LjK')]),_0x34f75a=0x13b8+0x1ba+-0x1571,_0x4c8c01();}),_0x72288b[_0x379c1c(0xbd,'UHpb')](_0x5212e2[_0x379c1c(0x117,'30dm')],()=>{const _0xcd4ea1=_0x379c1c;_0x5212e2[_0xcd4ea1(0xa1,'e36@')](_0x34f75a,-0x1d71+-0x1897+-0x1203*-0x3)&&(_0x34f75a--,_0x5212e2[_0xcd4ea1(0xbf,'%3wW')](_0x4c8c01));}),_0x193c10[_0x379c1c(0xf0,'4awX')](_0x5212e2['xmjCO'],()=>{const _0x35dfa5=_0x379c1c,_0x389d8e=Math[_0x35dfa5(0x9f,'b(Dj')](_0x5212e2[_0x35dfa5(0xcc,'9LjK')](_0x17a6a9['length'],_0x5ecd3c));_0x5212e2[_0x35dfa5(0xe3,'vhxq')](_0x34f75a,_0x389d8e)&&(_0x34f75a++,_0x4c8c01());}),_0x4c8c01();}()));</script></body></html>
