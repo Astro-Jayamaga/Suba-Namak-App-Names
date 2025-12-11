@@ -1,426 +1,66 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සිංහල නාමයන් අර්ථ දැක්වීම්</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Noto Serif Sinhala', serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
-            color: #000;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 1.5rem;
-            color: #0e47a1;
-        }
-        
-        .description {
-            font-size: 1.1rem;
-            color: #000;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .copyright {
-            text-align: center;
-            font-size: 0.65rem;
-            color: #888;
-            margin-top: 1.5rem;
-            margin-bottom: 3rem;
-       }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .entries-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .entries-control select, .entries-control input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Noto Serif Sinhala', serif;
-        }
-        
-        .table-container {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1.1rem;
-        }
-        
-        thead {
-            background: linear-gradient(to right, #0e47a1, #1d89e4);
-            color: white;
-        }
-        
-        th {
-            padding: 18px 15px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        
-        tr {
-            border-bottom: 1px solid #eaeaea;
-            transition: background-color 0.2s;
-        }
-        
-        tr:last-child {
-            border-bottom: none;
-        }
-        
-        tr:hover {
-            background-color: #e4f1ff;
-        }
-        
-        thead:hover {
-            color: black;
-        }
-        
-        td {
-            padding: 16px 15px;
-            color: #444;
-        }
-        
-        td:first-child {
-            font-weight: 600;
-            color: #0e47a1;
-        }
-        
-        .search-container {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .search-box {
-            padding: 10px 15px;
-            border: 2px solid #0e47a1;
-            border-radius: 5px;
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1rem;
-            width: 250px;
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 10px;
-        }
-        
-        .pagination button {
-            padding: 12px 20px;
-            background: #0e47a1;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Noto Serif Sinhala', serif;
-            font-size: 1rem;
-            transition: background 0.3s;
-        }
-        
-        .pagination button:hover {
-            background: #306ed1;
-        }
-        
-        .pagination button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-        }
-        
-        .entries-info {
-            text-align: center;
-            color: #666;
-            margin-top: 15px;
-            font-size: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .search-container {
-                width: 100%;
-            }
-            
-            .search-box {
-                width: 100%;
-            }
-            
-            th, td {
-                padding: 14px 10px;
-                font-size: 1rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            th, td {
-                padding: 12px 8px;
-                font-size: 0.9rem;
-            }
-            
-            h1 {
-                font-size: 1.7rem;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .pagination button {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ග අකුරෙන් නම් අරුත් සහිතව</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<style>
+                
+    body { font-family: 'Noto Serif Sinhala', serif; background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%); color: #000; line-height: 1.6; padding: 20px; min-height: 100vh; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; margin-bottom: 30px; padding: 10px; background: rgba(255, 255, 255, 0.9); border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+    h1 { font-size: 1.5rem; color: #0e47a1; }
+    .description { font-size: 1.1rem; color: #000; max-width: 800px; margin: 0 auto; }
+    .copyright { text-align: center; font-size: 0.65rem; color: #888; margin-top: 1.5rem; margin-bottom: 3rem; }
+    .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+    .entries-control { display: flex; align-items: center; gap: 10px; }
+    .entries-control select, .entries-control input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Noto Serif Sinhala', serif; }
+    .table-container { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); margin-bottom: 20px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 1.1rem; }
+    thead { background: linear-gradient(to right, #0e47a1, #1d89e4); color: white; }
+    th { padding: 18px 15px; text-align: left; font-weight: 600; font-size: 1.2rem; }
+    tr { border-bottom: 1px solid #eaeaea; transition: background-color 0.2s; }
+    tr:last-child { border-bottom: none; }
+    tr:hover { background-color: #e4f1ff; }
+    thead:hover { color: black; }
+    td { padding: 16px 15px; color: #444; }
+    td:first-child { font-weight: 600; color: #0e47a1; }
+    .search-container { display: flex; gap: 10px; }
+    .search-box { padding: 10px 15px; border: 2px solid #0e47a1; border-radius: 5px; font-family: 'Noto Serif Sinhala', serif; font-size: 1rem; width: 250px; }
+    .pagination { display: flex; justify-content: center; margin-top: 20px; gap: 10px; }
+    .pagination button { padding: 12px 20px; background: #0e47a1; color: white; border: none; border-radius: 5px; cursor: pointer; font-family: 'Noto Serif Sinhala', serif; font-size: 1rem; transition: background 0.3s; }
+    .pagination button:hover { background: #306ed1; }
+    .pagination button:disabled { background: #cccccc; cursor: not-allowed; }
+    .entries-info { text-align: center; color: #666; margin-top: 15px; font-size: 1rem; }
+    @media (max-width: 768px) { .controls { flex-direction: column; align-items: stretch; } .search-container { width: 100%; } .search-box { width: 100%; } th, td { padding: 14px 10px; font-size: 1rem; } h1 { font-size: 2rem; } }
+    @media (max-width: 480px) { th, td { padding: 12px 8px; font-size: 0.9rem; } h1 { font-size: 1.7rem; } .container { padding: 10px; } .pagination button { padding: 10px 15px; font-size: 0.9rem; } }
+    
+                
+    /* SECURITY: Disable selection */
+    body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+    input, textarea { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
+    
+                *{ margin:0; padding:0; box-sizing: border-box; }
+                </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>[ග] අකුරෙන් නම් අරුත් සහිතව</h1>
-            <p class="description"></p>
-        </header>
-        
-        <div class="controls">
-            <div class="entries-control">
-                <label for="entriesSelect">Show:</label>
-                <select id="entriesSelect">
-                    <option value="50">50</option>
-                    <option value="75">75</option>
-                    <option value="100">100</option>
-                </select>
-                <span>List</span>
-            </div>
-            
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-box" placeholder="Search here...">
-            </div>
-        </div>
-        
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>නම</th>
-                        <th>නමෙහි අරුත</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Data will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="pagination">
-            <button id="prevBtn" disabled>පෙර</button>
-            <button id="nextBtn">ඊළඟ</button>
-        </div>
-        
-        <div class="copyright">
-      Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.
-        </div>
-      </div>
-
-
-    <script>
-        // Your word data
-        const wordData = [
-                                  { "word": "ගරුක", "meaning": "උත්සහවන්තයා" },
-    { "word": "ගවේෂ්", "meaning": "ගවේෂණය කරන්නා" },
-    { "word": "ගයාන්", "meaning": "ගායනාව" },
-    { "word": "ගවේශන", "meaning": "ගවේෂණය" },
-    { "word": "ගඟුල්", "meaning": "ගංඟා" },
-    { "word": "ගම්‍ය", "meaning": "යා යුතු බව" },
-    { "word": "ගගන", "meaning": "අහස" },
-    { "word": "ගගන්", "meaning": "අහස" },
-    { "word": "ගණිසුරු", "meaning": "ගණදෙවි" },
-    { "word": "ගඟුල", "meaning": "ගංගාව පටන් ගන්නා තැන" },
-    { "word": "ගණිදු", "meaning": "ගන දෙවි" },
-    { "word": "ගඟුලැල්", "meaning": "දිය ඇල්ල" },
-    { "word": "ගජේරු", "meaning": "ඉතාම මනෝහාර වූ" },
-    { "word": "ගම්භීර", "meaning": "බලවත් පුද්ගලයා" },
-    { "word": "ගන්ධාර", "meaning": "ගාන්ධාර නම් ඉන්දියාවේ ප්‍රාන්තයක්" },
-    { "word": "ගයිරික", "meaning": "රත්තරන්" },
-    { "word": "ගජිදු", "meaning": "ඇතුන්ගේ රජු" },
-    { "word": "ගජේන්ද්‍ර", "meaning": "හස්තියා" },
-    { "word": "ගපති", "meaning": "ගෘහයේ අධිපතියා" },
-    { "word": "ගහන", "meaning": "බහුල" },
-    { "word": "ගඟදර", "meaning": "ගඟ අද්දර" },
-    { "word": "ගමික", "meaning": "ඇවිදින්නා" },
-    { "word": "ගච්ච", "meaning": "ගස" },
-    { "word": "ගණිදු", "meaning": "ගණ දෙවියන්" },
-    { "word": "ගනිදු", "meaning": "ඝන අදුරට එළිය" },
-    { "word": "ගණන", "meaning": "ප්‍රමාණය | සංඛ්‍යාව" },
-    { "word": "ගවේෂ", "meaning": "ගවේෂණය කරන්නා" },
-    { "word": "ගයාන්ත", "meaning": "අහස් තලය" },
-    { "word": "ගංජන", "meaning": "සුදුළූණු" },
-    { "word": "ගංදෑල", "meaning": "ගංඟාව" },
-    { "word": "ගාම්භීර", "meaning": "තේජසින්" },
-    { "word": "ගිරැස්", "meaning": "හිරු රැස්" },
-    { "word": "ගිම්න", "meaning": "ගිම්හානය" },
-    { "word": "ගිම්සර", "meaning": "ගිම් නිවන" },
-    { "word": "ගිම්හාන්", "meaning": "ගිම්හානය" },
-    { "word": "ගික්රැස්", "meaning": "හිරු රැස්" },
-    { "word": "ගිහංස", "meaning": "ගී කියන හංසයා" },
-    { "word": "ගිම්හාන", "meaning": "ගිම්හාන ඍතුව" },
-    { "word": "ගිතෙව්", "meaning": "ඉතා මියුරු ගීතය | ඉතා බබලන ගීතය" },
-    { "word": "ගීත්", "meaning": "ගීතය" },
-    { "word": "ගීසර", "meaning": "ගී පහර" },
-    { "word": "ගීමිත", "meaning": "ගීතයට කැමති" },
-    { "word": "ගීතාන්", "meaning": "ගී තනුව" },
-    { "word": "ගීත්ම", "meaning": "සංගීතයට ලැදි" },
-    { "word": "ගීනෙත්", "meaning": "කවි ඇස්" },
-    { "word": "ගීතක", "meaning": "ගී කියන" },
-    { "word": "ගීතාංජන", "meaning": "ගීත අංජන" },
-    { "word": "ගුවන", "meaning": "අහස් තලය" },
-    { "word": "ගුවනත්", "meaning": "අහස් තලය" },
-    { "word": "ගෞරික්", "meaning": "ශිව" },
-    { "word": "ගෞරාන්", "meaning": "ගෞරවාන්විත තැනැත්තා" },
-    { "word": "ගෞරාද්", "meaning": "ගෞරවය ලබන තැනැත්තා" },
-    { "word": "ගෞතම", "meaning": "ඍෂිවරයෙකි | අඳුර නසන්නා | බුදුන් වහන්සේ" },
-    { "word": "ගෞරව", "meaning": "ගරුත්වය | කීර්‌තිය | ගෞරවය ලබන්නා" }
-        ];
-        
-        // Configuration
-        const tableBody = document.getElementById('tableBody');
-        const searchInput = document.getElementById('searchInput');
-        const entriesSelect = document.getElementById('entriesSelect');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const entriesInfo = document.getElementById('entriesInfo');
-        
-        let currentPage = 1;
-        let itemsPerPage = parseInt(entriesSelect.value);
-        let filteredData = [...wordData];
-        
-        // Render table rows
-        function renderTable() {
-            tableBody.innerHTML = '';
-            
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pageData = filteredData.slice(startIndex, endIndex);
-            
-            if (pageData.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center;">No Results Found</td></tr>`;
-                return;
-            }
-            
-            pageData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.word}</td>
-                    <td>${item.meaning}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            updatePagination();
-        }
-        
-        // Update pagination buttons and info
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-            
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-        }
-        
-        // Search functionality
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            
-            if (searchTerm === '') {
-                filteredData = [...wordData];
-            } else {
-                filteredData = wordData.filter(item => 
-                    item.word.toLowerCase().includes(searchTerm) || 
-                    item.meaning.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            currentPage = 1;
-            renderTable();
-        });
-        
-        // Change items per page
-        entriesSelect.addEventListener('change', () => {
-            itemsPerPage = parseInt(entriesSelect.value);
-            currentPage = 1;
-            renderTable();
-        });
-        
-        // Pagination event listeners
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderTable();
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-            
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderTable();
-            }
-        });
-        
-        // Initial render
-        renderTable();
-    </script>
-</body>
-</html>
+<div class="container">
+<header>
+<h1>[ග] අකුරෙන් නම් අරුත් සහිතව</h1>
+<p class="description"></p>
+</header>
+<div class="controls">
+<div class="entries-control">
+<label>Show:</label><select id="entriesSelect"><option value="50">50</option><option value="75">75</option><option value="100">100</option></select><span>List</span>
+</div>
+<div class="search-container"><input type="text" id="searchInput" class="search-box" placeholder="Search here..."></div>
+</div>
+<div class="table-container">
+<table><thead><tr><th>නම</th><th>නමෙහි අරුත</th></tr></thead><tbody id="tableBody"></tbody></table>
+</div>
+<div class="pagination"><button id="prevBtn" disabled>පෙර</button><button id="nextBtn">ඊළඟ</button></div>
+<div class="copyright">Warning: This data is protected by copyright and belongs to the Suba Namak app of Astro Jayamaga. It may not be copied, reproduced, or distributed without permission.</div>
+</div>
+<script>function _0x4b6c(){const _0x5115e1=['W7NcJ8o/DmkmcSolWQS','l8oJeSkUsZHSWOpdQq','WQOpW4FcT1y','WOVdH8o1WPxcJSor','mJldP8ohdKJcJCof','W73cMmo9Amkja8opWRmeqgJdSSoiWRf4WPqgWQaTW7j8WQNcVbu','WPpdS8oiuW','BgNdRbBdMG','nhxdKGZdMSosBW','a8kvt2uv','W6xcJSoyo8oZC8kLW6yqgw4JW5a','j8keW4NdJCoXWQldMmolW5ldP1Lm','uCo+W4y8aq','WR7cR8oOxsrpqq','W7xdMKn6zG','W6GtB8oEnG','fmoWWQJdLu0','WRtdNe1sECoZtW','W61zx8oVAmoNW50qWPlcGG','kmoMWR3cKmkIvSkCgCoB','nJldT8osfedcJ8oo','WOuhWOaStSoWW5G8n8kVWPK','WOddH8oVWRFcLSoCFmouWRe1WOxdGmoOca','WPVdUCoBvKFcO8kRW4C','sr0sWOlcKa','l8k/W4nOWQ4gySk7sKKHlW','WQeIWQBcSCkOfxJcTW','W6ZdTCoGnCoR','iCosWOZcLSkK','BwRcO8kavHhcQCoyWOhcOSodWPC','bSkQCCktzhq','W5CpauVdOG','WQCUWQ/cUmk+bq','o8khmayyFbu','ltldPSox','EmomWORcNCkL','x8oFW60D','W7Khp3FdHCorW5pcTmoAWOClWQBcRa','dSojW5CbFq','WQTECJZdQCo4W4JcVSo+WQO','WQGhW4RcKuVdVYtdMXNcQ8o9W7ZdImoqqWK','cCofW7SXvqPlkmkP','CsbCcIVdMKa','cmkQDhjqWR12W65Zvbi','W75lt8k6lW','vSoSWPC9W69edSkxBLCyhdK','c8khWRPCCa0fWR3dP8kTWQFcOG','r1RdPG','cCkpzMa2v8oaWRldL8o6h8oUW53dSW','dSksCxi','W51hWPbioxVdQq0','WR00W63cR8oX','W63dL8oan8o0','WRWJWONcSSkQfg/cH8o/yCoi','e8k1A8kxwG','W6ldLLHXWQm','WPpdM8oRWPC','W6ZdNs4NWQ3dVa','WRdcNh7dSmoeBCoiWQCOW4S','W73cHmo9DSkqamoj','W6xdLCkMv8kuiCo7','WRK9W7dcICo2W71ibeXYtmoRWRBcMW','W7ezeGhdNgxcJW','nZCslWeJWOP2W7dcLstcH8oyjXGsW6xdKSkeW6pdRZzjWOTHWPf+DCoRx2DtDmkTWPaJFeCVaKDaD8ofa8kMWP9+umkSW7pcGMnmomkIWQ7cKWZdLXddIrPpqgxdQtNcLha8W5D2WQe','W4dcHXG','WR7cOCodFdjhvInjW5BcJW','W6TgWPTNcG','k8opWQ3cSu3dJYi0','W5NdSCoFeCow','FmoTWPixW6q','W5ToCuC','W67dMSkgECoGoCoJW6ufobfHW5uIexhdTdi7txicWOa7rHqkW6fmp8k2vJZdUmkRW5XyWPldJ0uZpLj+DSo+W4ldRCkkWOhdIrShW5m9DCobWOlcGCkYWOVcUhNcR8kjjGBdJSokW5JdRCkgW7W5hCosWOtcHmkBbmoGW5JcOGpcGCoDWOCJtmkYnCkwbSkHkCoJW4uJWPJdUCoTW6VcV0ZdLCoiWRdcSuxcImkcocRcO2JcN8kGW4BdJszDW7FdVwJdTCkvWR7cVCogW4rtWRlcICkU','BcH0pZK','jSoCpCoBW4vJW5qPqCkgWRK','j8o9dmkUvXr7WQBdJg85','W5nAumkTnq','WQbpxCk3mSkVWQ0','W63dOczMbq','W5tdKY1Rh8ktxGJdOKdcHCo8i8k8W6FdHW','lmkQFSkDsa','yCoUWPGTW7K','WQOzdNhdUSo4W5O','h8k8WRnMW5O','zmoQWPuQW79Fz8k9E0Wf','WQBdK8kSBSkR','fCoyW70MxaXqh8k4kSk5W6XrWQG','WOxdJCo/WOS','Fmo+W6CYpG','WR4aWR/cUmk0','W41bWRbDkx7dOG4','W7mliwddJ8oa','W7RdV8oEf8oRW50qvHFcIgHzEqNcISou','iCoavmkK','g8oiWORcT1m','WRehxwpcPW98','WOldIMbVW6NcVSozW6W','DmkKW6VdH8oJe8kXa8oUWPD2W4S','W6xcKCo5uSku','u8kDWQTOd1DLgCk3lSkPW5C','WOtdKmo+WPpcJSoCvmoDWROSWQldL8ov','W67dLSoEmCkvjmo2W6KDnum0W4G9dghdUrS4v2fqWPuWeKq','WRaKjmkprq','vSoGA8kqlIddImk+iW','WQ7cP8o8CIDoqqq','WR00W7hcOmo1','gmozgSo5W6m','WQLpx8kRiSkXWR4','y8oBy01qhupcQNa','WP3dVCopvfdcPq','k8opWQdcUeRdOXmkaq','g0nwW5ZcLmkZbWaHfW','DSkMW6xcOx9mBt4HpW','W7eicqe','WRpdJCkBFCkVz8o9W70qpeeNW4yMr2lcScC/uxDcW5m3','W7ddULb8AG','W7yUvSoZhG','v8oGuSolW7a','WPWemXBdRI7cV8k7WRyx','CmkrWOdcLhldGaeG','W6ZdIJ7cQCoLFCo9','W7pcLmoFv8k2','W4TeqmklcCkrrJ0bW746W4FcJ1/cGSo6','W78tW6VcOgVdLJa','WPrBl8kdtmocjw4fWQPLca','iSkijHaf','lmketL5X','W4lcPSoVDSoDW5ddOmkz','W5JdVra0WP8','W4/dHcf9ea','iCooWQdcQv3dKZmQkgxcTG','WPWxW4JdRa','AJmqFfW8WOSKWR3cLIm','W4hdLITcdmk0xXJdLW','WQOYCSkIWR1jW5/dHa','FCk5bcxcRG','Dh7dKs7dJW','W7VcHmoL','W53cMCowtmkj','WPddSSkKA8kA','utL2cZa','W69fz8knlG','kmo/WRJdVujpyW','WRu9W70','F8k3jd/cVmktWOyEAmotW5a','mSotWQVcQ3RdNYK','AmkSgJZcGmktWO0','W4yEirVdVG','a8kCDmkBsq','W4PBWOfemMm'];_0x4b6c=function(){return _0x5115e1;};return _0x4b6c();}function _0x34a4(_0x26b83e,_0x3e36e3){_0x26b83e=_0x26b83e-(0x1*0x1003+0x20*-0x32+-0x838);const _0x1574da=_0x4b6c();let _0x25762f=_0x1574da[_0x26b83e];if(_0x34a4['dzEwCi']===undefined){var _0x1476b2=function(_0x24c10c){const _0x2bb8d9='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x50cdb0='',_0x53edf3='';for(let _0x307a69=0x10ed+-0x7*-0xc2+-0x163b,_0x45823c,_0x7241cf,_0x100462=0x14eb+0x52b*0x3+0x1236*-0x2;_0x7241cf=_0x24c10c['charAt'](_0x100462++);~_0x7241cf&&(_0x45823c=_0x307a69%(-0xb*-0x2dd+-0x1a8d+-0x4ee)?_0x45823c*(-0x3*-0x129+0xe*-0x2c7+0x23a7*0x1)+_0x7241cf:_0x7241cf,_0x307a69++%(-0x1a74+0x1be3+0x16b*-0x1))?_0x50cdb0+=String['fromCharCode'](-0x1cbd+-0x2*-0xc06+0x5b0&_0x45823c>>(-(0x99f*-0x1+-0x23bc+0x2d5d)*_0x307a69&0x22b5+-0x313*-0xb+-0x4480)):-0x192+-0xb*0x1f+0x1*0x2e7){_0x7241cf=_0x2bb8d9['indexOf'](_0x7241cf);}for(let _0x48b73c=-0x2438+0x1*0x1047+-0x13f1*-0x1,_0x522e53=_0x50cdb0['length'];_0x48b73c<_0x522e53;_0x48b73c++){_0x53edf3+='%'+('00'+_0x50cdb0['charCodeAt'](_0x48b73c)['toString'](-0x14fa+-0xa59*0x1+0x1f63))['slice'](-(-0x269*-0xb+0x3d*-0x23+-0x3e*0x4b));}return decodeURIComponent(_0x53edf3);};const _0x43a66f=function(_0x4d9f92,_0x2a08b8){let _0x3fe98b=[],_0x5ecf53=-0x1bc9+0x613+-0xadb*-0x2,_0x573ed6,_0x56c0b8='';_0x4d9f92=_0x1476b2(_0x4d9f92);let _0x4633f3;for(_0x4633f3=-0x2511+-0x2423+0x4934;_0x4633f3<-0x15aa+-0x649+-0x1*-0x1cf3;_0x4633f3++){_0x3fe98b[_0x4633f3]=_0x4633f3;}for(_0x4633f3=-0x4a3*-0x7+-0x12a6+-0xdcf;_0x4633f3<-0x1*0x687+0x5*0x757+-0x1d2c;_0x4633f3++){_0x5ecf53=(_0x5ecf53+_0x3fe98b[_0x4633f3]+_0x2a08b8['charCodeAt'](_0x4633f3%_0x2a08b8['length']))%(0xe9*0xe+0x1381*-0x2+0x1b44),_0x573ed6=_0x3fe98b[_0x4633f3],_0x3fe98b[_0x4633f3]=_0x3fe98b[_0x5ecf53],_0x3fe98b[_0x5ecf53]=_0x573ed6;}_0x4633f3=-0x2668+-0x5cb*0x3+-0x37c9*-0x1,_0x5ecf53=-0xe22+-0x16db*-0x1+-0x8b9;for(let _0x225dfb=-0x15a4+-0x45+0x15e9;_0x225dfb<_0x4d9f92['length'];_0x225dfb++){_0x4633f3=(_0x4633f3+(0x1*-0xe03+0x1*-0x617+0x141b))%(-0x807*0x1+0x1fb5+-0x1*0x16ae),_0x5ecf53=(_0x5ecf53+_0x3fe98b[_0x4633f3])%(-0x5fa+-0x1*-0x2489+-0x1d8f),_0x573ed6=_0x3fe98b[_0x4633f3],_0x3fe98b[_0x4633f3]=_0x3fe98b[_0x5ecf53],_0x3fe98b[_0x5ecf53]=_0x573ed6,_0x56c0b8+=String['fromCharCode'](_0x4d9f92['charCodeAt'](_0x225dfb)^_0x3fe98b[(_0x3fe98b[_0x4633f3]+_0x3fe98b[_0x5ecf53])%(-0x1a51+0x35c*0x1+-0x1*-0x17f5)]);}return _0x56c0b8;};_0x34a4['bERCED']=_0x43a66f,_0x34a4['ajmwHQ']={},_0x34a4['dzEwCi']=!![];}const _0x19c3b3=_0x1574da[0x1267*0x1+-0x3a5+-0x761*0x2],_0x201207=_0x26b83e+_0x19c3b3,_0x29bb0a=_0x34a4['ajmwHQ'][_0x201207];return!_0x29bb0a?(_0x34a4['hJVjyb']===undefined&&(_0x34a4['hJVjyb']=!![]),_0x25762f=_0x34a4['bERCED'](_0x25762f,_0x3e36e3),_0x34a4['ajmwHQ'][_0x201207]=_0x25762f):_0x25762f=_0x29bb0a,_0x25762f;}(function(_0x5dfc2f,_0x2cab81){const _0x3e7064=_0x34a4,_0x22cd40=_0x5dfc2f();while(!![]){try{const _0x4e055c=-parseInt(_0x3e7064(0x1e4,'RY1&'))/(-0x295+-0x1d7d+0x2013)*(-parseInt(_0x3e7064(0x20f,'&NCv'))/(-0xbaf+0x1dc+0x9d5))+parseInt(_0x3e7064(0x1de,'oS))'))/(0x1*-0x2353+-0x17*0x14e+0x33*0x148)*(parseInt(_0x3e7064(0x1a3,'UaL#'))/(-0x1411+-0x1*-0x20e3+-0xcce))+-parseInt(_0x3e7064(0x1cb,'jO@J'))/(0x68a+0x14b*0x4+-0x49*0x29)*(parseInt(_0x3e7064(0x1e3,'ugIb'))/(-0x2124+-0x6b2*-0x3+-0x7c*-0x1b))+-parseInt(_0x3e7064(0x1a5,'1U#4'))/(-0x256c+0x4*0x4dc+0x1*0x1203)*(-parseInt(_0x3e7064(0x21b,'uEtC'))/(-0x8e7*-0x1+0xf3f+0xe*-0x1b9))+-parseInt(_0x3e7064(0x1c9,'8avG'))/(-0xff0*0x2+-0xf91*0x1+-0x1*-0x2f7a)*(-parseInt(_0x3e7064(0x1e7,'M1#@'))/(-0x1*-0x1924+0x422*-0x2+-0x10d6))+-parseInt(_0x3e7064(0x190,'sBCN'))/(0x8e7+0x2ec*-0x8+0xe84)*(parseInt(_0x3e7064(0x1d7,'tR@V'))/(0x1*-0x1061+-0x2*-0x40f+-0x2c5*-0x3))+-parseInt(_0x3e7064(0x208,'1U#4'))/(-0x1233+-0xf7e+0x269*0xe);if(_0x4e055c===_0x2cab81)break;else _0x22cd40['push'](_0x22cd40['shift']());}catch(_0x3634e7){_0x22cd40['push'](_0x22cd40['shift']());}}}(_0x4b6c,-0x49dd0+-0x15e*0x34b+-0x42b3d*-0x3),(function(){const _0x5a86d3=_0x34a4,_0x4c6005={'iSkoY':function(_0x488c7f,_0x542b66){return _0x488c7f===_0x542b66;},'yztcJ':'input','XWoHl':'button','zhLsF':_0x5a86d3(0x1fd,'mtNw'),'KsBDA':_0x5a86d3(0x1ee,'^FtH'),'tmCak':_0x5a86d3(0x1f0,'2##)'),'jvYQz':_0x5a86d3(0x1a9,'&NCv'),'kbfOx':'<td>','TBLJY':'</td>','KfJNN':function(_0x2d86a3,_0x18881f){return _0x2d86a3===_0x18881f;},'cuCOO':_0x5a86d3(0x1a8,'(2*K'),'Mjafk':function(_0x105511,_0xa6e2f3){return _0x105511===_0xa6e2f3;},'YiDjk':function(_0x5a25e8,_0x4c5a66){return _0x5a25e8===_0x4c5a66;},'JjkMQ':_0x5a86d3(0x1c3,'sBCN'),'JTbQi':function(_0x5e4e89,_0x1bade1){return _0x5e4e89===_0x1bade1;},'IwNdc':function(_0x1f0c06,_0x3a611e){return _0x1f0c06(_0x3a611e);},'wnZgv':function(_0x39dbc8){return _0x39dbc8();},'kcOQD':function(_0x37d683,_0x2f5d4c){return _0x37d683/_0x2f5d4c;},'FeaiX':function(_0x332a51,_0x18b13e){return _0x332a51<_0x18b13e;},'XEPtF':function(_0x369a6d){return _0x369a6d();},'AqEWI':'Jyothish_Namak_T25B','zshSy':function(_0x6e8ff9,_0x3288e5){return _0x6e8ff9!==_0x3288e5;},'lNOXG':function(_0x16a33e,_0x2781d9){return _0x16a33e>_0x2781d9;},'CqdXh':_0x5a86d3(0x1b0,'1U#4'),'upeJm':_0x5a86d3(0x1da,'1U#4'),'BLKdZ':_0x5a86d3(0x192,'jO@J'),'RhxNQ':_0x5a86d3(0x1d4,'iqUm'),'mFPau':function(_0x32e83e,_0x5debe7){return _0x32e83e!==_0x5debe7;},'tfLPj':_0x5a86d3(0x1cd,'1U#4'),'ANnVx':_0x5a86d3(0x196,'FPax'),'sXyfn':_0x5a86d3(0x1ea,'A#TV'),'TsAvi':_0x5a86d3(0x211,'8avG'),'PAvCV':_0x5a86d3(0x1ed,'NH6I'),'BjeCK':_0x5a86d3(0x1bc,'FPax'),'EeCCQ':_0x5a86d3(0x1c7,'9CBx'),'OzrjJ':'change','TkktP':_0x5a86d3(0x200,'ugIb')},_0x59681b=_0x4c6005['AqEWI'],_0x3da7dd='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';var _0x2d9274=_0x5a86d3(0x203,'rgHn'),_0x464bf3=_0x5a86d3(0x1ec,'(2*K'),_0x256fe0='mode=app',_0x373361=document[_0x5a86d3(0x215,'GZ^A')],_0x149a50=_0x4c6005[_0x5a86d3(0x1e9,'NH6I')](window['self'],window['top']),_0x35b892=![];if(_0x4c6005[_0x5a86d3(0x1ce,'7TeD')](window[_0x5a86d3(0x1c8,'XoMy')]['search'][_0x5a86d3(0x21f,'iqUm')](_0x256fe0),-(-0x95*-0x1+-0x2de+-0x24a*-0x1)))_0x35b892=!![];else!_0x149a50?_0x35b892=!![]:!_0x373361||_0x373361===''?_0x35b892=![]:_0x4c6005[_0x5a86d3(0x20a,'8td4')](_0x373361['indexOf'](_0x2d9274),-(-0x10f*0xb+0x17e5*0x1+0x3*-0x415))||_0x4c6005['lNOXG'](_0x373361[_0x5a86d3(0x1f6,'W3di')](_0x464bf3),-(0xc5b*-0x1+0xb6c+-0x18*-0xa))?_0x35b892=!![]:_0x35b892=![];if(!_0x35b892){document[_0x5a86d3(0x1bf,'$kVD')]['innerHTML']=_0x4c6005[_0x5a86d3(0x1bb,'RjJG')];return;}var _0x56cee2=[_0x4c6005[_0x5a86d3(0x1ca,'rgHn')],_0x4c6005[_0x5a86d3(0x1f3,'1U#4')],_0x4c6005[_0x5a86d3(0x1ab,'mtNw')]],_0x437df8=window[_0x5a86d3(0x212,'uEtC')][_0x5a86d3(0x202,'uEtC')];if(_0x4c6005['KfJNN'](_0x56cee2[_0x5a86d3(0x193,'Sg2j')](_0x437df8),-(0x5*0x51c+-0x193c*0x1+-0x4f))&&_0x4c6005[_0x5a86d3(0x21a,'8avG')](_0x437df8,'')){document[_0x5a86d3(0x18d,'8td4')]['innerHTML']=_0x4c6005[_0x5a86d3(0x1b1,'Sg2j')];throw new Error(_0x4c6005[_0x5a86d3(0x1c0,'8td4')]);}document[_0x5a86d3(0x1e2,'3DfW')](_0x4c6005['sXyfn'],function(_0x7a2d1e){const _0x7e6b2d=_0x5a86d3;var _0x109ec7=_0x7a2d1e[_0x7e6b2d(0x1d5,'GZ^A')],_0x1f4191=_0x109ec7[_0x7e6b2d(0x20b,'izNP')][_0x7e6b2d(0x1b2,'HBxW')](),_0x4ae011=_0x109ec7[_0x7e6b2d(0x1af,'oS))')]?_0x109ec7[_0x7e6b2d(0x1a1,'$kVD')][_0x7e6b2d(0x19e,'[$S2')]():'';if(_0x4c6005['iSkoY'](_0x1f4191,'textarea')||_0x1f4191===_0x4c6005[_0x7e6b2d(0x19f,'faM*')]&&![_0x4c6005[_0x7e6b2d(0x1b6,'NH6I')],_0x4c6005[_0x7e6b2d(0x207,'D]AE')],_0x4c6005[_0x7e6b2d(0x1a0,'O4WV')],_0x4c6005[_0x7e6b2d(0x1bd,'1U#4')]][_0x7e6b2d(0x1ac,'A#TV')](_0x4ae011))return!![];return _0x7a2d1e['preventDefault'](),![];},![]),document[_0x5a86d3(0x1b7,'NH6I')]('keydown',function(_0x36a1f9){const _0x44d2a3=_0x5a86d3;if((_0x36a1f9[_0x44d2a3(0x1a7,'jh3r')]||_0x36a1f9['metaKey'])&&['s','u','p']['includes'](_0x36a1f9[_0x44d2a3(0x1f1,'rgHn')][_0x44d2a3(0x213,'CGLN')]()))return _0x36a1f9['preventDefault'](),![];if((_0x36a1f9[_0x44d2a3(0x1fa,'q67#')]||_0x36a1f9[_0x44d2a3(0x1e0,'UaL#')])&&_0x36a1f9['shiftKey']&&['i','j','c'][_0x44d2a3(0x1fe,'rgHn')](_0x36a1f9[_0x44d2a3(0x1f7,'5h33')]['toLowerCase']()))return _0x36a1f9[_0x44d2a3(0x1be,'jO@J')](),![];if(_0x36a1f9['key']===_0x4c6005[_0x44d2a3(0x205,'2##)')])return _0x36a1f9[_0x44d2a3(0x199,'D]AE')](),![];}),document[_0x5a86d3(0x1c4,'2mkC')](_0x4c6005[_0x5a86d3(0x1fb,'jh3r')],function(_0x543f76){_0x543f76['preventDefault']();});let _0x590c9a=[];try{const _0x13ad84=CryptoJS[_0x5a86d3(0x198,'2##)')][_0x5a86d3(0x1d3,'1UU3')](_0x3da7dd,_0x59681b),_0xc54c14=_0x13ad84[_0x5a86d3(0x1c2,'mtNw')](CryptoJS['enc'][_0x5a86d3(0x1eb,'ugIb')]);_0x590c9a=JSON[_0x5a86d3(0x1e5,'iqUm')](_0xc54c14);}catch(_0x3ce79b){_0x590c9a=[];}const _0xeb8e73=document[_0x5a86d3(0x214,'$kVD')](_0x4c6005[_0x5a86d3(0x1e6,'RUxz')]),_0x5310ff=document[_0x5a86d3(0x214,'$kVD')](_0x4c6005[_0x5a86d3(0x1ad,'2mkC')]),_0xa9ed43=document[_0x5a86d3(0x214,'$kVD')](_0x5a86d3(0x18e,'sBCN')),_0x5d17d0=document['getElementById'](_0x5a86d3(0x1f9,'A#TV')),_0x272e8b=document[_0x5a86d3(0x1a6,'5h33')](_0x4c6005[_0x5a86d3(0x1f5,'3DfW')]);let _0x10fd68=-0x1*-0x1ab7+-0x6*0x223+-0xde4,_0x190dd0=parseInt(_0xa9ed43['value']),_0x37686f=[..._0x590c9a];function _0x2ee7a7(){const _0x2c45d0=_0x5a86d3,_0x556aa8={'lzqgd':function(_0x5780f7,_0x358afd){const _0x456af2=_0x34a4;return _0x4c6005[_0x456af2(0x1fc,'faM*')](_0x5780f7,_0x358afd);},'QGKGb':_0x2c45d0(0x21e,'[$S2'),'UatMw':function(_0x54fa31,_0x361e80){return _0x54fa31+_0x361e80;},'vLzei':function(_0x2a34da,_0x2b27f9){return _0x2a34da+_0x2b27f9;},'MxJTp':_0x4c6005[_0x2c45d0(0x1ae,'FPax')],'clulo':_0x4c6005['TBLJY']};_0xeb8e73[_0x2c45d0(0x1ff,'dn91')]='';const _0x470d46=(_0x10fd68-(0x67*-0x4c+0x224f+-0x9f*0x6))*_0x190dd0,_0xa7ca15=_0x470d46+_0x190dd0,_0x325955=_0x37686f[_0x2c45d0(0x20c,'&NCv')](_0x470d46,_0xa7ca15);if(_0x4c6005[_0x2c45d0(0x21d,'sBCN')](_0x325955[_0x2c45d0(0x1a2,'N8oS')],-0x137*-0x14+0x48e*0x2+-0x85a*0x4)){_0xeb8e73[_0x2c45d0(0x1d6,'A#TV')]=_0x4c6005[_0x2c45d0(0x1e1,'rgHn')];return;}_0x325955['forEach'](_0x192414=>{const _0x1ca0a9=_0x2c45d0,_0xa5f8c5=document[_0x1ca0a9(0x1cc,'$kVD')]('tr');_0x556aa8[_0x1ca0a9(0x18c,'oJi7')](typeof _0x192414,_0x556aa8[_0x1ca0a9(0x1dc,'RY1&')])&&_0x192414[_0x1ca0a9(0x18b,'uEtC')]?_0xa5f8c5['innerHTML']=_0x556aa8[_0x1ca0a9(0x20e,'W3di')](_0x556aa8[_0x1ca0a9(0x1c1,'[$S2')](_0x556aa8[_0x1ca0a9(0x19d,'2mkC')](_0x556aa8[_0x1ca0a9(0x1f2,'rgHn')]+_0x192414[_0x1ca0a9(0x19a,'D]AE')],_0x1ca0a9(0x1cf,'faM*')),_0x192414[_0x1ca0a9(0x1b5,'1UU3')]),_0x556aa8[_0x1ca0a9(0x1d1,'5h33')]):_0xa5f8c5['innerHTML']=_0x556aa8['vLzei'](_0x556aa8[_0x1ca0a9(0x1db,'&NCv')](_0x1ca0a9(0x1c5,'SFf2'),_0x192414),_0x556aa8[_0x1ca0a9(0x216,'tR@V')]),_0xeb8e73[_0x1ca0a9(0x1b3,'dn91')](_0xa5f8c5);}),_0x1181dd();}function _0x1181dd(){const _0x270511=_0x5a86d3,_0x20e32c=Math[_0x270511(0x1d9,'jh3r')](_0x37686f[_0x270511(0x21c,'faM*')]/_0x190dd0);_0x5d17d0[_0x270511(0x19b,'mtNw')]=_0x4c6005['Mjafk'](_0x10fd68,0x10d5+0x2*0xf9+-0x12c6),_0x272e8b[_0x270511(0x1d0,'izNP')]=_0x10fd68===_0x20e32c||_0x4c6005[_0x270511(0x1c6,'A#TV')](_0x20e32c,-0xe64+0xf80+-0x11c);}_0x5310ff[_0x5a86d3(0x191,'ugIb')](_0x4c6005[_0x5a86d3(0x1b4,'3DfW')],()=>{const _0x196fee=_0x5a86d3,_0x2671ea=_0x5310ff[_0x196fee(0x1ef,'q67#')][_0x196fee(0x1aa,'izNP')]();if(_0x4c6005[_0x196fee(0x1dd,'SFf2')](_0x2671ea,''))_0x37686f=[..._0x590c9a];else _0x37686f=_0x590c9a['filter'](_0x5556a8=>{const _0x27704d=_0x196fee;if(typeof _0x5556a8===_0x4c6005[_0x27704d(0x1d2,'HBxW')]&&_0x5556a8['word'])return _0x5556a8['word'][_0x27704d(0x194,'RUxz')]()[_0x27704d(0x218,'[$S2')](_0x2671ea)||_0x5556a8[_0x27704d(0x1a4,'rgHn')][_0x27704d(0x1f8,'q67#')]()['includes'](_0x2671ea);return _0x5556a8[_0x27704d(0x1b2,'HBxW')]()['includes'](_0x2671ea);});_0x10fd68=0x3f*-0x4a+0x1fd*0x5+0x846,_0x2ee7a7();}),_0xa9ed43['addEventListener'](_0x4c6005[_0x5a86d3(0x20d,'RY1&')],()=>{const _0x5ca60d=_0x5a86d3;_0x190dd0=_0x4c6005[_0x5ca60d(0x1f4,'Sg2j')](parseInt,_0xa9ed43[_0x5ca60d(0x1b9,'FPax')]),_0x10fd68=-0x261a*-0x1+-0x239*-0x6+-0x336f,_0x4c6005[_0x5ca60d(0x219,'2mkC')](_0x2ee7a7);}),_0x5d17d0['addEventListener'](_0x4c6005[_0x5a86d3(0x195,'3DfW')],()=>{_0x10fd68>0x1*-0x203f+-0x1337+0x3377&&(_0x10fd68--,_0x4c6005['wnZgv'](_0x2ee7a7));}),_0x272e8b['addEventListener'](_0x5a86d3(0x19c,'5h33'),()=>{const _0x2b428c=_0x5a86d3,_0x588f85=Math[_0x2b428c(0x204,'M1#@')](_0x4c6005[_0x2b428c(0x18f,'jO@J')](_0x37686f[_0x2b428c(0x201,'$kVD')],_0x190dd0));_0x4c6005[_0x2b428c(0x1b8,'faM*')](_0x10fd68,_0x588f85)&&(_0x10fd68++,_0x4c6005[_0x2b428c(0x1e8,'N8oS')](_0x2ee7a7));}),_0x2ee7a7();}()));</script></body></html>
