@@ -1,696 +1,415 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සුබ ගණ පිහිටුවීම</title>
+    <title>Chess TV - Blitz Viewer</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@700&family=Noto+Sans+Sinhala:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
+        /* CSS Variables for Theme Management */
         :root {
-            --primary-color: #7F0000;
-            --secondary-color: #FDF5E6;
-            --background-color: #ffffff;
-            --text-color: #333;
-            --border-color: #dbeaff;
-            --success-color: #28a745;
-            --success-bg-color: #eaf7ec;
-            --success-border-color: #a3d9b1;
-            --error-color: #dc3545;
-            --error-bg-color: #fbe9e7;
-            --error-border-color: #ffcdd2;
-            --shadow-color: rgba(0, 0, 0, 0.1);
+            /* Dark Mode (Default) */
+            --bg-color: #121212;
+            --container-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #64b5f6;
+            --border-color: #333;
+            --guide-bg: #252525;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            --transition-speed: 0.3s;
+        }
+
+        /* Light Mode Override Class */
+        body.light-mode {
+            --bg-color: #f0f2f5;
+            --container-bg: #ffffff;
+            --text-color: #333333;
+            --accent-color: #0062ff;
+            --border-color: #ddd;
+            --guide-bg: #f9f9f9;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Noto Sans Sinhala', sans-serif;
-            background-color: var(--secondary-color);
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
-            line-height: 1.8;
+            padding: 20px;
         }
 
-        .container {
+        /* Main App Container */
+        .app-container {
             width: 100%;
-            max-width: 600px;
-            background-color: var(--background-color);
+            max-width: 450px; /* Slightly wider than iframe to accommodate padding */
+            background-color: var(--container-bg);
             border-radius: 12px;
-            box-shadow: 0 4px 20px var(--shadow-color);
-            padding: 30px;
-            box-sizing: border-box;
-            border: 1px solid var(--border-color);
-            margin-top: 2rem;
-            margin-bottom: 3rem;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: background-color var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .title {
-            font-family: 'Gemunu Libre', sans-serif;
-            color: var(--primary-color);
-            font-size: 3rem;
+        /* Title */
+        h1.main-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
             text-align: center;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 40px;
+            color: var(--accent-color);
         }
 
-        /* --- Input Styles --- */
-        .input-area {
+        /* Advanced Settings Bar */
+        .settings-bar {
+            width: 100%;
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .input-area:focus-within {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 90, 141, 0.2);
+            padding: 15px;
+            background: var(--guide-bg);
         }
 
-        .name-input {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 1.2rem;
-            font-family: 'Noto Sans Sinhala', sans-serif;
-            border: none;
-            border-radius: 8px 8px 0 0;
-            box-sizing: border-box;
-            text-align: center;
-            background-color: #fcfdff;
-        }
-        
-        .name-input:focus {
-            outline: none;
-        }
-
-        #sinhala-name-display {
-            padding: 10px 15px;
-            font-size: 1.3rem;
-            text-align: center;
-            color: var(--primary-color);
-            font-weight: 500;
-            min-height: 28px;
-            background-color: #f0f6ff;
-            border-top: 1px solid var(--border-color);
-            border-radius: 0 0 8px 8px;
-        }
-
-        /* --- Select Styles --- */
-        .select-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-family: 'Noto Sans Sinhala', sans-serif;
-            font-size: 1.1rem;
-            color: #444;
-            background-color: #fff;
-            appearance: none;
-            -webkit-appearance: none;
-            cursor: pointer;
-            text-align: center;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
-        }
-
-        select:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 90, 141, 0.2);
-        }
-
-        /* --- Button Styles --- */
-        .find-button {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            padding: 12px;
-            font-size: 1.2rem;
-            font-weight: 500;
-            font-family: 'Noto Sans Sinhala', sans-serif;
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .find-button:hover {
-            background-color: #FFA500;
-            transform: translateY(-2px);
-        }
-        
-        .find-button:active {
-            transform: translateY(0);
-        }
-
-        /* --- Result Styles --- */
-        #result-container {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .result-subha {
-            background-color: var(--success-bg-color);
-            border: 1px solid var(--success-border-color);
-        }
-        .result-asubha {
-            background-color: var(--error-bg-color);
-            border: 1px solid var(--error-border-color);
-        }
-
-        .result-title {
-            font-weight: 700;
-            font-size: 1.4rem;
+        .setting-group {
             margin-bottom: 15px;
-            padding-bottom: 10px;
         }
-        .result-subha .result-title { border-bottom: 1px solid var(--success-border-color); }
-        .result-asubha .result-title { border-bottom: 1px solid var(--error-border-color); }
-        
-        .result-title.subha-text { color: var(--success-color); }
-        .result-title.asubha-text { color: var(--error-color); }
 
-        .result-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 12px;
-            align-items: baseline;
+        .setting-group:last-child {
+            margin-bottom: 0;
         }
-        
-        .result-details-grid dt {
+
+        .setting-label {
+            font-size: 12px;
+            text-transform: uppercase;
             font-weight: 600;
-            color: #555;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 8px;
+            display: block;
         }
-        
-        .result-details-grid dd {
-            margin: 0;
-            font-weight: 400;
+
+        /* Dropdown Style */
+        select.custom-select {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--container-bg);
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
         }
-        
-        .akshara-visthara {
-            font-family: monospace;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            background-color: rgba(255,255,255,0.6);
-            padding: 2px 8px;
-            border-radius: 4px;
+
+        /* Piece Selector (Images) */
+        .piece-selector {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+        }
+
+        .piece-option {
+            width: 45px;
+            height: 45px;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            background-color: rgba(255,255,255,0.05);
+            padding: 2px;
+            object-fit: contain;
+        }
+
+        body.light-mode .piece-option {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .piece-option:hover {
+            transform: scale(1.1);
+        }
+
+        .piece-option.active {
+            border-color: var(--accent-color);
+            background-color: rgba(100, 181, 246, 0.2);
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .switch {
+            position: relative;
             display: inline-block;
+            width: 50px;
+            height: 26px;
         }
 
-        /* --- Match Result Special Styles --- */
-        .match-result-highlight {
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 8px;
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Iframe Container */
+        .iframe-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
             border-radius: 5px;
-            background-color: rgba(255,255,255,0.7);
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-        .match-text-green { color: var(--success-color); }
-        .match-text-red { color: var(--error-color); }
 
-        #guide-text {
+        /* Sinhala Text Styling */
+        .sinhala-text {
+            font-family: 'Noto Serif Sinhala', serif;
             text-align: center;
-            color: var(--error-color);
-            margin-top: 20px;
-            padding: 10px;
-            background-color: rgba(220, 53, 69, 0.1);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        /* Guide Section */
+        .guide-section {
+            width: 100%;
+            background-color: var(--guide-bg);
+            padding: 15px;
             border-radius: 8px;
-            display: none;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
         }
-        
-        .footer {
+
+        .guide-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .guide-list {
+            list-style-position: inside;
+            padding-left: 5px;
+        }
+
+        .guide-list li {
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: var(--text-color);
+        }
+
+        /* Tagline */
+        .tagline {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-color);
+            opacity: 0.7;
             text-align: center;
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #777;
+            margin-top: 10px;
+            font-style: italic;
         }
-        
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .container { padding: 20px; }
-            .title { font-size: 2.2rem; }
-            .result-details-grid { grid-template-columns: 1fr; gap: 5px; }
-            .result-details-grid dt { margin-top: 10px; }
-            .result-details-grid dt:first-child { margin-top: 0; }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            .app-container {
+                padding: 10px;
+            }
+            .piece-option {
+                width: 38px;
+                height: 38px;
+            }
         }
     </style>
 </head>
-<body>
+<body class=""> <div class="app-container">
+        
+        <h1 class="main-title">Chess TV - Blitz</h1>
 
-    <div class="container">
-        <h1 class="title">සුබ ගණ පිහිටුවීම</h1>
-        
-        <div class="input-area">
-            <input type="text" id="name-input" class="name-input" placeholder="මෙහි නම ඇතුළත් කරන්න"
-            autofocus autocapitalize="none" autocorrect="off" spellcheck="false">
-             <div id="sinhala-name-display">සිංහල නම මෙතැනින් දිස්වේ >></div>
-        </div>
-        
-        <div class="select-group">
-            <select id="nakatha">
-              <option value="" selected disabled>උපන් නැකත තෝරන්න</option>
-              <option value="අස්විද">අස්විද</option>
-              <option value="බෙරණ">බෙරණ</option>
-              <option value="කැති">කැති</option>
-              <option value="රෙහෙණ">රෙහෙණ</option>
-              <option value="මුවසිරස">මුවසිරස</option>
-              <option value="අද">අද</option>
-              <option value="පුනාවස">පුනාවස</option>
-              <option value="පුෂ">පුෂ</option>
-              <option value="අස්ලිස">අස්ලිස</option>
-              <option value="මා">මා</option>
-              <option value="පුවපල්">පුවපල්</option>
-              <option value="උත්‍රපල්">උත්‍රපල්</option>
-              <option value="හත">හත</option>
-              <option value="සිත">සිත</option>
-              <option value="සා">සා</option>
-              <option value="විසා">විසා</option>
-              <option value="අනුර">අනුර</option>
-              <option value="දෙට">දෙට</option>
-              <option value="මුල">මුල</option>
-              <option value="පුවසල">පුවසල</option>
-              <option value="උත්‍රසල">උත්‍රසල</option>
-              <option value="සුවණ">සුවණ</option>
-              <option value="දෙනට">දෙනට</option>
-              <option value="සියාවස">සියාවස</option>
-              <option value="පුවපුටුප">පුවපුටුප</option>
-              <option value="උත්‍රපුටුප">උත්‍රපුටුප</option>
-              <option value="රේවතී">රේවතී</option>
-            </select>
+        <div class="settings-bar">
+            
+            <div class="setting-group">
+                <label class="setting-label">Board Theme</label>
+                <select id="boardSelect" class="custom-select" onchange="updateViewer()">
+                    <option value="blue3" selected>Blue (Default)</option>
+                    <option value="brown">Brown</option>
+                    <option value="green">Green</option>
+                    <option value="purple-diag">Purple</option>
+                    <option value="metal">Metal</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label class="setting-label">Piece Style</label>
+                <div class="piece-selector">
+                    <img src="https://imgur.com/RE5NeIr.png" alt="Merida" class="piece-option active" onclick="selectPiece('merida', this)">
+                    <img src="https://imgur.com/4ujbwOg.png" alt="Cburnett" class="piece-option" onclick="selectPiece('cburnett', this)">
+                    <img src="https://imgur.com/IZ7j3LH.png" alt="Alpha" class="piece-option" onclick="selectPiece('alpha', this)">
+                    <img src="https://imgur.com/x4xFJZu.png" alt="Cardinal" class="piece-option" onclick="selectPiece('cardinal', this)">
+                    <img src="https://imgur.com/JzuB0o1.png" alt="Dubrovny" class="piece-option" onclick="selectPiece('dubrovny', this)">
+                </div>
+            </div>
+
+            <div class="setting-group toggle-container">
+                <label class="setting-label" style="margin-bottom:0">Light / Dark Mode</label>
+                <label class="switch">
+                    <input type="checkbox" id="modeToggle" onchange="toggleMode()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
         </div>
 
-        <button class="find-button" onclick="findGana()">ගණය සොයන්න</button>
-
-        <div id="guide-text"></div>
-        <div id="result-container"></div>
-        
-        <div class="footer">
-            &copy; <span id="year"></span> Suba Namak | Astro Jayamaga. All Rights Reserved.
+        <div class="iframe-wrapper">
+            <iframe 
+                id="lichessFrame"
+                src="https://lichess.org/tv/blitz/frame?theme=blue3&bg=dark&pieceSet=merida" 
+                style="width: 100%; max-width: 390px; height: 420px; border: none;" 
+                allowtransparency="true">
+            </iframe>
         </div>
+
+        <p class="sinhala-text">
+            මිනිත්තු 3ත් 10ත් අතර කාල පරාසයේ Blitz චෙස් තරඟ ඔබට මෙහිදී සජීවීව නරඹන්න පුළුවන්.
+        </p>
+
+        <div class="guide-section">
+            <div class="guide-title">Guide for Chess TV</div>
+            <ul class="guide-list">
+                <li>ලොව පුරා සිටින අතිදක්ෂ චෙස් ක්‍රීඩකයන්ගේ තරඟ ඔබට මෙමගින් සජීවීව නැරඹිය හැක.</li>
+                <li>චෙස් තරඟයක් අවසන් වූ පසු ස්වයංක්‍රීයව අලුත් වන  තරඟ ඔබට මේ හරහා අඛණ්ඩව නැරඹිය හැක.</li>
+                <li>Lichess වෙබ් අඩවියේ ක්‍රීඩා කරන මෙම තරඟ චෙස් පුවරු තිරය ස්පර්ශ කිරීමෙන් තොරව ඇප් එකේ සිටම නැරඹීමේ හැකියාව ඇත.</li>
+            </ul>
+        </div>
+
+        <div class="tagline">
+            Practise Smarter, Play Stronger with Chess Saviya
+        </div>
+
     </div>
 
     <script>
-        // --- START: SINGLISH TO SINHALA CONVERSION SCRIPT ---
-        
-        function buildFullMap() {
-             const baseConsonants = {
-                    'k': 'ක', 'kh': 'ඛ', 'g': 'ග', 'gh': 'ඝ',
-                    'ch': 'ච', 'chh': 'ඡ', 'j': 'ජ',
-                    'th': 'ත', 'thh': 'ථ',
-                    'd': 'ඩ', 'dh': 'ද', 'q': 'ද', 'dhh': 'ධ',
-                    'n': 'න', 'N': 'ණ',
-                    'p': 'ප', 'ph': 'ඵ',
-                    'b': 'බ', 'bh': 'භ', 'B': 'ඹ',
-                    'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'L': 'ළ',
-                    'v': 'ව', 'w': 'ව', 's': 'ස', 'sh': 'ශ', 'Sh': 'ෂ', 'S': 'ෂ',
-                    'h': 'හ', 'f': 'ෆ', 't': 'ට', 'c': 'ස', 'D': 'ඪ',
-                    'T': 'ඨ', 'C': 'ස', 'F': 'ෆ', 'G': 'ඝ', 'H': 'හ',
-                    'J': 'ජ', 'K': 'ඛ', 'M': 'ම', 'P': 'ඵ', 'Q': 'ධ',
-                    'V': 'ව', 'W': 'ව', 'Y': 'ය',
-                    'zga': 'ඟ', 'zja': 'ඦ', 'zda': 'ඬ', 'zdha': 'ඳ', 'zqa': 'ඳ',
-                    'zk': 'ඤ', 'zh': 'ඥ', 'X': 'ඞ'
-             };
+        // Default State Variables
+        let currentTheme = 'blue3';
+        let currentPieceSet = 'merida';
+        let currentBg = 'dark';
 
-             const pillaChars = {
-                 'a': '', 'aa': 'ා', 'A': 'ැ', 'Aa': 'ෑ', 'AA': 'ෑ',
-                 'i': 'ි', 'ii': 'ී', 'u': 'ු', 'uu': 'ූ', 'R': 'ෘ', 'Ru': 'ෲ',
-                 'e': 'ෙ', 'ee': 'ේ', 'ai': 'ෛ', 'o': 'ො', 'oo': 'ෝ',
-                 'au': 'ෞ', 'ou': 'ෞ', 'H': 'ඃ'
-             };
+        /**
+         * Updates the Iframe SRC based on current variables
+         */
+        function updateViewer() {
+            // Get Board Selection
+            const boardSelect = document.getElementById('boardSelect');
+            currentTheme = boardSelect.value;
 
-             const baseVowels = {
-                    'a': 'අ', 'aa': 'ආ', 'A': 'ඇ', 'Aa': 'ඈ', 'AA': 'ඈ',
-                    'i': 'ඉ', 'ii': 'ඊ', 'u': 'උ', 'U': 'උ', 'uu': 'ඌ', 'R': 'ඍ', 'Ru': 'ඎ',
-                    'e': 'එ', 'E': 'එ', 'ee': 'ඒ', 'ai': 'ඓ', 'I': 'ඓ', 'o': 'ඔ', 
-                    'O': 'ඔ', 'oo': 'ඕ', 'au': 'ඖ', 'ou': 'ඖ'
-             };
-
-             let consonantBlocks = { ...baseConsonants };
-
-             const doubles = { 'tt': 'ට්ට', 'dd': 'ඩ්ඩ', 'nn': 'න්න', 'mm': 'ම්ම', 'll': 'ල්ල', 'pp': 'ප්ප' };
-             Object.assign(consonantBlocks, doubles);
-
-             const yansaya = '්‍ය';
-             const rakāransaya = '්‍ර';
-             for (const key in baseConsonants) {
-                 if (key !== 'y') consonantBlocks[key + 'y'] = baseConsonants[key] + yansaya;
-                 if (key !== 'r') consonantBlocks[key + 'r'] = baseConsonants[key] + rakāransaya;
-             }
-
-             let fullMap = { ...baseVowels, 'Lu': 'ළු', '.': '෴' };
+            // Construct URL
+            const url = `https://lichess.org/tv/blitz/frame?theme=${currentTheme}&bg=${currentBg}&pieceSet=${currentPieceSet}`;
             
-             for (const blockKey in consonantBlocks) {
-                 const blockValue = consonantBlocks[blockKey];
-                 fullMap[blockKey] = blockValue + '්';
-                
-                 for (const pillaKey in pillaChars) {
-                     const pillaValue = pillaChars[pillaKey];
-                     if (pillaKey === 'a') {
-                         fullMap[blockKey + 'a'] = blockValue;
-                     } else {
-                         fullMap[blockKey + pillaKey] = blockValue + pillaValue;
-                     }
-                 }
-             }
-            
-             fullMap['x'] = 'ං';
-             fullMap['z'] = '';
+            // Update Iframe
+            document.getElementById('lichessFrame').src = url;
+        }
 
-             return fullMap;
-         }
+        /**
+         * Handles Piece Icon Selection
+         */
+        function selectPiece(pieceValue, element) {
+            // Update Logic Variable
+            currentPieceSet = pieceValue;
 
-         const conversionMap = buildFullMap();
-         const sortedKeys = Object.keys(conversionMap).sort((a, b) => b.length - a.length);
+            // Visual UI Update (Active State)
+            const pieces = document.querySelectorAll('.piece-option');
+            pieces.forEach(p => p.classList.remove('active'));
+            element.classList.add('active');
 
-         function convertSinglishToSinhala(text) {
-             const words = text.split(' ');
-             const convertedWords = words.map(word => {
-                 if (word.length === 0) return '';
-                
-                 let converted = '';
-                 let i = 0;
-                 while (i < word.length) {
-                     let matchFound = false;
-                     for (const key of sortedKeys) {
-                         if (word.substring(i, i + key.length) === key) {
-                             converted += conversionMap[key];
-                             i += key.length;
-                             matchFound = true;
-                             break;
-                         }
-                     }
-                     if (!matchFound) {
-                         converted += word[i];
-                         i++;
-                     }
-                 }
-                 return converted;
-             });
-             return convertedWords.join(' ');
-         }
-        // --- END: SINGLISH TO SINHALA CONVERSION SCRIPT ---
+            // Refresh Viewer
+            updateViewer();
+        }
 
+        /**
+         * Handles Light/Dark Mode Toggle
+         * Affects both the Webpage CSS and the Iframe Parameter
+         */
+        function toggleMode() {
+            const toggle = document.getElementById('modeToggle');
+            const body = document.body;
 
-        // --- START: GANA CALCULATION SCRIPT (REVISED) ---
-        const ganaData = {
-            "+++": { ganaStatus: "සුභයි ✅", ganaName: "ම - භූමි ගණය", adhipathi: "බුධ", nakatha: "සුවණ", prathiphala: "ජය, සම්පත්, ලාභ" },
-            "---": { ganaStatus: "සුභයි ✅", ganaName: "න - දේව ගණය", adhipathi: "ගුරු", nakatha: "දෙට", prathiphala: "බලය, තේජස, ආයුෂ" },
-            "+--": { ganaStatus: "සුභයි ✅", ganaName: "බ - චන්ද්‍ර ගණය", adhipathi: "චන්ද්‍ර", nakatha: "මුවසිරස", prathiphala: "සෙත, යසස්, නුවණ" },
-            "-++": { ganaStatus: "සුභයි ✅", ganaName: "ය - ජල ගණය", adhipathi: "ශුක්‍ර", nakatha: "සියාවස", prathiphala: "ආයුෂ, ධෛර්‍යය, දියුණුව" },
-            "--+": { ganaStatus: "අසුභයි ⭕", ganaName: "ස - වායු ගණය", adhipathi: "ශනි", nakatha: "සා", prathiphala: "විකල් වීම, පිටුවහල් කිරීම" },
-            "++-": { ganaStatus: "අසුභයි ⭕", ganaName: "ත - ආකාශ ගණය", adhipathi: "රාහු", nakatha: "බෙරණ", prathiphala: "ධන හානි, විනාශය" },
-            "-+-": { ganaStatus: "අසුභයි ⭕", ganaName: "ජ - සූර්ය ගණය", adhipathi: "රවි", nakatha: "පුනාවස", prathiphala: "රෝදුක්, කැක්කුම්" },
-            "+-+": { ganaStatus: "අසුභයි ⭕", ganaName: "ර - අග්නි ගණය", adhipathi: "කුජ", nakatha: "කැති", prathiphala: "දැඩි ශෝක, මරණ බිය" }
+            if (toggle.checked) {
+                // Switch to Light Mode
+                body.classList.add('light-mode');
+                currentBg = 'light';
+            } else {
+                // Switch to Dark Mode (Default)
+                body.classList.remove('light-mode');
+                currentBg = 'dark';
+            }
+
+            // Refresh Viewer to update iframe background
+            updateViewer();
+        }
+
+        // Initialize: Ensure the toggle is unchecked (Dark Mode) on load
+        window.onload = function() {
+            document.getElementById('modeToggle').checked = false;
         };
-
-        // Nakatha list in Standard Order (1-27) for calculation
-        const allNakathas = [
-            "අස්විද", "බෙරණ", "කැති", "රෙහෙණ", "මුවසිරස", "අද", "පුනාවස", "පුෂ", "අස්ලිස",
-            "මා", "පුවපල්", "උත්‍රපල්", "හත", "සිත", "සා", "විසා", "අනුර", "දෙට",
-            "මුල", "පුවසල", "උත්‍රසල", "සුවණ", "දෙනට", "සියාවස", "පුවපුටුප", "උත්‍රපුටුප", "රේවතී"
-        ];
-
-        // Compatibility Categories (based on distance % 9)
-        // 0=Janma, 1=Sampath, 2=Vipat, 3=Kshema, 4=Prathyari, 5=Sadhaka, 6=Vadha, 7=Maithri, 8=Parama Maithri
-        const compatibilityCategories = [
-            { name: "ජන්ම", type: "birth", status: "සුභයි" },           // 0
-            { name: "සම්පත්", type: "good", status: "සුභයි" },         // 1
-            { name: "විපත්", type: "bad", status: "අසුභයි" },           // 2
-            { name: "ක්ෂේම", type: "good", status: "සුභයි" },          // 3
-            { name: "ප්‍රත්‍යාරී", type: "bad", status: "අසුභයි" },      // 4
-            { name: "සාධක", type: "good", status: "සුභයි" },           // 5
-            { name: "වධ", type: "bad", status: "අසුභයි" },             // 6
-            { name: "මෛත්‍රී", type: "good", status: "සුභයි" },         // 7
-            { name: "පරම මෛත්‍රී", type: "good", status: "සුභයි" }      // 8
-        ];
-
-        const guideMessage = "කරුණාකර සිංහල නමක් ඇතුළත් කරන්න. ඔබට අවශ්‍ය නම් ඉංග්‍රීසි අකුරු (Singlish) භාවිතා කළ හැක.";
-        
-        const HAL = '්';
-        const BINDUWA = 'ං';
-        const YANSAYA = '්‍ය';
-        const RAKARANSAYA = '්‍ර';
-        const VOWEL_SIGNS = ['ා', 'ැ', 'ෑ', 'ි', 'ී', 'ු', 'ූ', 'ෘ', 'ෲ', 'ෙ', 'ේ', 'ෛ', 'ො', 'ෝ', 'ෞ'];
-        const CONSONANTS = "කඛගඝචඡජඣඤටඨඩඪණතථදධනපඵබභමඹයරලවශෂසහළෆඟඦඬඳඥ";
-        const VOWELS = "අආඇඈඉඊඋඌඍඎඑඒඓඔඕඖ";
-        
-        function getSyllables(name) {
-            const cleanName = name.replace(/\s+/g, '');
-
-            // Pass 1: Tokenize the name into fundamental units.
-            const tokenize = (str) => {
-                const tokens = [];
-                let i = 0;
-                while (i < str.length) {
-                    const char = str[i];
-                    const next = str[i + 1];
-
-                    if (VOWELS.includes(char)) {
-                        tokens.push(char);
-                        i++;
-                    } else if (CONSONANTS.includes(char)) {
-                        if (next === HAL) {
-                            tokens.push(char + HAL); // e.g., 'ක්'
-                            i += 2;
-                        } else if (next === YANSAYA) {
-                            tokens.push(char + HAL); // Deconstruct 'ක්‍യ' -> 'ක්', 'ය'
-                            tokens.push('ය');
-                            i += 2;
-                        } else if (next === RAKARANSAYA) {
-                            tokens.push(char + HAL); // Deconstruct 'ක්‍ර' -> 'ක්', 'ර'
-                            tokens.push('ර');
-                            i += 2;
-                        } else if (VOWEL_SIGNS.includes(next)) {
-                            tokens.push(char + next); // e.g., 'කා'
-                            i += 2;
-                        } else {
-                            tokens.push(char); // e.g., 'ක'
-                            i++;
-                        }
-                    } else if (char === BINDUWA) {
-                        tokens.push(char);
-                        i++;
-                    } else {
-                        i++; // Skip other characters
-                    }
-                }
-                return tokens;
-            };
-
-            // Pass 2: Group tokens into astrological syllables.
-            const syllabify = (tokens) => {
-                if (!tokens.length) return [];
-                const syllables = [];
-                let currentSyllable = tokens.shift();
-
-                while (tokens.length > 0) {
-                    const nextToken = tokens[0];
-                    const isHalToken = (t) => t.endsWith(HAL);
-
-                    // If the next token is a hal letter, append it to the current syllable.
-                    if (isHalToken(nextToken)) {
-                        currentSyllable += nextToken;
-                        tokens.shift();
-                    } 
-                    // If the next token is a binduwa, append it and finalize the syllable.
-                    else if (nextToken === BINDUWA) {
-                        currentSyllable += nextToken;
-                        tokens.shift();
-                        syllables.push(currentSyllable);
-                        currentSyllable = tokens.shift() || '';
-                    }
-                    // Otherwise, the next token must start a new syllable.
-                    else {
-                        syllables.push(currentSyllable);
-                        currentSyllable = tokens.shift();
-                    }
-                }
-                if (currentSyllable) {
-                    syllables.push(currentSyllable);
-                }
-                return syllables;
-            };
-
-            const tokens = tokenize(cleanName);
-            return syllabify(tokens);
-        }
-
-        function getGanaType(syllable) {
-            if (!syllable) return '';
-            // GURU (+) rules
-            if (syllable.includes('ෘ') || syllable.includes('ෲ')) return '+';
-            if (['ා', 'ෑ', 'ී', 'ූ', 'ේ', 'ෝ'].some(v => syllable.includes(v))) return '+';
-            if (syllable.endsWith(HAL)) return '+';
-            if (syllable.includes(BINDUWA) || syllable.includes('ඃ')) return '+';
-            if (VOWELS.includes(syllable) && 'ආඇඈඊඌඒඕඖ'.includes(syllable)) return '+'; // Note: Diphthongs are often Guru
-
-            // LAGHU (-) rules (everything else)
-            return '-';
-        }
-
-        // Logic to calculate compatibility between User Nakatha and Gana Nakatha
-        function getCompatibility(userNakathaName, ganaNakathaName) {
-            const userIndex = allNakathas.indexOf(userNakathaName);
-            const ganaIndex = allNakathas.indexOf(ganaNakathaName);
-
-            if (userIndex === -1 || ganaIndex === -1) return null;
-
-            // Calculate distance (Cycle of 27)
-            // Logic: Start from User Nakatha, count to Gana Nakatha
-            const distance = (ganaIndex - userIndex + 27) % 27;
-            
-            // Map to 9 categories
-            const categoryIndex = distance % 9;
-            return compatibilityCategories[categoryIndex];
-        }
-
-        function findGana() {
-            const sinhalaNameDisplay = document.getElementById('sinhala-name-display');
-            const guideText = document.getElementById('guide-text');
-            const resultContainer = document.getElementById('result-container');
-            const nakathaSelect = document.getElementById('nakatha');
-            const selectedNakatha = nakathaSelect.value;
-
-            let name = sinhalaNameDisplay.textContent;
-
-            guideText.style.display = 'none';
-            resultContainer.style.display = 'none';
-            resultContainer.className = ''; // Clear previous color classes
-
-            if (!name || name === "සිංහල නම මෙතැනින් දිස්වේ >>" || !/[\u0D80-\u0DFF]/.test(name)) {
-                guideText.innerText = guideMessage;
-                guideText.style.display = 'block';
-                return;
-            }
-
-            try {
-                const cleanName = name.replace(/\s+/g, '');
-
-                if (cleanName.length < 2) {
-                    guideText.innerText = "ගණය සෙවීමට නොහැක. කරුණාකර අක්ෂර දෙකක් හෝ වැඩි ගණනක් ඇතුළත් කරන්න.";
-                    guideText.style.display = 'block';
-                    return;
-                }
-
-                const originalSyllables = getSyllables(name);
-                
-                if (originalSyllables.length === 0) {
-                    guideText.innerText = "ගණය සෙවීමට නොහැකි විය. කරුණාකර නැවත පරීක්ෂා කරන්න.";
-                    guideText.style.display = 'block';
-                    return;
-                }
-
-                // Repeating syllables if the name has fewer than 3 syllables
-                let finalSyllables = [...originalSyllables];
-                if (finalSyllables.length < 3) {
-                    const syllablesToRepeat = [...originalSyllables];
-                    while (finalSyllables.length < 3) {
-                        finalSyllables.push(...syllablesToRepeat);
-                    }
-                }
-
-                const pattern = finalSyllables.slice(0, 3).map(getGanaType).join('');
-                const resultData = ganaData[pattern];
-                
-                if (resultData) {
-                    displayResult(resultData, name, finalSyllables, pattern, selectedNakatha);
-                } else {
-                    guideText.innerText = `ගණය සෙවීමට නොහැකි විය. (Pattern: ${pattern})`;
-                    guideText.style.display = 'block';
-                }
-
-            } catch (error) {
-                console.error("Error during Gana calculation:", error);
-                guideText.innerText = "දෝෂයක් ඇතිවිය. කරුණාකර නම නැවත පරීක්ෂා කරන්න.";
-                guideText.style.display = 'block';
-            }
-        }
-
-        function displayResult(resultData, name, syllables, pattern, userNakatha) {
-            const resultContainer = document.getElementById('result-container');
-            const isAsubha = resultData.ganaStatus.includes("අසුභයි");
-            
-            // Apply color class to container based on MAIN Gana Result
-            resultContainer.classList.add(isAsubha ? 'result-asubha' : 'result-subha');
-            
-            const firstThreeSyllables = syllables.slice(0, 3).join(' | ');
-
-            // Compatibility Check Logic
-            let matchHtml = '';
-            if (userNakatha) {
-                const matchData = getCompatibility(userNakatha, resultData.nakatha);
-                
-                if (matchData) {
-                    const isMatchBad = (matchData.type === 'bad');
-                    // If Match is bad, text is red. If match is good/birth, text is green.
-                    const textColorClass = isMatchBad ? 'match-text-red' : 'match-text-green';
-                    
-                    matchHtml = `
-                    <div class="match-result-highlight ${textColorClass}">
-                        ජන්මයාගේ උපන් නැකතට: &nbsp; ${matchData.name} (${matchData.status})
-                    </div>
-                    `;
-                }
-            }
-
-            resultContainer.innerHTML = `
-                <h2 class="result-title ${isAsubha ? 'asubha-text' : 'subha-text'}">
-                    ${name}: ${resultData.ganaStatus}
-                </h2>
-                <dl class="result-details-grid">
-                    <dt>ගණය</dt> <dd>${resultData.ganaName}</dd>
-                    <dt>අක්ෂර විස්තර</dt>
-                    <dd>
-                        <strong>${firstThreeSyllables}</strong> <br>
-                        <span class="akshara-visthara">${pattern.split('').join(' ')}</span>
-                    </dd>
-                    <dt>අධිපති</dt> <dd>${resultData.adhipathi}</dd>
-                    <dt>හිමි නැකත</dt> <dd>${resultData.nakatha}</dd>
-                    <dt>ප්‍රතිඵල</dt> <dd>${resultData.prathiphala}</dd>
-                </dl>
-                ${matchHtml ? '<hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">' : ''}
-                ${matchHtml}
-            `;
-            resultContainer.style.display = 'block';
-        }
-
-        // --- Event Listeners and Initializers ---
-
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        const nameInput = document.getElementById('name-input');
-        const sinhalaNameDisplay = document.getElementById('sinhala-name-display');
-
-        nameInput.addEventListener('input', () => {
-            const sinhalaText = convertSinglishToSinhala(nameInput.value);
-            sinhalaNameDisplay.textContent = sinhalaText || "සිංහල නම මෙතැනින් දිස්වේ >>";
-        });
-
-        nameInput.addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                findGana();
-            }
-        });
     </script>
 </body>
 </html>
