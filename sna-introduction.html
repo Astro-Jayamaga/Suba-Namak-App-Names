@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suba Namak - Baby Naming App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Global Variables & Reset --- */
+:root {
+    --primary-bg: #FDF5E6; /* Cream */
+    --secondary-color: #FFA500; /* Orange */
+    --accent-color: #7F0000; /* Maroon */
+    --white: #FFFFFF;
+    --text-dark: #333;
+    --shadow: 0 10px 30px rgba(127, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Serif Sinhala', serif;
+    background-color: var(--primary-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* --- Floating Language Buttons --- */
+.lang-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border: 1px solid var(--secondary-color);
+}
+
+.lang-btn {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    transition: 0.3s;
+    background: transparent;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+.lang-btn.active {
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* --- Header Section --- */
+header {
+    text-align: center;
+    padding: 60px 20px 30px;
+}
+
+.hero-title {
+    color: var(--accent-color);
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+}
+
+.hero-desc {
+    font-size: 1.1rem;
+    max-width: 750px;
+    margin: 0 auto;
+    color: #444;
+}
+
+/* --- Tabs Section --- */
+.tabs-container {
+    background: var(--white);
+    border-radius: 25px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 40px;
+    border: 1px solid rgba(127, 0, 0, 0.05);
+}
+
+.tab-headers {
+    display: flex;
+    padding: 5px;
+    background: #f9f4ec;
+    gap: 8px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 20px;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s ease;
+    background: var(--white);
+    color: #888;
+}
+
+.tab-btn img {
+    width: 60px; /* High visibility size */
+    height: 60px;
+}
+
+.tab-btn.active {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+}
+
+/* Gold Tab Emphasis */
+.tab-btn-gold.active {
+    border-color: var(--secondary-color);
+    background: linear-gradient(to bottom, #fff, #fff9f0);
+    color: #b36b00;
+}
+
+.tab-btn-gold:not(.active) {
+    background: #fff6e6;
+}
+
+.tab-content {
+    display: none;
+    padding: 30px; /* Reduced internal padding */
+    animation: slideUp 0.4s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Gold Section Specifics (Tightened Spacing & Font) --- */
+.gold-features-container {
+    padding-top: 5px;
+}
+
+.gold-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.gold-header img {
+    width: 28px !important;
+    height: 28px !important;
+}
+
+.section-label {
+    display: block;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 12px 0 8px 0;
+    font-size: 0.95rem; /* Reduced font size */
+    text-decoration: underline;
+}
+
+.gold-card-item {
+    display: flex;
+    align-items: center;
+    background-color: #FFF9EE; /* Light cream */
+    border-left: 5px solid var(--secondary-color); /* Orange border from image */
+    border-radius: 10px;
+    padding: 10px 18px; /* Tightened padding */
+    margin-bottom: 8px; /* Tightened margin */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease;
+}
+
+.gold-card-item:hover {
+    transform: translateX(5px);
+}
+
+.gold-card-item img {
+    width: 24px !important; /* Adjusted for better balance with 0.95rem text */
+    height: 24px !important;
+    margin-right: 15px;
+}
+
+.gold-card-item span {
+    font-size: 0.95rem; /* Reduced font size as requested */
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Gold Highlight Box */
+        .gold-highlight-box {
+            background: transparent;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px dashed var(--secondary-color);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .gold-highlight-box img {
+            width: 50px;
+        }
+
+/* --- Silver Feature Styling --- */
+.feature-group {
+    margin-bottom: 30px;
+}
+
+.feature-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.feature-header img {
+    width: 40px;
+}
+
+.feature-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+}
+
+.feature-list li {
+    position: relative;
+    padding-left: 25px;
+    font-size: 1rem;
+}
+
+.feature-list li::before {
+    content: "🔸";
+    position: absolute;
+    left: 0;
+}
+
+/* --- Pricing Section --- */
+.pricing-section {
+    background: var(--white);
+    border-radius: 25px;
+    padding: 40px 25px;
+    box-shadow: var(--shadow);
+    margin-bottom: 40px;
+}
+
+.price-title-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--primary-bg);
+    padding-bottom: 12px;
+}
+
+.price-title-box img {
+    width: 45px;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.price-card {
+    background: #fdfaf5;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #eee;
+}
+
+.price-card h4 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+}
+
+/* --- Footer --- */
+.custom-footer {
+    text-align: center;
+    padding: 50px 20px;
+    background: transparent;
+    color: var(--text-dark);
+}
+
+.footer-guideline {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #555;
+    max-width: 650px;
+    margin: 0 auto 15px;
+    line-height: 1.6;
+}
+
+.footer-brand {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-bottom: 5px;
+}
+
+.footer-sub {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* --- Responsive Tweaks --- */
+@media (max-width: 600px) {
+    .hero-title { font-size: 1.8rem; }
+    .tab-btn { padding: 15px; font-size: 1rem; }
+    .tab-btn img { width: 45px; height: 45px; }
+    .lang-switcher { top: 10px; right: 10px; }
+    .gold-card-item { padding: 8px 14px; }
+}
+    </style>
+</head>
+<body>
+
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLanguage('si')" id="btn-si">සිං</button>
+        <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">Eng</button>
+    </div>
+
+    <header>
+        <div class="container">
+            <p class="hero-desc" data-key="hero-desc-a">
+               👶 දරුවාට නම් තැබීම හෙවත් නාමකරණය සඳහා අවශ්‍ය ජ්‍යොතිෂ විද්‍යානුකූල දැනුමට අනුව සැකසූ ඩිජිටල් යෙදවුම් එකතුවක් මෙහි ඇතුළත් වේ. ඊට අමතරව සෑම සිංහල අකුරක්ම ඇතුළත් වන පරිදි අරුත් සහිත නම් පන්දහසකට අධික එකතුවක් අන්තර්ගත වන මෙම නාමකරණ යෙදවුම තුළින් ඔබේ දරුවාට ඔබ විසින්ම ජ්‍යොතිෂ විද්‍යානුකූලව අර්ථාන්විත සුබ නමක් තැබීමට හැක! 🌞
+            </p>
+            
+            <p class="hero-desc" style="margin-top: 25px;" data-key="hero-desc-b">
+               මෙහි සුබ නමක් සම්පූර්ණ සේවාව ලබා ගැනීම පහතින් ඇති සුබ නමක් Silver (Subscription) හෝ  Gold (One Time Charge) යන සේවා අතුරින් දායක මුදල් ගෙවා ඔබගේ අවශ්‍යතාවයට ගැළපෙන සේවාව ලබා ගත යුතු වේ.
+            </p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="tabs-container">
+            <div class="tab-headers">
+                <button class="tab-btn active" onclick="openTab(event, 'silver')">
+                    <img src="https://i.postimg.cc/3RfDGzFB/SNA_Silver_Icon_Meroon.png" alt="Silver"> 
+                    <span data-key="tab-silver">Silver</span>
+                </button>
+                <button class="tab-btn tab-btn-gold" onclick="openTab(event, 'gold')">
+                    <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png" alt="Gold"> 
+                    <span data-key="tab-gold">Gold</span>
+                </button>
+            </div>
+
+            <div id="silver" class="tab-content active">
+                <div class="feature-group">
+                    <div class="feature-header">
+                        <img src="https://i.postimg.cc/3RfDGzFB/SNA_Silver_Icon_Meroon.png">
+                        <span data-key="feat-1-title">දුවට හා පුතාට යුගල නාම කාණ්ඩ 3කින්...</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li data-key="f1-1">අලුත් සිංහල නම්</li>
+                        <li data-key="f1-2">බොදු සිංහල නම්</li>
+                        <li data-key="f1-3">බටහිර ආරයේ නම්</li>
+                    </ul>
+                </div>
+
+                <div class="feature-group">
+                    <div class="feature-header">
+                        <img src="https://i.postimg.cc/3RfDGzFB/SNA_Silver_Icon_Meroon.png">
+                        <span data-key="feat-2-title">සුබ නමකට සුබ අකුරු</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li data-key="f2-1">උපන් නැකත හා ලග්නය සෙවීම</li>
+                        <li data-key="f2-2">නැකතට සුබ අක්ෂර</li>
+                        <li data-key="f2-3">නැකතට සුබ හා අසුබ නැකැත්</li>
+                        <li data-key="f2-4">දිනයට සුබ අක්ෂර</li>
+                        <li data-key="f2-5">ලග්නයට සුබ අක්ෂර</li>
+                        <li data-key="f2-6">ග්‍රහයන්ට සුබ අක්ෂර</li>
+                        <li data-key="f2-7">නවාංශකයට සුබ අක්ෂර</li>
+                        <li data-key="f2-8">පංච භූත ගුණ අනුව අක්ෂර</li>
+                        <li data-key="f2-9">අපායක්ෂර ඉවත් කිරීම</li>
+                    </ul>
+                </div>
+
+                <div class="feature-group">
+                    <div class="feature-header">
+                        <img src="https://i.postimg.cc/3RfDGzFB/SNA_Silver_Icon_Meroon.png">
+                        <span data-key="feat-3-title">සුබදායී නමකට මිනුම්</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li data-key="f3-1">ගණ පිහිටුවීම</li>
+                        <li data-key="f3-2">පංච පක්ෂි ක්‍රමය</li>
+                        <li data-key="f3-3">ස්වර වේධ පරීක්ෂාව</li>
+                        <li data-key="f3-4">අෂ්ට යෝනි පරීක්ෂාව</li>
+                        <li data-key="f3-5">ගණ සංයෝජන පරීක්ෂාව</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="gold" class="tab-content">
+    <div class="gold-features-container">
+        <div class="gold-header">
+            <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+            <span data-key="tab-gold-header">සම්පූර්ණ නාම සැකසීම</span>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 15px;">
+
+        <div class="gold-highlight-box">
+                    <img src="https://i.postimg.cc/3RfDGzFB/SNA_Silver_Icon_Meroon.png">
+                    <span data-key="gold-include">සුබ නමක් Silver කාණ්ඩයේ ඇති සියලුම කොටස් මීට ඇතුළත් වේ.</span>
+                </div>
+
+        <span class="section-label" data-key="extra-label">ඊට අමතරව:</span>
+        
+        <div class="gold-card-item">
+        <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+        <span data-key="g-f1">ජන්මයාට සුබම අකුරු ලබා ගැනීම</span>
+    </div>
+    <div class="gold-card-item">
+        <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+        <span data-key="g-f2">සම්පූර්ණ නාම පරීක්ෂාව</span>
+    </div>
+    <div class="gold-card-item">
+        <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+        <span data-key="g-f3">හඳහනේ බලවත් ග්‍රහයන්ට සුබ අකුරු ලබා ගැනීම</span>
+    </div>
+    <div class="gold-card-item">
+        <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+        <span data-key="g-f4">සිද්ධි චක්‍ර පරීක්ෂාව</span>
+    </div>
+    <div class="gold-card-item">
+        <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+        <span data-key="g-f5">නාම යෝනි පරීක්ෂාව</span>
+    </div>
+    
+        <span class="section-label" data-key="more-label">තවත්:</span>
+        
+        <div class="gold-card-item">
+            <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+            <span data-key="g-f6">අංක විද්‍යාත්මක තොරතුරු සෙවීම</span>
+        </div>
+        <div class="gold-card-item">
+            <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+            <span data-key="g-f7">අංක විද්‍යාත්මක බලවත් නම් තැබීම</span>
+        </div>
+    </div>
+</div>
+
+        <section class="pricing-section">
+            <div class="price-title-box">
+                <img src="https://i.postimg.cc/3RfDGzFB/SNA_Silver_Icon_Meroon.png">
+                <span data-key="p-s-title">සුබ නමක් Silver - Subscription Method</span>
+            </div>
+            <p style="margin-bottom: 25px;" data-key="p-s-desc-a">සුබ නමක් ඇප් එකේ මෙම සේවාව ලබා ගැනීම සඳහා පහත පරිදි Subscription සේවාව සක්‍රීය කළ යුතු වේ.</p>
+            
+            <div class="price-grid">
+                <div class="price-card">
+                    <h4 data-key="prepaid">පෙර ගෙවුම් සේවා (Prepaid)</h4>
+                    <div class="price-row"><span>Dialog</span> <span>Rs. 18 + tax / day</span></div>
+                    <div class="price-row"><span>Hutch</span> <span>Rs. 18 + tax / day</span></div>
+                </div>
+                <div class="price-card">
+                    <h4 data-key="postpaid">පසු ගෙවුම් සේවා (Postpaid)</h4>
+                    <div class="price-row"><span>Dialog</span> <span>Rs. 250 + tax / 30 days</span></div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 25px;" data-key="p-s-desc-b">මින් ඕනෑම ආකාරයක් ඔස්සේ දායක මුදල් ගෙවා සුබ නමක් සේවාව සක්‍රීය කළ හැකි අතර දායක මුදල් ස්වයංක්‍රීයව නැවත අලුත් වේ.</p>
+
+            <div style="margin-top:25px; font-size: 0.95rem; color: #666; border-left: 4px solid var(--accent-color); padding-left: 15px;">
+                <span data-key="unsub-info">මෙම Subscription සේවාවෙන් ඉවත් වීමට අවශ්‍ය නම් ඇප් එකේ My Account වෙත පිවිස Unsubscribe කර හෝ STOP SNA ලෙස සඳහන් කොට 87757 ට කෙටි පණිවිඩයක් එවීමෙන් පහසුවෙන්ම සේවාව අක්‍රීය කිරීමේ හැකියාව පවතී.</span>
+                <br><br>
+                <small data-key="mobitel">* මෙම සේවාව Mobitel පාරිභෝගිකයින් සඳහා ද ඉක්මනින් ලබා දීමට බලාපොරොත්තු වේ.</small>
+            </div>
+        </section>
+
+        <section class="pricing-section">
+            <div class="price-title-box">
+                <img src="https://i.postimg.cc/269BWg7c/SNA_Gold_Icon_Meroon.png">
+                <span data-key="p-g-title">සුබ නමක් Gold - One Time Charge</span>
+            </div>
+            <p style="margin-bottom: 25px;" data-key="p-g-desc-a">මෙම සුබ නමක් ඇප් එකෙහි සම්පූර්ණ සේවාව ලබා ගැනීම සඳහා පහත පරිදි One Time Charge (OTC) සේවාව සක්‍රීය කළ යුතු වේ.</p>
+            
+            <div class="price-grid">
+                <div class="price-card" style="border-color: var(--secondary-color);">
+                    <h4 data-key="otc-label">One Time Charge සේවාව</h4>
+                    <div class="price-row"><span>Dialog</span> <span>Rs. 390 + tax / 2 days</span></div>
+                    <div class="price-row"><span>Hutch</span> <span>Rs. 390 + tax / 2 days</span></div>
+                    <div class="price-row"><span>Genie</span> <span>Rs. 390 + tax / 2 days</span></div>
+                </div>
+            </div>
+            <p style="margin-top: 25px;" data-key="p-g-desc-b">මින් ඕනෑම ආකාරයක් ඔස්සේ දායක මුදල් ගෙවා සුබ නමක් සම්පූර්ණ සේවාව ලබා ගත හැකි අතර මෙය එක් වරක් පමණක් අය කිරීම සිදු කෙරෙන බැවින් නියමිත දිනට පසු සේවාව අවසන් වේ.</p>
+        </section>
+
+    </div>
+
+    <footer class="custom-footer">
+        <div class="container">
+            <p class="footer-guideline" data-key="footer-note">
+                මේ තුළින් දෙමාපියන්ටම තම දරුවාට සුබ පල ලැබෙන අර්ථවත් නම් සකස් කර ගැනීමට අවශ්‍ය මග පෙන්වීම ලබා දීමට අප නිරතුරුව කටයුතු කරන්නෙමු!
+            </p>
+            <h2 class="footer-brand" data-key="brand-name">Suba Namak App</h2>
+            <p class="footer-sub" data-key="brand-sub">Astro Jayamaga - ජ්‍යොතිෂ ජයමග</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Translation Data ---
+        const translations = {
+            si: {
+                "main-title": "සුබ නමක් App",
+                "hero-desc-a": "👶 දරුවාට නම් තැබීම හෙවත් නාමකරණය සඳහා අවශ්‍ය ජ්‍යොතිෂ විද්‍යානුකූල දැනුමට අනුව සැකසූ ඩිජිටල් යෙදවුම් එකතුවක් මෙහි ඇතුළත් වේ. අරුත් සහිත නම් 5,000කට අධික එකතුවක් තුළින් ඔබේ දරුවාට සුබ නමක් ඔබ විසින්ම තෝරාගන්න! 🌞",
+                "hero-desc-b": "මෙහි සුබ නමක් සම්පූර්ණ සේවාව ලබා ගැනීම පහතින් ඇති සුබ නමක් Silver (Subscription) හෝ  Gold (One Time Charge) යන සේවා අතුරින් දායක මුදල් ගෙවා ඔබගේ අවශ්‍යතාවයට ගැළපෙන සේවාව ලබා ගත යුතු වේ.",
+                "tab-silver": "Silver",
+                "tab-gold": "Gold",
+                "feat-1-title": "දුවට හා පුතාට යුගල නාම කාණ්ඩ 3කින්...",
+                "f1-1": "අලුත් සිංහල නම්",
+                "f1-2": "බොදු සිංහල නම්",
+                "f1-3": "බටහිර ආරයේ නම්",
+                "feat-2-title": "සුබ නමකට සුබ අකුරු",
+                "f2-1": "උපන් නැකත හා ලග්නය සෙවීම",
+                "f2-2": "නැකතට සුබ අක්ෂර",
+                "f2-3": "නැකතට සුබ හා අසුබ නැකැත්",
+                "f2-4": "දිනයට සුබ අක්ෂර",
+                "f2-5": "ලග්නයට සුබ අක්ෂර",
+                "f2-6": "ග්‍රහයන්ට සුබ අක්ෂර",
+                "f2-7": "නවාංශකයට සුබ අක්ෂර",
+                "f2-8": "පංච භූත ගුණ අනුව අක්ෂර",
+                "f2-9": "අපායක්ෂර ඉවත් කිරීම",
+                "feat-3-title": "සුබදායී නමකට මිනුම්",
+                "f3-1": "ගණ පිහිටුවීම",
+                "f3-2": "පංච පක්ෂි ක්‍රමය",
+                "f3-3": "ස්වර වේධ පරීක්ෂාව",
+                "f3-4": "අෂ්ට යෝනි පරීක්ෂාව",
+                "f3-5": "ගණ සංයෝජන පරීක්ෂාව",
+                "gold-include": "සුබ නමක් Silver කාණ්ඩයේ ඇති සියලුම කොටස් මීට ඇතුළත් වේ.",
+                "extra-label": "ඊට අමතරව:",
+                "more-label": "තවත්:",
+                "g-f1": "ජන්මයාට සුබම අකුරු ලබා ගැනීම",
+                "g-f2": "සම්පූර්ණ නාම පරීක්ෂාව",
+                "g-f3": "හඳහනේ බලවත් ග්‍රහයන්ට සුබ අකුරු ලබා ගැනීම",
+                "g-f4": "සිද්ධි චක්‍ර පරීක්ෂාව",
+                "g-f5": "නාම යෝනි පරීක්ෂාව",
+                "g-f6": "අංක විද්‍යාත්මක තොරතුරු සෙවීම",
+                "g-f7": "අංක විද්‍යාත්මක බලවත් නම් තැබීම",
+                "p-s-title": "සුබ නමක් Silver - Subscription Method",
+                "p-s-desc-a": "සුබ නමක් ඇප් එකේ මෙම සේවාව ලබා ගැනීම සඳහා පහත පරිදි Subscription සේවාව සක්‍රීය කළ යුතු වේ.",
+                "p-s-desc-b": "මින් ඕනෑම ආකාරයක් ඔස්සේ දායක මුදල් ගෙවා සුබ නමක් සේවාව සක්‍රීය කළ හැකි අතර දායක මුදල් ස්වයංක්‍රීයව නැවත අලුත් වේ.",
+                "prepaid": "පෙර ගෙවුම් සේවා (Prepaid)",
+                "postpaid": "පසු ගෙවුම් සේවා (Postpaid)",
+                "unsub-info": "මෙම Subscription සේවාවෙන් ඉවත් වීමට අවශ්‍ය නම් ඇප් එකේ My Account වෙත පිවිස Unsubscribe කර හෝ STOP SNA ලෙස සඳහන් කොට 87757 ට කෙටි පණිවිඩයක් එවීමෙන් පහසුවෙන්ම සේවාව අක්‍රීය කිරීමේ හැකියාව පවතී.",
+                "mobitel": "* මෙම සේවාව Mobitel පාරිභෝගිකයින් සඳහා ද ඉක්මනින් ලබා දීමට බලාපොරොත්තු වේ.",
+                "p-g-title": "සුබ නමක් Gold - One Time Charge",
+                "p-g-desc-a": "මෙම සුබ නමක් ඇප් එකෙහි සම්පූර්ණ සේවාව ලබා ගැනීම සඳහා පහත පරිදි One Time Charge (OTC) සේවාව සක්‍රීය කළ යුතු වේ.",
+                "p-g-desc-b": "මින් ඕනෑම ආකාරයක් ඔස්සේ දායක මුදල් ගෙවා සුබ නමක් සම්පූර්ණ සේවාව ලබා ගත හැකි අතර මෙය එක් වරක් පමණක් අය කිරීම සිදු කෙරෙන බැවින් නියමිත දිනට පසු සේවාව අවසන් වේ.",
+                "otc-label": "One Time Charge සේවාව",
+                "footer-note": "දෙමාපියන්ටම තම දරුවාට සුබ පල ලැබෙන අර්ථවත් නම් සකස් කර ගැනීමට අවශ්‍ය මග පෙන්වීම ලබා දීමට අප නිරතුරුව කටයුතු කරන්නෙමු!",
+                "brand-name": "Suba Namak App",
+                "brand-sub": "Astro Jayamaga - ජ්‍යොතිෂ ජයමග"
+            },
+            en: {
+                "main-title": "Suba Namak App",
+                "hero-desc-a": "This includes a collection of digital applications tailored to the astrological knowledge required for naming a child. Discover the perfect name for your child from our collection of over 5,000 meaningful options!",
+                "hero-desc-b": "To access the comprehensive features of Suba Namak, a subscription fee is required. Choose the service plan that best meets your requirements: Suba Namak Silver (Subscription) or Gold (One-Time Charge).",
+                "tab-silver": "Silver",
+                "tab-gold": "Gold",
+                "feat-1-title": "Baby Girl & Boy Names from 3 Categories...",
+                "f1-1": "New Sinhala Names",
+                "f1-2": "Buddhist Sinhala Names",
+                "f1-3": "Western Style Names",
+                "feat-2-title": "Auspicious Letters for the Name",
+                "f2-1": "Find Birth Star (Nakshatra) & Lagna",
+                "f2-2": "Lucky Letters for Nakshatra",
+                "f2-3": "Auspicious & Inauspicious Stars",
+                "f2-4": "Lucky Letters for the Day",
+                "f2-5": "Lucky Letters for Lagna",
+                "f2-6": "Lucky Letters for Planets",
+                "f2-7": "Lucky Letters for Navamsha",
+                "f2-8": "Letters based on Pancha Bhootha",
+                "f2-9": "Removal of Inauspicious Letters",
+                "feat-3-title": "Measurements for a Lucky Name",
+                "f3-1": "Gana Placement",
+                "f3-2": "Pancha Pakshi Method",
+                "f3-3": "Swara Vedha Test",
+                "f3-4": "Ashta Yoni Test",
+                "f3-5": "Gana Combination Test",
+                "gold-include": "Includes all features in the Suba Namak Silver Category.",
+                "extra-label": "In addition:",
+                "more-label": "Further:",
+                "g-f1": "Obtain the most lucky letters for the child",
+                "g-f2": "Complete Name Check",
+                "g-f3": "Lucky letters based on strong planets in horoscope",
+                "g-f4": "Siddhi Chakra Check",
+                "g-f5": "Nama Yoni Check",
+                "g-f6": "Numerological Information Search",
+                "g-f7": "Numerologically powerful naming",
+                "p-s-title": "Suba Namak Silver - Subscription Method",
+                "p-s-desc-a": "To access this service, you must activate the subscription as follows.",
+                "p-s-desc-b": "To access this service, you must activate the subscription as follows.",
+                "prepaid": "Prepaid Users",
+                "postpaid": "Postpaid Users",
+                "unsub-info": "To unsubscribe, visit 'My Account' in the app or SMS STOP SNA to 87757.",
+                "mobitel": "* This service will be available for Mobitel customers soon.",
+                "p-g-title": "Suba Namak Gold - One Time Charge",
+                "p-g-desc-a": "To get this service on the Suba Namak app, the Subscription service must be activated as follows.",
+                "p-g-desc-b": "Suba Namak service activation requires subscription payment via one of the available methods. Please note that your subscription will be automatically renewed.",
+                "otc-label": "One Time Charge Service",
+                "footer-note": "Through this, we will constantly provide parents with the guidance they need to choose meaningful names that bring their children success!",
+                "brand-name": "Suba Namak App",
+                "brand-sub": "Astro Jayamaga - Your Path to Astrological Success"
+            }
+        };
+
+        // --- Core Logic ---
+        function setLanguage(lang) {
+            // Update Buttons
+            document.getElementById('btn-si').classList.toggle('active', lang === 'si');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            // Update Text content
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update Font for English
+            document.body.style.fontFamily = (lang === 'en') ? "'Roboto', sans-serif" : "'Noto Serif Sinhala', serif";
+        }
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            setTimeout(() => {
+                document.getElementById(tabName).classList.add("active");
+            }, 10);
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
